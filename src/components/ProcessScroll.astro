@@ -97,14 +97,15 @@ const flow = [
     if (!section || !track) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 1024;
     const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
 
     const pinWrap = section.querySelector<HTMLElement>('[data-pin]');
-    if (reduce || distance() <= 0) {
-      // fallback accessibile: scorrimento orizzontale manuale, nessun pin
+    if (reduce || isMobile || distance() <= 0) {
+      // mobile / reduced-motion: nessun pin, striscia orizzontale con swipe nativo
       return;
     }
-    // GSAP gestisce il movimento: disabilita lo scroll manuale
+    // desktop: GSAP gestisce il movimento, disabilita lo scroll manuale
     if (pinWrap) pinWrap.style.overflowX = 'hidden';
 
     gsap.to(track, {
