@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import { nav, site } from '../data/site';
+import monogram from '../images/monogram-white.png';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 transition-[background,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+  <div class="u-container flex items-center justify-between py-5 md:py-6">
+    <a href="/" class="flex items-center gap-3 group" aria-label={`${site.legalName}, home`}>
+      <Image src={monogram} alt="" width={38} height={40} loading="eager" class="nav-logo w-[30px] h-auto md:w-[34px]" />
+      <span class="hidden sm:flex flex-col leading-[1.05]">
+        <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera</span>
+        <span class="text-[0.6rem] tracking-[0.34em] uppercase text-current/60">Architetto</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Principale">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={['text-[0.78rem] font-medium tracking-[0.12em] uppercase u-underline transition-opacity', isActive(item.href) ? 'opacity-100' : 'opacity-70 hover:opacity-100']}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >{item.label}</a>
+      ))}
+    </nav>
+
+    <button id="nav-toggle" class="lg:hidden grid place-items-center w-10 h-10 -mr-2" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="relative block w-6 h-[10px]">
+        <span class="absolute left-0 top-0 w-6 h-[1.5px] bg-current transition-transform duration-300"></span>
+        <span class="absolute left-0 bottom-0 w-6 h-[1.5px] bg-current transition-transform duration-300"></span>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-ink text-bg lg:hidden" aria-hidden="true">
+  <div class="u-container h-full flex flex-col justify-center gap-1">
+    {nav.map((item, i) => (
+      <a href={item.href} class="mobile-link font-display text-[2.6rem] leading-[1.15] py-1" style={`--i:${i}`}>{item.label}</a>
+    ))}
+    <div class="mt-10 pt-8 border-t border-white/15 text-sm text-white/70 space-y-1">
+      <a href={`mailto:${site.email}`} class="block u-underline w-fit">{site.email}</a>
+      <a href={`tel:${site.phoneHref}`} class="block u-underline w-fit">{site.phone}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const root = document.documentElement;
+
+  // stato scroll: fondo + testo scuro dopo lo scroll (hero è chiaro/scuro variabile)
+  const setScrolled = () => {
+    if (!nav) return;
+    if (window.scrollY > 40) nav.classList.add('nav--scrolled');
+    else nav.classList.remove('nav--scrolled');
+  };
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+
+  let open = false;
+  const setOpen = (v: boolean) => {
+    open = v;
+    menu?.classList.toggle('is-open', v);
+    menu?.setAttribute('aria-hidden', String(!v));
+    toggle?.setAttribute('aria-expanded', String(v));
+    toggle?.setAttribute('aria-label', v ? 'Chiudi menu' : 'Apri menu');
+    toggle?.classList.toggle('is-open', v);
+    root.style.overflow = v ? 'hidden' : '';
+  };
+  toggle?.addEventListener('click', () => setOpen(!open));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) setOpen(false); });
+</script>
+
+<style>
+  #site-nav { color: var(--color-bg); }
+  /* stato trasparente sopra l'hero (solo home): ombra per leggibilità su foto chiare */
+  :global(body[data-nav="light"]) #site-nav:not(.nav--scrolled) { text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35); }
+  :global(body[data-nav="light"]) #site-nav:not(.nav--scrolled) #nav-toggle { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)); }
+  :global(body[data-nav="light"]) #site-nav:not(.nav--scrolled) .nav-logo { filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45)); }
+
+  /* menu mobile: slide via transform (coerente col toggle JS) */
+  #mobile-menu {
+    transform: translateY(-100%);
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+  #mobile-menu.is-open { transform: translateY(0); }
+
+  #site-nav.nav--scrolled {
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(14px);
+    color: var(--color-ink);
+    box-shadow: 0 1px 0 var(--color-line);
+    padding-block: 0;
+  }
+  /* logo: bianco sull'hero scuro, invertito a nero su fondo chiaro */
+  .nav-logo { filter: none; transition: filter 0.4s var(--ease-out-expo); }
+  #site-nav.nav--scrolled .nav-logo { filter: invert(1); }
+  /* pagine interne senza hero scuro: nav scura da subito */
+  :global(body[data-nav="dark"]) #site-nav { color: var(--color-ink); }
+  :global(body[data-nav="dark"]) .nav-logo { filter: invert(1); }
+  :global(body[data-nav="dark"]) #site-nav.nav--scrolled .nav-logo { filter: invert(1); }
+  #nav-toggle.is-open span span:first-child { transform: translateY(4px) rotate(45deg); }
+  #nav-toggle.is-open span span:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .mobile-link { opacity: 0; transform: translateY(10px); }
+  #mobile-menu[aria-hidden="false"] .mobile-link {
+    animation: linkIn 0.5s var(--ease-out-expo) forwards;
+    animation-delay: calc(var(--i) * 0.05s + 0.1s);
+  }
+  @keyframes linkIn { to { opacity: 1; transform: none; } }
+</style>

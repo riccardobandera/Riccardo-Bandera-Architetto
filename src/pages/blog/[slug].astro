@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={post.data.title} description={post.data.excerpt} type="article">
+  <article class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
+    <header class="max-w-3xl mx-auto text-center mb-12">
+      <time class="u-eyebrow">{fmt(post.data.date)}</time>
+      <h1 class="text-[clamp(2rem,5vw,3.6rem)] font-extrabold tracking-tight leading-[1.02] mt-4">{post.data.title}</h1>
+    </header>
+    {post.data.cover && (
+      <Image src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} widths={[768, 1280, 1600]} sizes="100vw" class="w-full max-h-[62vh] object-cover mb-12" />
+    )}
+    <div class="prose-article max-w-2xl mx-auto">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .prose-article { font-size: 1.08rem; line-height: 1.8; color: color-mix(in srgb, var(--color-ink) 92%, transparent); }
+  .prose-article h2 { font-size: 1.6rem; font-weight: 700; margin: 2.4rem 0 1rem; letter-spacing: -0.01em; }
+  .prose-article h3 { font-size: 1.25rem; font-weight: 700; margin: 1.8rem 0 0.8rem; }
+  .prose-article p { margin: 1.1rem 0; }
+  .prose-article a { text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article img { margin: 2rem 0; }
+  .prose-article ul, .prose-article ol { margin: 1.1rem 0; padding-left: 1.4rem; }
+  .prose-article li { margin: 0.4rem 0; }
+  .prose-article blockquote { border-left: 2px solid var(--color-ink); padding-left: 1.2rem; font-style: italic; color: var(--color-muted); margin: 1.6rem 0; }
+</style>

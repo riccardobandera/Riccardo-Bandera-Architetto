@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import Button from '../../components/Button.astro';
+import { projects, adjacent, catLabels } from '../../data/projects';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const nav = adjacent(project.slug);
+const cats = project.categories.map((c) => catLabels[c]).filter(Boolean);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.name,
+  creator: { '@type': 'Person', name: site.legalName },
+  ...(project.location ? { locationCreated: project.location } : {}),
+  ...(project.cover ? { image: new URL(project.cover.src, site.url).href } : {}),
+};
+---
+<BaseLayout title={project.name} description={`${project.name}${project.location ? ', ' + project.location : ''}. Progetto dello studio Riccardo Bandera Architetto.`} type="article" jsonLd={jsonLd}>
+  <div data-project-modal data-slug={project.slug}>
+  <!-- breadcrumb + header -->
+  <section class="u-container pt-32 md:pt-40 pb-10">
+    <nav class="text-xs text-muted tracking-[0.12em] uppercase mb-8 flex items-center gap-2 reveal" aria-label="Breadcrumb">
+      <a href="/progetti/" class="u-underline">Progetti</a>
+      <span>/</span>
+      <span class="text-ink">{project.code ?? project.name}</span>
+    </nav>
+
+    <div class="grid lg:grid-cols-12 gap-8 items-end">
+      <div class="lg:col-span-8">
+        {project.code && <span class="font-display text-2xl text-muted/60 block mb-3 reveal">{project.code}</span>}
+        <h1 class="text-[clamp(2rem,5.5vw,4.2rem)] font-extrabold tracking-tight leading-[1.0] reveal">{project.name}</h1>
+      </div>
+      <div class="lg:col-span-4 lg:text-right">
+        <dl class="inline-grid grid-cols-2 lg:block gap-x-8 gap-y-3 text-sm reveal">
+          {cats.length > 0 && (
+            <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
+              <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Ambito</dt>
+              <dd class="font-medium">{cats.join(', ')}</dd>
+            </div>
+          )}
+          {project.location && (
+            <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
+              <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Luogo</dt>
+              <dd class="font-medium">{project.location}</dd>
+            </div>
+          )}
+          <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
+            <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Studio</dt>
+            <dd class="font-medium">{site.legalName}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- gallery -->
+  <section class="u-container pb-[var(--spacing-section)]">
+    <Gallery images={project.gallery} id={`g-${project.slug}`} />
+  </section>
+  </div>
+
+  <!-- prev / next -->
+  {nav && (
+    <section class="border-t border-line">
+      <div class="u-container grid grid-cols-2">
+        <a href={`/progetti/${nav.prev.slug}/`} class="group py-10 md:py-14 pr-4">
+          <span class="u-eyebrow flex items-center gap-2 mb-3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg> Precedente</span>
+          <span class="block text-lg md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.prev.name}</span>
+        </a>
+        <a href={`/progetti/${nav.next.slug}/`} class="group py-10 md:py-14 pl-4 text-right border-l border-line">
+          <span class="u-eyebrow flex items-center justify-end gap-2 mb-3">Successivo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+          <span class="block text-lg md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.next.name}</span>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="bg-surface">
+    <div class="u-container py-16 md:py-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <h2 class="text-[clamp(1.4rem,3.5vw,2.2rem)] font-bold tracking-tight max-w-xl">Hai un progetto simile in mente?</h2>
+      <Button href="/contatti/" variant="solid" arrow>Parliamone</Button>
+    </div>
+  </section>
+</BaseLayout>

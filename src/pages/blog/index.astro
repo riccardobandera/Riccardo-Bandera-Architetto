@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<BaseLayout title="Journal" description="Note, riflessioni e aggiornamenti dallo studio Riccardo Bandera Architetto.">
+  <section class="u-container pt-36 md:pt-44 pb-12">
+    <p class="u-eyebrow mb-6 reveal">Journal</p>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] reveal">
+      Journal
+    </h1>
+  </section>
+
+  <section class="u-container pb-[var(--spacing-section)]">
+    {posts.length === 0 ? (
+      <div class="border-y border-line py-24 text-center reveal">
+        <p class="font-display text-[clamp(1.6rem,4vw,2.6rem)] text-ink mb-4">Presto online.</p>
+        <p class="text-muted max-w-md mx-auto leading-relaxed">
+          Stiamo preparando le prime note dello studio: progetti, cantieri e riflessioni sull’architettura in legno.
+        </p>
+        <div class="mt-8 flex justify-center">
+          <Button href="/progetti/" variant="ghost" arrow>Intanto, guarda i progetti</Button>
+        </div>
+      </div>
+    ) : (
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="group block reveal">
+            {post.data.cover && (
+              <div class="overflow-hidden bg-surface aspect-[16/11] mb-4">
+                <Image src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} widths={[400, 700, 1000]} sizes="(max-width:1024px) 100vw, 33vw" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            )}
+            <time class="u-eyebrow">{fmt(post.data.date)}</time>
+            <h2 class="text-xl font-bold tracking-tight mt-2 group-hover:opacity-60 transition-opacity">{post.data.title}</h2>
+            {post.data.excerpt && <p class="text-muted mt-2 leading-relaxed">{post.data.excerpt}</p>}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

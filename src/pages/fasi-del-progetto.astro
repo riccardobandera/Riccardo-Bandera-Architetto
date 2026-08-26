@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Button from '../components/Button.astro';
+import { fasi } from '../data/site';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Le 6 fasi del progetto',
+  description: 'Il metodo di lavoro dello studio Riccardo Bandera Architetto, dalla progettazione alla consegna.',
+  step: fasi.map((f, i) => ({ '@type': 'HowToStep', position: i + 1, name: f.title, text: f.body })),
+};
+---
+<BaseLayout title="Fasi del Progetto" description="Le 6 fasi del progetto: un metodo chiaro e condiviso, dalla progettazione architettonica alla fine lavori." jsonLd={jsonLd}>
+  <section class="u-container pt-36 md:pt-44 pb-16">
+    <p class="u-eyebrow mb-6 reveal">Metodo</p>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[14ch] reveal">
+      Le 6 fasi del progetto
+    </h1>
+    <p class="mt-8 max-w-xl text-muted text-lg leading-relaxed reveal">
+      Un metodo chiaro. Un processo condiviso. Una visione che diventa realtà, con lo studio nel ruolo di regista, dalla prima idea alla consegna.
+    </p>
+  </section>
+
+  <section class="u-container pb-[var(--spacing-section)]">
+    <ProcessSteps variant="full" />
+    <div class="mt-16 flex flex-wrap gap-4">
+      <Button href="/contatti/" variant="solid" arrow>Iniziamo un progetto</Button>
+      <Button href="/progetti/" variant="ghost">Guarda i lavori</Button>
+    </div>
+  </section>
+</BaseLayout>

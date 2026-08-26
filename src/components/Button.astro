@@ -1,0 +1,18 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'ghost' | 'solid' | 'onDark';
+  arrow?: boolean;
+  class?: string;
+  type?: 'button' | 'submit';
+}
+const { href, variant = 'ghost', arrow = false, class: cls = '', type = 'button' } = Astro.props;
+const classes = `btn btn--${variant} ${cls}`;
+const Tag = href ? 'a' : 'button';
+---
+<Tag class={classes} {...href ? { href } : { type }}>
+  <slot />
+  {arrow && (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+  )}
+</Tag>

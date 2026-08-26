@@ -1,0 +1,123 @@
+---
+import { site } from '../data/site';
+---
+<form
+  name="contatti"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/contatti/?inviato=1"
+  class="contact-form grid gap-6"
+  novalidate
+>
+  <input type="hidden" name="form-name" value="contatti" />
+  <p class="hidden"><label>Non compilare: <input name="bot-field" /></label></p>
+
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div class="field">
+      <label for="cf-nome">Nome e Cognome <span aria-hidden="true">*</span></label>
+      <input id="cf-nome" name="nome" type="text" required autocomplete="name" placeholder="Mario Rossi" />
+      <span class="err" data-err></span>
+    </div>
+    <div class="field">
+      <label for="cf-citta">Città</label>
+      <input id="cf-citta" name="citta" type="text" autocomplete="address-level2" placeholder="Venezia" />
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div class="field">
+      <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+      <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="nome@email.it" />
+      <span class="err" data-err></span>
+    </div>
+    <div class="field">
+      <label for="cf-tel">Telefono</label>
+      <input id="cf-tel" name="telefono" type="tel" autocomplete="tel" placeholder="+39 …" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="cf-msg">Messaggio <span aria-hidden="true">*</span></label>
+    <textarea id="cf-msg" name="messaggio" rows="5" required placeholder="Raccontaci del tuo progetto…"></textarea>
+    <span class="err" data-err></span>
+  </div>
+
+  <label class="consent flex items-start gap-3 text-sm text-muted">
+    <input type="checkbox" name="privacy" required class="mt-1 accent-[var(--color-ink)]" />
+    <span>Ho letto e accetto il <a href="/privacy/" class="u-underline text-ink">trattamento dei dati personali</a>. <span aria-hidden="true">*</span></span>
+  </label>
+
+  <div class="flex flex-wrap items-center gap-5 pt-1">
+    <button type="submit" class="btn btn--solid">
+      Invia messaggio
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+    </button>
+    <p class="form-status text-sm" role="status" aria-live="polite"></p>
+  </div>
+
+  <p class="text-xs text-muted/80">
+    Oppure scrivici a <a href={`mailto:${site.email}`} class="u-underline text-ink">{site.email}</a> · {site.phone}
+  </p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const setErr = (input: HTMLInputElement | HTMLTextAreaElement, msg: string) => {
+      const holder = input.closest('.field')?.querySelector<HTMLElement>('[data-err]');
+      if (holder) holder.textContent = msg;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+    const validate = () => {
+      let ok = true;
+      const nome = form.nome as HTMLInputElement;
+      const email = form.email as HTMLInputElement;
+      const msg = form.messaggio as HTMLTextAreaElement;
+      if (!nome.value.trim()) { setErr(nome, 'Inserisci il tuo nome.'); ok = false; } else setErr(nome, '');
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { setErr(email, 'Inserisci un’email valida.'); ok = false; } else setErr(email, '');
+      if (msg.value.trim().length < 10) { setErr(msg, 'Scrivi qualche parola in più.'); ok = false; } else setErr(msg, '');
+      if (!(form.privacy as HTMLInputElement).checked) { status.textContent = 'Accetta il trattamento dei dati per procedere.'; status.className = 'form-status text-sm text-ink'; ok = false; }
+      return ok;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+      status.textContent = 'Invio in corso…';
+      status.className = 'form-status text-sm text-muted';
+      try {
+        const data = new FormData(form);
+        await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data as any).toString() });
+        form.reset();
+        status.textContent = 'Grazie! Ti risponderemo al più presto.';
+        status.className = 'form-status text-sm text-ink font-bold';
+      } catch {
+        status.textContent = `Qualcosa è andato storto. Scrivici a ${'studio@riccardobandera.com'}.`;
+        status.className = 'form-status text-sm text-ink';
+      }
+    });
+  }
+</script>
+
+<style>
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .field label, .consent { font-size: 0.85rem; }
+  .field label { font-weight: 700; letter-spacing: 0.02em; }
+  .field label span { color: var(--color-muted); }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.65rem 0;
+    font: inherit;
+    color: var(--color-ink);
+    transition: border-color 0.3s var(--ease-out-expo);
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: color-mix(in srgb, var(--color-muted) 60%, transparent); }
+  .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--color-ink); }
+  .contact-form textarea { resize: vertical; }
+  .err { font-size: 0.75rem; color: #9a3b3b; min-height: 0.9rem; }
+</style>

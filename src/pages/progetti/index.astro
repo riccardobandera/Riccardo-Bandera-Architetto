@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CategoryFilter from '../../components/CategoryFilter.astro';
+import { projects, projectCount } from '../../data/projects';
+---
+<BaseLayout title="Progetti" description="Il portfolio dello studio Riccardo Bandera: residenziale, alberghiero, commerciale e direzionale, tra Veneto, Trentino e oltre.">
+  <section class="u-container pt-36 md:pt-44 pb-10">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+      <div>
+        <p class="u-eyebrow mb-6 reveal">Portfolio · {projectCount} progetti</p>
+        <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] reveal">
+          Progetti
+        </h1>
+      </div>
+      <p class="max-w-sm text-muted leading-relaxed reveal">
+        Ogni progetto nasce dal luogo e dalle persone che lo vivono. Filtra per ambito d’intervento.
+      </p>
+    </div>
+    <div class="mt-10">
+      <CategoryFilter />
+    </div>
+  </section>
+
+  <section class="u-container pb-[var(--spacing-section)]">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+      {projects.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
+    </div>
+  </section>
+
+  <!-- ====== MODAL PROGETTO ====== -->
+  <div id="project-modal" class="pm fixed inset-0 z-[95] hidden" role="dialog" aria-modal="true" aria-label="Dettaglio progetto">
+    <div class="pm-backdrop absolute inset-0 bg-ink/80 backdrop-blur-sm opacity-0 transition-opacity duration-400" data-close></div>
+    <div class="pm-panel absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] md:w-[80vw] max-w-[1150px] h-[88vh] bg-bg shadow-2xl overflow-hidden flex flex-col opacity-0 scale-[0.97] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+      <button class="pm-x absolute top-3 right-3 z-20 grid place-items-center w-11 h-11 rounded-full bg-bg/85 backdrop-blur text-ink hover:bg-ink hover:text-bg transition-colors" data-close aria-label="Chiudi">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="pm-body flex-1 overflow-y-auto overscroll-contain" data-modal-body>
+        <div class="pm-loading grid place-items-center h-full text-muted">
+          <span class="pm-spin w-8 h-8 border-2 border-line border-t-ink rounded-full"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  (() => {
+    const modal = document.getElementById('project-modal');
+    if (!modal) return;
+    const body = modal.querySelector<HTMLElement>('[data-modal-body]')!;
+    const panel = modal.querySelector<HTMLElement>('.pm-panel')!;
+    const backdrop = modal.querySelector<HTMLElement>('.pm-backdrop')!;
+    const root = document.documentElement;
+    let open = false;
+
+    const loadingHTML = '<div class="pm-loading grid place-items-center h-full text-muted"><span class="pm-spin w-8 h-8 border-2 border-line border-t-ink rounded-full"></span></div>';
+    const isProjectUrl = (url: string) => /^\/progetti\/[^/]+\/$/.test(new URL(url, location.origin).pathname);
+
+    const showUI = () => {
+      if (open) return;
+      open = true;
+      modal.classList.remove('hidden');
+      root.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        backdrop.style.opacity = '1';
+        panel.style.opacity = '1';
+        panel.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    };
+    const hideUI = () => {
+      if (!open) return;
+      open = false;
+      backdrop.style.opacity = '0';
+      panel.style.opacity = '0';
+      panel.style.transform = 'translate(-50%, -50%) scale(0.97)';
+      root.style.overflow = '';
+      window.setTimeout(() => { modal.classList.add('hidden'); body.innerHTML = loadingHTML; }, 420);
+    };
+
+    const inject = (html: string) => {
+      body.innerHTML = html;
+      body.scrollTop = 0;
+      // link interni (prev/next, related) restano nel modal
+      body.querySelectorAll<HTMLAnchorElement>('a[href^="/progetti/"]').forEach((a) => {
+        if (isProjectUrl(a.href)) a.addEventListener('click', (e) => { e.preventDefault(); navigate(a.getAttribute('href')!, true); });
+      });
+    };
+
+    async function navigate(href: string, push: boolean) {
+      showUI();
+      body.innerHTML = loadingHTML;
+      if (push) history.pushState({ pm: 1 }, '', href);
+      try {
+        const res = await fetch(href);
+        const text = await res.text();
+        const doc = new DOMParser().parseFromString(text, 'text/html');
+        const content = doc.querySelector('[data-project-modal]');
+        if (content) inject(content.outerHTML);
+        else { location.href = href; return; }
+      } catch {
+        location.href = href;
+      }
+    }
+
+    // apertura dalle card della griglia
+    document.querySelectorAll<HTMLAnchorElement>('.project-card').forEach((card) => {
+      card.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // apri in nuova scheda se richiesto
+        e.preventDefault();
+        navigate(card.getAttribute('href')!, true);
+      });
+    });
+
+    const requestClose = () => { if (history.state && history.state.pm) history.back(); else hideUI(); };
+    modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', requestClose));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) requestClose(); });
+
+    window.addEventListener('popstate', () => {
+      if (isProjectUrl(location.href)) navigate(location.href, false);
+      else hideUI();
+    });
+  })();
+</script>
+
+<style is:global>
+  /* normalizza il padding-top (pensato per la navbar fixed) dentro al modal.
+     Deve essere globale: il contenuto è iniettato via fetch da un'altra pagina. */
+  .pm-body [data-project-modal] > section:first-child { padding-top: 2.5rem !important; }
+  .pm-body [data-project-modal] > section:last-child { padding-bottom: 3rem !important; }
+  .pm-spin { animation: pmspin 0.7s linear infinite; }
+  @keyframes pmspin { to { transform: rotate(360deg); } }
+</style>

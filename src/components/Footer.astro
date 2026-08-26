@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import { site, nav } from '../data/site';
+import monogram from '../images/monogram-white.png';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-cream/70">
+  <!-- CTA a tutta larghezza -->
+  <a href="/contatti/" class="block group border-b border-white/12">
+    <div class="u-container py-16 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div>
+        <p class="u-eyebrow text-cream/50 mb-4">Contatti</p>
+        <h2 class="font-display text-cream text-[clamp(2.6rem,8vw,6.5rem)] leading-[0.95] tracking-tight">
+          Start a project
+        </h2>
+      </div>
+      <span class="btn btn--onDark shrink-0 group-hover:bg-bg group-hover:text-ink transition">
+        Contattaci
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <div class="u-container py-16 grid gap-12 md:grid-cols-12">
+    <!-- brand -->
+    <div class="md:col-span-4">
+      <div class="flex items-center gap-3 mb-5 text-cream">
+        <Image src={monogram} alt="" width={38} height={40} class="w-[34px] h-auto" />
+        <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera<br /><span class="text-[0.6rem] tracking-[0.34em] text-cream/50">Architetto</span></span>
+      </div>
+      <p class="text-sm leading-relaxed max-w-xs">
+        Studio di architettura e d’interni. Residenziale, hospitality, commerciale e direzionale, con una vocazione alla bioedilizia e alle costruzioni in legno.
+      </p>
+    </div>
+
+    <!-- menu -->
+    <nav class="md:col-span-3" aria-label="Footer">
+      <p class="u-eyebrow text-cream/40 mb-5">Menu</p>
+      <ul class="space-y-2.5 text-sm">
+        {nav.map((i) => (
+          <li><a href={i.href} class="u-underline text-cream/80 hover:text-cream">{i.label}</a></li>
+        ))}
+        <li><a href="/blog/" class="u-underline text-cream/80 hover:text-cream">Journal</a></li>
+      </ul>
+    </nav>
+
+    <!-- contatti -->
+    <div class="md:col-span-3">
+      <p class="u-eyebrow text-cream/40 mb-5">Studio</p>
+      <address class="not-italic text-sm leading-relaxed space-y-3">
+        <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
+        <p>
+          <a href={`mailto:${site.email}`} class="u-underline block">{site.email}</a>
+          <a href={`tel:${site.phoneHref}`} class="u-underline block">{site.phone}</a>
+        </p>
+      </address>
+    </div>
+
+    <!-- social -->
+    <div class="md:col-span-2">
+      <p class="u-eyebrow text-cream/40 mb-5">Social</p>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href={site.social.instagram} target="_blank" rel="noopener" class="u-underline">Instagram</a></li>
+        <li><a href={site.social.facebook} target="_blank" rel="noopener" class="u-underline">Facebook</a></li>
+        <li><a href={site.social.linkedin} target="_blank" rel="noopener" class="u-underline">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="u-container py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-cream/45">
+    <p>© {year} {site.legalName}</p>
+    <div class="flex gap-5">
+      <a href="/privacy/" class="u-underline">Privacy</a>
+      <a href="/cookie/" class="u-underline">Cookie</a>
+    </div>
+  </div>
+</footer>

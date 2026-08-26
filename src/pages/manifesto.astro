@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { manifesto } from '../data/site';
+import { getProject, byCategory } from '../data/projects';
+
+const woodImg =
+  getProject('chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn')?.cover ??
+  byCategory('alberghiero')[0]?.cover;
+---
+<BaseLayout title="Manifesto" description="Il legno come unico materiale da costruzione sostenibile: la filosofia bioedilizia dello studio Riccardo Bandera.">
+  <!-- hero manifesto: sezione scura a contrasto -->
+  <section class="bg-ink text-cream">
+    <div class="u-container pt-40 md:pt-52 pb-20 md:pb-28 text-center">
+      <p class="u-eyebrow text-cream/60 mb-8 reveal">Manifesto</p>
+      <h1 class="font-display text-[clamp(2rem,6vw,5rem)] leading-[1.1] max-w-[18ch] mx-auto reveal">
+        {manifesto.lead}
+      </h1>
+      <div class="mt-12 mx-auto grow-line h-px w-full max-w-[320px] bg-cream/40"></div>
+    </div>
+  </section>
+
+  {woodImg && (
+    <section class="w-full">
+      <Image src={woodImg} alt="Costruzione in legno, progetto dello studio" widths={[768, 1280, 1920]} sizes="100vw" class="w-full h-[42vh] md:h-[64vh] object-cover" />
+    </section>
+  )}
+
+  <section class="u-container py-[var(--spacing-section)]">
+    <div class="max-w-3xl mx-auto space-y-16">
+      {manifesto.blocks.map((b, i) => (
+        <article class="reveal">
+          <div class="flex items-baseline gap-5 mb-5">
+            <span class="font-display text-2xl text-muted/50">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="text-[clamp(1.35rem,3vw,2rem)] font-bold tracking-tight leading-tight">{b.h}</h2>
+          </div>
+          <p class="text-[1.08rem] leading-relaxed text-ink/85 pl-0 md:pl-12">{b.p}</p>
+        </article>
+      ))}
+    </div>
+    <div class="mt-20 text-center">
+      <Button href="/progetti/#alberghiero" variant="ghost" arrow>Progetti in legno</Button>
+    </div>
+  </section>
+</BaseLayout>

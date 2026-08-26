@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Pagina non trovata" noindex={true}>
+  <section class="u-container min-h-[70vh] flex flex-col items-center justify-center text-center pt-32">
+    <p class="font-display text-[clamp(5rem,20vw,14rem)] leading-none text-ink">404</p>
+    <p class="text-muted text-lg mt-4 mb-10 max-w-sm">La pagina che cerchi non esiste o è stata spostata.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <Button href="/" variant="solid" arrow>Torna alla home</Button>
+      <Button href="/progetti/" variant="ghost">Vai ai progetti</Button>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Privacy Policy" description="Informativa sul trattamento dei dati personali." noindex={true}>
+  <section class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
+    <p class="u-eyebrow mb-6">Legale</p>
+    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-10">Privacy Policy</h1>
+
+    <div class="max-w-2xl space-y-6 text-ink/85 leading-relaxed">
+      <p><strong>Titolare del trattamento.</strong> {site.legalName}, {site.address.street}, {site.address.zip} {site.address.city} ({site.address.region}). Email: <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
+      <p><strong>Dati raccolti.</strong> Attraverso il modulo di contatto raccogliamo nome, email, eventuale città, telefono e il contenuto del messaggio, al solo fine di rispondere alle richieste.</p>
+      <p><strong>Finalità e base giuridica.</strong> I dati sono trattati per dare seguito alla tua richiesta (art. 6.1.b GDPR) e non vengono ceduti a terzi per finalità di marketing.</p>
+      <p><strong>Conservazione.</strong> I dati sono conservati per il tempo necessario a gestire la richiesta e adempiere agli obblighi di legge.</p>
+      <p><strong>Diritti.</strong> Puoi richiedere in ogni momento accesso, rettifica, cancellazione o limitazione dei tuoi dati scrivendo a <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
+      <p class="text-sm text-muted border-t border-line pt-6 mt-10">
+        Nota per la consegna: questo testo è una bozza operativa. La versione definitiva dell’informativa va validata con il consulente privacy dello studio prima della pubblicazione.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

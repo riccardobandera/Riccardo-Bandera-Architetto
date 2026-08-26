@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Cookie Policy" description="Informativa sull'uso dei cookie." noindex={true}>
+  <section class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
+    <p class="u-eyebrow mb-6">Legale</p>
+    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-10">Cookie Policy</h1>
+
+    <div class="max-w-2xl space-y-6 text-ink/85 leading-relaxed">
+      <p>Questo sito è statico e non utilizza cookie di profilazione. Non tracciamo la tua navigazione a fini pubblicitari.</p>
+      <p><strong>Cookie tecnici.</strong> Possono essere impiegati cookie strettamente necessari al funzionamento delle pagine, per i quali non è richiesto consenso.</p>
+      <p><strong>Servizi di terze parti.</strong> La mappa nella pagina Contatti è fornita da Google Maps: consultando quella sezione potrebbero essere impostati cookie da parte di Google secondo la sua informativa.</p>
+      <p><strong>Gestione.</strong> Puoi bloccare o cancellare i cookie dalle impostazioni del tuo browser in qualsiasi momento.</p>
+      <p>Per qualsiasi richiesta scrivi a <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
+      <p class="text-sm text-muted border-t border-line pt-6 mt-10">
+        Nota per la consegna: bozza operativa. Se in futuro verranno aggiunti servizi con cookie (analytics, embed social), integrare un banner di consenso e aggiornare questa informativa.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

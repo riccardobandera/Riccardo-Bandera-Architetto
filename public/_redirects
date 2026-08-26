@@ -1,0 +1,33 @@
+# Redirect 301 dai vecchi URL WordPress/legacy ai nuovi slug
+# (evita di perdere posizionamento SEO)
+
+# Schede progetto: slug identico
+/progetti-lista/*            /progetti/:splat   301
+
+# Categorie -> indice progetti filtrato
+/categorie-progetti/residenziale/*   /progetti/#residenziale   301
+/categorie-progetti/commerciale/*    /progetti/#commerciale    301
+/categorie-progetti/alberghiero/*    /progetti/#alberghiero    301
+/categorie-progetti/direzionale/*    /progetti/#direzionale    301
+/categorie-progetti/*                /progetti/                301
+
+# Tag / autori / liste tecniche -> indice progetti
+/tag-progetti/*      /progetti/    301
+/servizi-lista/*     /progetti/    301
+/loghi-lista/*       /progetti/    301
+/author/*            /lo-studio/   301
+/category/*          /blog/        301
+
+# Pagine rinominate
+/cookie-policy-ue/   /cookie/      301
+/sitemap/            /progetti/    301
+
+# Blog placeholder legacy (lorem ipsum) -> journal
+/articolo-numero-uno/     /blog/   301
+/articolo-numero-due/     /blog/   301
+/articolo-numero-tre/     /blog/   301
+/articolo-numero-quattro/ /blog/   301
+/notizia-numero-uno/      /blog/   301
+
+# Vecchi permalink Blogger .html -> home (duplicati non migrati)
+/*.html              /            301

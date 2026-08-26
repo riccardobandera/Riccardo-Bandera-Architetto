@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip} ${site.address.city}`);
+---
+<BaseLayout title="Contatti" description="Contatta lo studio Riccardo Bandera Architetto a Mestre (Venezia). Raccontaci del tuo progetto.">
+  <section class="u-container pt-36 md:pt-44 pb-12">
+    <p class="u-eyebrow mb-6 reveal">Contatti</p>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[16ch] reveal">
+      Ci piacerebbe sentire la tua opinione.
+    </h1>
+    <p class="mt-8 max-w-xl text-muted text-lg leading-relaxed reveal">
+      Chiamaci, inviaci un messaggio o trovaci sui social. Ti risponderemo al più presto.
+    </p>
+  </section>
+
+  <section class="u-container pb-[var(--spacing-section)]">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <!-- info -->
+      <aside class="lg:col-span-4 space-y-10">
+        <div class="reveal">
+          <p class="u-eyebrow mb-3">Indirizzo</p>
+          <p class="text-lg leading-relaxed">{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
+        </div>
+        <div class="reveal">
+          <p class="u-eyebrow mb-3">Telefono</p>
+          <a href={`tel:${site.phoneHref}`} class="text-lg u-underline">{site.phone}</a>
+        </div>
+        <div class="reveal">
+          <p class="u-eyebrow mb-3">Email</p>
+          <a href={`mailto:${site.email}`} class="text-lg u-underline">{site.email}</a>
+        </div>
+        <div class="reveal">
+          <p class="u-eyebrow mb-3">Social</p>
+          <div class="flex gap-5 text-lg">
+            <a href={site.social.instagram} target="_blank" rel="noopener" class="u-underline">Instagram</a>
+            <a href={site.social.facebook} target="_blank" rel="noopener" class="u-underline">Facebook</a>
+            <a href={site.social.linkedin} target="_blank" rel="noopener" class="u-underline">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- form -->
+      <div class="lg:col-span-8 reveal">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- mappa -->
+  <section class="w-full h-[45vh] bg-surface border-t border-line">
+    <iframe
+      title={`Mappa: ${site.address.street}, ${site.address.city}`}
+      class="w-full h-full grayscale"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src={`https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`}
+    ></iframe>
+  </section>
+</BaseLayout>

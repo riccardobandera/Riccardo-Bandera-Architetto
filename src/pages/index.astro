@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ProcessScroll from '../components/ProcessScroll.astro';
+import Button from '../components/Button.astro';
+import { featured, byCategory } from '../data/projects';
+import { site, manifestoQuote, ambiti } from '../data/site';
+import hero1 from '../images/projects/polsa-20-scaled.webp';
+import hero2 from '../images/projects/KonoKono-2017-KDBP-122_02.jpeg';
+import hero3 from '../images/projects/A-09.webp';
+import hero4 from '../images/projects/IMG_20230530_113044263.webp';
+
+// hero a rotazione: scatti reali ad alta risoluzione, crossfade lento
+const heroSlides = [
+  { img: hero1, alt: 'Ristorante alpino in legno a Polsa di Brentonico, progetto dello studio' },
+  { img: hero2, alt: 'Boutique hotel sulla spiaggia a Zanzibar, veduta aerea' },
+  { img: hero3, alt: 'Villa con archi e copertura in coppi immersa nel verde' },
+  { img: hero4, alt: 'Interni residenziali con travi a vista in legno' },
+];
+
+// immagini per la sezione manifesto (due scatti reali)
+const mA = featured[0]?.gallery[1]?.image ?? featured[0]?.cover;
+const mB = featured[1]?.gallery[1]?.image ?? featured[1]?.cover;
+
+const ambitiCards = ambiti
+  .map((a) => ({ ...a, cover: byCategory(a.key)[0]?.cover, alt: byCategory(a.key)[0]?.name }))
+  .filter((a) => a.cover);
+---
+
+<BaseLayout navMode="light" title={undefined}>
+  <!-- ============ HERO ============ -->
+  <section class="hero relative min-h-[100svh] flex items-end overflow-hidden bg-ink text-cream">
+    <div class="hero-media absolute inset-0" data-hero-media>
+      <div class="absolute inset-0" data-hero-slides>
+        {heroSlides.map((s, i) => (
+          <Image
+            src={s.img}
+            alt={i === 0 ? s.alt : ''}
+            widths={[768, 1280, 1920, 2560]}
+            sizes="100vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+            data-idx={i}
+            class:list={['hero-slide absolute inset-0 w-full h-full object-cover', i === 0 && 'is-active']}
+          />
+        ))}
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/40"></div>
+    </div>
+
+    <div class="absolute bottom-6 right-6 z-10 flex gap-2" data-hero-dots>
+      {heroSlides.map((_, i) => (
+        <button class:list={['hero-dot w-2 h-2 rounded-full transition-all duration-500', i === 0 ? 'bg-cream w-5' : 'bg-cream/40']} data-dot={i} aria-label={`Vai alla foto ${i + 1}`}></button>
+      ))}
+    </div>
+
+    <div class="u-container relative pb-16 md:pb-24 pt-32 w-full" data-hero-content>
+      <p class="u-eyebrow text-cream/70 mb-6">{site.legalName}</p>
+      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6.4vw,5.4rem)] max-w-[16ch]">
+        {site.tagline}
+      </h1>
+      <div class="mt-9 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+        <Button href="/progetti/" variant="onDark" arrow>Scopri i progetti</Button>
+        <p class="max-w-md text-cream/75 text-[0.98rem] leading-relaxed">
+          Architettura, interni e bioedilizia in legno tra Veneto, Trentino e oltre.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ MANIFESTO QUOTE ============ -->
+  <section class="u-container py-[var(--spacing-section)]">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-2 hidden lg:block reveal">
+        {mA && <Image src={mA} alt="" widths={[300, 500]} sizes="220px" class="w-full aspect-[3/4] object-cover" />}
+      </div>
+      <div class="lg:col-span-8 text-center reveal">
+        <p class="u-eyebrow mb-8">Manifesto</p>
+        <blockquote class="font-display text-[clamp(1.5rem,3.4vw,2.6rem)] leading-[1.28] text-ink">
+          {manifestoQuote}
+        </blockquote>
+        <div class="mt-10 flex justify-center">
+          <Button href="/manifesto/" variant="ghost" arrow>Leggi il manifesto</Button>
+        </div>
+      </div>
+      <div class="lg:col-span-2 hidden lg:block reveal" data-reveal-delay="2">
+        {mB && <Image src={mB} alt="" widths={[300, 500]} sizes="220px" class="w-full aspect-[3/4] object-cover mt-16" />}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LE 6 FASI (scroll orizzontale) ============ -->
+  <ProcessScroll />
+
+  <!-- ============ AMBITI (dark) ============ -->
+  <section class="bg-ink text-cream py-[var(--spacing-section)]">
+    <div class="u-container">
+      <div class="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <h2 class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight uppercase">Ambiti d’intervento</h2>
+        <p class="max-w-sm text-cream/60 leading-relaxed">Quattro campi, un unico metodo. Ogni progetto nasce dal luogo e dalle persone che lo vivono.</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {ambitiCards.map((a, i) => (
+          <a href={`/progetti/#${a.key}`} class="group relative overflow-hidden aspect-[3/4] bg-white/5 reveal" data-reveal-delay={(i % 4) + 1}>
+            {a.cover && (
+              <Image src={a.cover} alt={a.alt ?? a.label} widths={[300, 500, 700]} sizes="(max-width:1024px) 46vw, 24vw"
+                class="w-full h-full object-cover grayscale opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.04]" />
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent"></div>
+            <div class="absolute inset-0 p-5 flex flex-col justify-end">
+              <h3 class="text-lg md:text-xl font-bold tracking-tight">{a.label}</h3>
+              <p class="text-[0.78rem] text-cream/60 mt-1 leading-snug">{a.desc}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ULTIMI PROGETTI ============ -->
+  <section class="u-container py-[var(--spacing-section)]">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p class="u-eyebrow mb-4">Portfolio</p>
+        <h2 class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight">Progetti <span class="font-display italic font-normal">selezionati</span></h2>
+      </div>
+      <Button href="/progetti/" variant="ghost" arrow>Tutti i progetti</Button>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-x-5 gap-y-12">
+      {featured.map((p, i) => <ProjectCard project={p} index={i} eager={i < 2} />)}
+    </div>
+  </section>
+
+  <script>
+    // ---- crossfade slideshow (~5s per foto, dissolvenza lenta) ----
+    const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+    const dots = Array.from(document.querySelectorAll<HTMLElement>('.hero-dot'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slides.length > 1 && !reduceMotion) {
+      let cur = 0;
+      let timer: number | undefined;
+      const show = (n: number) => {
+        cur = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === cur));
+        dots.forEach((d, i) => {
+          d.classList.toggle('bg-cream', i === cur);
+          d.classList.toggle('w-5', i === cur);
+          d.classList.toggle('bg-cream/40', i !== cur);
+        });
+      };
+      const start = () => { timer = window.setInterval(() => show(cur + 1), 5000); };
+      const reset = () => { if (timer) clearInterval(timer); start(); };
+      dots.forEach((d, i) => d.addEventListener('click', () => { show(i); reset(); }));
+      start();
+    }
+
+    // scroll-linked hero: zoom contenuto sulla foto (1 -> 1.08), lieve rientro del contenuto
+    const media = document.querySelector<HTMLElement>('[data-hero-media]');
+    const content = document.querySelector<HTMLElement>('[data-hero-content]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (media && !reduce) {
+      let ticking = false;
+      const update = () => {
+        const y = window.scrollY;
+        const p = Math.min(y / (window.innerHeight * 0.9), 1);
+        media.style.transform = `scale(${1 + p * 0.08})`;
+        if (content) { content.style.transform = `translateY(${p * 26}px)`; content.style.opacity = String(1 - p * 0.6); }
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
+      update();
+    }
+  </script>
+
+  <style>
+    [data-hero-media] { will-change: transform; transform-origin: center; transition: transform 0.1s linear; }
+    /* crossfade lento tra le foto dell'hero */
+    .hero-slide { opacity: 0; transition: opacity 2.4s ease-in-out; }
+    .hero-slide.is-active { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-slide { opacity: 0; }
+      .hero-slide.is-active { opacity: 1; transition: none; }
+    }
+  </style>
+</BaseLayout>
