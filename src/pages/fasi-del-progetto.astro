@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import Button from '../components/Button.astro';
 import { fasi, fasiIntro, altreAttivita } from '../data/site';
+import { seoPagina } from '../data/seo';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -12,7 +13,7 @@ const jsonLd = {
   step: fasi.map((f, i) => ({ '@type': 'HowToStep', position: i + 1, name: f.title, text: f.body })),
 };
 ---
-<BaseLayout title="Fasi del Progetto" description="Le 6 fasi del progetto dello studio Riccardo Bandera Architetto: progetto architettonico e di interni, pratiche amministrative, esecutivo, preventivazione, direzione lavori e fine lavori." jsonLd={jsonLd}>
+<BaseLayout {...seoPagina('fasi')} jsonLd={jsonLd}>
   <section class="u-container pt-36 md:pt-44 pb-14">
     <p class="u-eyebrow mb-6 reveal">Metodo</p>
     <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[14ch] reveal">Le 6 fasi del progetto</h1>

@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./panificio-moderno-rivendita-isera-tn-foto-02.webp"
 copertinaAlt: "Panificio Moderno Rivendita a Isera, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Panificio Moderno a Isera (TN): la rivendita"
+  descrizione: "Panificio Moderno a Isera (TN): rivendita in abete trentino, porfido di Albiano e vetro extra chiaro. Progetto 2015."
 tag: ["Abete","Arredi in legno","Arredo su misura","Legno"]
 crediti:
   - ruolo: "Progettista"

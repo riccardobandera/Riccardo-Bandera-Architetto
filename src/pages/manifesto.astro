@@ -1,4 +1,5 @@
 ---
+import { seoPagina } from '../data/seo';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
@@ -7,7 +8,7 @@ import { manifesto } from '../data/site';
 import woodImg from '../images/pagine/manifesto-legno.webp';
 ---
 <!-- navMode light: hero scuro, quindi navbar chiara (logo e menu leggibili) -->
-<BaseLayout navMode="light" title="Manifesto" description="Il legno come unico materiale da costruzione sostenibile: la filosofia bioedilizia dello studio Riccardo Bandera.">
+<BaseLayout navMode="light" {...seoPagina('manifesto')}>
   <!-- hero manifesto: sezione scura a contrasto -->
   <section class="bg-ink text-cream">
     <div class="u-container pt-40 md:pt-52 pb-20 md:pb-28 text-center">

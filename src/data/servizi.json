@@ -1,0 +1,74 @@
+{
+  "pagine": [
+    {
+      "slug": "progettazione-panifici-bar-ristoranti",
+      "nome": "Panifici, bar e ristoranti",
+      "titolo": "Progettazione panifici, bar e ristoranti",
+      "descrizione": "Panifici con laboratorio a vista, bar, pasticcerie e ristoranti: Forno Brisa a Bologna, Panificio Moderno a Trento, Forno Aurea a Roma e altri locali.",
+      "h1": "Progettazione di panifici, bar e ristoranti",
+      "intro": [
+        "Dal primo Forno Brisa sotto il portico di via Galliera a Bologna, nel 2015, al Panificio Moderno in Piazza Lodron a Trento, lo studio progetta locali dove il cibo si produce e si vende: panifici con laboratorio a vista, bar, caffetterie, pasticcerie e ristoranti.",
+        "Il progetto tiene insieme l'immagine del locale e il suo funzionamento: il rapporto tra laboratorio e vendita, gli arredi su misura disegnati fino all'esecutivo, le pratiche per l'apertura e la direzione dei lavori, secondo le 6 fasi con cui lo studio segue ogni incarico.",
+        "Tra i clienti: Forno Brisa a Bologna (tre punti vendita, l'ampliamento di via Galliera e la nuova sede), Panificio Moderno a Trento e Isera, Forno Aurea a Roma, la Pasticceria Zaffiro e il Caffè De Min a Rovereto, il ristorante alpino di Brentonico Ski alla Polsa e Molini Fagioli, con lo stand a TuttoFood 2026."
+      ],
+      "progetti": ["FBR", "FBC", "FBGA", "FBSL", "PMT", "PMR", "PCM", "ZAF", "DEM", "BSK", "BAS", "SMF"],
+      "area": ["Trentino", "Emilia-Romagna", "Veneto", "Lazio"]
+    },
+    {
+      "slug": "progettazione-hotel-chalet",
+      "nome": "Hotel e chalet",
+      "titolo": "Progettazione hotel e chalet in legno",
+      "descrizione": "Hotel, chalet e residence in montagna e sul lago: Chalet Pinocchio, Hotel Cime d'Oro, Tevini, Antares e boutique hotel a Zanzibar. Progetti e interni.",
+      "h1": "Progettazione di hotel, chalet e strutture ricettive",
+      "intro": [
+        "Lo studio progetta e riqualifica hotel, chalet e residence: dalle camere dell'Hotel Antares in Val Gardena e dell'Hotel Tevini in Val di Sole all'Hotel Cime d'Oro a Madonna di Campiglio, fino allo Chalet Pinocchio, un hotel in legno sulle pendici del Monte Baldo.",
+        "Sul lago di Garda ha lavorato alla riqualificazione dell'Hotel Tremosine, a Mestre alla Michelangelo House, a Zanzibar all'Amani Boutique Hotel e al Kono Kono Hotel.",
+        "In montagna il materiale di riferimento è il legno, per le strutture, i rivestimenti e gli arredi su misura delle camere, in linea con il manifesto dello studio."
+      ],
+      "progetti": ["CHP", "HCD", "HTV", "HAN", "HTR", "HMA", "ABH", "KKH"],
+      "area": ["Trentino-Alto Adige", "Lombardia", "Veneto", "Zanzibar"]
+    },
+    {
+      "slug": "case-in-legno",
+      "nome": "Case in legno",
+      "titolo": "Case in legno e Xlam: ville e bioedilizia",
+      "descrizione": "Ville e case in legno con struttura in Xlam sul lago di Garda, a Veronella e ad Arco: progetto architettonico, esecutivo e direzione dei lavori.",
+      "h1": "Case e ville in legno",
+      "intro": [
+        "Per lo studio il legno è l'unico materiale da costruzione sostenibile: gli alberi sottraggono CO2 all'atmosfera e costruire in legno significa trattenerla negli edifici per decenni, come spiega il manifesto.",
+        "Tra i progetti: una villa in legno affacciata sul lago di Garda (2022), la Villa in Linea a Veronella nella campagna veronese, con struttura portante in Xlam (2015), la casa di Bolognano di Arco, demolita e ricostruita con strutture in Xlam (2026), la proposta di dodici ville prefabbricate in legno per un parco di pini sulla costa veneziana (2015) e lo Chalet Pinocchio a Brentonico (2017).",
+        "Lo studio segue il progetto architettonico, le pratiche, l'esecutivo con le stratigrafie di tutte le lavorazioni e la direzione dei lavori insieme alle imprese specializzate nel legno."
+      ],
+      "progetti": ["C022", "VIL", "C043", "HWH", "CHP", "C028", "CSA"],
+      "area": ["Veneto", "Trentino"]
+    },
+    {
+      "slug": "architetto-zanzibar",
+      "nome": "Zanzibar",
+      "titolo": "Architetto a Zanzibar: hotel, resort e ville",
+      "descrizione": "Progetti a Zanzibar di Riccardo Bandera Architetto: Amani Boutique Hotel a Paje, Kono Kono Hotel, suite sull'acqua, una villa tropicale e una guest house.",
+      "h1": "Architetto a Zanzibar: hotel, resort e ville",
+      "intro": [
+        "Dal 2016 lo studio progetta a Zanzibar, in Tanzania: il restyling dell'Amani Boutique Hotel a Paje, voluto da imprenditori italiani, il nuovo fronte mare del Kono Kono Hotel, quattro suite sull'acqua con un pontile in legno di 300 metri per un resort nella baia di Unguja, una villa tropicale a Pwani Mchangani e una guest house a Nungwi.",
+        "Sono progetti che uniscono la tradizione costruttiva dell'isola, con coperture in paglia, legno e intonaco, a un linguaggio architettonico contemporaneo.",
+        "Per un nuovo progetto sull'isola il primo passo è un contatto con lo studio di Mestre."
+      ],
+      "progetti": ["ABH", "KKH", "KKR", "PWA", "NGW"],
+      "area": ["Zanzibar", "Tanzania"]
+    },
+    {
+      "slug": "architetto-interni-mestre",
+      "nome": "Interni e ristrutturazioni",
+      "titolo": "Architetto d'interni e ristrutturazioni a Mestre",
+      "descrizione": "Ristrutturazione e architettura d'interni a Mestre e in provincia di Venezia: appartamenti, case, ampliamenti e uffici, dal progetto alla direzione lavori.",
+      "h1": "Ristrutturazioni e architettura d'interni a Mestre e Venezia",
+      "intro": [
+        "Lo studio ha sede a Mestre, in Riviera XX Settembre 38, e progetta la ristrutturazione e gli interni di case e appartamenti: distribuzione degli spazi, luce, materiali e arredi su misura disegnati fino all'esecutivo.",
+        "A Mestre ha ristrutturato un appartamento all'ultimo piano trasformando la casa corridoio anni '50 in un open space e ha riqualificato la Michelangelo House, sulla via d'acqua che porta a Piazza Barche. In provincia ha seguito ampliamenti a Martellago e Scorzé e i nuovi uffici Impel a Olmo di Martellago.",
+        "Oltre al progetto, lo studio gestisce pratiche edilizie, sanatorie e verifiche di conformità con la legge Salva Casa, il confronto dei preventivi e la direzione dei lavori."
+      ],
+      "progetti": ["ARE", "HMA", "CRF", "PES", "UIM", "CNE", "C038", "C021"],
+      "area": ["Mestre", "Venezia", "Veneto"]
+    }
+  ]
+}

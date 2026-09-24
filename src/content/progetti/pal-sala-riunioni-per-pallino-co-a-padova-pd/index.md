@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./sala-riunioni-pallino-co-padova-pd-foto-01.webp"
 copertinaAlt: "Sala riunioni per Pallino & Co a Padova, PD, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Sala riunioni Pallino & Co a Padova"
+  descrizione: "Sala riunioni per la società di comunicazione Pallino & Co a Padova: volumi lineari e inserti colorati per definire lo spazio."
 tag: ["Arredi in legno","Interni","Realizzazione"]
 crediti:
   - ruolo: "Progettista"

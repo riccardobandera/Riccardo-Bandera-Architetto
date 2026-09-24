@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./uffici-impel-foto-01.webp"
 copertinaAlt: "Uffici Impel, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Uffici Impel a Olmo di Martellago (VE)"
+  descrizione: "Nuovi uffici amministrativi per Impel Servizi ricavati in un capannone prefabbricato a Olmo di Martellago (VE). Progetto 2024."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera"

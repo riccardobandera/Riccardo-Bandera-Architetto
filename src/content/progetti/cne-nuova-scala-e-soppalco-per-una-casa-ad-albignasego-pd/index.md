@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./nuova-scala-soppalco-casa-albignasego-pd-copertina.webp"
 copertinaAlt: "Nuova scala e soppalco per una casa ad Albignasego, PD, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Scala e soppalco su misura ad Albignasego (PD)"
+  descrizione: "Più spazio abitabile in una casa ad Albignasego (PD) con una scala e un soppalco in metallo e legno fuori dal comune. Progetto 2019."
 tag: ["Arredo su misura","Legno","Parametrica","Scala","Soppalco","Texture"]
 crediti:
   - ruolo: "Progettista"

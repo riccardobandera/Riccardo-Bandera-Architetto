@@ -1,4 +1,5 @@
 ---
+import { seoPagina } from '../data/seo';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { Image } from 'astro:assets';
@@ -7,7 +8,7 @@ import { site } from '../data/site';
 import mappa from '../images/pagine/mappa-studio.webp';
 const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip} ${site.address.city}`);
 ---
-<BaseLayout title="Contatti" description="Contatta lo studio Riccardo Bandera Architetto a Mestre (Venezia). Raccontaci del tuo progetto.">
+<BaseLayout {...seoPagina('contatti')}>
   <section class="u-container pt-36 md:pt-44 pb-12">
     <p class="u-eyebrow mb-6 reveal">Contatti</p>
     <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[16ch] reveal">

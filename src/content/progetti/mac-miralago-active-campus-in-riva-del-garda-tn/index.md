@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./miralago-active-campus-riva-garda-tn-foto-01.webp"
 copertinaAlt: "Miralago Active Campus in Riva del Garda, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Miralago Active Campus a Riva del Garda (TN)"
+  descrizione: "Miralago Active Campus a Riva del Garda (TN): un nuovo centro per lo sport e il benessere in uno dei punti più panoramici del lago di Garda."
 tag: ["Centro sportivo","Concorso","Fitness","Lago di Garda","Miralago","Paramenti in legno","Piscina","Spa"]
 crediti:
   - ruolo: "Progettista"

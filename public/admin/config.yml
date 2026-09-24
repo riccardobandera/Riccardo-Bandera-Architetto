@@ -77,6 +77,15 @@ collections:
       - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
       - { label: Copertina, name: copertina, widget: image, required: false, hint: "Foto orizzontale, la piu rappresentativa." }
       - { label: Descrizione copertina (per Google e accessibilita), name: copertinaAlt, widget: string, required: false }
+      - label: Google (titolo e descrizione nei risultati di ricerca)
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Se lasci vuoto, il sito usa il titolo e l'inizio del testo del progetto."
+        fields:
+          - { label: Titolo per Google (massimo 60 caratteri), name: titolo, widget: string, required: false, hint: "Tipo di intervento e luogo. Es. Panificio Moderno, Trento: bar in Piazza Lodron" }
+          - { label: Descrizione per Google (massimo 155 caratteri), name: descrizione, widget: text, required: false }
       - { label: Parole chiave, name: tag, widget: list, required: false, hint: "Es. Abete, Porfido, Bar" }
       - label: Crediti
         name: crediti
@@ -229,3 +238,77 @@ collections:
               - { label: Chiave (non modificare), name: key, widget: string }
               - { label: Nome, name: label, widget: string }
               - { label: Descrizione, name: desc, widget: string }
+
+      - name: faq
+        label: Domande frequenti
+        file: src/data/faq.json
+        description: "Sul sito compaiono solo le domande con una risposta. Scrivi la risposta con parole tue: la traccia sotto ogni domanda dice cosa cercano le persone."
+        fields:
+          - { label: Data di aggiornamento, name: aggiornato, widget: datetime, time_format: false, date_format: 'DD/MM/YYYY', format: 'YYYY-MM-DD' }
+          - label: Domande
+            name: domande
+            widget: list
+            summary: '{{domanda}}'
+            fields:
+              - { label: Domanda, name: domanda, widget: string }
+              - label: Tema
+                name: tema
+                widget: select
+                options:
+                  - { label: Come lavoriamo, value: lavoro }
+                  - { label: Costi e parcella, value: costi }
+                  - { label: Pratiche e permessi, value: pratiche }
+                  - { label: Direzione lavori e cantiere, value: cantiere }
+                  - { label: Hotel, bar e locali, value: locali }
+                  - { label: Legno e bioedilizia, value: legno }
+                  - { label: Progetti all'estero, value: estero }
+              - { label: Risposta (se vuota la domanda non compare), name: risposta, widget: text, required: false }
+              - { label: Traccia per la risposta (non pubblicata), name: traccia, widget: text, required: false }
+              - { label: Priorità, name: priorita, widget: select, options: [alta, media], required: false }
+              - label: Mostra anche nelle pagine dei settori
+                name: pagine
+                widget: select
+                multiple: true
+                required: false
+                options:
+                  - { label: Panifici, bar e ristoranti, value: progettazione-panifici-bar-ristoranti }
+                  - { label: Hotel e chalet, value: progettazione-hotel-chalet }
+                  - { label: Case in legno, value: case-in-legno }
+                  - { label: Zanzibar, value: architetto-zanzibar }
+                  - { label: Interni e ristrutturazioni, value: architetto-interni-mestre }
+              - { label: Fonte della risposta (non pubblicata), name: fonte, widget: string, required: false }
+
+      - name: settori
+        label: Pagine dei settori
+        file: src/data/servizi.json
+        description: "Le pagine per tipo di lavoro (panifici, hotel, legno, Zanzibar, interni). I progetti si indicano con il codice interno (es. PMT)."
+        fields:
+          - label: Pagine
+            name: pagine
+            widget: list
+            allow_add: false
+            summary: '{{nome}}'
+            fields:
+              - { label: Indirizzo (non modificare), name: slug, widget: string }
+              - { label: Nome breve, name: nome, widget: string }
+              - { label: Titolo per Google (massimo 60 caratteri), name: titolo, widget: string }
+              - { label: Descrizione per Google (massimo 155 caratteri), name: descrizione, widget: text }
+              - { label: Titolo della pagina, name: h1, widget: string }
+              - { label: Testo introduttivo (un paragrafo per voce), name: intro, widget: list, field: { label: Paragrafo, name: p, widget: text } }
+              - { label: Progetti (codici interni), name: progetti, widget: list, field: { label: Codice, name: c, widget: string } }
+              - { label: Zone servite, name: area, widget: list, field: { label: Zona, name: z, widget: string } }
+
+      - name: seo
+        label: Titoli e descrizioni per Google
+        file: src/data/seo-pagine.json
+        description: "Titolo massimo 60 caratteri, descrizione massimo 155. Nel testo {progetti} diventa il numero dei progetti pubblicati."
+        fields:
+          - { label: Home, name: home, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Lo Studio, name: studio, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Manifesto, name: manifesto, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Fasi del progetto, name: fasi, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Progetti, name: progetti, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Contatti, name: contatti, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Journal, name: blog, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Domande frequenti, name: faq, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
+          - { label: Chi è Riccardo Bandera, name: chi, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }

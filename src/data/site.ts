@@ -31,7 +31,20 @@ export const site = {
     instagram: 'https://www.instagram.com/riccardobanderaarchitetto/',
     linkedin: 'https://www.linkedin.com/in/riccardo-bandera-a0370b65/',
   },
+  // profili su portali di architettura (stessa identità: servono a Google e alle IA per riconoscere lo studio)
+  profili: {
+    houzz: 'https://www.houzz.it/professionisti/architetti/riccardo-bandera-architetto-pfvwit-pf~26771995',
+    homify: 'https://www.homify.it/esperti/114375/riccardo-bandera-architetto',
+    divisare: 'https://divisare.com/authors/2144619149-riccardo-bandera',
+  },
+  attivoDal: 2014,
+  ordineNumero: '4391',
+  ordineNome: 'Ordine degli Architetti, Pianificatori, Paesaggisti e Conservatori della Provincia di Venezia',
 } as const;
+
+// identificativi stabili per i dati strutturati (schema.org): studio e architetto
+export const ORG_ID = `${site.url}/#studio`;
+export const PERSON_ID = `${site.url}/#riccardo-bandera`;
 
 export const nav = [
   { label: 'Home', href: '/' },

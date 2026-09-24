@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./villa-legno-campagna-veronese-veronella-vr-foto-01.webp"
 copertinaAlt: "Villa in legno nella campagna veronese a Veronella, VR, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Villa in legno a Veronella (VR)"
+  descrizione: "Villa in Linea a Veronella (VR): una casa in legno con struttura in X-LAM nella campagna veronese, lungo la linearità del lotto. Progetto 2015."
 tag: ["Casa in legno","Casa in pianura","Design Contemporaneo","Rendering","Tetto piano","Xlam"]
 crediti:
   - ruolo: "Progettista"

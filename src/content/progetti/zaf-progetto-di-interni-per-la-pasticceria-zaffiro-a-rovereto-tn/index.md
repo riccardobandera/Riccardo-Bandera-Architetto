@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./progetto-interni-pasticceria-zaffiro-rovereto-tn-foto-01.webp"
 copertinaAlt: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Pasticceria Zaffiro a Rovereto (TN): interni"
+  descrizione: "Ristrutturazione della Pasticceria Zaffiro a Rovereto (TN) a 30 anni dalla fondazione: una nuova immagine del locale per la famiglia Pasolli."
 tag: ["Arredamento Bar","Calacatta viola","Contemporaneo","Design pasticceria","Marmo","Rovereto"]
 crediti:
   - ruolo: "Progettista"

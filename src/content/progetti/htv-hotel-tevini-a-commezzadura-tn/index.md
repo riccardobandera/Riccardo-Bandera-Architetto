@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./hotel-tevini-commezzadura-tn-foto-01.webp"
 copertinaAlt: "Hotel Tevini a Commezzadura, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Hotel Tevini a Commezzadura (TN): camere di montagna"
+  descrizione: "Hotel Tevini a Commezzadura, Val di Sole (TN): un nuovo stile per la camera di montagna, con il concept di una camera dentro la camera."
 tag: ["Arredi in legno","Contemporaneo","Interni","Realizzazione"]
 foto:
   - src: "./hotel-tevini-commezzadura-tn-foto-01.webp"

@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./kono-kono-hotel-and-villas-zanzibar-tanzania-copertina.webp"
 copertinaAlt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Kono Kono Hotel a Zanzibar: ristorante e ville fronte mare"
+  descrizione: "Kono Kono Hotel a Zanzibar: un nuovo tetto per il ristorante e tre ville fronte mare completamente ristrutturate. Progetto 2017."
 tag: ["5 star hotel","Zanzibar","Zanzibar Hotel"]
 crediti:
   - ruolo: "Progettista"

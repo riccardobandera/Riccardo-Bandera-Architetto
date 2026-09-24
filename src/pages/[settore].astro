@@ -1,0 +1,102 @@
+---
+// Pagine per settore (panifici e locali, hotel, legno, Zanzibar, interni a Mestre).
+// Testi in src/data/servizi.json (modificabili dal CMS), progetti reali scelti per codice.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import FaqList from '../components/FaqList.astro';
+import Button from '../components/Button.astro';
+import { getProgetti } from '../data/projects';
+import { servizi, faqPerPagina, faqLd, type Servizio } from '../data/seo';
+import { site, ORG_ID } from '../data/site';
+
+export async function getStaticPaths() {
+  return servizi.map((s) => ({ params: { settore: s.slug }, props: { s } }));
+}
+
+const { s } = Astro.props as { s: Servizio };
+const tutti = await getProgetti();
+const progetti = s.progetti
+  .map((c) => tutti.find((p) => (p.data.codice ?? '').toUpperCase() === c))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+const domande = faqPerPagina(s.slug);
+const altri = servizi.filter((x) => x.slug !== s.slug);
+const url = new URL(`/${s.slug}/`, site.url).href;
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${url}#servizio`,
+    name: s.h1,
+    serviceType: s.nome,
+    description: s.descrizione,
+    url,
+    provider: { '@id': ORG_ID },
+    areaServed: s.area.map((a) => ({ '@type': 'Place', name: a })),
+    subjectOf: progetti.map((p) => ({ '@type': 'CreativeWork', '@id': new URL(`/progetti/${p.id}/`, site.url).href, name: p.data.titolo })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url + '/' },
+      { '@type': 'ListItem', position: 2, name: s.h1, item: url },
+    ],
+  },
+];
+if (domande.length) jsonLd.push(faqLd(domande));
+---
+<BaseLayout title={s.titolo} description={s.descrizione} jsonLd={jsonLd}>
+  <section class="u-container pt-36 md:pt-44 pb-12 md:pb-16">
+    <p class="u-eyebrow mb-6 reveal">{s.nome}</p>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6vw,4.6rem)] max-w-[18ch] reveal">{s.h1}</h1>
+    <div class="mt-10 grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-8 space-y-5">
+        {s.intro.map((p, i) => (
+          <p class:list={['leading-relaxed reveal', i === 0 ? 'text-[1.2rem] md:text-[1.35rem] text-ink' : 'text-[1.05rem] text-ink/80']}>{p}</p>
+        ))}
+      </div>
+      <aside class="lg:col-span-4 lg:pl-8 lg:border-l border-line text-sm reveal">
+        <p class="u-eyebrow mb-3">In breve</p>
+        <p class="leading-relaxed text-ink/80">{progetti.length} progetti pubblicati di {site.legalName}, studio a {site.address.city} ({site.address.region}) dal {site.attivoDal}.</p>
+        <div class="mt-6 flex flex-col gap-3 items-start">
+          <Button href="/contatti/" variant="solid" arrow>Parliamo del tuo progetto</Button>
+          <a href="/fasi-del-progetto/" class="u-underline">Come lavoriamo: le 6 fasi</a>
+          {s.slug === 'case-in-legno' && <a href="/manifesto/" class="u-underline">Il manifesto sul legno</a>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="u-container pb-[var(--spacing-section)]">
+    <div class="flex items-baseline justify-between border-t border-line pt-6 mb-10">
+      <h2 class="text-[clamp(1.4rem,3vw,2.2rem)] font-bold tracking-tight">Progetti</h2>
+      <span class="u-eyebrow">{progetti.length} progetti</span>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+      {progetti.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
+    </div>
+  </section>
+
+  {domande.length > 0 && (
+    <section class="bg-surface">
+      <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-4">
+          <p class="u-eyebrow mb-4 reveal">Domande frequenti</p>
+          <h2 class="text-[clamp(1.6rem,3.6vw,2.6rem)] font-extrabold tracking-tight leading-[1.05] reveal">Le domande che ci fanno più spesso</h2>
+          <a href="/domande-frequenti/" class="inline-block mt-6 u-underline text-sm reveal">Tutte le domande</a>
+        </div>
+        <div class="lg:col-span-8"><FaqList items={domande} /></div>
+      </div>
+    </section>
+  )}
+
+  <section class="u-container py-16 md:py-20">
+    <p class="u-eyebrow mb-5">Altri settori</p>
+    <ul class="flex flex-wrap gap-3">
+      {altri.map((a) => (
+        <li><a href={`/${a.slug}/`} class="inline-block border border-line rounded-full px-4 py-2 text-sm hover:bg-ink hover:text-bg transition-colors">{a.nome}</a></li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

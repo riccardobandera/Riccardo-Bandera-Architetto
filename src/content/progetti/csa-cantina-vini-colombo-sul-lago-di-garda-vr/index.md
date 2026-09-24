@@ -11,6 +11,9 @@ coordinate:
 evidenza: true
 copertina: "./cantina-vini-colombo-lago-garda-vr-foto-01.webp"
 copertinaAlt: "Cantina Vini Colombo sul lago di Garda, VR, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Cantina Vini Colombo sul lago di Garda (VR)"
+  descrizione: "Cantina Vini Colombo sul lago di Garda (VR): gli avvolti delle cantine tradizionali reinterpretati in chiave contemporanea con il legno. 2019."
 tag: ["Abete","Arredi in legno","Contemporaneo","Interni","Realizzazione"]
 crediti:
   - ruolo: "Progettista"

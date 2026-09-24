@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./ristrutturazione-attico-soppalco-giardino-isera-tn-copertina.webp"
 copertinaAlt: "Ristrutturazione attico con soppalco e giardino a Isera, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Attico con soppalco e giardino a Isera (TN)"
+  descrizione: "Ristrutturazione dell'ultimo piano di un edificio di fine '800 affacciato sull'Adige a Isera (TN): attico con soppalco e giardino. Progetto 2022."
 tag: ["Abete","Interni","Realizzazione","Ristrutturazione","Slam","Soppalco"]
 crediti:
   - ruolo: "Progettista"

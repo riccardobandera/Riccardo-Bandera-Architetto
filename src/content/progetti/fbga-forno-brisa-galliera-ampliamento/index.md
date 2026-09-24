@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./forno-brisa-galliera-ampliamento-foto-01.webp"
 copertinaAlt: "Forno Brisa Galliera ampliamento, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Forno Brisa via Galliera, Bologna: ampliamento"
+  descrizione: "Ampliamento del Forno Brisa di via Galliera a Bologna: nel 2020 i locali adiacenti vengono collegati per far crescere il punto vendita."
 foto:
   - src: "./forno-brisa-galliera-ampliamento-foto-01.webp"
     alt: "Forno Brisa Galliera ampliamento, foto 1. Progetto di Riccardo Bandera Architetto"

@@ -5,7 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Gallery from '../../components/Gallery.astro';
 import Button from '../../components/Button.astro';
 import { getProgetti, adjacent, catLabels, matLabels, coverOf, type Progetto } from '../../data/projects';
-import { site } from '../../data/site';
+import { site, ORG_ID, PERSON_ID } from '../../data/site';
+import { servizi } from '../../data/seo';
 
 export async function getStaticPaths() {
   const all = await getProgetti();
@@ -29,7 +30,10 @@ const sezioni = [
 
 // SEO: descrizione dal testo del progetto
 const plain = (project.body ?? '').replace(/\s+/g, ' ').trim();
-const desc = (plain.length > 20 ? plain.slice(0, 152).replace(/\s\S*$/, '') + '…' : `${d.titolo}. Progetto di Riccardo Bandera Architetto.`);
+const desc = d.seo?.descrizione || (plain.length > 20 ? plain.slice(0, 152).replace(/\s\S*$/, '') + '…' : `${d.titolo}. Progetto di Riccardo Bandera Architetto.`);
+const seoTitle = d.seo?.titolo || d.titolo;
+// pagine per settore che citano questo progetto (link interni)
+const settori = servizi.filter((s) => d.codice && s.progetti.includes(d.codice.toUpperCase()));
 const ogImg = cover ? await getImage({ src: cover.src, width: 1200, format: 'jpg' }) : null;
 const imgs = await Promise.all([...d.foto, ...d.render].slice(0, 8).map((i) => getImage({ src: i.src, width: 1200, format: 'jpg' })));
 
@@ -43,8 +47,8 @@ const jsonLd = {
   url: new URL(`/progetti/${project.id}/`, site.url).href,
   inLanguage: 'it-IT',
   ...(d.anno ? { dateCreated: String(d.anno) } : {}),
-  creator: { '@type': 'Person', name: 'Riccardo Bandera', jobTitle: 'Architetto', worksFor: { '@type': 'LocalBusiness', name: site.legalName, url: site.url } },
-  author: { '@type': 'Organization', name: site.legalName, url: site.url },
+  creator: { '@id': PERSON_ID },
+  author: { '@id': ORG_ID },
   ...(d.luogo ? { locationCreated: { '@type': 'Place', name: d.luogo, ...(d.coordinate ? { geo: { '@type': 'GeoCoordinates', latitude: d.coordinate.lat, longitude: d.coordinate.lng } } : {}) } } : {}),
   keywords: [...d.tag, ...cats, ...mats, 'architetto', 'Riccardo Bandera'].join(', '),
   image: imgs.map((i) => new URL(i.src, site.url).href),
@@ -59,7 +63,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<BaseLayout title={`${d.titolo}`} description={desc} image={ogImg?.src} type="article" jsonLd={[jsonLd, breadcrumbLd]}>
+<BaseLayout title={seoTitle} description={desc} image={ogImg?.src} type="article" jsonLd={[jsonLd, breadcrumbLd]}>
   <div data-project-modal data-slug={project.id}>
     <!-- intestazione -->
     <section class="u-container pt-32 md:pt-40 pb-8">
@@ -100,6 +104,12 @@ const breadcrumbLd = {
             {mats.length > 0 && <div><dt>Materiali</dt><dd>{mats.join(', ')}</dd></div>}
             {d.crediti.map((c) => <div><dt>{c.ruolo}</dt><dd>{c.nome}</dd></div>)}
           </dl>
+          {settori.length > 0 && (
+            <p class="mt-8 text-sm reveal">
+              <span class="u-eyebrow block mb-2">Altri progetti simili</span>
+              {settori.map((s, i) => <>{i > 0 && ', '}<a href={`/${s.slug}/`} class="u-underline font-medium">{s.h1}</a></>)}
+            </p>
+          )}
         </aside>
       </div>
     </section>

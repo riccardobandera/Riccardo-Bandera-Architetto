@@ -38,6 +38,8 @@ const progetti = defineCollection({
       bozza: z.boolean().default(false),
       copertina: image().optional(),
       copertinaAlt: z.string().optional(),
+      // titolo e descrizione per Google (se vuoti vengono generati da titolo e testo)
+      seo: z.object({ titolo: z.string().optional(), descrizione: z.string().optional() }).optional(),
       tag: z.array(z.string()).default([]),
       crediti: z.array(z.object({ ruolo: z.string(), nome: z.string() })).default([]),
       foto: immagini(image),

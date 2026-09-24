@@ -11,6 +11,9 @@ coordinate:
 evidenza: true
 copertina: "./ristorante-alpino-polsa-brentonico-trento-copertina.webp"
 copertinaAlt: "Ristorante alpino a Polsa di Brentonico, Trento, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Ristorante alpino in larice a Polsa di Brentonico (TN)"
+  descrizione: "Un vecchio fast food sulle piste della Polsa (Brentonico, TN) trasformato in ristorante gourmet interamente in larice locale. Progetto 2022."
 tag: ["Alpino","Arredo su misura","Contemporaneo","Design Contemporaneo","Interni","Larice","Realizzazione"]
 crediti:
   - ruolo: "Progettista"

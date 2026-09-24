@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./stand-tuttofood-molini-fagioli-foto-02.webp"
 copertinaAlt: "Stand TuttoFood Molini Fagioli, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Stand Molini Fagioli a TuttoFood 2026, Milano"
+  descrizione: "Stand di Molini Fagioli a TuttoFood 2026 (Fiera Milano, Rho): un padiglione in legno che accoglie il visitatore tra interno ed esterno."
 tag: ["Architettura","Arredo su misura","Design Contemporaneo","Realizzazione"]
 crediti:
   - ruolo: "Progettisti"

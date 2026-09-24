@@ -10,6 +10,7 @@ import Button from "../components/Button.astro";
 import { getInEvidenza, getProgetto, coverOf } from "../data/projects";
 import { heroImages } from "../data/curated";
 import { site, manifestoQuote, ambiti, homeTesti } from "../data/site";
+import { servizi } from "../data/seo";
 
 // hero: 10 foto reali, scelte e alternate a caso nel browser
 const heroSlides = await Promise.all(
@@ -67,7 +68,7 @@ const ambitiCards = (await Promise.all(
     </div>
 
     <div class="u-container relative pb-16 md:pb-24 pt-32 w-full" data-hero-content>
-      <p class="u-eyebrow text-cream/70 mb-6">{site.legalName}</p>
+      <p class="u-eyebrow text-cream/70 mb-6">{site.legalName} · {site.address.city}, {site.address.region}</p>
       <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6.4vw,5.4rem)] max-w-[16ch]">
         {site.tagline}
       </h1>
@@ -123,6 +124,15 @@ const ambitiCards = (await Promise.all(
             </div>
           </a>
         ))}
+      </div>
+      <!-- pagine per settore (link interni per Google e per chi cerca un tipo di lavoro preciso) -->
+      <div class="mt-10 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+        <p class="u-eyebrow text-cream/50 shrink-0">Specializzazioni</p>
+        <ul class="flex flex-wrap gap-2.5">
+          {servizi.map((s) => (
+            <li><a href={`/${s.slug}/`} class="inline-block border border-white/20 rounded-full px-4 py-2 text-sm text-cream/85 hover:bg-cream hover:text-ink transition-colors">{s.nome}</a></li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>

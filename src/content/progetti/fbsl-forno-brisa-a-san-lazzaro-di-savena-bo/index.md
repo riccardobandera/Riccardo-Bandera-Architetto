@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./forno-brisa-san-lazzaro-savena-bo-copertina.webp"
 copertinaAlt: "Forno Brisa a San Lazzaro di Savena, BO, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Forno Brisa a San Lazzaro di Savena (BO)"
+  descrizione: "Forno Brisa a San Lazzaro di Savena (BO): un soppalco in metallo sotto il tetto a capanna e un'anima artigianale a vista. Progetto 2024."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera"

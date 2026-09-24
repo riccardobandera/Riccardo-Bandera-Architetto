@@ -1,4 +1,5 @@
 ---
+import { seoPagina } from '../data/seo';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
@@ -14,7 +15,7 @@ const teamWithPhotos = team.map((m, i) => ({ ...m, photo: portraits[i] }));
 
 import portrait from '../images/team/riccardo-bandera-architetto.webp';
 ---
-<BaseLayout title="Lo Studio" description="Riccardo Bandera, architetto a Mestre dal 2014: un metodo che connette immaginato e costruito, dalla fase creativa alla realizzazione.">
+<BaseLayout {...seoPagina('studio')}>
   <section class="u-container pt-36 md:pt-44 pb-16">
     <p class="u-eyebrow mb-6 reveal">Lo Studio</p>
     <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[15ch] reveal">{studioTitolo}</h1>

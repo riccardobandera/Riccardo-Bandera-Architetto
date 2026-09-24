@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./michelangelo-house-mestre-ve-foto-01.webp"
 copertinaAlt: "Michelangelo House a Mestre, VE, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Michelangelo House a Mestre (VE): riqualificazione"
+  descrizione: "Michelangelo House a Mestre (VE): un edificio di gusto veneziano sulla via d'acqua verso Piazza Barche, riqualificato. Progetto 2026."
 tag: ["Arredi in legno","Interni","Realizzazione"]
 crediti:
   - ruolo: "Progettista"

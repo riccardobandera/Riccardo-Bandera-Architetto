@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./uffici-brisa-bologna-bo-foto-01.webp"
 copertinaAlt: "Uffici Brisa a Bologna, BO, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Uffici Forno Brisa a Bologna: il nuovo headquarter"
+  descrizione: "Nuovo headquarter di Forno Brisa a Bologna: uffici senza gerarchie, pensati per orizzontalità e condivisione. Progetto 2024."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera"

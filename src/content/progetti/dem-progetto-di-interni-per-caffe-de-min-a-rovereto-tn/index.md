@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./progetto-interni-caffe-de-min-rovereto-tn-foto-08.webp"
 copertinaAlt: "Progetto di interni per Caffé De Min a Rovereto, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Caffè De Min a Rovereto (TN): interni del bar"
+  descrizione: "Ristrutturazione dello storico Caffè De Min a Rovereto (TN): geometrie orizzontali continue, materiali veri e studio della luce. Progetto 2017."
 tag: ["Arredamento Bar","Arredi in legno","Bar","Contemporaneo","Design","Realizzazione","Ristrutturazione","Rovere","Rovereto"]
 crediti:
   - ruolo: "Progettista"

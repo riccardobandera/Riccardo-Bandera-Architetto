@@ -3,6 +3,7 @@ import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getProgetti, facets, coverOf, catLabels } from '../../data/projects';
+import { seoPagina } from '../../data/seo';
 
 const progetti = await getProgetti();
 const f = await facets();
@@ -27,7 +28,7 @@ const punti = await Promise.all(
   }),
 );
 ---
-<BaseLayout title="Progetti" description="Il portfolio di Riccardo Bandera Architetto: 41 progetti tra residenze, hotel, panifici, bar, ristoranti e uffici, in Italia e a Zanzibar. Filtra per ambito, materiale o sulla mappa.">
+<BaseLayout {...seoPagina('progetti', { progetti: progetti.length })}>
   <section class="u-container pt-36 md:pt-44 pb-8">
     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
       <div>

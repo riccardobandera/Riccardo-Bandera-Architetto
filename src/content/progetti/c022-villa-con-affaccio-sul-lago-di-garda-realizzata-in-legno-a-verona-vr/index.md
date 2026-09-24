@@ -11,6 +11,9 @@ coordinate:
 evidenza: true
 copertina: "./villa-affaccio-lago-garda-legno-verona-vr-copertina.webp"
 copertinaAlt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Villa in legno sul lago di Garda (VR)"
+  descrizione: "Villa affacciata sul lago di Garda (VR) costruita in legno: tradizione, innovazione e sostenibilità. Progetto di Riccardo Bandera Architetto, 2022."
 tag: ["Architettura","Architettura in legno","Architettura organica","Casa in legno","Lago di Garda","Lowcarbon","Nzeb","Xlam"]
 crediti:
   - ruolo: "Progettista"

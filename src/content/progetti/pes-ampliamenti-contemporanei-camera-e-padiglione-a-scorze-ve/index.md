@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./ampliamenti-contemporanei-camera-padiglione-scorze-ve-copertina.webp"
 copertinaAlt: "Ampliamenti contemporanei: camera e padiglione a Scorzé, VE, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Camera e padiglione in ampliamento a Scorzé (VE)"
+  descrizione: "Due ampliamenti contemporanei per una casa a Scorzé (VE): una nuova camera e un padiglione in metallo e vetro. Progetto 2014."
 tag: ["Aluminio","Ampliamento","Padiglione","Ristrutturazione","Vetrate"]
 crediti:
   - ruolo: "Progettista"

@@ -1,0 +1,225 @@
+---
+// Pagina "in breve" per motori di ricerca e assistenti IA (GEO): fatti verificabili sullo studio,
+// scritti in modo che si possano citare. Tutto viene dai dati del sito, niente di inventato.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { getProgetti, catLabels } from '../data/projects';
+import { site, ORG_ID, PERSON_ID, fasi, altreAttivita } from '../data/site';
+import { seoPagina, servizi } from '../data/seo';
+import reviews from '../data/reviews.json';
+
+const AGGIORNATO = '2026-09-24';
+const progetti = await getProgetti();
+
+// regione dalla sigla di provincia del luogo (es. "Rovereto, TN")
+const REG: Record<string, string> = { TN: 'Trentino-Alto Adige', BZ: 'Trentino-Alto Adige', VE: 'Veneto', VR: 'Veneto', BL: 'Veneto', PD: 'Veneto', BO: 'Emilia-Romagna', RM: 'Lazio', BS: 'Lombardia', MI: 'Lombardia' };
+const regione = (l = '') => (/Tanzania|Zanzibar/.test(l) ? 'Zanzibar (Tanzania)' : REG[(l.match(/\b([A-Z]{2})\s*$/) || [])[1]] ?? 'Altro');
+const localita = (l = '') => l.split(',')[0].trim();
+const zone = new Map<string, Set<string>>();
+for (const p of progetti) {
+  const r = regione(p.data.luogo);
+  if (!zone.has(r)) zone.set(r, new Set());
+  zone.get(r)!.add(localita(p.data.luogo));
+}
+const ORDINE_ZONE = ['Veneto', 'Trentino-Alto Adige', 'Emilia-Romagna', 'Lombardia', 'Lazio', 'Zanzibar (Tanzania)'];
+const zoneList = ORDINE_ZONE.filter((z) => zone.has(z)).map((z) => ({ nome: z, luoghi: [...zone.get(z)!], n: progetti.filter((p) => regione(p.data.luogo) === z).length }));
+
+const perAmbito = Object.entries(catLabels).map(([k, label]) => ({ label, n: progetti.filter((p) => p.data.categorie.includes(k as never)).length }));
+const voto = reviews.valutazione.toFixed(1).replace('.', ',');
+const dataAgg = new Date(AGGIORNATO).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// menzioni pubblicate da terzi (verificate il 24/09/2026)
+const citazioni = [
+  { fonte: 'Divisare', cosa: 'Forno Brisa, laboratorio di panificazione e rivendita a Bologna (2015), con Ludovico Sternini', url: 'https://divisare.com/projects/306844-ludovico-sternini-riccardo-bandera-forno-brisa-_-laboratorio-di-panificazione-e-rivendita' },
+  { fonte: 'Tonolli Soluzioni d’Arredo', cosa: 'Bar Panificio Moderno in Piazza Lodron a Trento', url: 'https://www.tonolli.eu/portfolio/bar-panificio-moderno-piazza-lodron-trento/' },
+  { fonte: 'Ceramiche Rondine', cosa: 'Forno Brisa a San Lazzaro di Savena', url: 'https://www.ceramicarondine.it/it/progetti/forno-brisa/' },
+  { fonte: 'OBS Italia', cosa: 'impianti speciali del Forno Brisa di via Galliera, sotto la direzione dell’architetto', url: 'https://obsitalia.it/impianti-speciali-forno-brisa/' },
+  { fonte: 'Architools', cosa: 'il progetto di paesaggio e arredo sul Monte Baldo (2024)', url: 'https://architools.info/progettare-il-paesaggio-arredo-con-sketchup-sul-monte-baldo/' },
+];
+
+const url = new URL('/chi-e-riccardo-bandera/', site.url).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': url,
+    url,
+    name: seoPagina('chi').title,
+    inLanguage: 'it-IT',
+    dateModified: AGGIORNATO,
+    mainEntity: { '@id': PERSON_ID },
+    about: { '@id': ORG_ID },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Chi è Riccardo Bandera', item: url },
+    ],
+  },
+];
+
+const scheda: [string, string, string?][] = [
+  ['Nome dello studio', site.legalName],
+  ['Titolare', 'arch. Riccardo Bandera'],
+  ['Iscrizione', site.ordine],
+  ['Attività', `studio autonomo dal ${site.attivoDal}`],
+  ['Sede', `${site.address.street}, ${site.address.zip} ${site.address.city} (${site.address.region})`, site.googleMaps],
+  ['Telefono', site.phoneOffice, `tel:${site.phoneOfficeHref}`],
+  ['Cellulare', site.phone, `tel:${site.phoneHref}`],
+  ['Email', site.email, `mailto:${site.email}`],
+  ['PEC', site.pec, `mailto:${site.pec}`],
+  ['Partita IVA', site.piva],
+  ['Progetti pubblicati', `${progetti.length}, con foto, disegni e crediti`, '/progetti/'],
+  ['Recensioni Google', `${voto} su 5, ${reviews.totale} recensioni`, reviews.link],
+];
+const profili: [string, string][] = [
+  ['Instagram', site.social.instagram], ['Facebook', site.social.facebook], ['LinkedIn', site.social.linkedin],
+  ['Houzz', site.profili.houzz], ['homify', site.profili.homify], ['Divisare', site.profili.divisare],
+];
+const esterno = (h?: string) => !!h && h.startsWith('http');
+---
+<BaseLayout {...seoPagina('chi')} jsonLd={jsonLd}>
+  <section class="u-container pt-36 md:pt-44 pb-12">
+    <p class="u-eyebrow mb-6 reveal">In breve</p>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6vw,4.6rem)] max-w-[18ch] reveal">Chi è Riccardo Bandera, architetto a Mestre</h1>
+    <p class="mt-10 max-w-3xl text-[1.2rem] md:text-[1.4rem] leading-relaxed reveal">
+      Riccardo Bandera è un architetto iscritto all’Ordine degli Architetti P.P.C. di Venezia (Sez. A, n. {site.ordineNumero}) e titolare dello studio {site.legalName}, con sede a {site.address.city} ({site.address.region}) in {site.address.street}. Dal {site.attivoDal} segue in prima persona progetti di architettura e d’interni, dalla fase creativa alla realizzazione: abitazioni, hotel, panifici, bar, ristoranti e uffici, con una particolare attenzione alle costruzioni in legno.
+    </p>
+  </section>
+
+  <!-- scheda dati -->
+  <section class="u-container pb-16 md:pb-20">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Scheda dello studio</h2>
+      <div class="lg:col-span-8">
+        <dl class="scheda-geo text-[0.98rem] reveal">
+          {scheda.map(([k, v, href]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{href ? <a href={href} class="u-underline" {...(esterno(href) ? { target: '_blank', rel: 'noopener' } : {})}>{v}</a> : v}</dd>
+            </div>
+          ))}
+          <div>
+            <dt>Profili ufficiali</dt>
+            <dd>{profili.map(([n, h], i) => <>{i > 0 && ', '}<a href={h} target="_blank" rel="noopener" class="u-underline">{n}</a></>)}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- cosa progetta -->
+  <section class="bg-surface">
+    <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Cosa progetta lo studio</h2>
+        <p class="mt-5 text-muted leading-relaxed reveal">Progetti pubblicati per ambito: {perAmbito.map((a) => `${a.label.toLowerCase()} ${a.n}`).join(', ')}.</p>
+      </div>
+      <div class="lg:col-span-8 space-y-10">
+        <ul class="border-t border-line">
+          {servizi.map((s) => (
+            <li class="border-b border-line py-5 reveal">
+              <a href={`/${s.slug}/`} class="group flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                <span class="text-[1.1rem] font-bold tracking-tight group-hover:opacity-60 transition-opacity">{s.h1}</span>
+                <span class="text-sm text-muted">{s.progetti.length} progetti</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="reveal">
+          <h3 class="u-eyebrow mb-4">Come lavora: le 6 fasi</h3>
+          <ol class="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-[1rem]">
+            {fasi.map((f) => <li><span class="text-muted mr-2">{f.n}</span>{f.title}</li>)}
+          </ol>
+          <p class="mt-5 text-[0.98rem] text-ink/80 leading-relaxed">{altreAttivita.intro} {altreAttivita.voci.map((v) => v.charAt(0).toLowerCase() + v.slice(1)).join(', ')}.</p>
+          <a href="/fasi-del-progetto/" class="inline-block mt-4 u-underline text-sm">Le fasi nel dettaglio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- dove ha lavorato -->
+  <section class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Dove ha lavorato</h2>
+    <dl class="lg:col-span-8 scheda-geo text-[0.98rem] reveal">
+      {zoneList.map((z) => (
+        <div><dt>{z.nome} · {z.n}</dt><dd>{z.luoghi.join(', ')}</dd></div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- elenco progetti -->
+  <section class="u-container pb-[var(--spacing-section)]">
+    <div class="flex items-baseline justify-between border-t border-line pt-6 mb-8">
+      <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Elenco dei progetti</h2>
+      <span class="u-eyebrow">{progetti.length} progetti</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="tab-progetti w-full text-left text-[0.95rem]">
+        <thead>
+          <tr><th scope="col">Progetto</th><th scope="col">Luogo</th><th scope="col">Anno</th><th scope="col">Ambito</th></tr>
+        </thead>
+        <tbody>
+          {progetti.map((p) => (
+            <tr>
+              <td><a href={`/progetti/${p.id}/`} class="u-underline">{p.data.titolo}</a></td>
+              <td>{p.data.luogo ?? ''}</td>
+              <td>{p.data.anno ?? ''}</td>
+              <td>{p.data.categorie.map((c) => catLabels[c]).join(', ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- fonti terze -->
+  <section class="bg-surface">
+    <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Ne hanno scritto</h2>
+        <p class="mt-5 text-muted leading-relaxed reveal">Pagine pubblicate da altri che citano i progetti dello studio.</p>
+      </div>
+      <ul class="lg:col-span-8 border-t border-line">
+        {citazioni.map((c) => (
+          <li class="border-b border-line py-5 reveal">
+            <a href={c.url} target="_blank" rel="noopener" class="group block">
+              <span class="block font-bold tracking-tight group-hover:opacity-60 transition-opacity">{c.fonte}</span>
+              <span class="block text-sm text-muted mt-1">{c.cosa}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- da sapere -->
+  <section class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Da sapere</h2>
+    <div class="lg:col-span-8 space-y-4 text-[1.02rem] leading-relaxed text-ink/85 reveal">
+      <p>La sede dello studio è a {site.address.city} ({site.address.region}). Molti progetti si trovano in Trentino, in particolare a Rovereto e dintorni: per questo alcuni portali indicano lo studio a Rovereto, ma l’indirizzo è {site.address.street}, {site.address.zip} {site.address.city}.</p>
+      <p>Il nome ufficiale è {site.legalName}. Il sito ufficiale è {site.domain}.</p>
+      <p class="text-sm text-muted">Pagina aggiornata il {dataAgg}.</p>
+    </div>
+  </section>
+
+  <section class="u-container pb-20 flex flex-wrap gap-4">
+    <Button href="/contatti/" variant="solid" arrow>Contatta lo studio</Button>
+    <Button href="/lo-studio/" variant="ghost">Lo studio e il team</Button>
+    <Button href="/domande-frequenti/" variant="ghost">Domande frequenti</Button>
+  </section>
+</BaseLayout>
+
+<style>
+  .scheda-geo > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--color-line); }
+  .scheda-geo > div:last-child { border-bottom: 1px solid var(--color-line); }
+  .scheda-geo dt { color: var(--color-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding-top: 0.2rem; }
+  .scheda-geo dd { font-weight: 500; overflow-wrap: anywhere; }
+  .tab-progetti th { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-muted); font-weight: 600; padding: 0.6rem 1rem 0.6rem 0; border-bottom: 1px solid var(--color-line); }
+  .tab-progetti td { padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+  .tab-progetti td:first-child { min-width: 16rem; }
+  .tab-progetti td:nth-child(2) { min-width: 10rem; }
+  @media (max-width: 640px) { .scheda-geo > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+</style>

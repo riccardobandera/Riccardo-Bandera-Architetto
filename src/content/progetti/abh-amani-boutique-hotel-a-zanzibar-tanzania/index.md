@@ -10,6 +10,9 @@ coordinate:
 evidenza: true
 copertina: "./amani-boutique-hotel-zanzibar-tanzania-foto-01.webp"
 copertinaAlt: "Amani Boutique Hotel a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Amani Boutique Hotel, Zanzibar: progetto di restyling"
+  descrizione: "Restyling dell'Amani Boutique Hotel a Paje, Zanzibar: camere, hall, arredi e interni per un hotel di lusso. Progetto di Riccardo Bandera Architetto."
 tag: ["Abete","Arredi in legno","Casa in legno","Chalet","Design Contemporaneo","Hotel","Moderno","Vetrate","Vista"]
 crediti:
   - ruolo: "Progettista"

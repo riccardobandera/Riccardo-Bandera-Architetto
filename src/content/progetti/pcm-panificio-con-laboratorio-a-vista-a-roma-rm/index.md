@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./panificio-laboratorio-vista-roma-rm-foto-04.webp"
 copertinaAlt: "Panificio con laboratorio a vista a Roma, RM, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Forno Aurea, Roma: panificio con laboratorio a vista"
+  descrizione: "Forno Aurea a Roma: un panificio con laboratorio a vista che mostra l'intero ciclo del pane, dall'impasto alla vendita. Progetto 2016."
 tag: ["Arredo su misura","Design Contemporaneo","Dettagli","Interni","Progetto di interni","Realizzazione","roma","Salotto"]
 crediti:
   - ruolo: "Progettista"

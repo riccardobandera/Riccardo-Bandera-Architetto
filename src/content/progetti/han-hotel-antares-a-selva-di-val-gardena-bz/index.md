@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./hotel-antares-selva-val-gardena-bz-foto-01.webp"
 copertinaAlt: "Hotel Antares a Selva di Val Gardena, BZ, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Hotel Antares a Selva di Val Gardena (BZ): camere"
+  descrizione: "Riqualificazione delle camere del Residence Hotel Antares a Selva di Val Gardena (BZ): spazi ottimizzati e identità materica in legno."
 crediti:
   - ruolo: "Progettisti"
     nome: "Interni"

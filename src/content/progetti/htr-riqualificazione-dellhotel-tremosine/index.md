@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./riqualificazione-hotel-tremosine-foto-01.webp"
 copertinaAlt: "riqualificazione dell’Hotel Tremosine, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Riqualificazione dell'Hotel Tremosine sul Garda (BS)"
+  descrizione: "Riqualificazione dell'Hotel Tremosine, struttura degli anni '60 a sbalzo sulle rocce del lago di Garda (BS). Progetto di Riccardo Bandera Architetto."
 foto:
   - src: "./riqualificazione-hotel-tremosine-foto-01.webp"
     alt: "riqualificazione dell’Hotel Tremosine, foto 1. Progetto di Riccardo Bandera Architetto"

@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./chalet-pinocchio-hotel-legno-brentonico-tn-foto-01.webp"
 copertinaAlt: "Chalet Pinocchio: hotel in legno a Brentonico, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Chalet Pinocchio, hotel in legno a Brentonico (TN)"
+  descrizione: "Chalet Pinocchio a Brentonico (TN): progetto architettonico di un hotel in legno sulle pendici del Monte Baldo. Progetto 2017."
 tag: ["Abete","Arredi in legno","Casa in legno","Chalet","Design Contemporaneo","Hotel","Moderno","Vetrate","Vista"]
 crediti:
   - ruolo: "Supervisione artistica"

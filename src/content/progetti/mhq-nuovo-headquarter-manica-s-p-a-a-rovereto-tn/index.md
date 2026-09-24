@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-07.webp"
 copertinaAlt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Headquarter Manica S.p.a. a Rovereto (TN)"
+  descrizione: "Nuova sede della Manica S.p.a. a Rovereto (TN): la palazzina uffici rifondata con un intervento architettonico leggero e intelligente."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera Architetto"

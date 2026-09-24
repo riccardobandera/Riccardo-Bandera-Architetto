@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./hotel-cime-oro-madonna-campiglio-tn-foto-02.webp"
 copertinaAlt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Hotel Cime d'Oro a Madonna di Campiglio (TN)"
+  descrizione: "Hotel Cime d'Oro a Madonna di Campiglio (TN): una riqualificazione energetica diventata occasione di nuova architettura. Progetto 2025."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera"

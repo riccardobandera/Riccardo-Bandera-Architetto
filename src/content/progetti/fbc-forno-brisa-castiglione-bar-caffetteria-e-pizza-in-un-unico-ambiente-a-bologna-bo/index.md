@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./forno-brisa-castiglione-bar-caffetteria-pizza-ambiente-foto-04.webp"
 copertinaAlt: "Forno Brisa Castiglione: bar, caffetteria e pizza in un unico ambiente a Bologna, BO, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Forno Brisa Castiglione, Bologna: bar, caffetteria e pizza"
+  descrizione: "Secondo punto vendita di Forno Brisa a Bologna: bar, caffetteria e pizza in un unico ambiente, con l'estetica della casa del pane. Progetto 2017."
 tag: ["Architettura","Interni","Panificio","Prima e dopo","Realizzazione","Ristrutturazione"]
 crediti:
   - ruolo: "Progettista"

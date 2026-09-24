@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./case-prefabbricate-legno-venezia-ve-foto-02.webp"
 copertinaAlt: "Case prefabbricate in legno a Venezia, VE, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Ville prefabbricate in legno sulla costa veneziana"
+  descrizione: "Proposta di dodici ville monofamiliari prefabbricate in legno per un parco di pini sulla costa veneziana. Progetto di Riccardo Bandera Architetto, 2015."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera Architetto"

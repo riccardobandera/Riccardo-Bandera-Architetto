@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { site, nav } from '../data/site';
+import { servizi } from '../data/seo';
 import monogram from '../images/monogram-white.png';
 const year = new Date().getFullYear();
 ---
@@ -22,9 +23,9 @@ const year = new Date().getFullYear();
     </div>
   </a>
 
-  <div class="u-container py-16 grid gap-12 md:grid-cols-12">
+  <div class="u-container py-16 grid gap-12 sm:grid-cols-2 md:grid-cols-12">
     <!-- brand -->
-    <div class="md:col-span-4">
+    <div class="md:col-span-3">
       <div class="flex items-center gap-3 mb-5 text-cream">
         <Image src={monogram} alt="" width={38} height={40} class="w-[34px] h-auto" />
         <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera<br /><span class="text-[0.6rem] tracking-[0.34em] text-cream/50">Architetto</span></span>
@@ -35,13 +36,25 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- menu -->
-    <nav class="md:col-span-3" aria-label="Footer">
+    <nav class="md:col-span-2" aria-label="Footer">
       <p class="u-eyebrow text-cream/40 mb-5">Menu</p>
       <ul class="space-y-2.5 text-sm">
         {nav.map((i) => (
           <li><a href={i.href} class="u-underline text-cream/80 hover:text-cream">{i.label}</a></li>
         ))}
         <li><a href="/blog/" class="u-underline text-cream/80 hover:text-cream">Journal</a></li>
+        <li><a href="/domande-frequenti/" class="u-underline text-cream/80 hover:text-cream">Domande frequenti</a></li>
+        <li><a href="/chi-e-riccardo-bandera/" class="u-underline text-cream/80 hover:text-cream">Lo studio in breve</a></li>
+      </ul>
+    </nav>
+
+    <!-- settori -->
+    <nav class="md:col-span-2" aria-label="Settori">
+      <p class="u-eyebrow text-cream/40 mb-5">Settori</p>
+      <ul class="space-y-2.5 text-sm">
+        {servizi.map((s) => (
+          <li><a href={`/${s.slug}/`} class="u-underline text-cream/80 hover:text-cream">{s.nome}</a></li>
+        ))}
       </ul>
     </nav>
 

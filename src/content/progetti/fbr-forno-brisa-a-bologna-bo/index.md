@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./forno-brisa-bologna-bo-copertina.webp"
 copertinaAlt: "Forno Brisa a Bologna, BO, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Forno Brisa via Galliera, Bologna: il primo forno"
+  descrizione: "Il primo Forno Brisa sotto il portico di via Galliera a Bologna (2015): laboratorio di panificazione e rivendita, la casa del pane."
 tag: ["Abete","Arredi in legno","Bologna","Budgetless","Davide Sarti","Forno Brisa","Ludovico Sternini","Pasquale Polito","Ristrutturazione"]
 crediti:
   - ruolo: "Progettisti"

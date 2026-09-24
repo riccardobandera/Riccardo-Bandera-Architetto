@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./funivia-malcesine-monte-baldo-paesaggio-arredo-tn-copertina.webp"
 copertinaAlt: "Funivia Malcesine Monte Baldo: paesaggio arredo, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Funivia Malcesine Monte Baldo: interni della stazione"
+  descrizione: "Interni della stazione a monte della Funivia Malcesine Monte Baldo: sala d'attesa e negozio arredati in abete naturale. Progetto 2019."
 tag: ["5 assi","Abete","Architettura d'interni","Architettura organica","Arredi in legno","Design","Sala d'attesa"]
 crediti:
   - ruolo: "Progettista"

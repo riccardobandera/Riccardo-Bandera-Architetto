@@ -1,5 +1,6 @@
 ---
-import { site } from '../data/site';
+import { site, ORG_ID, PERSON_ID } from '../data/site';
+import { seoPagina } from '../data/seo';
 
 interface Props {
   title?: string;
@@ -10,42 +11,85 @@ interface Props {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
+const home = seoPagina('home');
 const {
   title,
-  description = "Studio di architettura e d'interni a Mestre (Venezia): residenziale, hospitality, commerciale e direzionale, con focus su bioedilizia e costruzioni in legno.",
+  description = home.description,
   image = '/og-default.jpg',
   type = 'website',
   noindex = false,
   jsonLd,
 } = Astro.props;
 
-const fullTitle = title ? `${title} · ${site.legalName}` : `${site.legalName} · Architettura, interni e bioedilizia`;
+// Titolo: il nome dello studio si aggiunge solo se il totale resta entro 60 caratteri
+// (oltre, Google lo taglia). Se il titolo contiene già il nome, resta com'è.
+const SUFFISSI = [` · ${site.legalName}`, ' · Riccardo Bandera'];
+const componi = (t: string) => {
+  if (/Bandera/.test(t)) return t;
+  for (const s of SUFFISSI) if ((t + s).length <= 60) return t + s;
+  return t;
+};
+const fullTitle = title ? componi(title) : home.title;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
 const ogImage = new URL(image, Astro.site ?? site.url).href;
 
+// Studio e architetto: stessi dati visibili nel footer, in Contatti e nella pagina "Chi è Riccardo Bandera"
 const businessLd = {
   '@context': 'https://schema.org',
-  '@type': ['LocalBusiness', 'ArchitecturalService'],
+  '@type': 'ProfessionalService',
+  '@id': ORG_ID,
   name: site.legalName,
+  description: home.description,
   url: site.url,
   email: site.email,
-  telephone: site.phone,
+  telephone: site.phoneOffice,
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: site.phoneOffice, contactType: 'customer service', availableLanguage: 'it' },
+    { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: 'it' },
+  ],
   image: ogImage,
+  logo: new URL('/favicon-192.png', site.url).href,
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
     postalCode: site.address.zip,
     addressLocality: site.address.city,
-    addressRegion: site.address.region,
+    addressRegion: 'VE',
     addressCountry: site.address.country,
   },
-  sameAs: [site.social.facebook, site.social.instagram, site.social.linkedin, site.googleMaps],
-  vatID: `IT${site.piva}`,
   geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
   hasMap: site.googleMaps,
-  founder: { '@type': 'Person', name: 'Riccardo Bandera', jobTitle: 'Architetto', hasCredential: site.ordine },
-  knowsAbout: ['architettura', 'interior design', 'bioedilizia', 'case in legno', 'Xlam', 'ristrutturazioni', 'hotel', 'panifici', 'bar e ristoranti', 'uffici'],
-  areaServed: ['Venezia', 'Veneto', 'Trentino', 'Emilia-Romagna', 'Zanzibar'],
+  vatID: `IT${site.piva}`,
+  foundingDate: String(site.attivoDal),
+  founder: { '@id': PERSON_ID },
+  employee: { '@id': PERSON_ID },
+  sameAs: [site.social.facebook, site.social.instagram, site.social.linkedin, site.profili.houzz, site.profili.homify, site.googleMaps],
+  knowsAbout: ['architettura', "architettura d'interni", 'ristrutturazioni', 'bioedilizia', 'case in legno', 'Xlam', 'progettazione hotel', 'progettazione panifici', 'bar e ristoranti', 'uffici', 'direzione lavori', 'pratiche edilizie'],
+  areaServed: [
+    { '@type': 'City', name: 'Venezia' },
+    { '@type': 'AdministrativeArea', name: 'Veneto' },
+    { '@type': 'AdministrativeArea', name: 'Trentino-Alto Adige' },
+    { '@type': 'AdministrativeArea', name: 'Emilia-Romagna' },
+    { '@type': 'Place', name: 'Zanzibar, Tanzania' },
+  ],
+};
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: 'Riccardo Bandera',
+  honorificPrefix: 'arch.',
+  jobTitle: 'Architetto',
+  worksFor: { '@id': ORG_ID },
+  url: new URL('/chi-e-riccardo-bandera/', site.url).href,
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'Iscrizione all’albo professionale',
+    name: site.ordine,
+    identifier: site.ordineNumero,
+    recognizedBy: { '@type': 'Organization', name: site.ordineNome },
+  },
+  sameAs: [site.social.linkedin, site.profili.divisare],
 };
 
 const graphs = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -54,7 +98,7 @@ const graphs = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex && <meta name="robots" content="noindex, follow" />}
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={site.legalName} />
@@ -70,4 +114,5 @@ const graphs = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta name="twitter:image" content={ogImage} />
 
 <script type="application/ld+json" set:html={JSON.stringify(businessLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(personLd)} />
 {graphs.map((g) => <script type="application/ld+json" set:html={JSON.stringify(g)} />)}

@@ -1,0 +1,254 @@
+{
+  "aggiornato": "2026-09-24",
+  "domande": [
+    {
+      "domanda": "Quanto costa un architetto per ristrutturare casa?",
+      "tema": "costi",
+      "risposta": "",
+      "traccia": "Una forbice indicativa in euro per un appartamento tipo (per esempio 80-100 mq) o in percentuale sui lavori, e cosa cambia se l'incarico comprende solo il progetto oppure anche pratiche e direzione lavori. Un esempio reale dello studio aiuta.",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Come calcolate la parcella: a percentuale, a corpo o a ore?",
+      "tema": "costi",
+      "risposta": "",
+      "traccia": "Il metodo usato dallo studio e perché; se il preventivo è scritto e firmato prima di iniziare; come si pagano le singole fasi.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Il primo incontro è gratuito? E se poi decido di non proseguire?",
+      "tema": "costi",
+      "risposta": "",
+      "traccia": "Cosa è gratuito (telefonata, primo incontro in studio) e cosa è a pagamento (sopralluogo, studio di fattibilità); se un eventuale costo iniziale viene scalato dalla parcella in caso di incarico.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Cosa comprende il vostro preventivo e cosa si paga a parte?",
+      "tema": "costi",
+      "risposta": "",
+      "traccia": "Cosa c'è dentro (rilievo, progetto, pratiche, esecutivo, computo, direzione lavori, fine lavori) e cosa no (diritti comunali, strutturista, coordinatore della sicurezza, catasto, impiantista). Si può incaricare lo studio solo per alcune fasi?",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "La parcella dell'architetto rientra nei bonus per la ristrutturazione?",
+      "tema": "costi",
+      "risposta": "",
+      "traccia": "Sì o no, con il rinvio al commercialista per il caso specifico; come va pagata (bonifico parlante). Le aliquote cambiano: nel 2026 50% prima casa e 36% altre, nel 2027 36% e 30%. Indicare l'anno.",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "In cosa consiste il vostro lavoro, dal progetto alla fine dei lavori?",
+      "tema": "lavoro",
+      "risposta": "Ogni progetto si sviluppa attraverso una serie di 6 fasi per la progettazione degli interventi definiti con la committenza, così da tenere sotto controllo gli aspetti tecnico-economici senza precludere le potenzialità creative dell’incarico. Le fasi sono: progetto architettonico e di interni, progetto amministrativo, progetto esecutivo, preventivazione e quadro economico, direzione lavori, fine lavori.",
+      "fonte": "Testo del cliente: introduzione e titoli delle 6 fasi",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Per ristrutturare casa serve un architetto o bastano un geometra o l'impresa?",
+      "tema": "lavoro",
+      "risposta": "",
+      "traccia": "In quali casi l'architetto fa la differenza (distribuzione degli spazi, interni, immobili vincolati, controllo del budget), senza sminuire le altre figure. Un progetto in cui il ridisegno degli spazi ha cambiato la casa.",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Come si comincia? Cosa succede al primo incontro e cosa devo portare?",
+      "tema": "lavoro",
+      "risposta": "",
+      "traccia": "I passi concreti (contatto, incontro, sopralluogo, proposta) e i documenti utili: planimetria catastale, atto, foto, un'idea di budget, riferimenti di stile.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Quanto tempo ci vuole, dal progetto alla consegna delle chiavi?",
+      "tema": "lavoro",
+      "risposta": "",
+      "traccia": "Tempi indicativi per fase (progetto, pratiche, cantiere) per un appartamento tipo e per un locale commerciale; cosa allunga i tempi (vincoli, forniture su misura, varianti).",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Lavorate anche fuori Venezia e Mestre?",
+      "tema": "lavoro",
+      "risposta": "Sì. Oltre che a Mestre e in provincia di Venezia, lo studio ha realizzato progetti in Trentino e in Alto Adige (Trento, Rovereto, Madonna di Campiglio, Val Gardena), sul lago di Garda, nelle province di Belluno, Padova e Verona, a Bologna, a Roma e a Zanzibar, in Tanzania.",
+      "fonte": "Dati dei progetti pubblicati sul sito (luoghi)",
+      "traccia": "Da completare dal cliente: come si organizzano incontri e sopralluoghi per i progetti lontani.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Vedrò il progetto in 3D prima di iniziare i lavori?",
+      "tema": "lavoro",
+      "risposta": "Sì. Nella prima fase, il progetto architettonico e di interni, si definisce la distribuzione degli spazi e l’organizzazione degli ambienti interni ed esterni. Vengono sviluppate planimetrie e prospetti iniziali, studiati i flussi funzionali e creati modelli 3D per la visualizzazione realistica del progetto finale. Le attività vengono organizzate in una serie di presentazioni che vanno a dettagliare le scelte condivise con la committenza.",
+      "fonte": "Testo del cliente: fase 01, Progetto architettonico e di interni",
+      "priorita": "media",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Quante revisioni del progetto sono comprese? Posso cambiare idea strada facendo?",
+      "tema": "lavoro",
+      "risposta": "",
+      "traccia": "Quante revisioni sono incluse e da quale momento un cambio diventa costoso (per esempio dopo il progetto esecutivo o a cantiere aperto).",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "Progettate anche gli interni e gli arredi su misura?",
+      "tema": "lavoro",
+      "risposta": "",
+      "traccia": "Come lo studio unisce architettura e interni, come segue falegnami e fornitori; un esempio di casa o locale con arredo disegnato dallo studio.",
+      "priorita": "media",
+      "pagine": ["architetto-interni-mestre", "progettazione-panifici-bar-ristoranti"]
+    },
+    {
+      "domanda": "Quali pratiche edilizie seguite?",
+      "tema": "pratiche",
+      "risposta": "Nella fase del progetto amministrativo si gestiscono tutte le autorizzazioni necessarie (Permesso di Costruire, SCIA, CILA e le pratiche complementari: autorizzazioni paesaggistiche e commissioni edilizie, antincendio, impianti, termotecnica ex L.10/91, barriere architettoniche L.13/89, parcheggi privati L.122/89 e standard a verde e parcheggio pubblico, autorizzazioni allo scarico, oneri, ecc.), assicurando la conformità del progetto alle normative vigenti e permettendo l’avvio dei lavori.",
+      "fonte": "Testo del cliente: fase 02, Progetto amministrativo",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Che pratica serve per i miei lavori: CILA, SCIA o permesso di costruire?",
+      "tema": "pratiche",
+      "risposta": "",
+      "traccia": "Una regola pratica con 2 o 3 esempi (spostare tramezzi, toccare strutture o facciate, ampliare), i tempi tipici di ciascuna e chi firma l'asseverazione.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Vi occupate di sanatorie, Salva Casa e verifica della conformità edilizia?",
+      "tema": "pratiche",
+      "risposta": "Sì. Lo studio gestisce casistiche complesse inerenti a: sanatorie e condoni edilizi, accesso agli atti e verifica della conformità edilizia, applicazione della normativa sulle tolleranze definita dalla legge Salva Casa, volture e proroghe di pratiche edilizie in corso, varianti in corso d’opera, richiesta di pre-pareri e studi di fattibilità per interventi complessi.",
+      "fonte": "Testo del cliente: Altre attività dello studio",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Potete verificare una casa prima che la compri?",
+      "tema": "pratiche",
+      "risposta": "",
+      "traccia": "Cosa si controlla (accesso agli atti, confronto con catasto e stato di fatto), cosa si può sistemare con il Salva Casa e cosa no (immobili vincolati); tempi e costo indicativo di una verifica.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Ristrutturare a Venezia centro storico: servono permessi della Soprintendenza e quanto tempo ci vuole?",
+      "tema": "pratiche",
+      "risposta": "",
+      "traccia": "Differenza tra Mestre e terraferma e centro storico o isole; quali interventi chiedono parere o autorizzazione paesaggistica; tempi realistici; logistica del cantiere in acqua, se lo studio ne ha esperienza.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Cosa succede a fine lavori? Vi occupate dell'agibilità?",
+      "tema": "pratiche",
+      "risposta": "Sì. Nella fase di fine lavori si effettua il passaggio conclusivo della costruzione, fondamentale per garantire che l’opera sia completata correttamente (dichiarazioni di conformità), asseverata rispetto alle normative (agibile/abitabile), inserita nel registro fabbricati (catasto), comunicata agli enti (SUAP) e abbia la possibilità di accedere alle detrazioni fiscali.",
+      "fonte": "Testo del cliente: fase 06, Fine lavori",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "Come faccio a confrontare i preventivi delle imprese e tenere sotto controllo il budget?",
+      "tema": "cantiere",
+      "risposta": "Nella fase di preventivazione e quadro economico vengono richiesti uno o più preventivi per singola categoria di fornitori (ad esempio: impresa edile, idraulico, elettricista, serramentista, posatore, general contractor, ecc.) e comparati attraverso il quadro economico, il quadro detrazioni e il quadro affidamenti, utili per selezionare l’impresa edile e avviare la costruzione. Questa fase garantisce il controllo dei costi prima dell’inizio delle opere.",
+      "fonte": "Testo del cliente: fase 04, Preventivazione e quadro economico",
+      "priorita": "alta",
+      "pagine": ["architetto-interni-mestre"]
+    },
+    {
+      "domanda": "Chi sceglie l'impresa? Avete imprese di fiducia?",
+      "tema": "cantiere",
+      "risposta": "",
+      "traccia": "Come lo studio seleziona o propone le imprese, se il cliente può portare la propria, perché il direttore lavori lavora per il cliente e non per l'impresa.",
+      "priorita": "alta",
+      "pagine": []
+    },
+    {
+      "domanda": "Cosa comprende la direzione lavori?",
+      "tema": "cantiere",
+      "risposta": "Nella fase di direzione lavori si prevede il controllo mediante sopralluoghi dell’esecuzione dell’opera per garantire che i lavori vengano realizzati nel rispetto del progetto approvato (DL amministrativa), delle specifiche tecniche e dei dettagli (DL tecnica) e con il corretto coordinamento tra più imprese in caso di assenza di general contractor (DL coordinamento).",
+      "fonte": "Testo del cliente: fase 05, Direzione lavori",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "Ogni quanto venite in cantiere e come mi tenete aggiornato?",
+      "tema": "cantiere",
+      "risposta": "",
+      "traccia": "Frequenza tipica dei sopralluoghi, come viene aggiornato il cliente (foto, verbali, report), controllo della contabilità, cosa succede se ci sono problemi con l'impresa.",
+      "priorita": "media",
+      "pagine": []
+    },
+    {
+      "domanda": "Dobbiamo ristrutturare il nostro hotel o chalet: si può fare senza perdere la stagione?",
+      "tema": "locali",
+      "risposta": "",
+      "traccia": "Come si programma il cantiere per lotti o in bassa stagione, con un esempio reale (Cime d'Oro, Tevini, Antares, Chalet Pinocchio); tempi tipici; requisiti delle strutture ricettive (antincendio, accessibilità, classificazione).",
+      "priorita": "alta",
+      "pagine": ["progettazione-hotel-chalet"]
+    },
+    {
+      "domanda": "Voglio aprire un panificio, un bar o un ristorante: quali requisiti deve avere il locale?",
+      "tema": "locali",
+      "risposta": "",
+      "traccia": "I punti che bloccano più spesso l'apertura (destinazione d'uso, altezze, aerazione, servizi, separazione tra laboratorio e vendita, canne fumarie), il coordinamento con ASL, SUAP e consulente HACCP; l'esempio di un panificio o bar progettato dallo studio (Forno Brisa, Panificio Moderno).",
+      "priorita": "alta",
+      "pagine": ["progettazione-panifici-bar-ristoranti"]
+    },
+    {
+      "domanda": "Quanto costa e quanto tempo serve per progettare e aprire un locale?",
+      "tema": "locali",
+      "risposta": "",
+      "traccia": "Forbice indicativa al mq (opere e arredi) e tempi dalla firma all'apertura; cosa incide di più (impianti, cappa, arredi su misura, attrezzature).",
+      "priorita": "media",
+      "pagine": ["progettazione-panifici-bar-ristoranti"]
+    },
+    {
+      "domanda": "Quanto costa costruire una casa in legno (Xlam) e quanto dura?",
+      "tema": "legno",
+      "risposta": "",
+      "traccia": "Forbice al mq chiavi in mano e cosa comprende; durata attesa e condizioni (dettagli costruttivi, protezione dall'acqua, manutenzione); due righe su fuoco, umidità e assicurazione.",
+      "priorita": "alta",
+      "pagine": ["case-in-legno"]
+    },
+    {
+      "domanda": "Meglio Xlam o telaio? Il legno va bene in montagna, in zona sismica o vicino alla laguna?",
+      "tema": "legno",
+      "risposta": "",
+      "traccia": "Criteri di scelta tra i due sistemi (sisma, comfort estivo, tempi, costi); esperienza dello studio in montagna (Chalet Pinocchio) e in pianura (Villa in Linea a Veronella); ampliamenti e sopraelevazioni in legno su edifici esistenti.",
+      "priorita": "media",
+      "pagine": ["case-in-legno"]
+    },
+    {
+      "domanda": "Seguite progetti all'estero?",
+      "tema": "estero",
+      "risposta": "Sì. A Zanzibar, in Tanzania, lo studio ha progettato il restyling dell’Amani Boutique Hotel a Paje, il nuovo fronte mare del Kono Kono Hotel, quattro suite sull’acqua per un resort nella baia di Unguja, una villa tropicale a Pwani Mchangani e una guest house a Nungwi.",
+      "fonte": "Dati dei progetti pubblicati sul sito",
+      "priorita": "media",
+      "pagine": ["architetto-zanzibar"]
+    },
+    {
+      "domanda": "Come gestite un cantiere a Zanzibar a distanza?",
+      "tema": "estero",
+      "risposta": "",
+      "traccia": "Il ruolo dello studio, imprese e maestranze locali, materiali locali o importati, frequenza dei viaggi, strumenti di controllo a distanza; per quali progetti all'estero lo studio è disponibile.",
+      "priorita": "media",
+      "pagine": ["architetto-zanzibar"]
+    },
+    {
+      "domanda": "Dove si trova lo studio e come posso contattarvi?",
+      "tema": "lavoro",
+      "risposta": "Lo studio è a Mestre (Venezia), in Riviera XX Settembre 38, 30174. Telefono 041 5044332, cellulare 349 3772802, email studio@riccardobandera.com. Si può scrivere anche dal modulo della pagina Contatti.",
+      "fonte": "Dati di contatto dello studio",
+      "priorita": "media",
+      "pagine": []
+    }
+  ]
+}

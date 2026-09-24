@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./guest-house-nungwi-foto-03.webp"
 copertinaAlt: "Guest house a Nungwi, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Guest house a Nungwi, Zanzibar"
+  descrizione: "Piccola guest house a Nungwi, sull'isola di Zanzibar, che fonde la tradizione costruttiva locale con un linguaggio contemporaneo. Progetto 2019."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera"

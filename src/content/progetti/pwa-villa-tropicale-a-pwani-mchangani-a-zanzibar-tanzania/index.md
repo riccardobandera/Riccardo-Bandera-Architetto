@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./villa-tropicale-pwani-mchangani-zanzibar-tanzania-foto-01.webp"
 copertinaAlt: "Villa tropicale a Pwani Mchangani a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Villa tropicale a Pwani Mchangani, Zanzibar"
+  descrizione: "Villa tropicale sull'oceano Indiano a Pwani Mchangani, Zanzibar: il tetto radiale è la chiave del progetto. Progetto 2016."
 tag: ["Architettura organica","Legno","Progetto","Tropicale","Villa"]
 crediti:
   - ruolo: "Progettista"

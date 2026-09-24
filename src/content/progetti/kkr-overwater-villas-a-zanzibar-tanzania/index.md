@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./overwater-villas-zanzibar-tanzania-foto-01.webp"
 copertinaAlt: "Overwater Villas a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Overwater villas a Zanzibar: suite sull'acqua"
+  descrizione: "Estensione di un resort in una baia protetta di Zanzibar: pontile in legno lungo 300 metri e quattro suite sospese sull'acqua. Progetto 2016."
 tag: ["Architettura","Architettura organica","Arredi in legno","Contemporaneo","Interni","Nautilus","Oceano Indiano","Tropicale"]
 crediti:
   - ruolo: "Progettista"

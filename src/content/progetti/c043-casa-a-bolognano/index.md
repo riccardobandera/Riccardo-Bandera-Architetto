@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./casa-bolognano-arco-tn-foto-02.webp"
 copertinaAlt: "Casa a Bolognano Arco, TN, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Casa in legno e Xlam a Bolognano di Arco (TN)"
+  descrizione: "Demolizione e ricostruzione di una casa a Bolognano di Arco (TN), tra tessuto storico e paesaggio rurale, con struttura in Xlam. Progetto 2026."
 tag: ["Architettura","Contemporaneo","Interni"]
 crediti:
   - ruolo: "Progettista"

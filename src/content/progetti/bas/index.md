@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./restyling-bistro-stretta-foto-03.webp"
 copertinaAlt: "Restyling Bistrò alla Stretta, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Bistrò alla Stretta, lago di Toblino: restyling e veranda"
+  descrizione: "Restyling del Bistrò alla Stretta tra i laghi di Santa Massenza e Toblino (TN): nuova immagine esterna e una veranda affacciata sul paesaggio."
 foto:
   - src: "./restyling-bistro-stretta-foto-01.webp"
     alt: "Restyling Bistrò alla Stretta, foto 1. Progetto di Riccardo Bandera Architetto"

@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./ristrutturazione-appartamento-arredo-interni-mestre-ve-foto-04.webp"
 copertinaAlt: "Ristrutturazione di un appartamento e arredo d’interni a Mestre, VE, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Ristrutturazione appartamento e interni a Mestre (VE)"
+  descrizione: "Ristrutturazione totale di un appartamento all'ultimo piano a Mestre: dalla casa corridoio anni '50 all'open space, con arredi su misura."
 tag: ["Appartamento","Architettura","Arredo su misura","Attico","Colori neutri","Consumo di suolo zero","Contemporaneo","Cucina","Design","Design Contemporaneo","Design Moderno","Detrazioni fiscali","Dettagli","Etichette: 2017","Interni","Living","Mestre","Moderno","Prima e dopo","Progetto di interni","Realizzazione","Ristrutturazione","Salotto","Salotto Cucina","Venezia"]
 crediti:
   - ruolo: "Progettisti"

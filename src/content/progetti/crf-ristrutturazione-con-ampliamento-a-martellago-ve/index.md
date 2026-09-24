@@ -11,6 +11,9 @@ coordinate:
 evidenza: false
 copertina: "./ristrutturazione-ampliamento-martellago-ve-foto-04.webp"
 copertinaAlt: "Ristrutturazione con ampliamento a Martellago, VE, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Ristrutturazione con ampliamento a Martellago (VE)"
+  descrizione: "Ristrutturazione con ampliamento di una casa a Martellago (VE) grazie al piano casa: una soluzione più semplice e meno costosa. Progetto 2014."
 tag: ["Ampliamento","Architettura","Contemporaneo","Piano Casa","Tetto piano","Travia a vista"]
 crediti:
   - ruolo: "Progettista"

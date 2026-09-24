@@ -11,6 +11,9 @@ coordinate:
 evidenza: true
 copertina: "./ristrutturazione-casera-alpago-tambre-bl-foto-03.webp"
 copertinaAlt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Casera ristrutturata nell'Alpago a Tambre (BL)"
+  descrizione: "Glass House Prealpina: recupero di una casera nell'Alpago a Tambre (BL), seguito dal disegno al cantiere fino all'opera finita. Progetto 2025."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera Architetto"

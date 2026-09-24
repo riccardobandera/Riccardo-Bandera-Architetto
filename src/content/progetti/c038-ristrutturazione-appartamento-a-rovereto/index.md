@@ -10,6 +10,9 @@ coordinate:
 evidenza: false
 copertina: "./ristrutturazione-appartamento-rovereto-foto-02.webp"
 copertinaAlt: "Ristrutturazione appartamento a Rovereto, progetto di Riccardo Bandera Architetto"
+seo:
+  titolo: "Ristrutturazione appartamento a Rovereto (TN)"
+  descrizione: "Progetto d'interni per un appartamento a Rovereto (TN): spazi di passaggio stretti e bui ridisegnati per portare luce naturale in casa."
 tag: ["Contemporaneo","Interni","Realizzazione"]
 crediti:
   - ruolo: "Progettista"
