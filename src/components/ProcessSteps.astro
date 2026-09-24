@@ -1,116 +1,43 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import { fasi } from '../data/site';
-
-// foto reali dello studio, una per fase (B&W di default, colore su hover)
-import f1 from '../images/projects/CNE_Render_Big_2.png';
-import f2 from '../images/projects/A-09.webp';
-import f3 from '../images/projects/IMG_20230530_113044263.webp';
-import f4 from '../images/projects/KonoKono-2017-KDBP-122_02.jpeg';
-import f5 from '../images/projects/Forno-Aurea-panificio_Riccardo-Bandera-architetto_bancone-frontale.jpg';
-import f6 from '../images/projects/ARE_Ristrutturazione-appartamento_Arredo-su-misura_Design-Moderno_Architetto-Riccardo-Bandera-013.jpg';
-
-const shots = [f1, f2, f3, f4, f5, f6];
-
-interface Props {
-  /** compact = tessere con foto (home) · full = testo + preview su hover (pagina fasi) */
-  variant?: 'compact' | 'full';
-}
-const { variant = 'compact' } = Astro.props;
-
-// URL ottimizzati ad alta qualità per la preview che segue il cursore (solo full)
-const previews = variant === 'full'
-  ? await Promise.all(shots.map((s) => getImage({ src: s, width: 1000, format: 'webp', quality: 82 })))
-  : [];
-
-const steps = fasi.map((f, i) => ({ ...f, shot: shots[i], preview: previews[i]?.src }));
+import { fasiImages } from '../data/curated';
 ---
-{variant === 'compact' ? (
-  <div class="grid gap-3 md:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {steps.map((f, i) => (
-      <article class="group relative overflow-hidden aspect-[4/5] md:aspect-[5/6] bg-ink reveal" data-reveal-delay={(i % 3) + 1}>
-        <Image
-          src={f.shot}
-          alt={f.title}
-          widths={[400, 640, 900]}
-          sizes="(max-width:640px) 92vw, (max-width:1024px) 46vw, 30vw"
-          class="absolute inset-0 w-full h-full object-cover grayscale opacity-65 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.05]"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-ink/10"></div>
-        <div class="absolute inset-0 p-6 md:p-7 flex flex-col justify-between text-cream">
-          <span class="font-display text-4xl md:text-5xl text-cream/70">{f.n}</span>
-          <h3 class="text-lg md:text-xl font-bold tracking-tight leading-tight">{f.title}</h3>
+<div class="border-t border-line">
+  {fasi.map((f) => {
+    const imgs = fasiImages[f.n] ?? [];
+    return (
+      <article class="fase grid md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-b border-line reveal">
+        <div class="md:col-span-3">
+          <span class="font-display text-[3.2rem] md:text-[4.8rem] leading-none text-ink">{f.n}</span>
+        </div>
+        <div class="md:col-span-9">
+          <h3 class="text-xl md:text-[1.7rem] font-bold tracking-tight mb-4 leading-tight">{f.title}</h3>
+          <p class="text-muted leading-relaxed text-[1.02rem] max-w-3xl">{f.body}</p>
+          {imgs.length > 0 && (
+            <div class="fase-imgs mt-8 grid grid-cols-3 gap-2 md:gap-3">
+              {imgs.map((im, i) => (
+                <a href={`/progetti/${im.slug}/`} class="fase-img group relative block overflow-hidden bg-surface aspect-[4/3]" style={`--d:${i * 110}ms`} aria-label="Vedi il progetto">
+                  <Image
+                    src={im.src}
+                    alt={`${f.title}: immagine dal progetto`}
+                    widths={[360, 640]}
+                    sizes="(max-width: 768px) 31vw, 22vw"
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+                  />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </article>
-    ))}
-  </div>
-) : (
-  <div class="divide-y divide-line border-y border-line" data-fasi-list>
-    {steps.map((f) => (
-      <article class="fasi-row group grid md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-14 reveal transition-colors duration-500" data-preview={f.preview}>
-        <div class="md:col-span-3 flex md:block items-baseline gap-4">
-          <span class="font-display text-[3rem] md:text-[4.5rem] leading-none text-ink transition-transform duration-500 group-hover:translate-x-2 inline-block">{f.n}</span>
-        </div>
-        <div class="md:col-span-9 max-w-3xl">
-          <h3 class="text-xl md:text-2xl font-bold tracking-tight mb-4 transition-transform duration-500 group-hover:translate-x-2">{f.title}</h3>
-          <p class="text-muted leading-relaxed text-[1.02rem]">{f.body}</p>
-        </div>
-      </article>
-    ))}
-
-    <!-- preview che segue il cursore -->
-    <div class="fasi-preview" data-fasi-preview aria-hidden="true">
-      <img alt="" decoding="async" />
-    </div>
-  </div>
-)}
-
-{variant === 'full' && (
-  <script is:inline>
-    (() => {
-      const list = document.querySelector('[data-fasi-list]');
-      const preview = document.querySelector('[data-fasi-preview]');
-      if (!list || !preview) return;
-      const img = preview.querySelector('img');
-      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!canHover || reduce) return;
-
-      const rows = list.querySelectorAll('.fasi-row');
-      let raf = 0, tx = 0, ty = 0;
-      const move = (e) => {
-        tx = e.clientX; ty = e.clientY;
-        if (!raf) raf = requestAnimationFrame(() => { preview.style.transform = `translate(${tx}px, ${ty}px) translate(-50%, -50%)`; raf = 0; });
-      };
-      rows.forEach((row) => {
-        row.addEventListener('mouseenter', () => {
-          const src = row.getAttribute('data-preview');
-          if (src) img.setAttribute('src', src);
-          preview.classList.add('is-visible');
-        });
-        row.addEventListener('mousemove', move);
-        row.addEventListener('mouseleave', () => preview.classList.remove('is-visible'));
-      });
-    })();
-  </script>
-)}
+    );
+  })}
+</div>
 
 <style>
-  .fasi-row:hover { background: color-mix(in srgb, var(--color-surface) 55%, transparent); }
-  .fasi-preview {
-    position: fixed;
-    top: 0; left: 0;
-    width: clamp(230px, 26vw, 430px);
-    aspect-ratio: 4 / 3;
-    z-index: 40;
-    pointer-events: none;
-    overflow: hidden;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.94);
-    transition: opacity 0.45s var(--ease-out-expo), transform 0.55s var(--ease-out-expo);
-    will-change: transform, opacity;
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
-  }
-  .fasi-preview.is-visible { opacity: 1; }
-  .fasi-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* le immagini compaiono una dopo l'altra quando la card entra in vista */
+  :global(html.js) .fase-img { opacity: 0; transform: translateY(14px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); transition-delay: var(--d); }
+  :global(html.js) .fase.is-in .fase-img { opacity: 1; transform: none; }
 </style>

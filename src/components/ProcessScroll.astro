@@ -1,54 +1,59 @@
 ---
 import { Image } from 'astro:assets';
-import f1 from '../images/projects/CNE_Render_Big_2.png';
-import f2 from '../images/projects/A-09.webp';
-import f3 from '../images/projects/IMG_20230530_113044263.webp';
-import f4 from '../images/projects/KonoKono-2017-KDBP-122_02.jpeg';
-import f5 from '../images/projects/Forno-Aurea-panificio_Riccardo-Bandera-architetto_bancone-frontale.jpg';
-import f6 from '../images/projects/ARE_Ristrutturazione-appartamento_Arredo-su-misura_Design-Moderno_Architetto-Riccardo-Bandera-013.jpg';
+import type { ImageMetadata } from 'astro';
+import { metodoImages as M, metodoExtra as X, metodoProgetto } from '../data/curated';
+import { getProgetto } from '../data/projects';
 
-// una curva "punteggiatura" tra i frammenti
+// il progetto raccontato: dalla pianta all'opera finita
+const progetto = await getProgetto(metodoProgetto);
+const nomeProgetto = progetto?.data.titolo ?? '';
+
 const curve = `<svg viewBox="0 0 120 60" fill="none" class="ms-curve"><path d="M2 42 C 30 4, 90 4, 118 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 
-const img = (src: ImageMetadata, alt: string, h: string) => ({ kind: 'img' as const, src, alt, h });
-const phase = (n: string, t: string) => ({ kind: 'phase' as const, n, t });
-const text = (t: string, cls: string) => ({ kind: 'text' as const, t, cls });
-const svg = () => ({ kind: 'svg' as const });
+type Tok =
+  | { kind: 'text'; t: string; cls: string }
+  | { kind: 'phase'; n: string; t: string }
+  | { kind: 'img'; src: ImageMetadata; alt: string; cap: string; h: string; drawing?: boolean }
+  | { kind: 'svg' };
+const text = (t: string, cls = 'ms-muted'): Tok => ({ kind: 'text', t, cls });
+const phase = (n: string, t: string): Tok => ({ kind: 'phase', n, t });
+const img = (src: ImageMetadata, cap: string, h: string, drawing = false): Tok => ({ kind: 'img', src, cap, h, drawing, alt: `${nomeProgetto}: ${cap.toLowerCase()}` });
 
-// La frase-nastro: le 6 fasi come un'unica frase, con le foto come punteggiatura
-const flow = [
+const flow: Tok[] = [
   text('Ogni progetto', 'ms-lead'),
-  img(f1, 'Render di scala scultorea, progetto dello studio', 'h-[42vh] md:h-[46vh]'),
-  text('nasce da una visione,', 'ms-muted'),
-  phase('01', 'Progetto architettonico'),
-  svg(),
-  text('supera la burocrazia col', 'ms-muted'),
-  phase('02', 'Progetto amministrativo e burocratico'),
-  img(f2, 'Villa con archi immersa nel verde', 'h-[38vh] md:h-[44vh]'),
-  text('si fa dettaglio nel', 'ms-muted'),
+  img(M['01'], 'Pianta', 'h-[40vh] md:h-[46vh]', true),
+  text('nasce su carta,'),
+  phase('01', 'Progetto architettonico e di interni'),
+  img(X['01'], 'Modello 3D', 'h-[38vh] md:h-[44vh]'),
+  text('ottiene i permessi col'),
+  phase('02', 'Progetto amministrativo'),
+  img(M['02'], 'Sezione', 'h-[42vh] md:h-[48vh]', true),
+  text('si fa dettaglio nel'),
   phase('03', 'Progetto esecutivo'),
-  img(f3, 'Interni con travi a vista in legno', 'h-[46vh] md:h-[52vh]'),
-  text('prende misura nei', 'ms-muted'),
-  phase('04', 'Preventivi'),
-  img(f4, 'Veduta aerea di una struttura ricettiva sulla costa', 'h-[40vh] md:h-[46vh]'),
-  svg(),
-  text('si costruisce sotto la', 'ms-muted'),
+  img(M['03'], 'Dettaglio costruttivo', 'h-[42vh] md:h-[48vh]', true),
+  text('trova il suo costo nella'),
+  phase('04', 'Preventivazione'),
+  img(M['04'], 'Prima dei lavori', 'h-[38vh] md:h-[44vh]'),
+  { kind: 'svg' },
+  text('si costruisce con la'),
   phase('05', 'Direzione lavori'),
-  img(f5, 'Cantiere e lavorazioni in corso', 'h-[40vh] md:h-[44vh]'),
-  text('e diventa realtà a', 'ms-muted'),
+  img(M['05'], 'Cantiere', 'h-[40vh] md:h-[46vh]'),
+  img(X['05'], 'Cantiere, interni', 'h-[44vh] md:h-[50vh]'),
+  text('e diventa realtà con la'),
   phase('06', 'Fine lavori.'),
-  img(f6, 'Spazio residenziale finito e vissuto', 'h-[44vh] md:h-[50vh]'),
-];
+  img(M['06'], 'Opera finita', 'h-[46vh] md:h-[54vh]'),
+  img(X['06'], 'Opera finita', 'h-[40vh] md:h-[46vh]'),
+].filter((t) => t.kind !== 'img' || (t as { src?: unknown }).src);
 ---
 
 <section class="method-scroll relative bg-bg text-ink" data-method-scroll aria-label="Le 6 fasi del progetto">
   <div class="ms-pin h-[100svh] flex items-center overflow-x-auto overflow-y-hidden [scrollbar-width:none]" data-pin>
     <div class="ms-track flex items-center gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track>
 
-      <!-- apertura: titolo come inizio della frase -->
-      <div class="shrink-0 pr-[3vw]">
+      <div class="shrink-0 pr-[3vw] max-w-[36rem]">
         <p class="u-eyebrow mb-4">Metodo</p>
         <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,8vw,7rem)]">Le 6 fasi<br />del progetto</h2>
+        {nomeProgetto && <p class="mt-6 text-sm text-muted leading-relaxed whitespace-normal">Un progetto vero, dal disegno all'opera finita:<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
       </div>
 
       {flow.map((it) => (
@@ -57,29 +62,33 @@ const flow = [
         ) : it.kind === 'phase' ? (
           <span class="ms-phase shrink-0 flex flex-col leading-none">
             <span class="font-display text-[clamp(3.5rem,11vw,9rem)] text-muted/45">{it.n}</span>
-            <span class="font-sans font-extrabold uppercase tracking-tight text-[clamp(1rem,2.4vw,2rem)] mt-2 whitespace-nowrap">{it.t}</span>
+            <span class="font-sans font-extrabold uppercase tracking-tight text-[clamp(1rem,2.2vw,1.9rem)] mt-2 whitespace-nowrap">{it.t}</span>
           </span>
         ) : it.kind === 'img' ? (
-          <span class:list={['ms-shot shrink-0 block overflow-hidden bg-surface', it.h]}>
-            <Image src={it.src} alt={it.alt} widths={[500, 800, 1100]} sizes="60vw" class="h-full w-auto max-w-none object-cover" />
-          </span>
+          <figure class="shrink-0 flex flex-col">
+            <span class:list={['ms-shot block overflow-hidden', it.h, it.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
+              <Image src={it.src} alt={it.alt} widths={[500, 800, 1100]} sizes="60vw" class:list={['h-full w-auto max-w-none', it.drawing ? 'object-contain' : 'object-cover']} />
+            </span>
+            <figcaption class="mt-3 text-[0.68rem] uppercase tracking-[0.18em] text-muted">{it.cap}</figcaption>
+          </figure>
         ) : (
           <span class="ms-svgwrap shrink-0 text-ink/70" set:html={curve}></span>
         )
       ))}
 
-      <!-- chiusura: CTA -->
-      <a href="/fasi-del-progetto/" class="ms-cta shrink-0 inline-flex items-center gap-3 whitespace-nowrap font-sans font-extrabold uppercase tracking-tight text-[clamp(1.4rem,3vw,2.6rem)] group">
-        Come lavoriamo
-        <span class="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-ink group-hover:bg-ink group-hover:text-bg transition-colors">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M7 17 17 7M9 7h8v8"/></svg>
-        </span>
-      </a>
+      <div class="shrink-0 flex flex-col gap-5">
+        <a href="/fasi-del-progetto/" class="inline-flex items-center gap-3 whitespace-nowrap font-sans font-extrabold uppercase tracking-tight text-[clamp(1.4rem,3vw,2.6rem)] group">
+          Come lavoriamo
+          <span class="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-ink group-hover:bg-ink group-hover:text-bg transition-colors">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </a>
+        <a href={`/progetti/${metodoProgetto}/`} class="u-underline w-fit text-sm text-muted hover:text-ink">Guarda il progetto completo</a>
+      </div>
 
     </div>
   </div>
 
-  <!-- barra di avanzamento -->
   <div class="ms-progress absolute bottom-6 left-[8vw] right-[8vw] h-px bg-line">
     <span class="block h-full bg-ink w-0" data-progress></span>
   </div>
@@ -99,13 +108,8 @@ const flow = [
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 1024;
     const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-
     const pinWrap = section.querySelector<HTMLElement>('[data-pin]');
-    if (reduce || isMobile || distance() <= 0) {
-      // mobile / reduced-motion: nessun pin, striscia orizzontale con swipe nativo
-      return;
-    }
-    // desktop: GSAP gestisce il movimento, disabilita lo scroll manuale
+    if (reduce || isMobile || distance() <= 0) return; // mobile: swipe nativo, nessun pin
     if (pinWrap) pinWrap.style.overflowX = 'hidden';
 
     gsap.to(track, {
@@ -124,18 +128,14 @@ const flow = [
     });
   };
 
-  // attende il caricamento dei font/immagini per misure corrette
   if (document.readyState === 'complete') setup();
   else window.addEventListener('load', setup);
-  document.addEventListener('astro:after-swap', () => { ScrollTrigger.getAll().forEach((t) => t.kill()); setup(); });
 </script>
 
 <style>
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: clamp(2rem, 5.5vw, 5rem); line-height: 0.9; }
   .ms-muted { font-family: var(--font-display); font-style: italic; color: var(--color-muted); font-size: clamp(1.3rem, 3.2vw, 3rem); line-height: 1; }
   .ms-svgwrap :global(.ms-curve) { width: clamp(70px, 9vw, 140px); height: auto; }
-  .ms-shot img { transition: filter 0.6s var(--ease-out-expo); }
   .ms-pin::-webkit-scrollbar { display: none; }
-  /* leggibilità pin su iOS: evita che la sezione superi la viewport */
   .method-scroll { isolation: isolate; }
 </style>

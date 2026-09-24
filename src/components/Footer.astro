@@ -51,8 +51,10 @@ const year = new Date().getFullYear();
       <address class="not-italic text-sm leading-relaxed space-y-3">
         <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
         <p>
-          <a href={`mailto:${site.email}`} class="u-underline block">{site.email}</a>
-          <a href={`tel:${site.phoneHref}`} class="u-underline block">{site.phone}</a>
+          <a href={`mailto:${site.email}`} class="u-underline block w-fit">{site.email}</a>
+          <a href={`tel:${site.phoneOfficeHref}`} class="u-underline block w-fit">Tel. {site.phoneOffice}</a>
+          <a href={`tel:${site.phoneHref}`} class="u-underline block w-fit">Cell. {site.phone}</a>
+          <a href={`mailto:${site.pec}`} class="u-underline block w-fit">PEC {site.pec}</a>
         </p>
       </address>
     </div>
@@ -69,7 +71,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="u-container py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-cream/45">
-    <p>© {year} {site.legalName}</p>
+    <p>© {year} {site.legalName} · P.IVA {site.piva} · {site.ordine}</p>
     <div class="flex gap-5">
       <a href="/privacy/" class="u-underline">Privacy</a>
       <a href="/cookie/" class="u-underline">Cookie</a>

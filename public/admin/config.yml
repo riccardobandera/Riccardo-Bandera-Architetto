@@ -1,0 +1,231 @@
+# Pannello contenuti del sito (Sveltia CMS, compatibile Decap)
+# Ogni salvataggio crea un commit su GitHub e Netlify ripubblica il sito in 1-2 minuti.
+backend:
+  name: github
+  repo: bdmediamain-maker/Riccardo-Bandera-Architetto
+  branch: main
+  # accesso con GitHub tramite il provider OAuth di Netlify
+  base_url: https://api.netlify.com
+  commit_messages:
+    create: 'Nuovo {{collection}}: {{slug}}'
+    update: 'Aggiornato {{collection}}: {{slug}}'
+    delete: 'Eliminato {{collection}}: {{slug}}'
+    uploadMedia: 'Caricata immagine {{path}}'
+    deleteMedia: 'Eliminata immagine {{path}}'
+
+site_url: https://riccardobandera.com
+display_url: https://riccardobandera.com
+logo_url: /favicon-192.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  # ---------------------------------------------------------------- PROGETTI
+  - name: progetti
+    label: Progetti
+    label_singular: Progetto
+    description: "Ogni progetto ha la sua cartella con testo e immagini. Le foto caricate qui vengono ottimizzate automaticamente dal sito."
+    folder: src/content/progetti
+    path: '{{slug}}/index'
+    media_folder: ''
+    public_folder: ''
+    create: true
+    slug: '{{titolo}}'
+    identifier_field: titolo
+    summary: '{{titolo}} · {{anno}}'
+    sortable_fields: [titolo, anno]
+    fields:
+      - { label: Titolo, name: titolo, widget: string, hint: "Es. Panificio Moderno in Piazza Lodron a Trento, TN" }
+      - { label: Anno, name: anno, widget: number, value_type: int, required: false }
+      - { label: Luogo, name: luogo, widget: string, required: false, hint: "Es. Trento, TN" }
+      - label: Ambiti
+        name: categorie
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - { label: Residenziale, value: residenziale }
+          - { label: Commerciale, value: commerciale }
+          - { label: Alberghiero, value: alberghiero }
+          - { label: Direzionale, value: direzionale }
+      - label: Materiali principali
+        name: materiali
+        widget: select
+        multiple: true
+        required: false
+        hint: "Il primo e il materiale principale. Servono per il filtro Materiale nella pagina Progetti."
+        options:
+          - { label: Legno, value: legno }
+          - { label: Pietra, value: pietra }
+          - { label: Cemento e resina, value: cemento }
+          - { label: Vetro, value: vetro }
+          - { label: Metallo, value: metallo }
+          - { label: Intonaco, value: intonaco }
+          - { label: Laterizio, value: laterizio }
+          - { label: Paglia e fibre naturali, value: paglia }
+      - label: Posizione sulla mappa
+        name: coordinate
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Latitudine e longitudine (da Google Maps: tasto destro sul punto, poi copia le coordinate)."
+        fields:
+          - { label: Latitudine, name: lat, widget: number, value_type: float }
+          - { label: Longitudine, name: lng, widget: number, value_type: float }
+      - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false }
+      - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
+      - { label: Copertina, name: copertina, widget: image, required: false, hint: "Foto orizzontale, la piu rappresentativa." }
+      - { label: Descrizione copertina (per Google e accessibilita), name: copertinaAlt, widget: string, required: false }
+      - { label: Parole chiave, name: tag, widget: list, required: false, hint: "Es. Abete, Porfido, Bar" }
+      - label: Crediti
+        name: crediti
+        widget: list
+        required: false
+        summary: '{{ruolo}}: {{nome}}'
+        fields:
+          - { label: Ruolo, name: ruolo, widget: string, hint: "Es. Fotografia, Impresa edile, Cliente" }
+          - { label: Nome, name: nome, widget: string }
+      - label: Fotografie
+        name: foto
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { label: Immagine, name: src, widget: image }
+          - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+      - label: Render
+        name: render
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { label: Immagine, name: src, widget: image }
+          - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+      - label: Disegni
+        name: disegni
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { label: Immagine, name: src, widget: image }
+          - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+      - label: Foto di cantiere
+        name: cantiere
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { label: Immagine, name: src, widget: image }
+          - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+      - { label: Codice interno (non mostrato sul sito), name: codice, widget: string, required: false }
+      - { label: Descrizione del progetto, name: body, widget: markdown }
+
+  # ---------------------------------------------------------------- JOURNAL
+  - name: blog
+    label: Journal
+    label_singular: Articolo
+    folder: src/content/blog
+    media_folder: ''
+    public_folder: ''
+    create: true
+    slug: '{{year}}-{{month}}-{{slug}}'
+    summary: '{{title}} · {{date}}'
+    fields:
+      - { label: Titolo, name: title, widget: string }
+      - { label: Data, name: date, widget: datetime, time_format: false, date_format: 'DD/MM/YYYY' }
+      - { label: Sommario, name: excerpt, widget: text, required: false }
+      - { label: Immagine di copertina, name: cover, widget: image, required: false }
+      - { label: Descrizione immagine, name: coverAlt, widget: string, required: false }
+      - { label: Bozza (non pubblicato), name: draft, widget: boolean, default: false, required: false }
+      - { label: Testo, name: body, widget: markdown }
+
+  # ---------------------------------------------------------------- TESTI E RECENSIONI
+  - name: dati
+    label: Testi e recensioni
+    files:
+      - name: recensioni
+        label: Recensioni Google
+        file: src/data/reviews.json
+        fields:
+          - { label: Fonte, name: fonte, widget: string, default: Google }
+          - { label: Valutazione media, name: valutazione, widget: number, value_type: float, min: 1, max: 5, step: 0.1 }
+          - { label: Numero totale di recensioni, name: totale, widget: number, value_type: int }
+          - { label: Link alla scheda recensioni, name: link, widget: string }
+          - label: Recensioni
+            name: recensioni
+            widget: list
+            summary: '{{autore}} · {{stelle}} stelle'
+            fields:
+              - { label: Autore, name: autore, widget: string }
+              - { label: Stelle, name: stelle, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+              - { label: Quando, name: quando, widget: string, required: false }
+              - { label: Testo, name: testo, widget: text }
+
+      - name: testi
+        label: Testi delle pagine
+        file: src/data/testi.json
+        fields:
+          - label: Home
+            name: home
+            widget: object
+            fields:
+              - { label: Titolo principale, name: tagline, widget: text }
+              - { label: Sottotitolo, name: sottotitolo, widget: text }
+              - { label: Citazione (sezione manifesto), name: citazione, widget: text }
+          - label: Lo Studio
+            name: studio
+            widget: object
+            fields:
+              - { label: Titolo, name: titolo, widget: text }
+              - { label: Biografia (un paragrafo per voce), name: bio, widget: list, field: { label: Paragrafo, name: p, widget: text } }
+              - label: Team
+                name: team
+                widget: list
+                summary: '{{name}}'
+                hint: "Le foto del team sono gestite dall'agenzia: scrivici per aggiungere un ritratto."
+                fields:
+                  - { label: Nome, name: name, widget: string }
+                  - { label: Ruolo, name: role, widget: string }
+          - label: Manifesto
+            name: manifesto
+            widget: object
+            fields:
+              - { label: Frase di apertura, name: lead, widget: text }
+              - label: Blocchi
+                name: blocks
+                widget: list
+                summary: '{{h}}'
+                fields:
+                  - { label: Titolo, name: h, widget: string }
+                  - { label: Testo, name: p, widget: text }
+          - label: Fasi del progetto
+            name: fasi
+            widget: object
+            fields:
+              - { label: Introduzione, name: intro, widget: text }
+              - label: Fasi
+                name: elenco
+                widget: list
+                allow_add: false
+                summary: '{{n}} {{title}}'
+                fields:
+                  - { label: Numero, name: n, widget: string }
+                  - { label: Titolo, name: title, widget: string }
+                  - { label: Titolo breve (home), name: short, widget: string }
+                  - { label: Testo, name: body, widget: text }
+          - label: Altre attivita dello studio
+            name: altreAttivita
+            widget: object
+            fields:
+              - { label: Introduzione, name: intro, widget: string }
+              - { label: Voci, name: voci, widget: list, field: { label: Voce, name: v, widget: string } }
+          - label: Ambiti d'intervento
+            name: ambiti
+            widget: list
+            allow_add: false
+            summary: '{{label}}'
+            fields:
+              - { label: Chiave (non modificare), name: key, widget: string }
+              - { label: Nome, name: label, widget: string }
+              - { label: Descrizione, name: desc, widget: string }

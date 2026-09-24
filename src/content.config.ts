@@ -1,8 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Blog / Journal - pronto per il CMS (Decap/MD). Nessun contenuto placeholder:
-// il cliente aggiunge articoli reali in src/content/blog/*.md
+// Blog / Journal - pronto per il CMS. Il cliente aggiunge articoli in src/content/blog/*.md
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: ({ image }) =>
@@ -16,4 +15,36 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+// Progetti: una cartella per progetto (index.md + immagini), modificabile dal CMS
+const immagini = (image: () => z.ZodTypeAny) =>
+  z.array(z.object({ src: image(), alt: z.string().optional() })).default([]);
+
+const progetti = defineCollection({
+  loader: glob({
+    pattern: '**/index.md',
+    base: './src/content/progetti',
+    generateId: ({ entry }) => entry.replace(/\/index\.md$/, ''),
+  }),
+  schema: ({ image }) =>
+    z.object({
+      titolo: z.string(),
+      codice: z.string().optional(), // interno: non mostrato sul sito
+      anno: z.number().int().optional(),
+      luogo: z.string().optional(),
+      categorie: z.array(z.enum(['residenziale', 'commerciale', 'alberghiero', 'direzionale'])).default([]),
+      materiali: z.array(z.enum(['legno', 'pietra', 'cemento', 'vetro', 'metallo', 'intonaco', 'laterizio', 'paglia'])).default([]),
+      coordinate: z.object({ lat: z.number(), lng: z.number() }).optional(),
+      evidenza: z.boolean().default(false),
+      bozza: z.boolean().default(false),
+      copertina: image().optional(),
+      copertinaAlt: z.string().optional(),
+      tag: z.array(z.string()).default([]),
+      crediti: z.array(z.object({ ruolo: z.string(), nome: z.string() })).default([]),
+      foto: immagini(image),
+      render: immagini(image),
+      disegni: immagini(image),
+      cantiere: immagini(image),
+    }),
+});
+
+export const collections = { blog, progetti };

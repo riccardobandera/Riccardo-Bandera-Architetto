@@ -1,31 +1,43 @@
 ---
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import ProcessScroll from '../components/ProcessScroll.astro';
-import Button from '../components/Button.astro';
-import { featured, byCategory } from '../data/projects';
-import { site, manifestoQuote, ambiti } from '../data/site';
-import hero1 from '../images/projects/polsa-20-scaled.webp';
-import hero2 from '../images/projects/KonoKono-2017-KDBP-122_02.jpeg';
-import hero3 from '../images/projects/A-09.webp';
-import hero4 from '../images/projects/IMG_20230530_113044263.webp';
+import { Image, getImage } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ProcessScroll from "../components/ProcessScroll.astro";
+import Reviews from "../components/Reviews.astro";
+import Button from "../components/Button.astro";
+import { getInEvidenza, getProgetto, coverOf } from "../data/projects";
+import { heroImages } from "../data/curated";
+import { site, manifestoQuote, ambiti, homeTesti } from "../data/site";
 
-// hero a rotazione: scatti reali ad alta risoluzione, crossfade lento
-const heroSlides = [
-  { img: hero1, alt: 'Ristorante alpino in legno a Polsa di Brentonico, progetto dello studio' },
-  { img: hero2, alt: 'Boutique hotel sulla spiaggia a Zanzibar, veduta aerea' },
-  { img: hero3, alt: 'Villa con archi e copertura in coppi immersa nel verde' },
-  { img: hero4, alt: 'Interni residenziali con travi a vista in legno' },
-];
+// hero: 10 foto reali, scelte e alternate a caso nel browser
+const heroSlides = await Promise.all(
+  heroImages.map(async (h) => {
+    const img = await getImage({ src: h.src, widths: [800, 1280, 1920], format: "webp" });
+    const p = await getProgetto(h.slug);
+    return { src: img.src, srcset: img.srcSet.attribute, alt: p ? `${p.data.titolo}, progetto di Riccardo Bandera Architetto` : "Progetto di Riccardo Bandera Architetto" };
+  }),
+);
+const noscriptImg = heroSlides[0];
 
-// immagini per la sezione manifesto (due scatti reali)
-const mA = featured[0]?.gallery[1]?.image ?? featured[0]?.cover;
-const mB = featured[1]?.gallery[1]?.image ?? featured[1]?.cover;
+const featured = await getInEvidenza(6);
+// immagini per la sezione manifesto (due scatti reali dei progetti in evidenza)
+const mA = featured[0]?.data.foto[1]?.src ?? (featured[0] ? coverOf(featured[0])?.src : undefined);
+const mB = featured[1]?.data.foto[1]?.src ?? (featured[1] ? coverOf(featured[1])?.src : undefined);
 
-const ambitiCards = ambiti
-  .map((a) => ({ ...a, cover: byCategory(a.key)[0]?.cover, alt: byCategory(a.key)[0]?.name }))
-  .filter((a) => a.cover);
+// copertine per gli ambiti: un progetto rappresentativo per ciascuno
+const AMBITO_COVER: Record<string, string> = {
+  residenziale: "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr",
+  commerciale: "pmt-panificio-moderno-in-piazza-lodron-bar-e-ristorazione-in-centro-a-trento-tn",
+  alberghiero: "chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn",
+  direzionale: "mhq-nuovo-headquarter-manica-s-p-a-a-rovereto-tn",
+};
+const ambitiCards = (await Promise.all(
+  ambiti.map(async (a) => {
+    const p = await getProgetto(AMBITO_COVER[a.key]);
+    const c = p ? coverOf(p) : null;
+    return { ...a, cover: c?.src, alt: c?.alt ?? a.label };
+  }),
+)).filter((a) => a.cover);
 ---
 
 <BaseLayout navMode="light" title={undefined}>
@@ -33,26 +45,22 @@ const ambitiCards = ambiti
   <section class="hero relative min-h-[100svh] flex items-end overflow-hidden bg-ink text-cream">
     <div class="hero-media absolute inset-0" data-hero-media>
       <div class="absolute inset-0" data-hero-slides>
-        {heroSlides.map((s, i) => (
-          <Image
-            src={s.img}
-            alt={i === 0 ? s.alt : ''}
-            widths={[768, 1280, 1920, 2560]}
-            sizes="100vw"
-            loading={i === 0 ? 'eager' : 'lazy'}
-            fetchpriority={i === 0 ? 'high' : 'auto'}
-            data-idx={i}
-            class:list={['hero-slide absolute inset-0 w-full h-full object-cover', i === 0 && 'is-active']}
-          />
+        {heroSlides.map((s) => (
+          <img class="hero-slide absolute inset-0 w-full h-full object-cover" data-src={s.src} data-srcset={s.srcset} sizes="100vw" alt={s.alt} decoding="async" />
         ))}
+        <script is:inline>
+          (function () {
+            var s = document.querySelectorAll(".hero-slide");
+            if (!s.length) return;
+            var r = Math.floor(Math.random() * s.length), el = s[r];
+            el.setAttribute("fetchpriority", "high");
+            el.srcset = el.getAttribute("data-srcset"); el.src = el.getAttribute("data-src");
+            el.classList.add("is-active"); window.__heroStart = r;
+          })();
+        </script>
+        <noscript><img class="absolute inset-0 w-full h-full object-cover" src={noscriptImg.src} srcset={noscriptImg.srcset} sizes="100vw" alt={noscriptImg.alt} /></noscript>
       </div>
       <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/40"></div>
-    </div>
-
-    <div class="absolute bottom-6 right-6 z-10 flex gap-2" data-hero-dots>
-      {heroSlides.map((_, i) => (
-        <button class:list={['hero-dot w-2 h-2 rounded-full transition-all duration-500', i === 0 ? 'bg-cream w-5' : 'bg-cream/40']} data-dot={i} aria-label={`Vai alla foto ${i + 1}`}></button>
-      ))}
     </div>
 
     <div class="u-container relative pb-16 md:pb-24 pt-32 w-full" data-hero-content>
@@ -62,12 +70,9 @@ const ambitiCards = ambiti
       </h1>
       <div class="mt-9 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
         <Button href="/progetti/" variant="onDark" arrow>Scopri i progetti</Button>
-        <p class="max-w-md text-cream/75 text-[0.98rem] leading-relaxed">
-          Architettura, interni e bioedilizia in legno tra Veneto, Trentino e oltre.
-        </p>
+        <p class="max-w-md text-cream/75 text-[0.98rem] leading-relaxed">{homeTesti.sottotitolo}</p>
       </div>
     </div>
-
   </section>
 
   <!-- ============ MANIFESTO QUOTE ============ -->
@@ -103,7 +108,7 @@ const ambitiCards = ambiti
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {ambitiCards.map((a, i) => (
-          <a href={`/progetti/#${a.key}`} class="group relative overflow-hidden aspect-[3/4] bg-white/5 reveal" data-reveal-delay={(i % 4) + 1}>
+          <a href={`/progetti/?ambito=${a.key}`} class="group relative overflow-hidden aspect-[3/4] bg-white/5 reveal" data-reveal-delay={(i % 4) + 1}>
             {a.cover && (
               <Image src={a.cover} alt={a.alt ?? a.label} widths={[300, 500, 700]} sizes="(max-width:1024px) 46vw, 24vw"
                 class="w-full h-full object-cover grayscale opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.04]" />
@@ -133,27 +138,37 @@ const ambitiCards = ambiti
     </div>
   </section>
 
-  <script>
-    // ---- crossfade slideshow (~5s per foto, dissolvenza lenta) ----
-    const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
-    const dots = Array.from(document.querySelectorAll<HTMLElement>('.hero-dot'));
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  <!-- ============ RECENSIONI ============ -->
+  <Reviews />
+<script>
+    // ---- hero: foto in ordine casuale, crossfade lento ----
+    const slides = Array.from(document.querySelectorAll<HTMLImageElement>(".hero-slide"));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const load = (el: HTMLImageElement) => {
+      if (!el.getAttribute("src")) { el.srcset = el.dataset.srcset || ""; el.src = el.dataset.src || ""; }
+      return el.decode().catch(() => {});
+    };
     if (slides.length > 1 && !reduceMotion) {
-      let cur = 0;
-      let timer: number | undefined;
-      const show = (n: number) => {
-        cur = (n + slides.length) % slides.length;
-        slides.forEach((s, i) => s.classList.toggle('is-active', i === cur));
-        dots.forEach((d, i) => {
-          d.classList.toggle('bg-cream', i === cur);
-          d.classList.toggle('w-5', i === cur);
-          d.classList.toggle('bg-cream/40', i !== cur);
-        });
+      let cur = (window as unknown as { __heroStart?: number }).__heroStart ?? 0;
+      const pickNext = () => { let n = cur; while (n === cur) n = Math.floor(Math.random() * slides.length); return n; };
+      let next = pickNext();
+      // precarica la prossima dopo che la prima e stata mostrata
+      window.addEventListener("load", () => setTimeout(() => load(slides[next]), 1200), { once: true });
+      const step = async () => {
+        await load(slides[next]);
+        slides[cur].classList.remove("is-active");
+        slides[next].classList.add("is-active");
+        cur = next;
+        next = pickNext();
+        setTimeout(() => load(slides[next]), 2500);
       };
-      const start = () => { timer = window.setInterval(() => show(cur + 1), 5000); };
-      const reset = () => { if (timer) clearInterval(timer); start(); };
-      dots.forEach((d, i) => d.addEventListener('click', () => { show(i); reset(); }));
-      start();
+      let timer = window.setInterval(step, 5000);
+      // pausa quando la scheda non e visibile (niente lavoro inutile)
+      document.addEventListener("visibilitychange", () => {
+        clearInterval(timer);
+        if (!document.hidden) timer = window.setInterval(step, 5000);
+      });
     }
 
     // scroll-linked hero: zoom contenuto sulla foto (1 -> 1.08), lieve rientro del contenuto

@@ -1,88 +1,136 @@
 ---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Gallery from '../../components/Gallery.astro';
 import Button from '../../components/Button.astro';
-import { projects, adjacent, catLabels } from '../../data/projects';
+import { getProgetti, adjacent, catLabels, matLabels, coverOf, type Progetto } from '../../data/projects';
 import { site } from '../../data/site';
 
-export function getStaticPaths() {
-  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+export async function getStaticPaths() {
+  const all = await getProgetti();
+  return all.map((p) => ({ params: { slug: p.id }, props: { project: p } }));
 }
 
-const { project } = Astro.props;
-const nav = adjacent(project.slug);
-const cats = project.categories.map((c) => catLabels[c]).filter(Boolean);
+const { project } = Astro.props as { project: Progetto };
+const d = project.data;
+const { Content } = await render(project);
+const nav = await adjacent(project.id);
+const cover = coverOf(project);
+const cats = d.categorie.map((c) => catLabels[c]);
+const mats = d.materiali.map((m) => matLabels[m]);
+
+const sezioni = [
+  { key: 'foto', titolo: 'Fotografie', items: d.foto, variant: 'foto' as const },
+  { key: 'render', titolo: 'Render', items: d.render, variant: 'foto' as const },
+  { key: 'disegni', titolo: 'Disegni', items: d.disegni, variant: 'disegni' as const },
+  { key: 'cantiere', titolo: 'Cantiere', items: d.cantiere, variant: 'foto' as const },
+].filter((s) => s.items.length);
+
+// SEO: descrizione dal testo del progetto
+const plain = (project.body ?? '').replace(/\s+/g, ' ').trim();
+const desc = (plain.length > 20 ? plain.slice(0, 152).replace(/\s\S*$/, '') + '…' : `${d.titolo}. Progetto di Riccardo Bandera Architetto.`);
+const ogImg = cover ? await getImage({ src: cover.src, width: 1200, format: 'jpg' }) : null;
+const imgs = await Promise.all([...d.foto, ...d.render].slice(0, 8).map((i) => getImage({ src: i.src, width: 1200, format: 'jpg' })));
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
-  name: project.name,
-  creator: { '@type': 'Person', name: site.legalName },
-  ...(project.location ? { locationCreated: project.location } : {}),
-  ...(project.cover ? { image: new URL(project.cover.src, site.url).href } : {}),
+  '@id': new URL(`/progetti/${project.id}/`, site.url).href,
+  name: d.titolo,
+  headline: d.titolo,
+  description: plain.slice(0, 500) || d.titolo,
+  url: new URL(`/progetti/${project.id}/`, site.url).href,
+  inLanguage: 'it-IT',
+  ...(d.anno ? { dateCreated: String(d.anno) } : {}),
+  creator: { '@type': 'Person', name: 'Riccardo Bandera', jobTitle: 'Architetto', worksFor: { '@type': 'LocalBusiness', name: site.legalName, url: site.url } },
+  author: { '@type': 'Organization', name: site.legalName, url: site.url },
+  ...(d.luogo ? { locationCreated: { '@type': 'Place', name: d.luogo, ...(d.coordinate ? { geo: { '@type': 'GeoCoordinates', latitude: d.coordinate.lat, longitude: d.coordinate.lng } } : {}) } } : {}),
+  keywords: [...d.tag, ...cats, ...mats, 'architetto', 'Riccardo Bandera'].join(', '),
+  image: imgs.map((i) => new URL(i.src, site.url).href),
+  genre: cats.join(', '),
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Progetti', item: new URL('/progetti/', site.url).href },
+    { '@type': 'ListItem', position: 2, name: d.titolo, item: new URL(`/progetti/${project.id}/`, site.url).href },
+  ],
 };
 ---
-<BaseLayout title={project.name} description={`${project.name}${project.location ? ', ' + project.location : ''}. Progetto dello studio Riccardo Bandera Architetto.`} type="article" jsonLd={jsonLd}>
-  <div data-project-modal data-slug={project.slug}>
-  <!-- breadcrumb + header -->
-  <section class="u-container pt-32 md:pt-40 pb-10">
-    <nav class="text-xs text-muted tracking-[0.12em] uppercase mb-8 flex items-center gap-2 reveal" aria-label="Breadcrumb">
-      <a href="/progetti/" class="u-underline">Progetti</a>
-      <span>/</span>
-      <span class="text-ink">{project.code ?? project.name}</span>
-    </nav>
-
-    <div class="grid lg:grid-cols-12 gap-8 items-end">
-      <div class="lg:col-span-8">
-        {project.code && <span class="font-display text-2xl text-muted/60 block mb-3 reveal">{project.code}</span>}
-        <h1 class="text-[clamp(2rem,5.5vw,4.2rem)] font-extrabold tracking-tight leading-[1.0] reveal">{project.name}</h1>
+<BaseLayout title={`${d.titolo}`} description={desc} image={ogImg?.src} type="article" jsonLd={[jsonLd, breadcrumbLd]}>
+  <div data-project-modal data-slug={project.id}>
+    <!-- intestazione -->
+    <section class="u-container pt-32 md:pt-40 pb-8">
+      <nav class="text-xs text-muted tracking-[0.12em] uppercase mb-8 flex flex-wrap items-center gap-2 reveal" aria-label="Percorso">
+        <a href="/progetti/" class="u-underline">Progetti</a>
+        {cats[0] && <><span>/</span><a href={`/progetti/?ambito=${d.categorie[0]}`} class="u-underline">{cats[0]}</a></>}
+      </nav>
+      <h1 class="text-[clamp(1.9rem,5vw,4rem)] font-extrabold tracking-tight leading-[1.02] max-w-[22ch] reveal">{d.titolo}</h1>
+      <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.75rem] uppercase tracking-[0.14em] text-muted reveal">
+        {d.luogo && <span>{d.luogo}</span>}
+        {d.anno && <span>{d.anno}</span>}
+        {cats.length > 0 && <span>{cats.join(', ')}</span>}
       </div>
-      <div class="lg:col-span-4 lg:text-right">
-        <dl class="inline-grid grid-cols-2 lg:block gap-x-8 gap-y-3 text-sm reveal">
-          {cats.length > 0 && (
-            <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
-              <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Ambito</dt>
-              <dd class="font-medium">{cats.join(', ')}</dd>
-            </div>
-          )}
-          {project.location && (
-            <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
-              <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Luogo</dt>
-              <dd class="font-medium">{project.location}</dd>
-            </div>
-          )}
-          <div class="lg:flex lg:justify-between lg:gap-6 lg:py-2 lg:border-b lg:border-line">
-            <dt class="text-muted uppercase tracking-[0.12em] text-[0.7rem]">Studio</dt>
-            <dd class="font-medium">{site.legalName}</dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- gallery -->
-  <section class="u-container pb-[var(--spacing-section)]">
-    <Gallery images={project.gallery} id={`g-${project.slug}`} />
-  </section>
+    {cover && (
+      <section class="u-container pb-12">
+        <Image src={cover.src} alt={cover.alt} widths={[768, 1280, 1920]} sizes="(max-width: 1400px) 94vw, 1300px" loading="eager" fetchpriority="high" class="w-full max-h-[78vh] object-cover" />
+      </section>
+    )}
+
+    <!-- testo + scheda -->
+    <section class="u-container pb-16 md:pb-24">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-7">
+          <div class="prose-progetto reveal"><Content /></div>
+          {d.tag.length > 0 && (
+            <ul class="mt-10 flex flex-wrap gap-2" aria-label="Tag">
+              {d.tag.map((t) => <li class="text-[0.7rem] uppercase tracking-[0.12em] text-muted border border-line rounded-full px-3 py-1.5">{t}</li>)}
+            </ul>
+          )}
+        </div>
+        <aside class="lg:col-span-5">
+          <dl class="scheda text-sm reveal">
+            {d.luogo && <div><dt>Luogo</dt><dd>{d.luogo}</dd></div>}
+            {d.anno && <div><dt>Anno</dt><dd>{d.anno}</dd></div>}
+            {cats.length > 0 && <div><dt>Ambito</dt><dd>{cats.join(', ')}</dd></div>}
+            {mats.length > 0 && <div><dt>Materiali</dt><dd>{mats.join(', ')}</dd></div>}
+            {d.crediti.map((c) => <div><dt>{c.ruolo}</dt><dd>{c.nome}</dd></div>)}
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- gallerie -->
+    {sezioni.map((s, idx) => (
+      <section class="u-container pb-16 md:pb-24">
+        <div class="flex items-baseline justify-between border-t border-line pt-6 mb-8">
+          <h2 class="text-[clamp(1.3rem,2.6vw,1.9rem)] font-bold tracking-tight">{s.titolo}</h2>
+          <span class="u-eyebrow">{s.items.length} {s.items.length === 1 ? 'immagine' : 'immagini'}</span>
+        </div>
+        <Gallery images={s.items} id={`g-${s.key}-${project.id}`} variant={s.variant} eagerFirst={idx === 0 && !cover} />
+      </section>
+    ))}
   </div>
 
-  <!-- prev / next -->
   {nav && (
     <section class="border-t border-line">
       <div class="u-container grid grid-cols-2">
-        <a href={`/progetti/${nav.prev.slug}/`} class="group py-10 md:py-14 pr-4">
+        <a href={`/progetti/${nav.prev.id}/`} class="group py-10 md:py-14 pr-4">
           <span class="u-eyebrow flex items-center gap-2 mb-3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg> Precedente</span>
-          <span class="block text-lg md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.prev.name}</span>
+          <span class="block text-base md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.prev.data.titolo}</span>
         </a>
-        <a href={`/progetti/${nav.next.slug}/`} class="group py-10 md:py-14 pl-4 text-right border-l border-line">
+        <a href={`/progetti/${nav.next.id}/`} class="group py-10 md:py-14 pl-4 text-right border-l border-line">
           <span class="u-eyebrow flex items-center justify-end gap-2 mb-3">Successivo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
-          <span class="block text-lg md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.next.name}</span>
+          <span class="block text-base md:text-2xl font-bold tracking-tight group-hover:opacity-60 transition-opacity">{nav.next.data.titolo}</span>
         </a>
       </div>
     </section>
   )}
 
-  <!-- CTA -->
   <section class="bg-surface">
     <div class="u-container py-16 md:py-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
       <h2 class="text-[clamp(1.4rem,3.5vw,2.2rem)] font-bold tracking-tight max-w-xl">Hai un progetto simile in mente?</h2>
@@ -90,3 +138,14 @@ const jsonLd = {
     </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  .prose-progetto { font-size: 1.05rem; line-height: 1.8; color: color-mix(in srgb, var(--color-ink) 88%, transparent); }
+  .prose-progetto p { margin: 0 0 1.15rem; }
+  .prose-progetto p:first-child { font-size: 1.2rem; line-height: 1.6; color: var(--color-ink); }
+  .scheda > div { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--color-line); }
+  .scheda > div:last-child { border-bottom: 1px solid var(--color-line); }
+  .scheda dt { color: var(--color-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding-top: 0.15rem; }
+  .scheda dd { font-weight: 500; }
+  @media (max-width: 640px) { .scheda > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+</style>

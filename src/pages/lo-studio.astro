@@ -2,31 +2,28 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
-import { studioBio, team, site } from '../data/site';
-import { byCategory, featured } from '../data/projects';
+import { studioBio, team, studioTitolo } from '../data/site';
 
 // ritratti reali del team (nell'ordine della sezione originale)
-import pRiccardo from '../images/projects/RB_Front-800x1000.png';
-import pAldo from '../images/projects/Adobe-Express-file-768x960.png';
-import pThomas from '../images/projects/Adobe-Express-file-3-800x1000.png';
-import pMarco from '../images/projects/Adobe-Express-file-2-800x1000.png';
+import pRiccardo from '../images/team/RB_Front-800x1000.png';
+import pAldo from '../images/team/Adobe-Express-file-768x960.png';
+import pThomas from '../images/team/Adobe-Express-file-3-800x1000.png';
+import pMarco from '../images/team/Adobe-Express-file-2-800x1000.png';
 const portraits = [pRiccardo, pAldo, pThomas, pMarco];
 const teamWithPhotos = team.map((m, i) => ({ ...m, photo: portraits[i] }));
 
-const portrait = byCategory('residenziale')[0]?.gallery[0]?.image ?? featured[0]?.cover;
+import portrait from '../images/team/riccardo-bandera-architetto.webp';
 ---
 <BaseLayout title="Lo Studio" description="Riccardo Bandera, architetto a Mestre dal 2014: un metodo che connette immaginato e costruito, dalla fase creativa alla realizzazione.">
   <section class="u-container pt-36 md:pt-44 pb-16">
     <p class="u-eyebrow mb-6 reveal">Lo Studio</p>
-    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[15ch] reveal">
-      La progettazione come connessione tra immaginato e costruito.
-    </h1>
+    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[15ch] reveal">{studioTitolo}</h1>
   </section>
 
   <section class="u-container pb-[var(--spacing-section)]">
     <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
       <div class="lg:col-span-5 reveal">
-        {portrait && <Image src={portrait} alt="Un progetto dello studio Riccardo Bandera" widths={[500, 800, 1000]} sizes="(max-width:1024px) 100vw, 40vw" class="w-full aspect-[4/5] object-cover" />}
+        {portrait && <Image src={portrait} alt="Ritratto dell'architetto Riccardo Bandera" widths={[500, 800, 1000]} sizes="(max-width:1024px) 100vw, 40vw" class="w-full aspect-[4/5] object-cover" />}
       </div>
       <div class="lg:col-span-7 lg:pt-6">
         <div class="space-y-6 text-[1.08rem] leading-relaxed text-ink/90 max-w-2xl">
@@ -51,6 +48,7 @@ const portrait = byCategory('residenziale')[0]?.gallery[0]?.image ?? featured[0]
         {teamWithPhotos.map((m, i) => (
           <figure class="team-card group reveal" data-reveal-delay={(i % 4) + 1}>
             <div class="relative overflow-hidden bg-bg aspect-[4/5]">
+              {m.photo ? (
               <Image
                 src={m.photo}
                 alt={`Ritratto di ${m.name}`}
@@ -58,6 +56,9 @@ const portrait = byCategory('residenziale')[0]?.gallery[0]?.image ?? featured[0]
                 sizes="(max-width:1024px) 46vw, 22vw"
                 class="w-full h-full object-cover object-top grayscale opacity-95 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.04]"
               />
+              ) : (
+              <span class="absolute inset-0 grid place-items-center font-display text-5xl text-muted/60">{m.name.replace(/^arch.s*/i, "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span>
+              )}
               <span class="absolute top-3 left-3 font-display text-xl text-white mix-blend-difference">{String(i + 1).padStart(2, '0')}</span>
             </div>
             <figcaption class="pt-3">

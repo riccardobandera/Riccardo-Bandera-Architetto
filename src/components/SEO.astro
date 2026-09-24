@@ -39,7 +39,13 @@ const businessLd = {
     addressRegion: site.address.region,
     addressCountry: site.address.country,
   },
-  sameAs: [site.social.facebook, site.social.instagram, site.social.linkedin],
+  sameAs: [site.social.facebook, site.social.instagram, site.social.linkedin, site.googleMaps],
+  vatID: `IT${site.piva}`,
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  hasMap: site.googleMaps,
+  founder: { '@type': 'Person', name: 'Riccardo Bandera', jobTitle: 'Architetto', hasCredential: site.ordine },
+  knowsAbout: ['architettura', 'interior design', 'bioedilizia', 'case in legno', 'Xlam', 'ristrutturazioni', 'hotel', 'panifici', 'bar e ristoranti', 'uffici'],
+  areaServed: ['Venezia', 'Veneto', 'Trentino', 'Emilia-Romagna', 'Zanzibar'],
 };
 
 const graphs = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];

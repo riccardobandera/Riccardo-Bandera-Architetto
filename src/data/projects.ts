@@ -1,120 +1,79 @@
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
-import raw from './content.raw.json';
 
-// Mappa basename -> ImageMetadata (astro:assets ottimizza AVIF/WebP responsive)
-const files = import.meta.glob<{ default: ImageMetadata }>(
-  '../images/projects/*.{jpg,jpeg,png,webp,avif,gif,JPG,JPEG,PNG,WEBP}',
-  { eager: true },
-);
-const imgByName = new Map<string, ImageMetadata>();
-for (const [path, mod] of Object.entries(files)) {
-  const base = path.split('/').pop()!;
-  imgByName.set(base, mod.default);
-}
-const resolve = (local: string | null | undefined): ImageMetadata | undefined => {
-  if (!local) return undefined;
-  return imgByName.get(local.split('/').pop()!);
+export type Progetto = CollectionEntry<'progetti'>;
+export type Immagine = { src: ImageMetadata; alt?: string };
+
+export const catLabels: Record<string, string> = {
+  residenziale: 'Residenziale',
+  commerciale: 'Commerciale',
+  alberghiero: 'Alberghiero',
+  direzionale: 'Direzionale',
 };
 
-export type CategoryKey = 'residenziale' | 'commerciale' | 'alberghiero' | 'direzionale';
+export const matLabels: Record<string, string> = {
+  legno: 'Legno',
+  pietra: 'Pietra',
+  cemento: 'Cemento e resina',
+  vetro: 'Vetro',
+  metallo: 'Metallo',
+  intonaco: 'Intonaco',
+  laterizio: 'Laterizio',
+  paglia: 'Paglia e fibre naturali',
+};
 
-export const catLabels: Record<string, string> = raw.catLabels as Record<string, string>;
+let cache: Progetto[] | null = null;
 
-export interface ProjectImage {
-  image: ImageMetadata;
-  alt: string;
-}
-export interface Project {
-  slug: string;
-  code: string | null;
-  title: string;
-  name: string;
-  location: string | null;
-  categories: string[];
-  cover: ImageMetadata | undefined;
-  coverAlt: string;
-  gallery: ProjectImage[];
-}
-
-interface RawProject {
-  slug: string;
-  code: string | null;
-  title: string;
-  name: string;
-  location: string | null;
-  categories: string[];
-  cover: string | null;
-  gallery: { local: string; alt: string; section?: string | null }[];
+/** Tutti i progetti pubblicati: prima i piu recenti, poi in ordine alfabetico. */
+export async function getProgetti(): Promise<Progetto[]> {
+  if (cache) return cache;
+  const all = (await getCollection('progetti')).filter((p) => !p.data.bozza);
+  cache = all.sort((a, b) => (b.data.anno ?? 0) - (a.data.anno ?? 0) || a.data.titolo.localeCompare(b.data.titolo, 'it'));
+  return cache;
 }
 
-function altFor(p: RawProject, given: string, i: number): string {
-  const base = p.name?.replace(/\s+/g, ' ').trim() || p.title;
-  const clean = (given || '').trim();
-  if (clean && !/^(img|dsc|dscf|_dsc|foto|image|photo|screenshot|render)[\s_-]*\d*$/i.test(clean) && clean.length > 3) {
-    return clean;
-  }
-  return i === 0 ? base : `${base}, vista ${i + 1}`;
+export async function getInEvidenza(n = 6): Promise<Progetto[]> {
+  const all = await getProgetti();
+  const top = all.filter((p) => p.data.evidenza);
+  return [...top, ...all.filter((p) => !p.data.evidenza)].slice(0, n);
 }
 
-const all: Project[] = (raw.projects as RawProject[])
-  .map((p) => {
-    const gallery: ProjectImage[] = p.gallery
-      .map((g, i) => {
-        const image = resolve(g.local);
-        return image ? { image, alt: altFor(p, g.alt, i) } : null;
-      })
-      .filter((x): x is ProjectImage => x !== null);
-    const cover = resolve(p.cover) ?? gallery[0]?.image;
-    return {
-      slug: p.slug,
-      code: p.code,
-      title: p.title,
-      name: p.name,
-      location: p.location,
-      categories: p.categories,
-      cover,
-      coverAlt: gallery[0]?.alt ?? p.name,
-      gallery,
-    };
-  })
-  // Solo progetti con foto reali (esclude schede senza galleria: no segnaposto)
-  .filter((p) => p.gallery.length > 0 && p.cover);
-
-export const projects = all;
-
-export const projectCount = all.length;
-
-export function byCategory(cat: string): Project[] {
-  return all.filter((p) => p.categories.includes(cat));
+export async function byCategory(cat: string): Promise<Progetto[]> {
+  return (await getProgetti()).filter((p) => p.data.categorie.includes(cat as never));
 }
 
-export const categories: { key: string; label: string; count: number }[] = Object.keys(catLabels)
-  .map((key) => ({ key, label: catLabels[key], count: byCategory(key).length }))
-  .filter((c) => c.count > 0);
+export async function getProgetto(id: string): Promise<Progetto | undefined> {
+  return (await getProgetti()).find((p) => p.id === id);
+}
 
-// progetti "in evidenza" per la home: uno forte per categoria + riempimento
-export const featured: Project[] = (() => {
-  const picked: Project[] = [];
-  const seen = new Set<string>();
-  for (const key of Object.keys(catLabels)) {
-    const first = all.find((p) => p.categories.includes(key) && p.gallery.length >= 4 && !seen.has(p.slug));
-    if (first) { picked.push(first); seen.add(first.slug); }
-  }
-  for (const p of all) {
-    if (picked.length >= 6) break;
-    if (!seen.has(p.slug) && p.gallery.length >= 3) { picked.push(p); seen.add(p.slug); }
-  }
-  return picked.slice(0, 6);
-})();
-
-export function adjacent(slug: string): { prev: Project; next: Project } | null {
-  const i = all.findIndex((p) => p.slug === slug);
+export async function adjacent(id: string): Promise<{ prev: Progetto; next: Progetto } | null> {
+  const all = await getProgetti();
+  const i = all.findIndex((p) => p.id === id);
   if (i === -1) return null;
-  const prev = all[(i - 1 + all.length) % all.length];
-  const next = all[(i + 1) % all.length];
-  return { prev, next };
+  return { prev: all[(i - 1 + all.length) % all.length], next: all[(i + 1) % all.length] };
 }
 
-export function getProject(slug: string): Project | undefined {
-  return all.find((p) => p.slug === slug);
+/** Copertina: campo copertina, altrimenti prima foto/render disponibile. */
+export function coverOf(p: Progetto): { src: ImageMetadata; alt: string } | null {
+  const d = p.data;
+  if (d.copertina) return { src: d.copertina as ImageMetadata, alt: d.copertinaAlt ?? d.titolo };
+  const first = (d.foto[0] ?? d.render[0]) as Immagine | undefined;
+  return first ? { src: first.src, alt: first.alt ?? d.titolo } : null;
+}
+
+/** Conteggi per i filtri (solo voci presenti). */
+export async function facets() {
+  const all = await getProgetti();
+  const count = (key: 'categorie' | 'materiali') => {
+    const m = new Map<string, number>();
+    all.forEach((p) => (p.data[key] as string[]).forEach((k) => m.set(k, (m.get(k) ?? 0) + 1)));
+    return m;
+  };
+  const cats = count('categorie');
+  const mats = count('materiali');
+  return {
+    total: all.length,
+    categorie: Object.keys(catLabels).filter((k) => cats.has(k)).map((k) => ({ key: k, label: catLabels[k], count: cats.get(k)! })),
+    materiali: Object.keys(matLabels).filter((k) => mats.has(k)).map((k) => ({ key: k, label: matLabels[k], count: mats.get(k)! })).sort((a, b) => b.count - a.count),
+  };
 }

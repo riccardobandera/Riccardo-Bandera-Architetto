@@ -25,11 +25,13 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip}
         </div>
         <div class="reveal">
           <p class="u-eyebrow mb-3">Telefono</p>
-          <a href={`tel:${site.phoneHref}`} class="text-lg u-underline">{site.phone}</a>
+          <a href={`tel:${site.phoneOfficeHref}`} class="text-lg u-underline block w-fit">{site.phoneOffice}</a>
+          <a href={`tel:${site.phoneHref}`} class="text-lg u-underline block w-fit">{site.phone}</a>
         </div>
         <div class="reveal">
           <p class="u-eyebrow mb-3">Email</p>
-          <a href={`mailto:${site.email}`} class="text-lg u-underline">{site.email}</a>
+          <a href={`mailto:${site.email}`} class="text-lg u-underline block w-fit">{site.email}</a>
+          <a href={`mailto:${site.pec}`} class="text-sm text-muted u-underline block w-fit mt-1">PEC {site.pec}</a>
         </div>
         <div class="reveal">
           <p class="u-eyebrow mb-3">Social</p>

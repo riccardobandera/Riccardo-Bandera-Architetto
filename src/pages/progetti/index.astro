@@ -1,133 +1,362 @@
 ---
+import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import CategoryFilter from '../../components/CategoryFilter.astro';
-import { projects, projectCount } from '../../data/projects';
+import { getProgetti, facets, coverOf, catLabels } from '../../data/projects';
+
+const progetti = await getProgetti();
+const f = await facets();
+
+// dati per la mappa (miniature leggere)
+const punti = await Promise.all(
+  progetti.filter((p) => p.data.coordinate).map(async (p) => {
+    const c = coverOf(p);
+    const thumb = c ? await getImage({ src: c.src, width: 360, format: 'webp', quality: 70 }) : null;
+    return {
+      id: p.id,
+      titolo: p.data.titolo,
+      luogo: p.data.luogo ?? '',
+      anno: p.data.anno ?? null,
+      ambito: p.data.categorie.map((k) => catLabels[k]).join(', '),
+      lat: p.data.coordinate!.lat,
+      lng: p.data.coordinate!.lng,
+      cats: p.data.categorie,
+      mats: p.data.materiali,
+      thumb: thumb?.src ?? null,
+    };
+  }),
+);
 ---
-<BaseLayout title="Progetti" description="Il portfolio dello studio Riccardo Bandera: residenziale, alberghiero, commerciale e direzionale, tra Veneto, Trentino e oltre.">
-  <section class="u-container pt-36 md:pt-44 pb-10">
+<BaseLayout title="Progetti" description="Il portfolio di Riccardo Bandera Architetto: 41 progetti tra residenze, hotel, panifici, bar, ristoranti e uffici, in Italia e a Zanzibar. Filtra per ambito, materiale o sulla mappa.">
+  <section class="u-container pt-36 md:pt-44 pb-8">
     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
       <div>
-        <p class="u-eyebrow mb-6 reveal">Portfolio · {projectCount} progetti</p>
-        <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] reveal">
-          Progetti
-        </h1>
+        <p class="u-eyebrow mb-6 reveal">Portfolio · <span data-count>{f.total}</span> progetti</p>
+        <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] reveal">Progetti</h1>
       </div>
-      <p class="max-w-sm text-muted leading-relaxed reveal">
-        Ogni progetto nasce dal luogo e dalle persone che lo vivono. Filtra per ambito d’intervento.
-      </p>
+      <label class="search reveal">
+        <span class="sr-only">Cerca un progetto</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" placeholder="Cerca: panificio, hotel, legno, Trento…" data-search-input autocomplete="off" />
+      </label>
     </div>
-    <div class="mt-10">
-      <CategoryFilter />
+
+    <!-- filtri -->
+    <div class="filters mt-10 grid gap-5">
+      <div class="frow">
+        <span class="flabel">Ambito</span>
+        <div class="fchips" data-group="ambito">
+          <button class="chip is-active" data-value="">Tutti</button>
+          {f.categorie.map((c) => <button class="chip" data-value={c.key}>{c.label} <em>{c.count}</em></button>)}
+        </div>
+      </div>
+      <div class="frow">
+        <span class="flabel">Materiale</span>
+        <div class="fchips" data-group="materiale">
+          <button class="chip is-active" data-value="">Tutti</button>
+          {f.materiali.map((m) => <button class="chip" data-value={m.key}>{m.label} <em>{m.count}</em></button>)}
+        </div>
+      </div>
+      <div class="frow">
+        <span class="flabel">Vista</span>
+        <div class="fchips" data-group="vista">
+          <button class="view is-active" data-value="lista">Lista</button>
+          <button class="view" data-value="mappa">Mappa</button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="u-container pb-[var(--spacing-section)]">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
-      {projects.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
+  <!-- MAPPA -->
+  <section class="u-container pb-10 hidden" data-map-wrap>
+    <div class="relative">
+      <div id="map" class="w-full h-[62vh] md:h-[70vh] bg-surface border border-line" aria-label="Mappa dei progetti"></div>
+      <div class="map-zones absolute top-3 right-3 z-[500] flex gap-1.5" data-zones>
+        <button class="zone is-active" data-zone="tutti">Tutti</button>
+        <button class="zone" data-zone="italia">Italia</button>
+        <button class="zone" data-zone="zanzibar">Zanzibar</button>
+      </div>
     </div>
+    <p class="mt-3 text-xs text-muted">Tocca un punto per vedere il progetto. Mappa © OpenStreetMap.</p>
   </section>
 
-  <!-- ====== MODAL PROGETTO ====== -->
+  <!-- LISTA -->
+  <section class="u-container pb-[var(--spacing-section)]" data-list-wrap>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12" data-grid>
+      {progetti.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
+    </div>
+    <p class="hidden py-24 text-center text-muted" data-empty>Nessun progetto corrisponde ai filtri. <button class="u-underline text-ink" data-reset>Azzera i filtri</button></p>
+  </section>
+
+  <script type="application/json" id="map-data" set:html={JSON.stringify(punti)} />
+
+  <!-- ====== MODALE PROGETTO ====== -->
   <div id="project-modal" class="pm fixed inset-0 z-[95] hidden" role="dialog" aria-modal="true" aria-label="Dettaglio progetto">
     <div class="pm-backdrop absolute inset-0 bg-ink/80 backdrop-blur-sm opacity-0 transition-opacity duration-400" data-close></div>
-    <div class="pm-panel absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] md:w-[80vw] max-w-[1150px] h-[88vh] bg-bg shadow-2xl overflow-hidden flex flex-col opacity-0 scale-[0.97] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+    <div class="pm-panel absolute left-1/2 top-1/2 w-[92vw] md:w-[80vw] max-w-[1150px] h-[88vh] bg-bg shadow-2xl overflow-hidden flex flex-col">
       <button class="pm-x absolute top-3 right-3 z-20 grid place-items-center w-11 h-11 rounded-full bg-bg/85 backdrop-blur text-ink hover:bg-ink hover:text-bg transition-colors" data-close aria-label="Chiudi">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
-      <div class="pm-body flex-1 overflow-y-auto overscroll-contain" data-modal-body>
-        <div class="pm-loading grid place-items-center h-full text-muted">
-          <span class="pm-spin w-8 h-8 border-2 border-line border-t-ink rounded-full"></span>
-        </div>
-      </div>
+      <div class="pm-body flex-1 overflow-y-auto overscroll-contain" data-modal-body></div>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  (() => {
-    const modal = document.getElementById('project-modal');
-    if (!modal) return;
-    const body = modal.querySelector<HTMLElement>('[data-modal-body]')!;
-    const panel = modal.querySelector<HTMLElement>('.pm-panel')!;
-    const backdrop = modal.querySelector<HTMLElement>('.pm-backdrop')!;
-    const root = document.documentElement;
-    let open = false;
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
 
-    const loadingHTML = '<div class="pm-loading grid place-items-center h-full text-muted"><span class="pm-spin w-8 h-8 border-2 border-line border-t-ink rounded-full"></span></div>';
-    const isProjectUrl = (url: string) => /^\/progetti\/[^/]+\/$/.test(new URL(url, location.origin).pathname);
+  type Punto = { id: string; titolo: string; luogo: string; anno: number | null; ambito: string; lat: number; lng: number; cats: string[]; mats: string[]; thumb: string | null };
 
-    const showUI = () => {
-      if (open) return;
-      open = true;
-      modal.classList.remove('hidden');
-      root.style.overflow = 'hidden';
-      requestAnimationFrame(() => {
-        backdrop.style.opacity = '1';
-        panel.style.opacity = '1';
-        panel.style.transform = 'translate(-50%, -50%) scale(1)';
+  // ---------------- MODALE ----------------
+  const modal = document.getElementById('project-modal')!;
+  const body = modal.querySelector<HTMLElement>('[data-modal-body]')!;
+  const panel = modal.querySelector<HTMLElement>('.pm-panel')!;
+  const backdrop = modal.querySelector<HTMLElement>('.pm-backdrop')!;
+  const root = document.documentElement;
+  let open = false;
+  const loadingHTML = '<div class="grid place-items-center h-full text-muted"><span class="pm-spin w-8 h-8 border-2 border-line border-t-ink rounded-full"></span></div>';
+  const isProjectUrl = (url: string) => /^\/progetti\/[^/]+\/$/.test(new URL(url, location.origin).pathname);
+
+  const showUI = () => {
+    if (open) return;
+    open = true;
+    modal.classList.remove('hidden');
+    root.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      backdrop.style.opacity = '1';
+      panel.style.opacity = '1';
+      panel.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  };
+  const hideUI = () => {
+    if (!open) return;
+    open = false;
+    backdrop.style.opacity = '0';
+    panel.style.opacity = '0';
+    panel.style.transform = 'translate(-50%, -50%) scale(0.97)';
+    root.style.overflow = '';
+    window.setTimeout(() => { modal.classList.add('hidden'); body.innerHTML = ''; }, 420);
+  };
+  const inject = (html: string) => {
+    // il contenuto iniettato non passa dall'observer: lo marco visibile PRIMA di inserirlo,
+    // cosi compare subito senza dipendere da transizioni
+    const tpl = document.createElement('template');
+    tpl.innerHTML = html;
+    tpl.content.querySelectorAll('.reveal, .grow-line').forEach((el) => el.classList.add('is-in'));
+    body.replaceChildren(tpl.content);
+    body.scrollTop = 0;
+    body.querySelectorAll<HTMLAnchorElement>('a[href^="/progetti/"]').forEach((a) => {
+      if (isProjectUrl(a.href)) a.addEventListener('click', (e) => { e.preventDefault(); navigate(a.getAttribute('href')!, true); });
+    });
+  };
+  async function navigate(href: string, push: boolean) {
+    showUI();
+    body.innerHTML = loadingHTML;
+    if (push) history.pushState({ pm: 1 }, '', href);
+    try {
+      const doc = new DOMParser().parseFromString(await (await fetch(href)).text(), 'text/html');
+      const content = doc.querySelector('[data-project-modal]');
+      if (content) inject(content.outerHTML); else location.href = href;
+    } catch { location.href = href; }
+  }
+  const openProject = (href: string, e?: MouseEvent) => {
+    if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0)) return;
+    e?.preventDefault();
+    navigate(href, true);
+  };
+  document.querySelectorAll<HTMLAnchorElement>('.project-card').forEach((card) => card.addEventListener('click', (e) => openProject(card.getAttribute('href')!, e)));
+  const requestClose = () => { if (history.state && history.state.pm) history.back(); else hideUI(); };
+  modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', requestClose));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) requestClose(); });
+  window.addEventListener('popstate', () => { if (isProjectUrl(location.href)) navigate(location.href, false); else hideUI(); });
+
+  // ---------------- FILTRI ----------------
+  const state = { ambito: '', materiale: '', q: '', vista: 'lista' };
+  const params = new URLSearchParams(location.search);
+  state.ambito = params.get('ambito') ?? '';
+  state.materiale = params.get('materiale') ?? '';
+  state.q = params.get('q') ?? '';
+  state.vista = params.get('vista') === 'mappa' ? 'mappa' : 'lista';
+  // compatibilita coi vecchi link #residenziale
+  if (!state.ambito && location.hash && ['#residenziale', '#commerciale', '#alberghiero', '#direzionale'].includes(location.hash)) state.ambito = location.hash.slice(1);
+
+  const cards = [...document.querySelectorAll<HTMLElement>('.project-card')];
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]')!;
+  const countEl = document.querySelector('[data-count]')!;
+  const empty = document.querySelector('[data-empty]')!;
+  const listWrap = document.querySelector('[data-list-wrap]')!;
+  const mapWrap = document.querySelector('[data-map-wrap]')!;
+  input.value = state.q;
+
+  const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  // sinonimi: chi cerca "panificio" trova anche i forni, e cosi via
+  const SIN: string[][] = [
+    ['panific', 'forno', 'forni', 'pane', 'panetter', 'pasticcer', 'bakery'],
+    ['bar', 'caff', 'bistr', 'ristor'],
+    ['hotel', 'albergh', 'resort', 'villas', 'guest house', 'chalet'],
+    ['uffic', 'headquarter', 'sede', 'direzional', 'sala riunioni'],
+    ['casa', 'villa', 'appartament', 'attico', 'residenzial', 'casera'],
+    ['legno', 'xlam', 'abete', 'larice', 'rovere'],
+    ['zanzibar', 'tanzania', 'africa'],
+  ];
+  const expand = (w: string) => (w.length >= 3 && SIN.find((g) => g.some((x) => w.startsWith(x) || x.startsWith(w)))) || [w];
+  const matches = (cats: string[], mats: string[], text: string) => {
+    const t = norm(text);
+    return (!state.ambito || cats.includes(state.ambito)) &&
+      (!state.materiale || mats.includes(state.materiale)) &&
+      (!state.q || norm(state.q).split(/\s+/).filter(Boolean).every((w) => t.includes(w) || expand(w).some((x) => t.includes(x))));
+  };
+
+  let refreshMap: () => void = () => {};
+
+  const apply = () => {
+    let n = 0;
+    cards.forEach((c) => {
+      const ok = matches((c.dataset.cats || '').split(' '), (c.dataset.mats || '').split(' '), c.dataset.search || '');
+      c.style.display = ok ? '' : 'none';
+      if (ok) { n++; c.classList.add('is-in'); }
+    });
+    countEl.textContent = String(n);
+    empty.classList.toggle('hidden', n > 0 || state.vista === 'mappa');
+    document.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
+      const key = g.dataset.group as keyof typeof state;
+      g.querySelectorAll<HTMLButtonElement>('button').forEach((b) => {
+        const on = b.dataset.value === state[key];
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', String(on));
       });
-    };
-    const hideUI = () => {
-      if (!open) return;
-      open = false;
-      backdrop.style.opacity = '0';
-      panel.style.opacity = '0';
-      panel.style.transform = 'translate(-50%, -50%) scale(0.97)';
-      root.style.overflow = '';
-      window.setTimeout(() => { modal.classList.add('hidden'); body.innerHTML = loadingHTML; }, 420);
-    };
+    });
+    listWrap.classList.toggle('hidden', state.vista === 'mappa');
+    mapWrap.classList.toggle('hidden', state.vista !== 'mappa');
+    const p = new URLSearchParams();
+    if (state.ambito) p.set('ambito', state.ambito);
+    if (state.materiale) p.set('materiale', state.materiale);
+    if (state.q) p.set('q', state.q);
+    if (state.vista === 'mappa') p.set('vista', 'mappa');
+    if (!history.state?.pm) history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+    if (state.vista === 'mappa') { ensureMap(); refreshMap(); }
+  };
 
-    const inject = (html: string) => {
-      body.innerHTML = html;
-      body.scrollTop = 0;
-      // link interni (prev/next, related) restano nel modal
-      body.querySelectorAll<HTMLAnchorElement>('a[href^="/progetti/"]').forEach((a) => {
-        if (isProjectUrl(a.href)) a.addEventListener('click', (e) => { e.preventDefault(); navigate(a.getAttribute('href')!, true); });
-      });
-    };
+  document.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
+    g.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest('button');
+      if (!b) return;
+      const key = g.dataset.group as keyof typeof state;
+      state[key] = b.dataset.value ?? '';
+      apply();
+    });
+  });
+  let t: number | undefined;
+  input.addEventListener('input', () => { clearTimeout(t); t = window.setTimeout(() => { state.q = input.value.trim(); apply(); }, 150); });
+  document.querySelector('[data-reset]')?.addEventListener('click', () => { state.ambito = ''; state.materiale = ''; state.q = ''; input.value = ''; apply(); });
 
-    async function navigate(href: string, push: boolean) {
-      showUI();
-      body.innerHTML = loadingHTML;
-      if (push) history.pushState({ pm: 1 }, '', href);
-      try {
-        const res = await fetch(href);
-        const text = await res.text();
-        const doc = new DOMParser().parseFromString(text, 'text/html');
-        const content = doc.querySelector('[data-project-modal]');
-        if (content) inject(content.outerHTML);
-        else { location.href = href; return; }
-      } catch {
-        location.href = href;
-      }
+  // ---------------- MAPPA ----------------
+  let map: L.Map | null = null;
+  const punti: Punto[] = JSON.parse(document.getElementById('map-data')!.textContent || '[]');
+  const markers: { p: Punto; m: L.CircleMarker }[] = [];
+
+  let currentVisible: L.LatLng[] = [];
+  let activeZone = 'tutti';
+  // Italia: tutto sopra il 30esimo parallelo; Zanzibar: emisfero sud
+  function fitZone(zone: string, animate: boolean) {
+    if (!map) return;
+    const pts = currentVisible.filter((ll) => zone === 'italia' ? ll.lat > 30 : zone === 'zanzibar' ? ll.lat < 0 : true);
+    const use = pts.length ? pts : currentVisible;
+    if (use.length) map.fitBounds(L.latLngBounds(use), { padding: [50, 50], maxZoom: zone === 'zanzibar' ? 10 : 9, animate });
+  }
+
+  function ensureMap() {
+    if (map) { setTimeout(() => map!.invalidateSize(), 50); return; }
+    map = L.map('map', { scrollWheelZoom: false, worldCopyJump: true, zoomControl: true, attributionControl: true });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+      maxZoom: 18,
+    }).addTo(map);
+    map.on('focus', () => map!.scrollWheelZoom.enable());
+    map.on('blur', () => map!.scrollWheelZoom.disable());
+    for (const p of punti) {
+      const m = L.circleMarker([p.lat, p.lng], { radius: 7, color: '#141414', weight: 2, fillColor: '#141414', fillOpacity: 1 });
+      const html = `
+        <a href="/progetti/${p.id}/" class="mp" data-open>
+          ${p.thumb ? `<img src="${p.thumb}" alt="" loading="lazy" />` : ''}
+          <span class="mp-t">${p.titolo}</span>
+          <span class="mp-m">${[p.luogo, p.anno].filter(Boolean).join(' · ')}</span>
+        </a>`;
+      m.bindPopup(html, { closeButton: true, maxWidth: 260, minWidth: 220, className: 'rb-pop' });
+      m.on('mouseover', () => m.setStyle({ radius: 10 }));
+      m.on('mouseout', () => m.setStyle({ radius: 7 }));
+      markers.push({ p, m });
     }
-
-    // apertura dalle card della griglia
-    document.querySelectorAll<HTMLAnchorElement>('.project-card').forEach((card) => {
-      card.addEventListener('click', (e) => {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // apri in nuova scheda se richiesto
-        e.preventDefault();
-        navigate(card.getAttribute('href')!, true);
+    map.on('popupopen', (e) => {
+      const a = (e.popup.getElement() as HTMLElement).querySelector<HTMLAnchorElement>('[data-open]');
+      a?.addEventListener('click', (ev) => openProject(a.getAttribute('href')!, ev as MouseEvent));
+    });
+    refreshMap = () => {
+      // aspetta che il contenitore sia visibile e dimensionato, poi inquadra i punti filtrati
+      requestAnimationFrame(() => {
+        map!.invalidateSize();
+        const visibili: L.LatLng[] = [];
+        for (const { p, m } of markers) {
+          const ok = matches(p.cats, p.mats, [p.titolo, p.luogo, p.ambito].join(' '));
+          if (ok) { m.addTo(map!); visibili.push(m.getLatLng()); } else m.remove();
+        }
+        currentVisible = visibili;
+        fitZone(activeZone, false);
       });
+    };
+    document.querySelector('[data-zones]')?.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button');
+      if (!b) return;
+      activeZone = b.dataset.zone!;
+      document.querySelectorAll('[data-zone]').forEach((x) => x.classList.toggle('is-active', x === b));
+      fitZone(activeZone, true);
     });
+  }
 
-    const requestClose = () => { if (history.state && history.state.pm) history.back(); else hideUI(); };
-    modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', requestClose));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) requestClose(); });
-
-    window.addEventListener('popstate', () => {
-      if (isProjectUrl(location.href)) navigate(location.href, false);
-      else hideUI();
-    });
-  })();
+  apply();
 </script>
 
+<style>
+  .search { display: flex; align-items: center; gap: 0.7rem; border-bottom: 1px solid var(--color-ink); padding: 0.6rem 0; width: min(100%, 26rem); }
+  .search input { flex: 1; background: transparent; border: 0; outline: none; font: inherit; font-size: 1rem; color: var(--color-ink); }
+  .search input::placeholder { color: var(--color-muted); }
+  .frow { display: grid; grid-template-columns: 7rem 1fr; align-items: start; gap: 1rem; }
+  .flabel { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding-top: 0.55rem; }
+  .fchips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip, .view {
+    padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--color-line);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted);
+    transition: all 0.35s var(--ease-out-expo);
+  }
+  .chip em { font-style: normal; opacity: 0.6; margin-left: 0.25rem; }
+  .chip:hover, .view:hover { border-color: var(--color-ink); color: var(--color-ink); }
+  .chip.is-active, .view.is-active { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-bg); }
+  @media (max-width: 640px) { .frow { grid-template-columns: 1fr; gap: 0.5rem; } .flabel { padding-top: 0; } }
+</style>
+
 <style is:global>
-  /* normalizza il padding-top (pensato per la navbar fixed) dentro al modal.
-     Deve essere globale: il contenuto è iniettato via fetch da un'altra pagina. */
+  /* modale: padding pensato per la navbar fixed, qui non serve */
   .pm-body [data-project-modal] > section:first-child { padding-top: 2.5rem !important; }
-  .pm-body [data-project-modal] > section:last-child { padding-bottom: 3rem !important; }
   .pm-spin { animation: pmspin 0.7s linear infinite; }
   @keyframes pmspin { to { transform: rotate(360deg); } }
+  /* mappa: palette monocromatica */
+  /* pannello modale: posizione e scala SOLO via transform (le utility translate/scale di Tailwind v4
+     usano proprieta separate che si sommerebbero allo script) */
+  .pm-panel { transform: translate(-50%, -50%) scale(0.97); opacity: 0; transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); }
+  #map { font-family: var(--font-sans); z-index: 0; }
+  /* mappa monocromatica: tile OpenStreetMap in scala di grigi */
+  #map .leaflet-tile-pane { filter: grayscale(1) contrast(0.92) brightness(1.06); }
+  .leaflet-container a.leaflet-popup-close-button { color: var(--color-ink); }
+  .rb-pop .leaflet-popup-content-wrapper { border-radius: 0; box-shadow: 0 20px 40px -20px rgba(0,0,0,.45); padding: 0; }
+  .rb-pop .leaflet-popup-content { margin: 0; width: 240px !important; }
+  .rb-pop .leaflet-popup-tip { box-shadow: none; }
+  .mp { display: block; color: var(--color-ink) !important; text-decoration: none; }
+  .mp img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+  .mp-t { display: block; padding: 0.7rem 0.9rem 0.2rem; font-weight: 700; font-size: 0.85rem; line-height: 1.3; }
+  .mp-m { display: block; padding: 0 0.9rem 0.8rem; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-muted); }
+  .leaflet-control-zoom a { border-radius: 0 !important; color: var(--color-ink) !important; }
+  .zone { background: var(--color-bg); border: 1px solid var(--color-line); padding: 0.45rem 0.8rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); }
+  .zone:hover { color: var(--color-ink); border-color: var(--color-ink); }
+  .zone.is-active { background: var(--color-ink); color: var(--color-bg); border-color: var(--color-ink); }
 </style>

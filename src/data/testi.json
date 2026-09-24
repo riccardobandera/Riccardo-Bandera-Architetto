@@ -1,0 +1,126 @@
+{
+  "home": {
+    "tagline": "Studio di architettura e d'interni per abitazioni, hotel, uffici e negozi.",
+    "sottotitolo": "Architettura, interni e bioedilizia in legno tra Veneto, Trentino e oltre.",
+    "citazione": "\"Sviluppiamo i progetti nei quali siamo coinvolti seguendo un processo ordinato che tenga sotto controllo gli aspetti tecnico-economici durante tutte le fasi del progetto senza precludere le potenzialità creative dell’incarico.\""
+  },
+  "studio": {
+    "titolo": "La progettazione come connessione tra immaginato e costruito.",
+    "bio": [
+      "Dal 2014 esercito l’attività di architetto in modo autonomo seguendo in prima persona i clienti e i loro progetti dalla fase creativa alla realizzazione. Per farlo mi avvalgo di collaborazioni con imprese artigiane e professionisti specializzati svolgendo in accordo con la committenza il ruolo di regista.",
+      "La mia formazione e l’esperienza nel campo della progettazione si sono sviluppate in oltre 15 anni. In questo tempo ho avuto occasione di affrontare progetti a tutte le scale e in ogni fase del progetto. Da soluzioni per piccoli appartamenti fino a mega-torri nel sud della Cina, da committenze private dirette a vittorie in concorsi internazionali, da funzioni commerciali a edifici per il pubblico benessere.",
+      "Tutto questo all’interno di una concezione che è divenuta sempre più chiara: la progettazione come connessione tra immaginato e costruito. Un lavoro al servizio delle idee e delle richieste di committenze, le più diverse, cercando di volta in volta di indicare la soluzione al problema e di aggiungere valore all’idea stessa."
+    ],
+    "team": [
+      {
+        "name": "arch. Riccardo Bandera",
+        "role": "Founder"
+      },
+      {
+        "name": "arch. Aldo Condò",
+        "role": "Architetto"
+      },
+      {
+        "name": "arch. Thomas Ortolan",
+        "role": "Architetto"
+      },
+      {
+        "name": "Marco Reato",
+        "role": "Collaboratore"
+      }
+    ]
+  },
+  "manifesto": {
+    "lead": "Il legno è l’unico materiale da costruzione sostenibile.",
+    "blocks": [
+      {
+        "h": "Perché usare il legno?",
+        "p": "L’albero vive e cresce utilizzando elementi naturali: crea le molecole del legno di cui è costituito grazie all’acqua, all’energia del sole ed all’anidride carbonica (CO2) presente in atmosfera. Attraverso il processo di fotosintesi l’albero sottrae quindi naturalmente CO2 dall’atmosfera."
+      },
+      {
+        "h": "Quanta anidride carbonica assorbe un albero?",
+        "p": "Una pianta adulta, come spiega Rita Baraldi, ricercatore del CNR di Bologna all’Istituto di Biometeorologia, nell’arco di dodici mesi soddisfa il fabbisogno di ossigeno di 10 persone ed è in grado di assorbire dai 20 ai 50 chili di anidride carbonica, a seconda della specie. Una quercia, ad esempio, nell’arco di mezzo secolo riesce a immagazzinare oltre 5 tonnellate e mezzo di CO2 sotto forma di biomassa."
+      },
+      {
+        "h": "Costruire con il legno significa immobilizzare tonnellate di CO2 per decenni.",
+        "p": "Progettare in legno non è solo una scelta estetica o strutturale: è un gesto che trattiene il carbonio all’interno degli edifici, trasformando ogni costruzione in un deposito duraturo di CO2 sottratta all’atmosfera."
+      }
+    ]
+  },
+  "fasi": {
+    "intro": "Ogni progetto si sviluppa attraverso una serie di 6 fasi per la progettazione degli interventi definiti con la committenza, così da tenere sotto controllo gli aspetti tecnico-economici senza precludere le potenzialità creative dell’incarico.",
+    "elenco": [
+      {
+        "n": "01",
+        "title": "Progetto architettonico e di interni",
+        "short": "Progetto architettonico",
+        "body": "In questa fase si definisce la distribuzione degli spazi e l’organizzazione degli ambienti interni ed esterni. Vengono sviluppate planimetrie e prospetti iniziali, studiati i flussi funzionali e creati modelli 3D per la visualizzazione realistica del progetto finale. Le attività vengono organizzate in una serie di presentazioni che vanno a dettagliare le scelte condivise con la committenza."
+      },
+      {
+        "n": "02",
+        "title": "Progetto amministrativo",
+        "short": "Progetto amministrativo",
+        "body": "In questa fase si gestiscono tutte le autorizzazioni necessarie (Permesso di Costruire, SCIA, CILA e le pratiche complementari: autorizzazioni paesaggistiche e commissioni edilizie, antincendio, impianti, termotecnica ex L.10/91, barriere architettoniche L.13/89, parcheggi privati L.122/89 e standard a verde e parcheggio pubblico, autorizzazioni allo scarico, oneri, ecc.), assicurando la conformità del progetto alle normative vigenti e permettendo l’avvio dei lavori."
+      },
+      {
+        "n": "03",
+        "title": "Progetto esecutivo",
+        "short": "Progetto esecutivo",
+        "body": "In questa fase vengono realizzati gli elaborati tecnici costruttivi con le stratigrafie di tutte le lavorazioni, i dettagli architettonici, l’esecutivo dell’arredamento su misura e i computi metrici, utili a definire nel dettaglio le opere da far eseguire alle imprese, le prestazioni che l’edificio deve soddisfare, scegliere i prodotti e le finiture. Questa fase garantisce un controllo del progetto puntuale e ordinato."
+      },
+      {
+        "n": "04",
+        "title": "Preventivazione e quadro economico",
+        "short": "Preventivazione",
+        "body": "In questa fase vengono richiesti uno o più preventivi per singola categoria di fornitori (ad esempio: impresa edile, idraulico, elettricista, serramentista, posatore, general contractor, ecc.) e comparati attraverso il quadro economico, il quadro detrazioni e il quadro affidamenti, utili per selezionare l’impresa edile e avviare la costruzione. Questa fase garantisce il controllo dei costi prima dell’inizio delle opere."
+      },
+      {
+        "n": "05",
+        "title": "Direzione lavori",
+        "short": "Direzione lavori",
+        "body": "In questa fase si prevede il controllo mediante sopralluoghi dell’esecuzione dell’opera per garantire che i lavori vengano realizzati nel rispetto del progetto approvato (DL amministrativa), delle specifiche tecniche e dei dettagli (DL tecnica) e con il corretto coordinamento tra più imprese in caso di assenza di general contractor (DL coordinamento)."
+      },
+      {
+        "n": "06",
+        "title": "Fine lavori",
+        "short": "Fine lavori",
+        "body": "In questa fase si effettua il passaggio conclusivo della costruzione, fondamentale per garantire che l’opera sia completata correttamente (dichiarazioni di conformità), asseverata rispetto alle normative (agibile/abitabile), inserita nel registro fabbricati (catasto), comunicata agli enti (SUAP) e abbia la possibilità di accedere alle detrazioni fiscali."
+      }
+    ]
+  },
+  "altreAttivita": {
+    "intro": "Gestiamo casistiche complesse inerenti a:",
+    "voci": [
+      "Sanatorie e condoni edilizi",
+      "Accesso agli atti e verifica della conformità edilizia",
+      "Applicazione della normativa sulle tolleranze definita dalla legge Salva Casa",
+      "Volture e proroghe di pratiche edilizie in corso",
+      "Varianti in corso d’opera",
+      "Rendering e video-rendering commerciali di presentazione del progetto",
+      "Richiesta di pre-pareri",
+      "Studi di fattibilità per interventi complessi"
+    ]
+  },
+  "ambiti": [
+    {
+      "key": "residenziale",
+      "label": "Residenziale",
+      "desc": "Ville, appartamenti, ristrutturazioni e arredo d’interni."
+    },
+    {
+      "key": "commerciale",
+      "label": "Commerciale",
+      "desc": "Retail, bar, ristorazione e spazi per il pubblico."
+    },
+    {
+      "key": "alberghiero",
+      "label": "Alberghiero",
+      "desc": "Hotel, boutique hotel e strutture ricettive."
+    },
+    {
+      "key": "direzionale",
+      "label": "Direzionale",
+      "desc": "Uffici, headquarter e spazi di lavoro."
+    }
+  ]
+}

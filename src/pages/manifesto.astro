@@ -3,13 +3,14 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { manifesto } from '../data/site';
-import { getProject, byCategory } from '../data/projects';
+import { getProgetto, coverOf } from '../data/projects';
 
-const woodImg =
-  getProject('chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn')?.cover ??
-  byCategory('alberghiero')[0]?.cover;
+// immagine in legno: ristorante alpino in larice a Polsa
+const bsk = await getProgetto('bsk-ristorante-alpino-a-polsa-di-brentonico-trento');
+const woodImg = bsk ? coverOf(bsk)?.src : undefined;
 ---
-<BaseLayout title="Manifesto" description="Il legno come unico materiale da costruzione sostenibile: la filosofia bioedilizia dello studio Riccardo Bandera.">
+<!-- navMode light: hero scuro, quindi navbar chiara (logo e menu leggibili) -->
+<BaseLayout navMode="light" title="Manifesto" description="Il legno come unico materiale da costruzione sostenibile: la filosofia bioedilizia dello studio Riccardo Bandera.">
   <!-- hero manifesto: sezione scura a contrasto -->
   <section class="bg-ink text-cream">
     <div class="u-container pt-40 md:pt-52 pb-20 md:pb-28 text-center">

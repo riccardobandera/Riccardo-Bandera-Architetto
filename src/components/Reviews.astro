@@ -1,0 +1,58 @@
+---
+import data from '../data/reviews.json';
+
+interface Props { limit?: number }
+const { limit = 6 } = Astro.props;
+const items = data.recensioni.filter((r) => r.testo && r.testo.trim().length > 0);
+const voto = data.valutazione.toFixed(1).replace('.', ',');
+const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
+---
+<section class="bg-surface" aria-labelledby="rev-title">
+  <div class="u-container py-[var(--spacing-section)]">
+    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+      <div class="lg:col-span-7">
+        <p class="u-eyebrow mb-4 reveal">Dicono di noi</p>
+        <h2 id="rev-title" class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight leading-[1] reveal">Recensioni</h2>
+      </div>
+      <div class="lg:col-span-5 flex items-end gap-6 lg:justify-end reveal">
+        <div class="font-display text-[clamp(3.5rem,8vw,5.5rem)] leading-none">{voto}</div>
+        <div class="pb-2">
+          <div class="text-lg tracking-[0.15em]" aria-hidden="true">{Stars(data.valutazione)}</div>
+          <a href={data.link} target="_blank" rel="noopener" class="text-sm text-muted u-underline">{data.totale} recensioni su {data.fonte}</a>
+        </div>
+      </div>
+    </div>
+
+    {items.length > 0 && (
+      <ul class="rev-grid" data-rev-list>
+        {items.map((r, i) => (
+          <li class:list={['rev reveal', i >= limit && 'rev--more']} data-reveal-delay={(i % 3) + 1}>
+            <div class="text-sm tracking-[0.15em] mb-4" aria-label={`${r.stelle} stelle su 5`}>{Stars(r.stelle)}</div>
+            <blockquote class="text-[1.02rem] leading-relaxed text-ink/90">{r.testo}</blockquote>
+            <p class="mt-5 text-sm font-bold">{r.autore}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      {items.length > limit && <button class="btn btn--ghost" data-rev-more>Mostra tutte</button>}
+      <a href={data.link} target="_blank" rel="noopener" class="btn btn--ghost">Leggi su Google</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelector('[data-rev-more]')?.addEventListener('click', (e) => {
+    document.querySelectorAll('.rev--more').forEach((el) => { el.classList.remove('rev--more'); el.classList.add('is-in'); });
+    (e.currentTarget as HTMLElement).remove();
+  });
+</script>
+
+<style>
+  .rev-grid { columns: 1; column-gap: 1rem; }
+  @media (min-width: 768px) { .rev-grid { columns: 2; } }
+  @media (min-width: 1100px) { .rev-grid { columns: 3; } }
+  .rev { break-inside: avoid; background: var(--color-bg); padding: 1.8rem; margin-bottom: 1rem; border: 1px solid var(--color-line); }
+  .rev--more { display: none; }
+</style>

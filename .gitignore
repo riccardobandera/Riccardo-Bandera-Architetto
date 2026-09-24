@@ -17,3 +17,6 @@ npm-debug.log*
 
 # netlify
 .netlify/
+
+# log locali
+build.log

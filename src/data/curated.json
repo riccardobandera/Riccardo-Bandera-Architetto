@@ -1,0 +1,78 @@
+{
+  "hero": [
+    "chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn/chalet-pinocchio-hotel-legno-brentonico-tn-foto-01.webp",
+    "pmt-panificio-moderno-in-piazza-lodron-bar-e-ristorazione-in-centro-a-trento-tn/panificio-moderno-piazza-lodron-bar-ristorazione-centro-foto-03.webp",
+    "kkh-kono-kono-hotel-and-villas-a-zanzibar-tanzania/kono-kono-hotel-and-villas-zanzibar-tanzania-foto-01.webp",
+    "kkh-kono-kono-hotel-and-villas-a-zanzibar-tanzania/kono-kono-hotel-and-villas-zanzibar-tanzania-foto-03.webp",
+    "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-foto-01.webp",
+    "bsk-ristorante-alpino-a-polsa-di-brentonico-trento/ristorante-alpino-polsa-brentonico-trento-foto-01.webp",
+    "csa-cantina-vini-colombo-sul-lago-di-garda-vr/cantina-vini-colombo-lago-garda-vr-foto-02.webp",
+    "c043-casa-a-bolognano/casa-bolognano-arco-tn-foto-02.webp",
+    "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-foto-01.webp",
+    "htv-hotel-tevini-a-commezzadura-tn/hotel-tevini-commezzadura-tn-foto-01.webp"
+  ],
+  "metodo": [
+    [
+      "01",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-02.webp"
+    ],
+    [
+      "02",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-03.webp"
+    ],
+    [
+      "03",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-01.webp"
+    ],
+    [
+      "04",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-01.webp"
+    ],
+    [
+      "05",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-02.webp"
+    ],
+    [
+      "06",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-foto-01.webp"
+    ]
+  ],
+  "metodoExtra": {
+    "01": "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-render-01.webp",
+    "05": "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-03.webp",
+    "06": "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-foto-03.webp"
+  },
+  "fasi": {
+    "01": [
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-disegno-02.webp",
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-render-02.webp",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-render-01.webp"
+    ],
+    "02": [
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-disegno-01.webp",
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-disegno-01.webp",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-03.webp"
+    ],
+    "03": [
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-01.webp",
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-disegno-02.webp",
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-02.webp"
+    ],
+    "04": [
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-01.webp",
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-render-04.webp",
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-render-04.webp"
+    ],
+    "05": [
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-cantiere-01.webp",
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-cantiere-04.webp",
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-cantiere-01.webp"
+    ],
+    "06": [
+      "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-foto-01.webp",
+      "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-foto-01.webp",
+      "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-foto-02.webp"
+    ]
+  },
+  "metodoProgetto": "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl"
+}

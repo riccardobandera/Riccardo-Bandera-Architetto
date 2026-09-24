@@ -1,46 +1,44 @@
 ---
 import { Image } from 'astro:assets';
-import type { Project } from '../data/projects';
-import { catLabels } from '../data/projects';
+import { catLabels, matLabels, coverOf, type Progetto } from '../data/projects';
 
 interface Props {
-  project: Project;
+  project: Progetto;
   index?: number;
   eager?: boolean;
 }
 const { project, index = 0, eager = false } = Astro.props;
-const cat = project.categories[0] ? catLabels[project.categories[0]] : null;
+const d = project.data;
+const cover = coverOf(project);
+const cat = d.categorie[0] ? catLabels[d.categorie[0]] : null;
+const mat = d.materiali[0] ? matLabels[d.materiali[0]] : null;
+// testo per la ricerca libera (titolo, luogo, tag, materiali, ambiti)
+const search = [d.titolo, d.luogo, ...d.tag, ...d.materiali.map((m) => matLabels[m]), ...d.categorie.map((c) => catLabels[c])]
+  .filter(Boolean).join(' ').toLowerCase();
 ---
 <a
-  href={`/progetti/${project.slug}/`}
+  href={`/progetti/${project.id}/`}
   class="project-card group block reveal"
-  data-cats={project.categories.join(' ')}
+  data-cats={d.categorie.join(' ')}
+  data-mats={d.materiali.join(' ')}
+  data-search={search}
+  data-id={project.id}
   data-reveal-delay={(index % 3) + 1}
-  aria-label={project.name}
+  aria-label={d.titolo}
 >
   <div class="relative overflow-hidden bg-surface aspect-[4/5] md:aspect-[16/11] transition-shadow duration-500 group-hover:shadow-[0_28px_50px_-28px_rgba(20,20,20,0.45)]">
-    {project.cover && (
+    {cover && (
       <Image
-        src={project.cover}
-        alt={project.coverAlt}
-        widths={[480, 768, 1200, 1600]}
-        sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 620px"
+        src={cover.src}
+        alt={cover.alt}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 420px"
         loading={eager ? 'eager' : 'lazy'}
         class="w-full h-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
       />
     )}
-    <!-- velatura che compare su hover -->
     <div class="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-    <!-- codice progetto -->
-    {project.code && (
-      <span class="absolute top-4 left-4 text-[0.65rem] font-bold tracking-[0.2em] uppercase text-white/90 mix-blend-difference transition-transform duration-500 group-hover:-translate-y-0.5">{project.code}</span>
-    )}
-
-    <!-- etichetta "Apri" che sale -->
     <span class="absolute bottom-4 left-4 text-[0.65rem] font-bold tracking-[0.2em] uppercase text-cream translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">Apri progetto</span>
-
-    <!-- bottone circolare on hover -->
     <span class="absolute bottom-4 right-4 grid place-items-center w-11 h-11 rounded-full bg-bg text-ink opacity-0 translate-y-2 scale-90 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
     </span>
@@ -48,12 +46,12 @@ const cat = project.categories[0] ? catLabels[project.categories[0]] : null;
 
   <div class="pt-4">
     <h3 class="text-[0.98rem] font-bold leading-snug tracking-tight max-w-[92%]">
-      <span class="pc-title bg-[length:0%_1px] bg-no-repeat bg-[position:0_100%] bg-gradient-to-r from-ink to-ink transition-[background-size] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-[length:100%_1px]">{project.name}</span>
+      <span class="bg-[length:0%_1px] bg-no-repeat bg-[position:0_100%] bg-gradient-to-r from-ink to-ink transition-[background-size] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-[length:100%_1px]">{d.titolo}</span>
     </h3>
-    <div class="mt-1.5 flex items-center gap-3 text-[0.72rem] text-muted uppercase tracking-[0.12em]">
+    <div class="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.72rem] text-muted uppercase tracking-[0.12em]">
       {cat && <span class="transition-colors duration-300 group-hover:text-ink">{cat}</span>}
-      {cat && project.location && <span class="w-1 h-1 rounded-full bg-line inline-block"></span>}
-      {project.location && <span>{project.location}</span>}
+      {mat && <><span class="w-1 h-1 rounded-full bg-line inline-block"></span><span>{mat}</span></>}
+      {d.anno && <><span class="w-1 h-1 rounded-full bg-line inline-block"></span><span>{d.anno}</span></>}
     </div>
   </div>
 </a>
