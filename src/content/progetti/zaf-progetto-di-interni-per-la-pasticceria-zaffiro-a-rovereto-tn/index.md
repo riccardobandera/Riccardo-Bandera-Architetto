@@ -33,5 +33,7 @@ foto:
     alt: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN, foto 4. Progetto di Riccardo Bandera Architetto"
   - src: "./progetto-interni-pasticceria-zaffiro-rovereto-tn-foto-05.webp"
     alt: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN, foto 5. Progetto di Riccardo Bandera Architetto"
+  - src: "./progetto-interni-pasticceria-zaffiro-rovereto-tn-foto-06.webp"
+    alt: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN, foto 6. Progetto di Riccardo Bandera Architetto"
 ---
 Il progetto di ristrutturazione della Pasticceria Zaffiro, avviene a 30 anni dalla sua fondazione da parte della Famiglia Pasolli, che nel passaggio di consegne tra genitori e figli hanno voluto rinnovare completamente l’immagine del locale attraverso un progetto d’arredo che puntasse al design.

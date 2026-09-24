@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
+// anteprima: immagine della mappa usata sul sito precedente
+import mappa from '../images/pagine/mappa-studio.webp';
 const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip} ${site.address.city}`);
 ---
 <BaseLayout title="Contatti" description="Contatta lo studio Riccardo Bandera Architetto a Mestre (Venezia). Raccontaci del tuo progetto.">
@@ -50,14 +53,23 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip}
     </div>
   </section>
 
-  <!-- mappa -->
-  <section class="w-full h-[45vh] bg-surface border-t border-line">
-    <iframe
-      title={`Mappa: ${site.address.street}, ${site.address.city}`}
-      class="w-full h-full grayscale"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      src={`https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`}
-    ></iframe>
+  <!-- mappa: anteprima statica, la mappa Google si carica solo al clic (piu veloce, niente cookie di terzi) -->
+  <section class="relative w-full h-[45vh] bg-surface border-t border-line overflow-hidden" data-map>
+    <Image src={mappa} alt={`Mappa della sede: ${site.address.street}, ${site.address.city}`} widths={[800, 1280, 1600]} sizes="100vw" class="absolute inset-0 w-full h-full object-cover grayscale" loading="lazy" />
+    <div class="absolute inset-0 grid place-items-center bg-bg/30">
+      <div class="flex flex-wrap justify-center gap-3">
+        <button type="button" class="btn btn--solid" data-map-load>Apri la mappa interattiva</button>
+        <a href={site.googleMaps} target="_blank" rel="noopener" class="btn btn--ghost bg-bg">Indicazioni su Google Maps</a>
+      </div>
+    </div>
   </section>
+  <p class="u-container py-3 text-xs text-muted">La mappa interattiva è fornita da Google Maps e viene caricata solo dopo il clic.</p>
+  <script define:vars={{ src: `https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`, title: `Mappa: ${site.address.street}, ${site.address.city}` }}>
+    document.querySelector("[data-map-load]")?.addEventListener("click", () => {
+      const wrap = document.querySelector("[data-map]");
+      const f = document.createElement("iframe");
+      f.src = src; f.title = title; f.className = "absolute inset-0 w-full h-full grayscale"; f.loading = "lazy"; f.referrerPolicy = "no-referrer-when-downgrade";
+      wrap.replaceChildren(f);
+    });
+  </script>
 </BaseLayout>

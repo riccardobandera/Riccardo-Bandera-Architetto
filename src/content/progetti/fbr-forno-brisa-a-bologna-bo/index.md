@@ -46,8 +46,6 @@ foto:
     alt: "Forno Brisa a Bologna, BO, foto 7. Progetto di Riccardo Bandera Architetto"
   - src: "./forno-brisa-bologna-bo-foto-08.webp"
     alt: "Forno Brisa a Bologna, BO, foto 8. Progetto di Riccardo Bandera Architetto"
-  - src: "./forno-brisa-bologna-bo-foto-09.webp"
-    alt: "Forno Brisa a Bologna, BO, foto 9. Progetto di Riccardo Bandera Architetto"
 ---
 Dicembre 2015. Dove tutto ha avuto inizio. Più o meno.
 

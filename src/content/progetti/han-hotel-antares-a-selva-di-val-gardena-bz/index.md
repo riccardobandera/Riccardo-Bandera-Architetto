@@ -60,6 +60,8 @@ disegni:
     alt: "Hotel Antares a Selva di Val Gardena, BZ, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./hotel-antares-selva-val-gardena-bz-disegno-02.webp"
     alt: "Hotel Antares a Selva di Val Gardena, BZ, disegno di progetto 2. Progetto di Riccardo Bandera Architetto"
+  - src: "./hotel-antares-selva-val-gardena-bz-disegno-03.webp"
+    alt: "Hotel Antares a Selva di Val Gardena, BZ, disegno di progetto 3. Progetto di Riccardo Bandera Architetto"
 ---
 Progetto di Interior Design: Residence Hotel Antares
 

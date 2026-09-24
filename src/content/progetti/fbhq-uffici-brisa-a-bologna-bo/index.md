@@ -43,6 +43,8 @@ foto:
     alt: "Uffici Brisa a Bologna, BO, foto 11. Progetto di Riccardo Bandera Architetto"
   - src: "./uffici-brisa-bologna-bo-foto-12.webp"
     alt: "Uffici Brisa a Bologna, BO, foto 12. Progetto di Riccardo Bandera Architetto"
+  - src: "./uffici-brisa-bologna-bo-foto-13.webp"
+    alt: "Uffici Brisa a Bologna, BO, foto 13. Progetto di Riccardo Bandera Architetto"
 render:
   - src: "./uffici-brisa-bologna-bo-render-01.webp"
     alt: "Uffici Brisa a Bologna, BO, render 1. Progetto di Riccardo Bandera Architetto"

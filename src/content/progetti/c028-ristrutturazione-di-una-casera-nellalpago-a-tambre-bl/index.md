@@ -55,6 +55,8 @@ foto:
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 15. Progetto di Riccardo Bandera Architetto"
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-16.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 16. Progetto di Riccardo Bandera Architetto"
+  - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-17.webp"
+    alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 17. Progetto di Riccardo Bandera Architetto"
 render:
   - src: "./ristrutturazione-casera-alpago-tambre-bl-render-01.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, render 1. Progetto di Riccardo Bandera Architetto"
@@ -62,6 +64,10 @@ render:
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, render 2. Progetto di Riccardo Bandera Architetto"
   - src: "./ristrutturazione-casera-alpago-tambre-bl-render-03.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, render 3. Progetto di Riccardo Bandera Architetto"
+  - src: "./ristrutturazione-casera-alpago-tambre-bl-render-04.webp"
+    alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, render 4. Progetto di Riccardo Bandera Architetto"
+  - src: "./ristrutturazione-casera-alpago-tambre-bl-render-05.webp"
+    alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, render 5. Progetto di Riccardo Bandera Architetto"
 disegni:
   - src: "./ristrutturazione-casera-alpago-tambre-bl-disegno-01.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"

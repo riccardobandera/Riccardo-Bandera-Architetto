@@ -40,6 +40,8 @@ foto:
     alt: "Michelangelo House a Mestre, VE, foto 9. Progetto di Riccardo Bandera Architetto"
   - src: "./michelangelo-house-mestre-ve-foto-10.webp"
     alt: "Michelangelo House a Mestre, VE, foto 10. Progetto di Riccardo Bandera Architetto"
+  - src: "./michelangelo-house-mestre-ve-foto-11.webp"
+    alt: "Michelangelo House a Mestre, VE, foto 11. Progetto di Riccardo Bandera Architetto"
 render:
   - src: "./michelangelo-house-mestre-ve-render-01.webp"
     alt: "Michelangelo House a Mestre, VE, render 1. Progetto di Riccardo Bandera Architetto"

@@ -2,14 +2,19 @@
 import { Image } from 'astro:assets';
 import { fasi } from '../data/site';
 import { fasiImages } from '../data/curated';
+import type { ImageMetadata } from 'astro';
+// icone originali delle fasi (dal sito precedente)
+const icone = import.meta.glob<{ default: ImageMetadata }>('../images/fasi/fase-*.png', { eager: true });
+const icona = (n: string) => Object.entries(icone).find(([p]) => p.endsWith(`fase-${n}.png`))?.[1].default;
 ---
 <div class="border-t border-line">
   {fasi.map((f) => {
     const imgs = fasiImages[f.n] ?? [];
     return (
       <article class="fase grid md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-b border-line reveal">
-        <div class="md:col-span-3">
+        <div class="md:col-span-3 flex md:flex-col items-center md:items-start gap-5">
           <span class="font-display text-[3.2rem] md:text-[4.8rem] leading-none text-ink">{f.n}</span>
+          {icona(f.n) && <Image src={icona(f.n)!} alt="" width={128} height={128} class="w-12 h-12 md:w-16 md:h-16 opacity-80" loading="lazy" />}
         </div>
         <div class="md:col-span-9">
           <h3 class="text-xl md:text-[1.7rem] font-bold tracking-tight mb-4 leading-tight">{f.title}</h3>

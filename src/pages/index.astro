@@ -4,6 +4,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import ProcessScroll from "../components/ProcessScroll.astro";
 import Reviews from "../components/Reviews.astro";
+import Clients from "../components/Clients.astro";
+import padiglione from "../images/pagine/padiglione-zanzibar.webp";
 import Button from "../components/Button.astro";
 import { getInEvidenza, getProgetto, coverOf } from "../data/projects";
 import { heroImages } from "../data/curated";
@@ -20,9 +22,10 @@ const heroSlides = await Promise.all(
 const noscriptImg = heroSlides[0];
 
 const featured = await getInEvidenza(6);
-// immagini per la sezione manifesto (due scatti reali dei progetti in evidenza)
-const mA = featured[0]?.data.foto[1]?.src ?? (featured[0] ? coverOf(featured[0])?.src : undefined);
-const mB = featured[1]?.data.foto[1]?.src ?? (featured[1] ? coverOf(featured[1])?.src : undefined);
+// immagini ai lati della citazione: le stesse della home originale
+const csa = await getProgetto("csa-cantina-vini-colombo-sul-lago-di-garda-vr");
+const mA = padiglione;
+const mB = csa?.data.foto.find((f) => String(f.src.src).includes("foto-10"))?.src ?? (csa ? coverOf(csa)?.src : undefined);
 
 // copertine per gli ambiti: un progetto rappresentativo per ciascuno
 const AMBITO_COVER: Record<string, string> = {
@@ -141,6 +144,9 @@ const ambitiCards = (await Promise.all(
   
   <!-- ============ RECENSIONI ============ -->
   <Reviews />
+
+  <!-- ============ CLIENTI ============ -->
+  <Clients />
 <script>
     // ---- hero: foto in ordine casuale, crossfade lento ----
     const slides = Array.from(document.querySelectorAll<HTMLImageElement>(".hero-slide"));

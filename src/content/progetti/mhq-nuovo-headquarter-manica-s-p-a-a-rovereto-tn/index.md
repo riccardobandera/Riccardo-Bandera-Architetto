@@ -78,6 +78,16 @@ disegni:
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 4. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-05.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 5. Progetto di Riccardo Bandera Architetto"
+  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-06.webp"
+    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 6. Progetto di Riccardo Bandera Architetto"
+  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-07.webp"
+    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 7. Progetto di Riccardo Bandera Architetto"
+  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-08.webp"
+    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 8. Progetto di Riccardo Bandera Architetto"
+  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-09.webp"
+    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 9. Progetto di Riccardo Bandera Architetto"
+  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-disegno-10.webp"
+    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, disegno di progetto 10. Progetto di Riccardo Bandera Architetto"
 ---
 Rovereto, Trentino, Immersa nel paesaggio produttivo e agricolo della Vallagarina, la palazzina uffici della Manica S.p.a. si prepara a vivere una seconda vita. Non un semplice intervento di ristrutturazione, ma una rifondazione architettonica leggera, intelligente e profondamente radicata nel contesto culturale e materiale dell’azienda e del territorio.
 

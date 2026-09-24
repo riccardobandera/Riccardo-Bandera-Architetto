@@ -21,6 +21,10 @@ foto:
     alt: "Case prefabbricate in legno a Venezia, VE, foto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-foto-02.webp"
     alt: "Case prefabbricate in legno a Venezia, VE, foto 2. Progetto di Riccardo Bandera Architetto"
+  - src: "./case-prefabbricate-legno-venezia-ve-foto-03.webp"
+    alt: "Case prefabbricate in legno a Venezia, VE, foto 3. Progetto di Riccardo Bandera Architetto"
+  - src: "./case-prefabbricate-legno-venezia-ve-foto-04.webp"
+    alt: "Case prefabbricate in legno a Venezia, VE, foto 4. Progetto di Riccardo Bandera Architetto"
 disegni:
   - src: "./case-prefabbricate-legno-venezia-ve-disegno-01.webp"
     alt: "Case prefabbricate in legno a Venezia, VE, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"

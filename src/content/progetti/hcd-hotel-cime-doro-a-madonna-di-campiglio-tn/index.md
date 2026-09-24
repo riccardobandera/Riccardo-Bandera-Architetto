@@ -42,6 +42,8 @@ render:
     alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, render 1. Progetto di Riccardo Bandera Architetto"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-render-02.webp"
     alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, render 2. Progetto di Riccardo Bandera Architetto"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-render-03.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, render 3. Progetto di Riccardo Bandera Architetto"
 disegni:
   - src: "./hotel-cime-oro-madonna-campiglio-tn-disegno-01.webp"
     alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"

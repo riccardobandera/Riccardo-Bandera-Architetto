@@ -9,7 +9,7 @@ coordinate:
   lat: 45.5788
   lng: 10.68483
 evidenza: true
-copertina: "./villa-affaccio-lago-garda-legno-verona-vr-foto-01.webp"
+copertina: "./villa-affaccio-lago-garda-legno-verona-vr-copertina.webp"
 copertinaAlt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, progetto di Riccardo Bandera Architetto"
 tag: ["Architettura","Architettura in legno","Architettura organica","Casa in legno","Lago di Garda","Lowcarbon","Nzeb","Xlam"]
 crediti:
@@ -70,6 +70,8 @@ disegni:
     alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./villa-affaccio-lago-garda-legno-verona-vr-disegno-02.webp"
     alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, disegno di progetto 2. Progetto di Riccardo Bandera Architetto"
+  - src: "./villa-affaccio-lago-garda-legno-verona-vr-disegno-03.webp"
+    alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, disegno di progetto 3. Progetto di Riccardo Bandera Architetto"
 cantiere:
   - src: "./villa-affaccio-lago-garda-legno-verona-vr-cantiere-01.webp"
     alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, foto di cantiere 1. Progetto di Riccardo Bandera Architetto"

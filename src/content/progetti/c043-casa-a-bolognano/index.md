@@ -47,6 +47,8 @@ render:
     alt: "Casa a Bolognano Arco, TN, render 5. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bolognano-arco-tn-render-06.webp"
     alt: "Casa a Bolognano Arco, TN, render 6. Progetto di Riccardo Bandera Architetto"
+  - src: "./casa-bolognano-arco-tn-render-07.webp"
+    alt: "Casa a Bolognano Arco, TN, render 7. Progetto di Riccardo Bandera Architetto"
 ---
 Ad Arco, nel punto d’incontro tra il tessuto storico e il prezioso paesaggio rurale, il progetto C043 si pone come un esempio paradigmatico di rigenerazione architettonica sensibile. Attraverso un attento intervento di demolizione e ricostruzione, il concept supera la frammentazione preesistente per ritrovare un nuovo e misurato equilibrio tipologico.
 

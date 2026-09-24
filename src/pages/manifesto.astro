@@ -3,11 +3,8 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { manifesto } from '../data/site';
-import { getProgetto, coverOf } from '../data/projects';
-
-// immagine in legno: ristorante alpino in larice a Polsa
-const bsk = await getProgetto('bsk-ristorante-alpino-a-polsa-di-brentonico-trento');
-const woodImg = bsk ? coverOf(bsk)?.src : undefined;
+// banner originale della pagina Manifesto del sito precedente
+import woodImg from '../images/pagine/manifesto-legno.webp';
 ---
 <!-- navMode light: hero scuro, quindi navbar chiara (logo e menu leggibili) -->
 <BaseLayout navMode="light" title="Manifesto" description="Il legno come unico materiale da costruzione sostenibile: la filosofia bioedilizia dello studio Riccardo Bandera.">
@@ -24,7 +21,7 @@ const woodImg = bsk ? coverOf(bsk)?.src : undefined;
 
   {woodImg && (
     <section class="w-full">
-      <Image src={woodImg} alt="Costruzione in legno, progetto dello studio" widths={[768, 1280, 1920]} sizes="100vw" class="w-full h-[42vh] md:h-[64vh] object-cover" />
+      <Image src={woodImg} alt="Architettura in legno, immagine del manifesto dello studio Riccardo Bandera" widths={[768, 1280, 1920]} sizes="100vw" class="w-full h-[42vh] md:h-[64vh] object-cover" />
     </section>
   )}
 

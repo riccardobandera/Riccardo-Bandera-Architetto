@@ -25,6 +25,8 @@ foto:
     alt: "Miralago Active Campus in Riva del Garda, TN, foto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./miralago-active-campus-riva-garda-tn-foto-04.webp"
     alt: "Miralago Active Campus in Riva del Garda, TN, foto 4. Progetto di Riccardo Bandera Architetto"
+  - src: "./miralago-active-campus-riva-garda-tn-foto-05.webp"
+    alt: "Miralago Active Campus in Riva del Garda, TN, foto 5. Progetto di Riccardo Bandera Architetto"
 disegni:
   - src: "./miralago-active-campus-riva-garda-tn-disegno-01.webp"
     alt: "Miralago Active Campus in Riva del Garda, TN, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"

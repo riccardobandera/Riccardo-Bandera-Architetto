@@ -46,6 +46,8 @@ render:
 disegni:
   - src: "./stand-tuttofood-molini-fagioli-disegno-01.webp"
     alt: "Stand TuttoFood Molini Fagioli, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"
+  - src: "./stand-tuttofood-molini-fagioli-disegno-02.webp"
+    alt: "Stand TuttoFood Molini Fagioli, disegno di progetto 2. Progetto di Riccardo Bandera Architetto"
 ---
 Lo stand fieristico di Molini Fagioli per Tuttofood 2026 è un progetto espositivo che ridefinisce lo spazio abbracciando il visitatore per formare un confine permeabile tra interno ed esterno. Il nuovo padiglione si configura come un vero e proprio insieme di finestre dalle quali potersi affacciare sul mondo della molitura e della farina, composto dal lettering, a scala gigante, del nome dell’azienda.
 
