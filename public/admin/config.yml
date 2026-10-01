@@ -146,6 +146,20 @@ collections:
       - { label: Sommario, name: excerpt, widget: text, required: false }
       - { label: Immagine di copertina, name: cover, widget: image, required: false }
       - { label: Descrizione immagine, name: coverAlt, widget: string, required: false }
+      - label: Collega a un'attività dello studio
+        name: attivita
+        widget: select
+        required: false
+        hint: "La card di questa attività nella pagina Fasi del progetto porterà a questo articolo."
+        options:
+          - { label: "Sanatorie e condoni edilizi", value: "Sanatorie e condoni edilizi" }
+          - { label: "Accesso agli atti e verifica della conformità edilizia", value: "Accesso agli atti e verifica della conformità edilizia" }
+          - { label: "Applicazione della normativa sulle tolleranze definita dalla legge Salva Casa", value: "Applicazione della normativa sulle tolleranze definita dalla legge Salva Casa" }
+          - { label: "Volture e proroghe di pratiche edilizie in corso", value: "Volture e proroghe di pratiche edilizie in corso" }
+          - { label: "Varianti in corso d’opera", value: "Varianti in corso d’opera" }
+          - { label: "Rendering e video-rendering commerciali di presentazione del progetto", value: "Rendering e video-rendering commerciali di presentazione del progetto" }
+          - { label: "Richiesta di pre-pareri", value: "Richiesta di pre-pareri" }
+          - { label: "Studi di fattibilità per interventi complessi", value: "Studi di fattibilità per interventi complessi" }
       - { label: Bozza (non pubblicato), name: draft, widget: boolean, default: false, required: false }
       - { label: Testo, name: body, widget: markdown }
 

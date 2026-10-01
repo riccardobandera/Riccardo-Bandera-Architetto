@@ -4,6 +4,7 @@ import ProcessSteps from '../components/ProcessSteps.astro';
 import Button from '../components/Button.astro';
 import { fasi, fasiIntro, altreAttivita } from '../data/site';
 import { seoPagina } from '../data/seo';
+import { getCollection } from 'astro:content';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -11,6 +12,14 @@ const jsonLd = {
   name: 'Le 6 fasi del progetto',
   description: fasiIntro,
   step: fasi.map((f, i) => ({ '@type': 'HowToStep', position: i + 1, name: f.title, text: f.body })),
+};
+// ogni attività porta all'articolo del Journal collegato; finché non c'è, alla pagina Journal
+const articoli = (await getCollection('blog'))
+  .filter((p) => !p.data.draft && p.data.attivita)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const linkAttivita = (v: string) => {
+  const a = articoli.find((p) => p.data.attivita === v);
+  return a ? `/blog/${a.id}/` : '/blog/';
 };
 ---
 <BaseLayout {...seoPagina('fasi')} jsonLd={jsonLd}>
@@ -39,10 +48,15 @@ const jsonLd = {
       </div>
       <ol class="lg:col-span-8 grid sm:grid-cols-2 gap-2.5 md:gap-3">
         {altreAttivita.voci.map((v, i) => (
-          <li class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
-            <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <span class="oa-title">{v}</span>
-            <span class="oa-line" aria-hidden="true"></span>
+          <li>
+            <a href={linkAttivita(v)} class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
+              <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span class="oa-title">{v}</span>
+              <span class="oa-arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+              <span class="oa-line" aria-hidden="true"></span>
+            </a>
           </li>
         ))}
       </ol>
@@ -77,7 +91,12 @@ const jsonLd = {
     transition: color 0.5s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
   }
   .oa-card:hover .oa-num { color: rgb(20 20 20 / 0.3); transform: translateX(0.4rem); }
-  .oa-title { font-size: clamp(0.98rem, 1.2vw, 1.08rem); line-height: 1.32; font-weight: 500; }
+  .oa-card { height: 100%; }
+  .oa-title { font-size: clamp(0.98rem, 1.2vw, 1.08rem); line-height: 1.32; font-weight: 500; flex: 1; }
+  /* freccia: appare al passaggio del mouse, segnala che la card si apre */
+  .oa-arrow { flex-shrink: 0; opacity: 0.35; transform: translate(-4px, 4px); transition: opacity 0.4s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); }
+  .oa-card:hover .oa-arrow, .oa-card:focus-visible .oa-arrow { opacity: 1; transform: none; }
+  .oa-card:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 3px; }
   /* linea che si disegna sotto il titolo quando la card entra nello schermo */
   .oa-line {
     position: absolute; left: clamp(1.1rem, 1.8vw, 1.5rem); right: clamp(1.1rem, 1.8vw, 1.5rem); bottom: 0; height: 2px;

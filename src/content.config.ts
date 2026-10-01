@@ -11,6 +11,8 @@ const blog = defineCollection({
       excerpt: z.string().optional(),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      // attività dello studio (pagina Fasi del progetto) a cui l'articolo è collegato: la card porta qui
+      attivita: z.string().optional(),
       draft: z.boolean().default(false),
     }),
 });
