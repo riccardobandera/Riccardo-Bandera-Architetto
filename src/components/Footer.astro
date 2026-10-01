@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { site, nav } from '../data/site';
+import { site, nav, manifestoQuote } from '../data/site';
 import { servizi } from '../data/seo';
 import monogram from '../images/monogram-white.png';
 const year = new Date().getFullYear();
@@ -26,32 +26,36 @@ const year = new Date().getFullYear();
   <div class="u-container py-16 grid gap-12 sm:grid-cols-2 md:grid-cols-12">
     <!-- brand -->
     <div class="md:col-span-3">
-      <div class="flex items-center gap-3 mb-5 text-cream">
+      <div class="f-head gap-3 text-cream">
         <Image src={monogram} alt="" width={38} height={40} class="w-[34px] h-auto" />
-        <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera<br /><span class="text-[0.6rem] tracking-[0.34em] text-cream/50">Architetto</span></span>
+        <span class="flex flex-col leading-[1.05]">
+          <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera</span>
+          <span class="text-[0.6rem] tracking-[0.34em] uppercase text-cream/50">Architetto</span>
+        </span>
       </div>
       <p class="text-sm leading-relaxed max-w-xs">
         Studio di architettura e d’interni. Residenziale, hospitality, commerciale e direzionale, con una vocazione alla bioedilizia e alle costruzioni in legno.
       </p>
+      <p class="mt-5 text-xs leading-relaxed text-cream/45 max-w-xs font-display italic">{manifestoQuote}</p>
     </div>
 
     <!-- menu -->
     <nav class="md:col-span-2" aria-label="Footer">
-      <p class="u-eyebrow text-cream/40 mb-5">Menu</p>
-      <ul class="space-y-2.5 text-sm">
+      <p class="f-head u-eyebrow text-cream/40">Menu</p>
+      <ul class="space-y-1.5 text-sm leading-relaxed">
         {nav.map((i) => (
           <li><a href={i.href} class="u-underline text-cream/80 hover:text-cream">{i.label}</a></li>
         ))}
         <li><a href="/blog/" class="u-underline text-cream/80 hover:text-cream">Journal</a></li>
-        <li><a href="/domande-frequenti/" class="u-underline text-cream/80 hover:text-cream">Domande frequenti</a></li>
+        <li><a href="/domande-frequenti/" class="u-underline text-cream/80 hover:text-cream">FAQ</a></li>
         <li><a href="/chi-e-riccardo-bandera/" class="u-underline text-cream/80 hover:text-cream">Lo studio in breve</a></li>
       </ul>
     </nav>
 
     <!-- settori -->
     <nav class="md:col-span-2" aria-label="Settori">
-      <p class="u-eyebrow text-cream/40 mb-5">Settori</p>
-      <ul class="space-y-2.5 text-sm">
+      <p class="f-head u-eyebrow text-cream/40">Settori</p>
+      <ul class="space-y-1.5 text-sm leading-relaxed">
         {servizi.map((s) => (
           <li><a href={`/${s.slug}/`} class="u-underline text-cream/80 hover:text-cream">{s.nome}</a></li>
         ))}
@@ -60,7 +64,7 @@ const year = new Date().getFullYear();
 
     <!-- contatti -->
     <div class="md:col-span-3">
-      <p class="u-eyebrow text-cream/40 mb-5">Studio</p>
+      <p class="f-head u-eyebrow text-cream/40">Studio</p>
       <address class="not-italic text-sm leading-relaxed space-y-3">
         <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
         <p>
@@ -74,8 +78,8 @@ const year = new Date().getFullYear();
 
     <!-- social -->
     <div class="md:col-span-2">
-      <p class="u-eyebrow text-cream/40 mb-5">Social</p>
-      <ul class="space-y-2.5 text-sm">
+      <p class="f-head u-eyebrow text-cream/40">Social</p>
+      <ul class="space-y-1.5 text-sm leading-relaxed">
         <li><a href={site.social.instagram} target="_blank" rel="noopener" class="u-underline">Instagram</a></li>
         <li><a href={site.social.facebook} target="_blank" rel="noopener" class="u-underline">Facebook</a></li>
         <li><a href={site.social.linkedin} target="_blank" rel="noopener" class="u-underline">LinkedIn</a></li>
@@ -91,3 +95,8 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<style>
+  /* testata di ogni colonna (logo o etichetta) alta uguale: i testi sotto partono tutti alla stessa riga */
+  .f-head { height: 2.5rem; margin-bottom: 1.25rem; display: flex; align-items: flex-end; }
+</style>
