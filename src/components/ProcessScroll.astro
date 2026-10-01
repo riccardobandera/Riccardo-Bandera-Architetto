@@ -70,7 +70,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
             ) : (
               <span class="flex flex-col leading-none">
                 <span class="ms-num font-display text-muted/45">{it.n}</span>
-                <span class="font-sans font-extrabold uppercase tracking-tight text-[clamp(1rem,2.2vw,1.9rem)] mt-2 whitespace-nowrap">{it.t}</span>
+                <span class="ms-title font-sans font-extrabold uppercase tracking-tight mt-2 whitespace-nowrap">{it.t}</span>
               </span>
             )}
             {it.media && (
@@ -198,12 +198,15 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     --num: min(clamp(3.5rem, 9vw, 8rem), 13svh);  /* numero della fase */
     --conn: clamp(1.3rem, 3.2vw, 3rem);          /* frasi di collegamento */
     --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni progetto" */
+    --title: clamp(1rem, 2.2vw, 1.9rem);         /* titolo della fase */
+    --gap: clamp(1.25rem, 2.6svh, 2rem);         /* spazio tra scritta e foto */
     --mid: 44svh;                                /* altezza della riga delle scritte */
     --shot: clamp(187px, 27.5svh, 363px);        /* altezza foto e riquadri */
   }
   /* tutte le scritte stanno sulla stessa riga, a metà schermo; foto e riquadri pendono sotto */
   .ms-track { margin-top: calc(var(--mid) - var(--num) / 2); }
   .ms-num { font-size: var(--num); line-height: 1; }
+  .ms-title { font-size: var(--title); line-height: 1; }
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: var(--lead); line-height: 0.9; }
   .ms-muted { font-family: var(--font-display); font-style: italic; color: var(--color-muted); font-size: var(--conn); line-height: 1; }
   .ms-conn { margin-top: calc(var(--num) / 2 - var(--conn) / 2); }
@@ -215,7 +218,10 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 
   /* foto sotto le scritte: tutte alte uguali, allineate a destra con l'ultima lettera della scritta sopra */
   .ms-shot { height: var(--shot); }
-  .ms-media-lead, .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); }
+  .ms-media-phase { margin-top: var(--gap); }
+  /* sotto "Ogni progetto" la foto parte alla stessa altezza di quelle sotto le fasi
+     (numero + titolo della fase), non subito sotto la scritta */
+  .ms-media-lead { margin-top: calc(var(--num) / 2 + 0.5rem + var(--title) - var(--lead) * 0.45 + var(--gap)); }
   .ms-empty, .ms-fade { aspect-ratio: 4 / 3; background: var(--color-surface); border: 1px solid var(--color-line); }
   /* riquadro per i preventivi: righe di documento che sfumano verso il basso */
   .ms-fade {
