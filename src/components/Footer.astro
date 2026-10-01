@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
     </div>
   </a>
 
-  <div class="u-container py-16 grid gap-12 sm:grid-cols-2 md:grid-cols-12">
+  <div class="f-grid u-container py-16 grid gap-12 sm:grid-cols-2 md:grid-cols-12">
     <!-- brand -->
     <div class="md:col-span-3">
       <div class="f-head gap-3 text-cream">
@@ -33,16 +33,16 @@ const year = new Date().getFullYear();
           <span class="text-[0.6rem] tracking-[0.34em] uppercase text-cream/50">Architetto</span>
         </span>
       </div>
-      <p class="text-sm leading-relaxed max-w-xs">
+      <p class="text-sm max-w-xs">
         Studio di architettura e d’interni. Residenziale, hospitality, commerciale e direzionale, con una vocazione alla bioedilizia e alle costruzioni in legno.
       </p>
-      <p class="mt-5 text-xs leading-relaxed text-cream/45 max-w-xs font-display italic">{manifestoQuote}</p>
+      <p class="f-gap text-xs text-cream/45 max-w-xs font-display italic">{manifestoQuote}</p>
     </div>
 
     <!-- menu -->
     <nav class="md:col-span-2" aria-label="Footer">
       <p class="f-head u-eyebrow text-cream/40">Menu</p>
-      <ul class="space-y-1.5 text-sm leading-relaxed">
+      <ul class="text-sm">
         {nav.map((i) => (
           <li><a href={i.href} class="u-underline text-cream/80 hover:text-cream">{i.label}</a></li>
         ))}
@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
     <!-- settori -->
     <nav class="md:col-span-2" aria-label="Settori">
       <p class="f-head u-eyebrow text-cream/40">Settori</p>
-      <ul class="space-y-1.5 text-sm leading-relaxed">
+      <ul class="text-sm">
         {servizi.map((s) => (
           <li><a href={`/${s.slug}/`} class="u-underline text-cream/80 hover:text-cream">{s.nome}</a></li>
         ))}
@@ -65,9 +65,9 @@ const year = new Date().getFullYear();
     <!-- contatti -->
     <div class="md:col-span-3">
       <p class="f-head u-eyebrow text-cream/40">Studio</p>
-      <address class="not-italic text-sm leading-relaxed space-y-3">
+      <address class="not-italic text-sm">
         <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
-        <p>
+        <p class="f-gap">
           <a href={`mailto:${site.email}`} class="u-underline block w-fit">{site.email}</a>
           <a href={`tel:${site.phoneOfficeHref}`} class="u-underline block w-fit">Tel. {site.phoneOffice}</a>
           <a href={`tel:${site.phoneHref}`} class="u-underline block w-fit">Cell. {site.phone}</a>
@@ -79,7 +79,7 @@ const year = new Date().getFullYear();
     <!-- social -->
     <div class="md:col-span-2">
       <p class="f-head u-eyebrow text-cream/40">Social</p>
-      <ul class="space-y-1.5 text-sm leading-relaxed">
+      <ul class="text-sm">
         <li><a href={site.social.instagram} target="_blank" rel="noopener" class="u-underline">Instagram</a></li>
         <li><a href={site.social.facebook} target="_blank" rel="noopener" class="u-underline">Facebook</a></li>
         <li><a href={site.social.linkedin} target="_blank" rel="noopener" class="u-underline">LinkedIn</a></li>
@@ -99,4 +99,9 @@ const year = new Date().getFullYear();
 <style>
   /* testata di ogni colonna (logo o etichetta) alta uguale: i testi sotto partono tutti alla stessa riga */
   .f-head { height: 2.5rem; margin-bottom: 1.25rem; display: flex; align-items: flex-end; }
+  /* tutte le righe di testo sullo stesso passo (23px): le righe delle colonne si allineano in orizzontale.
+     Gli stacchi (citazione, contatti) valgono esattamente una riga, così la griglia non si sfasa */
+  .f-grid { --fl: 1.4375rem; }
+  .f-grid p:not(.f-head), .f-grid li, .f-grid address a { line-height: var(--fl); }
+  .f-grid .f-gap { margin-top: var(--fl); }
 </style>
