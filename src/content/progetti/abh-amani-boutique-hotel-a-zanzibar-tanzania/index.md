@@ -7,7 +7,7 @@ materiali: ["intonaco","legno"]
 coordinate:
   lat: -6.26675
   lng: 39.53407
-evidenza: true
+evidenza: false
 copertina: "./amani-boutique-hotel-zanzibar-tanzania-foto-01.webp"
 copertinaAlt: "Amani Boutique Hotel a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
 seo:

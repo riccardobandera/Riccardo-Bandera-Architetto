@@ -8,7 +8,7 @@ materiali: ["paglia","legno","intonaco"]
 coordinate:
   lat: -6.14453
   lng: 39.49552
-evidenza: false
+evidenza: true
 copertina: "./kono-kono-hotel-and-villas-zanzibar-tanzania-copertina.webp"
 copertinaAlt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
 seo:
