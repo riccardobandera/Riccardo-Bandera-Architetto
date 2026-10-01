@@ -75,13 +75,15 @@ const punti = await Promise.all(
   <section class="u-container pb-10 hidden" data-map-wrap>
     <div class="relative">
       <div id="map" class="w-full h-[62vh] md:h-[70vh] bg-surface border border-line" aria-label="Mappa dei progetti"></div>
-      <div class="map-zones absolute top-3 right-3 z-[500] flex gap-1.5" data-zones>
+      <div class="map-zones absolute top-3 left-14 right-3 z-[500] flex flex-wrap justify-end gap-1.5" data-zones>
         <button class="zone is-active" data-zone="tutti">Tutti</button>
         <button class="zone" data-zone="italia">Italia</button>
+        <button class="zone" data-zone="trentino">Trentino</button>
+        <button class="zone" data-zone="bologna">Bologna</button>
         <button class="zone" data-zone="zanzibar">Zanzibar</button>
       </div>
     </div>
-    <p class="mt-3 text-xs text-muted">Tocca un punto per vedere il progetto. Mappa © OpenStreetMap.</p>
+    <p class="mt-3 text-xs text-muted">Tocca un punto per vedere il progetto. Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" class="u-underline">OpenStreetMap</a>.</p>
   </section>
 
   <!-- LISTA -->
@@ -273,14 +275,22 @@ const punti = await Promise.all(
   // Italia: tutto sopra il 30esimo parallelo; Zanzibar: emisfero sud
   function fitZone(zone: string, animate: boolean) {
     if (!map) return;
-    const pts = currentVisible.filter((ll) => zone === 'italia' ? ll.lat > 30 : zone === 'zanzibar' ? ll.lat < 0 : true);
+    // zone con più lavori: Trentino (Trento, Rovereto, Garda trentino, Val di Sole, Val Gardena) e area di Bologna
+    const inZona = (ll: L.LatLng) =>
+      zone === 'italia' ? ll.lat > 30 :
+      zone === 'zanzibar' ? ll.lat < 0 :
+      zone === 'trentino' ? ll.lat > 45.7 && ll.lat < 46.75 && ll.lng > 10.4 && ll.lng < 11.95 :
+      zone === 'bologna' ? ll.lat > 44.3 && ll.lat < 44.65 && ll.lng > 11.1 && ll.lng < 11.6 :
+      true;
+    const pts = currentVisible.filter(inZona);
     const use = pts.length ? pts : currentVisible;
-    if (use.length) map.fitBounds(L.latLngBounds(use), { padding: [50, 50], maxZoom: zone === 'zanzibar' ? 10 : 9, animate });
+    const maxZoom = zone === 'bologna' ? 13 : zone === 'trentino' ? 10 : zone === 'zanzibar' ? 10 : 9;
+    if (use.length) map.fitBounds(L.latLngBounds(use), { padding: [50, 50], maxZoom, animate });
   }
 
   function ensureMap() {
     if (map) { setTimeout(() => map!.invalidateSize(), 50); return; }
-    map = L.map('map', { scrollWheelZoom: false, worldCopyJump: true, zoomControl: true, attributionControl: true });
+    map = L.map('map', { scrollWheelZoom: false, worldCopyJump: true, zoomControl: true, attributionControl: false });
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
       maxZoom: 18,
