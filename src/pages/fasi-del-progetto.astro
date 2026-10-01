@@ -24,18 +24,28 @@ const jsonLd = {
     <ProcessSteps />
   </section>
 
-  <section class="bg-surface">
-    <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
+  <!-- altre attività: fondo scuro, card numerate che si riempiono al passaggio del mouse -->
+  <section class="bg-ink text-cream">
+    <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-12 lg:gap-16">
       <div class="lg:col-span-4">
-        <p class="u-eyebrow mb-4 reveal">Oltre il progetto</p>
-        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold tracking-tight leading-[1.02] reveal">Altre attività dello studio</h2>
-        <p class="mt-6 text-muted leading-relaxed reveal">{altreAttivita.intro}</p>
+        <div class="lg:sticky lg:top-32">
+          <p class="u-eyebrow text-cream/50 mb-5 reveal">Oltre il progetto</p>
+          <h2 class="font-display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.02] reveal">Altre attività dello studio</h2>
+          <p class="mt-6 text-cream/65 text-[1.05rem] leading-relaxed reveal">{altreAttivita.intro}</p>
+          <div class="mt-10 reveal">
+            <Button href="/contatti/" variant="onDark" arrow>Parliamone</Button>
+          </div>
+        </div>
       </div>
-      <ul class="lg:col-span-8 grid sm:grid-cols-2 gap-px bg-line border border-line">
-        {altreAttivita.voci.map((v) => (
-          <li class="bg-surface p-6 md:p-7 text-[1.02rem] font-medium leading-snug reveal">{v}</li>
+      <ol class="lg:col-span-8 grid sm:grid-cols-2 gap-3 md:gap-4">
+        {altreAttivita.voci.map((v, i) => (
+          <li class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
+            <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="oa-title">{v}</span>
+            <span class="oa-line" aria-hidden="true"></span>
+          </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 
@@ -44,3 +54,39 @@ const jsonLd = {
     <Button href="/progetti/" variant="ghost">Guarda i lavori</Button>
   </section>
 </BaseLayout>
+
+<style>
+  .oa-card {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem;
+    min-height: clamp(10rem, 16vw, 13rem); padding: clamp(1.4rem, 2.4vw, 2rem);
+    border: 1px solid rgb(240 237 230 / 0.14);
+    transition: color 0.5s var(--ease-out-expo), border-color 0.5s var(--ease-out-expo);
+  }
+  /* al passaggio del mouse la card si riempie dal basso con il colore chiaro */
+  .oa-card::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--color-cream);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.65s var(--ease-out-expo);
+  }
+  .oa-card:hover { color: var(--color-ink); border-color: var(--color-cream); }
+  .oa-card:hover::before { transform: scaleY(1); }
+  .oa-num {
+    font-size: clamp(2.6rem, 4.4vw, 3.8rem); line-height: 1; color: rgb(240 237 230 / 0.32);
+    transition: color 0.5s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+  }
+  .oa-card:hover .oa-num { color: rgb(20 20 20 / 0.3); transform: translateX(0.4rem); }
+  .oa-title { font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.35; font-weight: 500; max-width: 22ch; }
+  /* linea che si disegna sotto il titolo quando la card entra nello schermo */
+  .oa-line {
+    position: absolute; left: clamp(1.4rem, 2.4vw, 2rem); right: clamp(1.4rem, 2.4vw, 2rem); bottom: 0; height: 2px;
+    background: currentColor; transform: scaleX(0); transform-origin: left;
+    transition: transform 1.1s var(--ease-out-expo) 0.25s;
+  }
+  .oa-card.is-in .oa-line { transform: scaleX(0.18); }
+  .oa-card:hover .oa-line { transform: scaleX(1); transition-delay: 0s; }
+  @media (prefers-reduced-motion: reduce) {
+    .oa-card, .oa-card::before, .oa-num, .oa-line { transition: none; }
+  }
+</style>
