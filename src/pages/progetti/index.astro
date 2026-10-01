@@ -7,6 +7,7 @@ import { seoPagina } from '../../data/seo';
 
 const progetti = await getProgetti();
 const f = await facets();
+const stati = { realizzato: progetti.filter((p) => p.data.stato === 'realizzato').length, progetto: progetti.filter((p) => p.data.stato === 'progetto').length };
 
 // dati per la mappa (miniature leggere)
 const punti = await Promise.all(
@@ -23,6 +24,7 @@ const punti = await Promise.all(
       lng: p.data.coordinate!.lng,
       cats: p.data.categorie,
       mats: p.data.materiali,
+      stato: p.data.stato ?? '',
       thumb: thumb?.src ?? null,
     };
   }),
@@ -32,20 +34,13 @@ const punti = await Promise.all(
   <section class="u-container pt-36 md:pt-44 pb-8">
     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
       <div>
-        <a href="/#progetti-selezionati" class="back-sel inline-flex items-center gap-2 mb-8 text-[0.72rem] uppercase tracking-[0.16em] text-muted hover:text-ink transition-colors reveal">
-          <span class="grid place-items-center w-8 h-8 rounded-full border border-line" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
-          </span>
-          Progetti selezionati
-        </a>
         <p class="u-eyebrow mb-6 reveal">Portfolio · <span data-count>{f.total}</span> progetti</p>
         <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] reveal">Progetti</h1>
       </div>
-      <label class="search reveal">
-        <span class="sr-only">Cerca un progetto</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" placeholder="Cerca: panificio, hotel, legno, Trento…" data-search-input autocomplete="off" />
-      </label>
+      <a href="/#progetti-selezionati" class="btn btn--ghost self-start lg:self-end reveal">
+        Selezionati
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
     </div>
 
     <!-- filtri -->
@@ -58,17 +53,19 @@ const punti = await Promise.all(
         </div>
       </div>
       <div class="frow">
-        <span class="flabel">Materiale</span>
-        <div class="fchips" data-group="materiale">
-          <button class="chip is-active" data-value="">Tutti</button>
-          {f.materiali.map((m) => <button class="chip" data-value={m.key}>{m.label} <em>{m.count}</em></button>)}
-        </div>
-      </div>
-      <div class="frow">
-        <span class="flabel">Vista</span>
-        <div class="fchips" data-group="vista">
-          <button class="view is-active" data-value="lista">Lista</button>
-          <button class="view" data-value="mappa">Mappa</button>
+        <span class="flabel">Filtri</span>
+        <div class="fchips">
+          <div class="fchips" data-group="vista">
+            <button class="view is-active" data-value="lista">Lista</button>
+            <button class="view" data-value="mappa">Mappa</button>
+          </div>
+          <span class="fsep" aria-hidden="true"></span>
+          <div class="fchips" data-group="stato" data-toggle>
+            <button class="chip" data-value="realizzato">Realizzato <em>{stati.realizzato}</em></button>
+            <button class="chip" data-value="progetto">Progetto <em>{stati.progetto}</em></button>
+          </div>
+          <!-- arrivo da un link per materiale (es. "Progetti in legno"): filtro attivo, si toglie con la x -->
+          <button class="chip is-active hidden" data-mat-chip data-labels={JSON.stringify(Object.fromEntries(f.materiali.map((m) => [m.key, m.label])))} aria-label="Togli il filtro materiale"><span data-mat-label></span> <span aria-hidden="true">×</span></button>
         </div>
       </div>
     </div>
@@ -113,7 +110,7 @@ const punti = await Promise.all(
   import L from 'leaflet';
   import 'leaflet/dist/leaflet.css';
 
-  type Punto = { id: string; titolo: string; luogo: string; anno: number | null; ambito: string; lat: number; lng: number; cats: string[]; mats: string[]; thumb: string | null };
+  type Punto = { id: string; titolo: string; luogo: string; anno: number | null; ambito: string; lat: number; lng: number; cats: string[]; mats: string[]; stato: string; thumb: string | null };
 
   // ---------------- MODALE ----------------
   const modal = document.getElementById('project-modal')!;
@@ -179,22 +176,25 @@ const punti = await Promise.all(
   window.addEventListener('popstate', () => { if (isProjectUrl(location.href)) navigate(location.href, false); else hideUI(); });
 
   // ---------------- FILTRI ----------------
-  const state = { ambito: '', materiale: '', q: '', vista: 'lista' };
+  // q e materiale restano leggibili dall'indirizzo (vecchi link e pulsante "Progetti in legno"), senza campi visibili
+  const state = { ambito: '', materiale: '', stato: '', q: '', vista: 'lista' };
   const params = new URLSearchParams(location.search);
   state.ambito = params.get('ambito') ?? '';
   state.materiale = params.get('materiale') ?? '';
   state.q = params.get('q') ?? '';
+  state.stato = ['realizzato', 'progetto'].includes(params.get('stato') ?? '') ? params.get('stato')! : '';
   state.vista = params.get('vista') === 'mappa' ? 'mappa' : 'lista';
   // compatibilita coi vecchi link #residenziale
   if (!state.ambito && location.hash && ['#residenziale', '#commerciale', '#alberghiero', '#direzionale'].includes(location.hash)) state.ambito = location.hash.slice(1);
 
   const cards = [...document.querySelectorAll<HTMLElement>('.project-card')];
-  const input = document.querySelector<HTMLInputElement>('[data-search-input]')!;
   const countEl = document.querySelector('[data-count]')!;
   const empty = document.querySelector('[data-empty]')!;
   const listWrap = document.querySelector('[data-list-wrap]')!;
   const mapWrap = document.querySelector('[data-map-wrap]')!;
-  input.value = state.q;
+  const matChip = document.querySelector<HTMLButtonElement>('[data-mat-chip]')!;
+  const matLabel = matChip.querySelector<HTMLElement>('[data-mat-label]')!;
+  const matLabels: Record<string, string> = JSON.parse(matChip.dataset.labels || '{}');
 
   const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   // sinonimi: chi cerca "panificio" trova anche i forni, e cosi via
@@ -208,10 +208,11 @@ const punti = await Promise.all(
     ['zanzibar', 'tanzania', 'africa'],
   ];
   const expand = (w: string) => (w.length >= 3 && SIN.find((g) => g.some((x) => w.startsWith(x) || x.startsWith(w)))) || [w];
-  const matches = (cats: string[], mats: string[], text: string) => {
+  const matches = (cats: string[], mats: string[], text: string, stato: string) => {
     const t = norm(text);
     return (!state.ambito || cats.includes(state.ambito)) &&
       (!state.materiale || mats.includes(state.materiale)) &&
+      (!state.stato || stato === state.stato) &&
       (!state.q || norm(state.q).split(/\s+/).filter(Boolean).every((w) => t.includes(w) || expand(w).some((x) => t.includes(x))));
   };
 
@@ -220,7 +221,7 @@ const punti = await Promise.all(
   const apply = () => {
     let n = 0;
     cards.forEach((c) => {
-      const ok = matches((c.dataset.cats || '').split(' '), (c.dataset.mats || '').split(' '), c.dataset.search || '');
+      const ok = matches((c.dataset.cats || '').split(' '), (c.dataset.mats || '').split(' '), c.dataset.search || '', c.dataset.stato || '');
       c.style.display = ok ? '' : 'none';
       if (ok) { n++; c.classList.add('is-in'); }
     });
@@ -239,6 +240,9 @@ const punti = await Promise.all(
     const p = new URLSearchParams();
     if (state.ambito) p.set('ambito', state.ambito);
     if (state.materiale) p.set('materiale', state.materiale);
+    if (state.stato) p.set('stato', state.stato);
+    matChip.classList.toggle('hidden', !state.materiale);
+    if (state.materiale) matLabel.textContent = 'Materiale: ' + (matLabels[state.materiale] ?? state.materiale);
     if (state.q) p.set('q', state.q);
     if (state.vista === 'mappa') p.set('vista', 'mappa');
     if (!history.state?.pm) history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
@@ -250,13 +254,14 @@ const punti = await Promise.all(
       const b = (e.target as HTMLElement).closest('button');
       if (!b) return;
       const key = g.dataset.group as keyof typeof state;
-      state[key] = b.dataset.value ?? '';
+      const v = b.dataset.value ?? '';
+      // Realizzato / Progetto: un secondo clic sullo stesso pulsante toglie il filtro
+      state[key] = g.hasAttribute('data-toggle') && state[key] === v ? '' : v;
       apply();
     });
   });
-  let t: number | undefined;
-  input.addEventListener('input', () => { clearTimeout(t); t = window.setTimeout(() => { state.q = input.value.trim(); apply(); }, 150); });
-  document.querySelector('[data-reset]')?.addEventListener('click', () => { state.ambito = ''; state.materiale = ''; state.q = ''; input.value = ''; apply(); });
+  matChip.addEventListener('click', () => { state.materiale = ''; apply(); });
+  document.querySelector('[data-reset]')?.addEventListener('click', () => { state.ambito = ''; state.materiale = ''; state.stato = ''; state.q = ''; apply(); });
 
   // ---------------- MAPPA ----------------
   let map: L.Map | null = null;
@@ -305,7 +310,7 @@ const punti = await Promise.all(
         map!.invalidateSize();
         const visibili: L.LatLng[] = [];
         for (const { p, m } of markers) {
-          const ok = matches(p.cats, p.mats, [p.titolo, p.luogo, p.ambito].join(' '));
+          const ok = matches(p.cats, p.mats, [p.titolo, p.luogo, p.ambito].join(' '), p.stato);
           if (ok) { m.addTo(map!); visibili.push(m.getLatLng()); } else m.remove();
         }
         currentVisible = visibili;
@@ -325,9 +330,7 @@ const punti = await Promise.all(
 </script>
 
 <style>
-  .search { display: flex; align-items: center; gap: 0.7rem; border-bottom: 1px solid var(--color-ink); padding: 0.6rem 0; width: min(100%, 26rem); }
-  .search input { flex: 1; background: transparent; border: 0; outline: none; font: inherit; font-size: 1rem; color: var(--color-ink); }
-  .search input::placeholder { color: var(--color-muted); }
+  .fsep { width: 1px; align-self: stretch; background: var(--color-line); margin: 0 0.35rem; }
   .frow { display: grid; grid-template-columns: 7rem 1fr; align-items: start; gap: 1rem; }
   .flabel { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding-top: 0.55rem; }
   .fchips { display: flex; flex-wrap: wrap; gap: 0.5rem; }

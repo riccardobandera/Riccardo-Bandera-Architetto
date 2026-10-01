@@ -9,6 +9,7 @@ coordinate:
   lat: 45.88527
   lng: 11.00931
 evidenza: false
+stato: "realizzato"
 copertina: "./panificio-moderno-rivendita-isera-tn-foto-02.webp"
 copertinaAlt: "Panificio Moderno Rivendita a Isera, TN, progetto di Riccardo Bandera Architetto"
 seo:

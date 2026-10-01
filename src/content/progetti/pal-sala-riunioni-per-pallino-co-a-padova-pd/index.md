@@ -8,6 +8,7 @@ coordinate:
   lat: 45.39141
   lng: 11.80585
 evidenza: false
+stato: "realizzato"
 copertina: "./sala-riunioni-pallino-co-padova-pd-foto-01.webp"
 copertinaAlt: "Sala riunioni per Pallino & Co a Padova, PD, progetto di Riccardo Bandera Architetto"
 seo:

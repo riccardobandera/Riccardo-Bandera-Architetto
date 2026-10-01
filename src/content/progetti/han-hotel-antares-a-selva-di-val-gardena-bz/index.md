@@ -8,6 +8,7 @@ coordinate:
   lat: 46.55519
   lng: 11.7601
 evidenza: false
+stato: "realizzato"
 copertina: "./hotel-antares-selva-val-gardena-bz-foto-01.webp"
 copertinaAlt: "Hotel Antares a Selva di Val Gardena, BZ, progetto di Riccardo Bandera Architetto"
 seo:

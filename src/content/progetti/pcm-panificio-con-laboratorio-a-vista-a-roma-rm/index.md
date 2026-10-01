@@ -9,6 +9,7 @@ coordinate:
   lat: 41.89332
   lng: 12.48293
 evidenza: false
+stato: "realizzato"
 copertina: "./panificio-laboratorio-vista-roma-rm-foto-04.webp"
 copertinaAlt: "Panificio con laboratorio a vista a Roma, RM, progetto di Riccardo Bandera Architetto"
 seo:

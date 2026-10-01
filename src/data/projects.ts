@@ -26,7 +26,8 @@ let cache: Progetto[] | null = null;
 
 /** Tutti i progetti pubblicati: prima i piu recenti, poi in ordine alfabetico. */
 export async function getProgetti(): Promise<Progetto[]> {
-  if (cache) return cache;
+  // in sviluppo niente cache: le modifiche ai progetti (anche dal CMS) si vedono subito
+  if (cache && import.meta.env.PROD) return cache;
   const all = (await getCollection('progetti')).filter((p) => !p.data.bozza);
   cache = all.sort((a, b) => (b.data.anno ?? 0) - (a.data.anno ?? 0) || a.data.titolo.localeCompare(b.data.titolo, 'it'));
   return cache;

@@ -9,6 +9,7 @@ coordinate:
   lat: 44.50022
   lng: 11.34299
 evidenza: false
+stato: "realizzato"
 copertina: "./forno-brisa-bologna-bo-copertina.webp"
 copertinaAlt: "Forno Brisa a Bologna, BO, progetto di Riccardo Bandera Architetto"
 seo:

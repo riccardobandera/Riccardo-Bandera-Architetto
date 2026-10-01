@@ -8,6 +8,7 @@ coordinate:
   lat: 45.77108
   lng: 10.76077
 evidenza: false
+stato: "progetto"
 copertina: "./riqualificazione-hotel-tremosine-foto-01.webp"
 copertinaAlt: "riqualificazione dell’Hotel Tremosine, progetto di Riccardo Bandera Architetto"
 seo:

@@ -8,6 +8,7 @@ coordinate:
   lat: 46.05233
   lng: 10.96572
 evidenza: false
+stato: "realizzato"
 copertina: "./restyling-bistro-stretta-foto-03.webp"
 copertinaAlt: "Restyling Bistrò alla Stretta, progetto di Riccardo Bandera Architetto"
 seo:

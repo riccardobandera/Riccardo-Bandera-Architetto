@@ -9,6 +9,7 @@ coordinate:
   lat: 45.538
   lng: 12.15936
 evidenza: false
+stato: "realizzato"
 copertina: "./ristrutturazione-ampliamento-martellago-ve-foto-04.webp"
 copertinaAlt: "Ristrutturazione con ampliamento a Martellago, VE, progetto di Riccardo Bandera Architetto"
 seo:

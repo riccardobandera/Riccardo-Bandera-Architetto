@@ -9,6 +9,7 @@ coordinate:
   lat: -5.72723
   lng: 39.2992
 evidenza: false
+stato: "progetto"
 copertina: "./guest-house-nungwi-foto-03.webp"
 copertinaAlt: "Guest house a Nungwi, progetto di Riccardo Bandera Architetto"
 seo:

@@ -8,6 +8,7 @@ coordinate:
   lat: 45.88663
   lng: 11.05154
 evidenza: false
+stato: "realizzato"
 copertina: "./ristrutturazione-appartamento-rovereto-foto-02.webp"
 copertinaAlt: "Ristrutturazione appartamento a Rovereto, progetto di Riccardo Bandera Architetto"
 seo:

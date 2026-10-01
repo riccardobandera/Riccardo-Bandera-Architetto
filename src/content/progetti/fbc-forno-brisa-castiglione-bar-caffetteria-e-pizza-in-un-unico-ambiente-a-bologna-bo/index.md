@@ -9,6 +9,7 @@ coordinate:
   lat: 44.47829
   lng: 11.34622
 evidenza: false
+stato: "realizzato"
 copertina: "./forno-brisa-castiglione-bar-caffetteria-pizza-ambiente-foto-04.webp"
 copertinaAlt: "Forno Brisa Castiglione: bar, caffetteria e pizza in un unico ambiente a Bologna, BO, progetto di Riccardo Bandera Architetto"
 seo:

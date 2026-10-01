@@ -9,6 +9,7 @@ coordinate:
   lat: 45.51857
   lng: 9.08642
 evidenza: false
+stato: "realizzato"
 copertina: "./stand-tuttofood-molini-fagioli-foto-02.webp"
 copertinaAlt: "Stand TuttoFood Molini Fagioli, progetto di Riccardo Bandera Architetto"
 seo:

@@ -9,6 +9,7 @@ coordinate:
   lat: 44.47157
   lng: 11.40486
 evidenza: false
+stato: "realizzato"
 copertina: "./forno-brisa-san-lazzaro-savena-bo-copertina.webp"
 copertinaAlt: "Forno Brisa a San Lazzaro di Savena, BO, progetto di Riccardo Bandera Architetto"
 seo:

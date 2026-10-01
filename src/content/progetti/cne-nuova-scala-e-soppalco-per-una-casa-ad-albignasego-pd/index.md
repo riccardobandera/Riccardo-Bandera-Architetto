@@ -9,6 +9,7 @@ coordinate:
   lat: 45.35535
   lng: 11.85583
 evidenza: false
+stato: "realizzato"
 copertina: "./nuova-scala-soppalco-casa-albignasego-pd-copertina.webp"
 copertinaAlt: "Nuova scala e soppalco per una casa ad Albignasego, PD, progetto di Riccardo Bandera Architetto"
 seo:

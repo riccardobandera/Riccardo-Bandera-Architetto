@@ -38,6 +38,8 @@ const progetti = defineCollection({
       coordinate: z.object({ lat: z.number(), lng: z.number() }).optional(),
       evidenza: z.boolean().default(false),
       bozza: z.boolean().default(false),
+      // realizzato = opera costruita; progetto = non costruito o in corso
+      stato: z.enum(['realizzato', 'progetto']).optional(),
       copertina: image().optional(),
       copertinaAlt: z.string().optional(),
       // titolo e descrizione per Google (se vuoti vengono generati da titolo e testo)

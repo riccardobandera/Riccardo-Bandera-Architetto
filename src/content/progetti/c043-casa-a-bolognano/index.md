@@ -9,6 +9,7 @@ coordinate:
   lat: 45.91321
   lng: 10.90394
 evidenza: true
+stato: "progetto"
 copertina: "./casa-bolognano-arco-tn-foto-02.webp"
 copertinaAlt: "Casa a Bolognano Arco, TN, progetto di Riccardo Bandera Architetto"
 seo:

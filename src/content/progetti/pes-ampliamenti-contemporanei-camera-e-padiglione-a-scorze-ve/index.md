@@ -9,6 +9,7 @@ coordinate:
   lat: 45.5801
   lng: 12.11715
 evidenza: false
+stato: "realizzato"
 copertina: "./ampliamenti-contemporanei-camera-padiglione-scorze-ve-copertina.webp"
 copertinaAlt: "Ampliamenti contemporanei: camera e padiglione a Scorzé, VE, progetto di Riccardo Bandera Architetto"
 seo:

@@ -9,6 +9,7 @@ coordinate:
   lat: 45.31091
   lng: 11.32848
 evidenza: false
+stato: "progetto"
 copertina: "./villa-legno-campagna-veronese-veronella-vr-foto-01.webp"
 copertinaAlt: "Villa in legno nella campagna veronese a Veronella, VR, progetto di Riccardo Bandera Architetto"
 seo:

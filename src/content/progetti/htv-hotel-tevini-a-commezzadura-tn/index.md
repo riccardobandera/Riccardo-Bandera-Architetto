@@ -8,6 +8,7 @@ coordinate:
   lat: 46.31299
   lng: 10.83283
 evidenza: true
+stato: "realizzato"
 copertina: "./hotel-tevini-commezzadura-tn-foto-01.webp"
 copertinaAlt: "Hotel Tevini a Commezzadura, TN, progetto di Riccardo Bandera Architetto"
 seo:

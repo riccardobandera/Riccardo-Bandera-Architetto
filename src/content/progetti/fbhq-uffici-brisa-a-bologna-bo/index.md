@@ -9,6 +9,7 @@ coordinate:
   lat: 44.49382
   lng: 11.34263
 evidenza: false
+stato: "realizzato"
 copertina: "./uffici-brisa-bologna-bo-foto-01.webp"
 copertinaAlt: "Uffici Brisa a Bologna, BO, progetto di Riccardo Bandera Architetto"
 seo:

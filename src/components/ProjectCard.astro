@@ -21,6 +21,7 @@ const search = [d.titolo, d.luogo, ...d.tag, ...d.materiali.map((m) => matLabels
   class="project-card group block reveal"
   data-cats={d.categorie.join(' ')}
   data-mats={d.materiali.join(' ')}
+  data-stato={d.stato ?? ''}
   data-search={search}
   data-id={project.id}
   data-reveal-delay={(index % 3) + 1}

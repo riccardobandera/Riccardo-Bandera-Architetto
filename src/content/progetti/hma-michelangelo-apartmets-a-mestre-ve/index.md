@@ -9,6 +9,7 @@ coordinate:
   lat: 45.49819
   lng: 12.23863
 evidenza: false
+stato: "realizzato"
 copertina: "./michelangelo-house-mestre-ve-foto-01.webp"
 copertinaAlt: "Michelangelo House a Mestre, VE, progetto di Riccardo Bandera Architetto"
 seo:

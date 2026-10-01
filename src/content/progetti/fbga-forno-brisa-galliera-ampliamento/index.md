@@ -8,6 +8,7 @@ coordinate:
   lat: 44.50024
   lng: 11.3429
 evidenza: false
+stato: "realizzato"
 copertina: "./forno-brisa-galliera-ampliamento-foto-01.webp"
 copertinaAlt: "Forno Brisa Galliera ampliamento, progetto di Riccardo Bandera Architetto"
 seo:

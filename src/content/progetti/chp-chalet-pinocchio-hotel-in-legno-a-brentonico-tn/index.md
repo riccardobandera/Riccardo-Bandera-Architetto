@@ -9,6 +9,7 @@ coordinate:
   lat: 45.80799
   lng: 10.94444
 evidenza: false
+stato: "realizzato"
 copertina: "./chalet-pinocchio-hotel-legno-brentonico-tn-foto-01.webp"
 copertinaAlt: "Chalet Pinocchio: hotel in legno a Brentonico, TN, progetto di Riccardo Bandera Architetto"
 seo:

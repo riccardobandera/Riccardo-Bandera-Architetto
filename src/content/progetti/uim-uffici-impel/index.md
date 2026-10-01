@@ -9,6 +9,7 @@ coordinate:
   lat: 45.5177
   lng: 12.18369
 evidenza: false
+stato: "progetto"
 copertina: "./uffici-impel-foto-01.webp"
 copertinaAlt: "Uffici Impel, progetto di Riccardo Bandera Architetto"
 seo:

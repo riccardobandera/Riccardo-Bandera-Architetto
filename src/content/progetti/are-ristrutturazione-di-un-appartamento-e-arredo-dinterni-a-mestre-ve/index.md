@@ -8,6 +8,7 @@ coordinate:
   lat: 45.49431
   lng: 12.24181
 evidenza: false
+stato: "realizzato"
 copertina: "./ristrutturazione-appartamento-arredo-interni-mestre-ve-foto-04.webp"
 copertinaAlt: "Ristrutturazione di un appartamento e arredo d’interni a Mestre, VE, progetto di Riccardo Bandera Architetto"
 seo:

@@ -9,6 +9,7 @@ coordinate:
   lat: -5.92416
   lng: 39.35615
 evidenza: false
+stato: "progetto"
 copertina: "./villa-tropicale-pwani-mchangani-zanzibar-tanzania-foto-01.webp"
 copertinaAlt: "Villa tropicale a Pwani Mchangani a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
 seo:

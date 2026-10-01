@@ -8,6 +8,7 @@ coordinate:
   lat: 45.89043
   lng: 11.04206
 evidenza: false
+stato: "realizzato"
 copertina: "./progetto-interni-pasticceria-zaffiro-rovereto-tn-foto-01.webp"
 copertinaAlt: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN, progetto di Riccardo Bandera Architetto"
 seo:

@@ -9,6 +9,7 @@ coordinate:
   lat: 45.43719
   lng: 12.33459
 evidenza: false
+stato: "progetto"
 copertina: "./case-prefabbricate-legno-venezia-ve-foto-02.webp"
 copertinaAlt: "Case prefabbricate in legno a Venezia, VE, progetto di Riccardo Bandera Architetto"
 seo:

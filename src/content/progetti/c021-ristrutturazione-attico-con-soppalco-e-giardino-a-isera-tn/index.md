@@ -9,6 +9,7 @@ coordinate:
   lat: 45.88915
   lng: 11.00613
 evidenza: false
+stato: "realizzato"
 copertina: "./ristrutturazione-attico-soppalco-giardino-isera-tn-copertina.webp"
 copertinaAlt: "Ristrutturazione attico con soppalco e giardino a Isera, TN, progetto di Riccardo Bandera Architetto"
 seo:

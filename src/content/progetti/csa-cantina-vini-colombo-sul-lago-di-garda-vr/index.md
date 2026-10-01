@@ -9,6 +9,7 @@ coordinate:
   lat: 45.5921
   lng: 10.71274
 evidenza: true
+stato: "realizzato"
 copertina: "./cantina-vini-colombo-lago-garda-vr-foto-01.webp"
 copertinaAlt: "Cantina Vini Colombo sul lago di Garda, VR, progetto di Riccardo Bandera Architetto"
 seo:

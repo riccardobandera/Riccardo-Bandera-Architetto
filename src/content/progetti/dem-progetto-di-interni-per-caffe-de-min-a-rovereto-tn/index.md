@@ -9,6 +9,7 @@ coordinate:
   lat: 45.88655
   lng: 11.04524
 evidenza: false
+stato: "realizzato"
 copertina: "./progetto-interni-caffe-de-min-rovereto-tn-foto-08.webp"
 copertinaAlt: "Progetto di interni per Caffé De Min a Rovereto, TN, progetto di Riccardo Bandera Architetto"
 seo:

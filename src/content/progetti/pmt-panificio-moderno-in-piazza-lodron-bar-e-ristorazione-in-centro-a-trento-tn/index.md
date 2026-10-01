@@ -9,6 +9,7 @@ coordinate:
   lat: 46.0679
   lng: 11.12317
 evidenza: true
+stato: "realizzato"
 copertina: "./panificio-moderno-piazza-lodron-bar-ristorazione-centro-foto-01.webp"
 copertinaAlt: "Panificio Moderno in Piazza Lodron: bar e ristorazione in centro a Trento, TN, progetto di Riccardo Bandera Architetto"
 seo:

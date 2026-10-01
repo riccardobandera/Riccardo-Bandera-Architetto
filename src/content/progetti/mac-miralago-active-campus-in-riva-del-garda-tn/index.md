@@ -8,6 +8,7 @@ coordinate:
   lat: 45.88675
   lng: 10.84577
 evidenza: false
+stato: "progetto"
 copertina: "./miralago-active-campus-riva-garda-tn-foto-01.webp"
 copertinaAlt: "Miralago Active Campus in Riva del Garda, TN, progetto di Riccardo Bandera Architetto"
 seo:

@@ -75,6 +75,14 @@ collections:
           - { label: Longitudine, name: lng, widget: number, value_type: float }
       - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false }
       - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
+      - label: Stato
+        name: stato
+        widget: select
+        required: false
+        hint: "Per il filtro Realizzato / Progetto nella pagina Progetti."
+        options:
+          - { label: Realizzato, value: realizzato }
+          - { label: Progetto (non costruito o in corso), value: progetto }
       - { label: Copertina, name: copertina, widget: image, required: false, hint: "Foto orizzontale, la piu rappresentativa." }
       - { label: Descrizione copertina (per Google e accessibilita), name: copertinaAlt, widget: string, required: false }
       - label: Google (titolo e descrizione nei risultati di ricerca)

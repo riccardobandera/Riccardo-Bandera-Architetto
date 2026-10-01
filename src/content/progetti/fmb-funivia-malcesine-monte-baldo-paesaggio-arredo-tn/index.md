@@ -9,6 +9,7 @@ coordinate:
   lat: 45.76848
   lng: 10.83147
 evidenza: false
+stato: "realizzato"
 copertina: "./funivia-malcesine-monte-baldo-paesaggio-arredo-tn-copertina.webp"
 copertinaAlt: "Funivia Malcesine Monte Baldo: paesaggio arredo, TN, progetto di Riccardo Bandera Architetto"
 seo:
