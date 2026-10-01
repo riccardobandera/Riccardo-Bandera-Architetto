@@ -5,8 +5,8 @@ luogo: "Rovereto, TN"
 categorie: ["commerciale"]
 materiali: ["pietra","legno"]
 coordinate:
-  lat: 45.89043
-  lng: 11.04206
+  lat: 45.89073
+  lng: 11.03921
 evidenza: false
 stato: "realizzato"
 copertina: "./progetto-interni-pasticceria-zaffiro-rovereto-tn-foto-01.webp"

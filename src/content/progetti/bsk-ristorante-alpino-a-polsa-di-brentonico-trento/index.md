@@ -6,8 +6,8 @@ luogo: "Polsa di Brentonico, TN"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:
-  lat: 45.78354
-  lng: 10.94405
+  lat: 45.77978
+  lng: 10.93956
 evidenza: false
 stato: "realizzato"
 copertina: "./ristorante-alpino-polsa-brentonico-trento-copertina.webp"

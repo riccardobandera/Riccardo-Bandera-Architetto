@@ -5,8 +5,8 @@ luogo: "Riva del Garda, TN"
 categorie: ["commerciale"]
 materiali: ["legno","vetro"]
 coordinate:
-  lat: 45.88675
-  lng: 10.84577
+  lat: 45.88287
+  lng: 10.84909
 evidenza: false
 stato: "progetto"
 copertina: "./miralago-active-campus-riva-garda-tn-foto-01.webp"

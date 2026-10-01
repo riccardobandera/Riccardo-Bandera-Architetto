@@ -6,8 +6,8 @@ luogo: "Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:
-  lat: 44.47829
-  lng: 11.34622
+  lat: 44.48862
+  lng: 11.34751
 evidenza: false
 stato: "realizzato"
 copertina: "./forno-brisa-castiglione-bar-caffetteria-pizza-ambiente-foto-04.webp"

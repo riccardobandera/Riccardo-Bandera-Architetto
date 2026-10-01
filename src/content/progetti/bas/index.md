@@ -5,8 +5,8 @@ luogo: "Lago di Toblino, TN"
 categorie: ["commerciale"]
 materiali: ["vetro","metallo","legno"]
 coordinate:
-  lat: 46.05233
-  lng: 10.96572
+  lat: 46.05911
+  lng: 10.97829
 evidenza: false
 stato: "realizzato"
 copertina: "./restyling-bistro-stretta-foto-03.webp"

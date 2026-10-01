@@ -6,8 +6,8 @@ luogo: "Roma, RM"
 categorie: ["commerciale"]
 materiali: ["vetro","pietra","metallo"]
 coordinate:
-  lat: 41.89332
-  lng: 12.48293
+  lat: 41.97762
+  lng: 12.53165
 evidenza: false
 stato: "realizzato"
 copertina: "./panificio-laboratorio-vista-roma-rm-foto-04.webp"

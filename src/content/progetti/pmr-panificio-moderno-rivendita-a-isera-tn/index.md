@@ -6,8 +6,8 @@ luogo: "Isera, TN"
 categorie: ["commerciale"]
 materiali: ["legno","pietra","vetro"]
 coordinate:
-  lat: 45.88527
-  lng: 11.00931
+  lat: 45.88433
+  lng: 11.0164
 evidenza: false
 stato: "realizzato"
 copertina: "./panificio-moderno-rivendita-isera-tn-foto-02.webp"

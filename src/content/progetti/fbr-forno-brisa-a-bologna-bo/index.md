@@ -6,8 +6,8 @@ luogo: "Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno","intonaco"]
 coordinate:
-  lat: 44.50022
-  lng: 11.34299
+  lat: 44.50027
+  lng: 11.34293
 evidenza: false
 stato: "realizzato"
 copertina: "./forno-brisa-bologna-bo-copertina.webp"

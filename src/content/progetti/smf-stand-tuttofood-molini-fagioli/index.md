@@ -6,8 +6,8 @@ luogo: "Rho, Fiera Milano, MI"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:
-  lat: 45.51857
-  lng: 9.08642
+  lat: 45.52025
+  lng: 9.07899
 evidenza: false
 stato: "realizzato"
 copertina: "./stand-tuttofood-molini-fagioli-foto-02.webp"

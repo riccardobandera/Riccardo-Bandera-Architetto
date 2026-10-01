@@ -5,8 +5,8 @@ luogo: "Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno","metallo","intonaco"]
 coordinate:
-  lat: 44.50024
-  lng: 11.3429
+  lat: 44.50036
+  lng: 11.34293
 evidenza: false
 stato: "realizzato"
 copertina: "./forno-brisa-galliera-ampliamento-foto-01.webp"

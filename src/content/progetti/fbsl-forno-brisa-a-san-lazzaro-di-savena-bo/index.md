@@ -6,8 +6,8 @@ luogo: "San Lazzaro di Savena, BO"
 categorie: ["commerciale"]
 materiali: ["legno","metallo"]
 coordinate:
-  lat: 44.47157
-  lng: 11.40486
+  lat: 44.46762
+  lng: 11.40983
 evidenza: false
 stato: "realizzato"
 copertina: "./forno-brisa-san-lazzaro-savena-bo-copertina.webp"

@@ -6,8 +6,8 @@ luogo: "Garda, VR"
 categorie: ["commerciale"]
 materiali: ["legno","cemento"]
 coordinate:
-  lat: 45.5921
-  lng: 10.71274
+  lat: 45.58741
+  lng: 10.71148
 evidenza: true
 stato: "realizzato"
 copertina: "./cantina-vini-colombo-lago-garda-vr-foto-01.webp"

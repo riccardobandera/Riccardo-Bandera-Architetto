@@ -6,8 +6,8 @@ luogo: "Rovereto, TN"
 categorie: ["commerciale"]
 materiali: ["legno","pietra","metallo"]
 coordinate:
-  lat: 45.88655
-  lng: 11.04524
+  lat: 45.88974
+  lng: 11.04062
 evidenza: false
 stato: "realizzato"
 copertina: "./progetto-interni-caffe-de-min-rovereto-tn-foto-08.webp"

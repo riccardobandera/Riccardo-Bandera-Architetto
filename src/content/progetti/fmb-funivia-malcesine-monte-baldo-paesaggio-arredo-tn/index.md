@@ -6,8 +6,8 @@ luogo: "Malcesine, Monte Baldo, VR"
 categorie: ["commerciale"]
 materiali: ["legno","vetro"]
 coordinate:
-  lat: 45.76848
-  lng: 10.83147
+  lat: 45.7695
+  lng: 10.86432
 evidenza: false
 stato: "realizzato"
 copertina: "./funivia-malcesine-monte-baldo-paesaggio-arredo-tn-copertina.webp"
