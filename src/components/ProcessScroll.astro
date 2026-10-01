@@ -108,7 +108,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   </div>
 
   <!-- avanzamento: la linea cresce o cala con lo scorrimento, i 6 punti sono le fasi -->
-  <div class="ms-progress absolute bottom-6 md:bottom-7 left-[8vw] right-[8vw] h-px bg-line">
+  <div class="ms-progress absolute bottom-5 left-[8vw] right-[8vw] h-px bg-line">
     <span class="block h-full bg-ink w-0" data-progress></span>
     {fasiNum.map((n, i) => (
       <button type="button" class="ms-mark" data-mark={n} style={`left:${(i / (fasiNum.length - 1)) * 100}%`} aria-label={`Vai alla fase ${n}`}>
@@ -199,7 +199,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     --conn: clamp(1.3rem, 3.2vw, 3rem);          /* frasi di collegamento */
     --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni progetto" */
     --mid: 46svh;                                /* altezza della riga delle scritte */
-    --shot: clamp(170px, 27svh, 330px);          /* altezza foto e riquadri */
+    --shot: clamp(170px, 25svh, 330px);          /* altezza foto e riquadri */
   }
   /* tutte le scritte stanno sulla stessa riga, a metà schermo; foto e riquadri pendono sotto */
   .ms-track { margin-top: calc(var(--mid) - var(--num) / 2); }
