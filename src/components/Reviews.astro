@@ -2,7 +2,7 @@
 import data from '../data/reviews.json';
 
 interface Props { limit?: number }
-const { limit = 6 } = Astro.props;
+const { limit = 8 } = Astro.props;
 const items = data.recensioni.filter((r) => r.testo && r.testo.trim().length > 0);
 const voto = data.valutazione.toFixed(1).replace('.', ',');
 const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
