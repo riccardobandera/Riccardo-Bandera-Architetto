@@ -2,38 +2,47 @@
 import { Image } from 'astro:assets';
 import { fasi } from '../data/site';
 import { fasiImages } from '../data/curated';
-import type { ImageMetadata } from 'astro';
-// icone originali delle fasi (dal sito precedente)
-const icone = import.meta.glob<{ default: ImageMetadata }>('../images/fasi/fase-*.png', { eager: true });
-const icona = (n: string) => Object.entries(icone).find(([p]) => p.endsWith(`fase-${n}.png`))?.[1].default;
 ---
 <div class="border-t border-line">
   {fasi.map((f) => {
     const imgs = fasiImages[f.n] ?? [];
+    const panel = `fase-img-${f.n}`;
     return (
-      <article class="fase grid md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-b border-line reveal">
-        <div class="md:col-span-3 flex md:flex-col items-center md:items-start gap-5">
-          <span class="font-display text-[3.2rem] md:text-[4.8rem] leading-none text-ink">{f.n}</span>
-          {icona(f.n) && <Image src={icona(f.n)!} alt="" width={128} height={128} class="w-12 h-12 md:w-16 md:h-16 opacity-80" loading="lazy" />}
+      <article class="fase grid md:grid-cols-12 gap-4 md:gap-10 py-12 md:py-16 border-b border-line reveal">
+        <div class="md:col-span-3">
+          <span class="block font-display text-[clamp(3.5rem,9vw,8rem)] leading-none text-muted/45">{f.n}</span>
         </div>
         <div class="md:col-span-9">
           <h3 class="text-xl md:text-[1.7rem] font-bold tracking-tight mb-4 leading-tight">{f.title}</h3>
           <p class="text-muted leading-relaxed text-[1.02rem] max-w-3xl">{f.body}</p>
           {imgs.length > 0 && (
-            <div class="fase-imgs mt-8 grid grid-cols-3 gap-2 md:gap-3">
-              {imgs.map((im, i) => (
-                <a href={`/progetti/${im.slug}/`} class="fase-img group relative block overflow-hidden bg-surface aspect-[4/3]" style={`--d:${i * 110}ms`} aria-label="Vedi il progetto">
-                  <Image
-                    src={im.src}
-                    alt={`${f.title}: immagine dal progetto`}
-                    widths={[360, 640]}
-                    sizes="(max-width: 768px) 31vw, 22vw"
-                    loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-                  />
-                </a>
-              ))}
-            </div>
+            <>
+              <button type="button" class="fase-toggle mt-8 inline-flex items-center gap-3 text-[0.78rem] uppercase tracking-[0.16em] font-bold" aria-expanded="false" aria-controls={panel} data-fase-toggle>
+                <span class="fase-toggle-ico grid place-items-center w-9 h-9 rounded-full border border-ink" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <span data-label-open>Vedi le immagini ({imgs.length})</span>
+                <span data-label-close hidden>Nascondi le immagini</span>
+              </button>
+              <div id={panel} class="fase-imgs" data-fase-panel>
+                <div class="fase-imgs-inner">
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 pt-6">
+                    {imgs.map((im, i) => (
+                      <a href={`/progetti/${im.slug}/`} class="fase-img group relative block overflow-hidden bg-surface aspect-[4/3]" style={`--d:${i * 70}ms`} aria-label="Vedi il progetto" tabindex="-1">
+                        <Image
+                          src={im.src}
+                          alt={`${f.title}: immagine dal progetto`}
+                          widths={[360, 640]}
+                          sizes="(max-width: 768px) 46vw, 22vw"
+                          loading="lazy"
+                          class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </article>
@@ -41,8 +50,35 @@ const icona = (n: string) => Object.entries(icone).find(([p]) => p.endsWith(`fas
   })}
 </div>
 
+<script>
+  // ogni fase: le immagini si aprono e si chiudono con un clic
+  document.querySelectorAll<HTMLButtonElement>('[data-fase-toggle]').forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
+    if (!panel) return;
+    const links = panel.querySelectorAll<HTMLAnchorElement>('a');
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      panel.classList.toggle('is-open', open);
+      btn.querySelector('[data-label-open]')?.toggleAttribute('hidden', open);
+      btn.querySelector('[data-label-close]')?.toggleAttribute('hidden', !open);
+      links.forEach((a) => (a.tabIndex = open ? 0 : -1));
+    });
+  });
+</script>
+
 <style>
-  /* le immagini compaiono una dopo l'altra quando la card entra in vista */
-  :global(html.js) .fase-img { opacity: 0; transform: translateY(14px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); transition-delay: var(--d); }
-  :global(html.js) .fase.is-in .fase-img { opacity: 1; transform: none; }
+  /* pannello immagini: chiuso di default, si apre in altezza (grid 0fr -> 1fr) */
+  .fase-imgs { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s var(--ease-out-expo); }
+  .fase-imgs.is-open { grid-template-rows: 1fr; }
+  .fase-imgs-inner { overflow: hidden; min-height: 0; }
+  .fase-img { opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+  .fase-imgs.is-open .fase-img { opacity: 1; transform: none; transition-delay: var(--d); }
+  .fase-toggle-ico { transition: transform 0.4s var(--ease-out-expo), background-color 0.3s ease, color 0.3s ease; }
+  .fase-toggle:hover .fase-toggle-ico { background: var(--color-ink); color: var(--color-bg); }
+  .fase-toggle[aria-expanded='true'] .fase-toggle-ico { transform: rotate(45deg); }
+  .fase-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .fase-imgs, .fase-img, .fase-toggle-ico { transition: none; }
+  }
 </style>
