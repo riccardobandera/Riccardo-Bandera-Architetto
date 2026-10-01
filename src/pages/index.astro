@@ -86,7 +86,8 @@ const ambitiCards = (await Promise.all(
   </section>
 
   <!-- ============ MANIFESTO QUOTE ============ -->
-  <section class="u-container pt-20 md:pt-28 pb-2 md:pb-4">
+  <!-- z-10: la sezione Metodo sotto risale di qualche riga (vedi -mt in ProcessScroll) e non deve coprire pulsante e riga -->
+  <section class="u-container relative z-10 pt-20 md:pt-28">
     <div class="max-w-4xl mx-auto">
       <div class="text-center reveal">
         <blockquote class="font-display text-[clamp(1.5rem,3.4vw,2.6rem)] leading-[1.28] text-ink">
@@ -97,6 +98,8 @@ const ambitiCards = (await Promise.all(
         </div>
       </div>
     </div>
+    <!-- riga divisoria tra manifesto e metodo -->
+    <div class="mt-14 md:mt-16 grow-line h-px w-full bg-ink/20" aria-hidden="true"></div>
   </section>
 
   <!-- ============ LE 6 FASI (scroll orizzontale) ============ -->
