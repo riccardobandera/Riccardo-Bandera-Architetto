@@ -49,10 +49,10 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 ---
 
 <section class="method-scroll relative bg-bg text-ink -mt-[20svh] lg:-mt-[14svh]" data-method-scroll aria-label="Le 6 fasi del progetto">
-  <div class="ms-pin h-[100svh] flex items-center overflow-x-auto overflow-y-hidden [scrollbar-width:none]" data-pin>
+  <div class="ms-pin h-[100svh] flex items-start overflow-x-auto overflow-y-hidden [scrollbar-width:none]" data-pin>
     <div class="ms-track relative flex items-start gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track>
 
-      <div class="shrink-0 self-center pr-[3vw] max-w-[36rem]">
+      <div class="ms-mid shrink-0 pr-[3vw] max-w-[36rem]">
         <p class="u-eyebrow mb-4">Metodo</p>
         <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,8vw,7rem)]">Le 6 fasi<br />del progetto</h2>
         {nomeProgetto && <p class="mt-6 text-base md:text-lg text-muted leading-relaxed whitespace-normal">Un progetto vero, dal disegno all'opera finita:<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
@@ -74,10 +74,10 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
               </span>
             )}
             {it.media && (
-              <figure class="ms-media mt-6 md:mt-8 flex flex-col">
+              <figure class:list={['ms-media flex flex-col items-start', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
                 {it.media.kind === 'img' ? (
                   <>
-                    <span class:list={['ms-shot block overflow-hidden', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
+                    <span class:list={['ms-shot block w-fit overflow-hidden', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
                       <Image src={it.media.src} alt={it.media.alt} widths={[500, 800, 1100]} sizes="50vw" class:list={['h-full w-auto max-w-none', it.media.drawing ? 'object-contain' : 'object-cover']} />
                     </span>
                     <figcaption class="mt-3 text-[0.8rem] md:text-[0.86rem] uppercase tracking-[0.16em] text-muted">
@@ -95,7 +95,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
         )
       ))}
 
-      <div class="shrink-0 self-center">
+      <div class="ms-mid shrink-0">
         <a href="/fasi-del-progetto/" class="inline-flex items-center gap-3 whitespace-nowrap font-sans font-extrabold uppercase tracking-tight text-[clamp(1.4rem,3vw,2.6rem)] group">
           Come lavoriamo
           <span class="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-ink group-hover:bg-ink group-hover:text-bg transition-colors">
@@ -108,7 +108,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   </div>
 
   <!-- avanzamento: la linea cresce o cala con lo scorrimento, i 6 punti sono le fasi -->
-  <div class="ms-progress absolute bottom-7 md:bottom-9 left-[8vw] right-[8vw] h-px bg-line">
+  <div class="ms-progress absolute bottom-6 md:bottom-7 left-[8vw] right-[8vw] h-px bg-line">
     <span class="block h-full bg-ink w-0" data-progress></span>
     {fasiNum.map((n, i) => (
       <button type="button" class="ms-mark" data-mark={n} style={`left:${(i / (fasiNum.length - 1)) * 100}%`} aria-label={`Vai alla fase ${n}`}>
@@ -195,21 +195,30 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 <style>
   .method-scroll {
     isolation: isolate;
-    --num: clamp(3.5rem, 9vw, 8rem);      /* numero della fase */
-    --conn: clamp(1.3rem, 3.2vw, 3rem);   /* frasi di collegamento */
-    --lead: clamp(2rem, 5.5vw, 5rem);     /* "Ogni progetto" */
+    --num: min(clamp(3.5rem, 9vw, 8rem), 13svh);  /* numero della fase */
+    --conn: clamp(1.3rem, 3.2vw, 3rem);          /* frasi di collegamento */
+    --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni progetto" */
+    --mid: 46svh;                                /* altezza della riga delle scritte */
+    --shot: clamp(170px, 27svh, 330px);          /* altezza foto e riquadri */
   }
+  /* tutte le scritte stanno sulla stessa riga, a metà schermo; foto e riquadri pendono sotto */
+  .ms-track { margin-top: calc(var(--mid) - var(--num) / 2); }
   .ms-num { font-size: var(--num); line-height: 1; }
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: var(--lead); line-height: 0.9; }
   .ms-muted { font-family: var(--font-display); font-style: italic; color: var(--color-muted); font-size: var(--conn); line-height: 1; }
-  /* frasi e titolo d'apertura allineati a metà del numero di fase */
   .ms-conn { margin-top: calc(var(--num) / 2 - var(--conn) / 2); }
   .ms-lead-pos { margin-top: calc(var(--num) / 2 - var(--lead) * 0.45); }
   .ms-svgwrap { margin-top: calc(var(--num) / 2 - clamp(20px, 2.6vw, 40px)); }
   .ms-svgwrap :global(.ms-curve) { width: clamp(70px, 9vw, 140px); height: auto; }
+  /* blocco d'apertura e link finale centrati sulla stessa riga */
+  .ms-mid { margin-top: calc(var(--num) / 2); transform: translateY(-50%); }
 
-  /* foto e riquadri sotto le scritte: stessa altezza per tutti */
-  .ms-shot { height: clamp(200px, 36vh, 420px); }
+  /* foto sotto le scritte: sotto "Ogni progetto" allineata a sinistra e un 5% più piccola,
+     sotto le fasi spostata a destra del numero */
+  .ms-shot { height: var(--shot); }
+  .ms-media-lead { margin-top: clamp(1.5rem, 3svh, 2.25rem); }
+  .ms-media-lead .ms-shot { height: calc(var(--shot) * 0.95); }
+  .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); margin-left: calc(var(--num) * 1.05); }
   .ms-empty, .ms-fade { aspect-ratio: 4 / 3; background: var(--color-surface); border: 1px solid var(--color-line); }
   /* riquadro per i preventivi: righe di documento che sfumano verso il basso */
   .ms-fade {
