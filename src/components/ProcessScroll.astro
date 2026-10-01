@@ -64,7 +64,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
         ) : it.kind === 'svg' ? (
           <span class="ms-svgwrap ms-conn shrink-0 text-ink/70" set:html={curve}></span>
         ) : (
-          <div class="shrink-0 flex flex-col items-end" data-phase={it.kind === 'phase' ? it.n : undefined}>
+          <div class="shrink-0 flex flex-col items-start" data-phase={it.kind === 'phase' ? it.n : undefined}>
             {it.kind === 'lead' ? (
               <span class="ms-lead ms-lead-pos whitespace-nowrap">{it.t}</span>
             ) : (
@@ -74,7 +74,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
               </span>
             )}
             {it.media && (
-              <figure class:list={['ms-media flex flex-col items-end', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
+              <figure class:list={['ms-media self-stretch flex flex-col items-end', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
                 {it.media.kind === 'img' ? (
                   <>
                     <span class:list={['ms-shot block w-fit overflow-hidden', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
@@ -218,6 +218,9 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 
   /* foto sotto le scritte: tutte alte uguali, allineate a destra con l'ultima lettera della scritta sopra */
   .ms-shot { height: var(--shot); }
+  /* la foto non parte mai sotto il numero: rientro fisso a sinistra, poi allineata a destra.
+     Se è più stretta del titolo finisce sotto l'ultima lettera; se è più larga parte dopo il numero */
+  .ms-media { padding-left: calc(var(--num) * 1.6); }
   .ms-media-phase { margin-top: var(--gap); }
   /* sotto "Ogni progetto" la foto parte alla stessa altezza di quelle sotto le fasi
      (numero + titolo della fase), non subito sotto la scritta */
