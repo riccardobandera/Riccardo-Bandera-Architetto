@@ -64,7 +64,7 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
         ) : it.kind === 'svg' ? (
           <span class="ms-svgwrap ms-conn shrink-0 text-ink/70" set:html={curve}></span>
         ) : (
-          <div class="shrink-0 flex flex-col" data-phase={it.kind === 'phase' ? it.n : undefined}>
+          <div class="shrink-0 flex flex-col items-end" data-phase={it.kind === 'phase' ? it.n : undefined}>
             {it.kind === 'lead' ? (
               <span class="ms-lead ms-lead-pos whitespace-nowrap">{it.t}</span>
             ) : (
@@ -74,13 +74,13 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
               </span>
             )}
             {it.media && (
-              <figure class:list={['ms-media flex flex-col items-start', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
+              <figure class:list={['ms-media flex flex-col items-end', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
                 {it.media.kind === 'img' ? (
                   <>
                     <span class:list={['ms-shot block w-fit overflow-hidden', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
                       <Image src={it.media.src} alt={it.media.alt} widths={[500, 800, 1100]} sizes="50vw" class:list={['h-full w-auto max-w-none', it.media.drawing ? 'object-contain' : 'object-cover']} />
                     </span>
-                    <figcaption class="mt-3 text-[0.8rem] md:text-[0.86rem] uppercase tracking-[0.16em] text-muted">
+                    <figcaption class="mt-2 text-right text-[0.8rem] md:text-[0.86rem] uppercase tracking-[0.16em] text-muted">
                       {it.media.href ? <a href={it.media.href} class="u-underline hover:text-ink">{it.media.cap}</a> : it.media.cap}
                     </figcaption>
                   </>
@@ -198,8 +198,8 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     --num: min(clamp(3.5rem, 9vw, 8rem), 13svh);  /* numero della fase */
     --conn: clamp(1.3rem, 3.2vw, 3rem);          /* frasi di collegamento */
     --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni progetto" */
-    --mid: 46svh;                                /* altezza della riga delle scritte */
-    --shot: clamp(170px, 25svh, 330px);          /* altezza foto e riquadri */
+    --mid: 44svh;                                /* altezza della riga delle scritte */
+    --shot: clamp(187px, 27.5svh, 363px);        /* altezza foto e riquadri */
   }
   /* tutte le scritte stanno sulla stessa riga, a metà schermo; foto e riquadri pendono sotto */
   .ms-track { margin-top: calc(var(--mid) - var(--num) / 2); }
@@ -213,9 +213,9 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   /* blocco d'apertura e link finale centrati sulla stessa riga */
   .ms-mid { margin-top: calc(var(--num) / 2); transform: translateY(-50%); }
 
-  /* foto sotto le scritte: tutte uguali, stessa altezza e stesso rientro a destra */
+  /* foto sotto le scritte: tutte alte uguali, allineate a destra con l'ultima lettera della scritta sopra */
   .ms-shot { height: var(--shot); }
-  .ms-media-lead, .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); margin-left: calc(var(--num) * 1.05); }
+  .ms-media-lead, .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); }
   .ms-empty, .ms-fade { aspect-ratio: 4 / 3; background: var(--color-surface); border: 1px solid var(--color-line); }
   /* riquadro per i preventivi: righe di documento che sfumano verso il basso */
   .ms-fade {
