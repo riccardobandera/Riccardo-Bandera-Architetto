@@ -29,7 +29,7 @@ const loghi = Object.entries(files).map(([p, m]) => {
     <ul class="marquee-track items-center gap-16 md:gap-24 pr-16 md:pr-24">
       {[...loghi, ...loghi].map((l, i) => (
         <li class="shrink-0" aria-hidden={i >= loghi.length ? 'true' : undefined}>
-          <Image src={l.src} alt={i >= loghi.length ? '' : `Logo ${l.nome}`} height={80} class="h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-500" loading="lazy" />
+          <Image src={l.src} alt={i >= loghi.length ? '' : `Logo ${l.nome}`} height={92} class="h-[3.45rem] md:h-[4.6rem] w-auto opacity-70 hover:opacity-100 transition-opacity duration-500" loading="lazy" />
         </li>
       ))}
     </ul>
