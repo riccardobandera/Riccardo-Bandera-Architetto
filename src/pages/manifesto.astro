@@ -4,42 +4,207 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { manifesto } from '../data/site';
-// banner originale della pagina Manifesto del sito precedente
+import { getProgetto, coverOf } from '../data/projects';
+// foto di dettaglio delle travi in legno (fornita dal cliente)
 import woodImg from '../images/pagine/manifesto-legno.webp';
+
+// capitoli: i primi due blocchi del manifesto, ognuno con la foto di un progetto in legno dello studio
+const FOTO_CAPITOLI = [
+  'pmt-panificio-moderno-in-piazza-lodron-bar-e-ristorazione-in-centro-a-trento-tn', // abete trentino
+  'csa-cantina-vini-colombo-sul-lago-di-garda-vr', // avvolti in legno
+];
+const capitoli = await Promise.all(
+  manifesto.blocks.slice(0, 2).map(async (b, i) => {
+    const p = await getProgetto(FOTO_CAPITOLI[i]);
+    const c = p ? coverOf(p) : null;
+    return { ...b, foto: c, progetto: p ? { id: p.id, titolo: p.data.titolo } : null };
+  }),
+);
+// l'ultimo blocco diventa la frase finale a tutta larghezza (come nel sito originale)
+const finale = manifesto.blocks[2];
+
+// numeri presi dal testo del capitolo sulla CO2 (fonte: CNR di Bologna, Istituto di Biometeorologia)
+const numeri = [
+  { pre: '20-', n: 50, from: 20, dec: 0, unit: 'kg', t: 'di anidride carbonica assorbiti in un anno da una pianta adulta, a seconda della specie' },
+  { pre: '', n: 10, dec: 0, unit: 'persone', t: 'il fabbisogno di ossigeno che una pianta adulta soddisfa in dodici mesi' },
+  { pre: 'oltre ', n: 5.5, dec: 1, unit: 't', t: 'di CO2 immagazzinate da una quercia in mezzo secolo, sotto forma di biomassa' },
+];
+const fmt = (n: number, dec: number) => n.toFixed(dec).replace('.', ',');
+
+// progetti in legno per la striscia finale
+const IN_LEGNO = [
+  'c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr',
+  'chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn',
+  'c043-casa-a-bolognano',
+  'bsk-ristorante-alpino-a-polsa-di-brentonico-trento',
+  'fmb-funivia-malcesine-monte-baldo-paesaggio-arredo-tn',
+  'c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl',
+];
+const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
+  const p = await getProgetto(id);
+  const c = p ? coverOf(p) : null;
+  return p && c ? { id: p.id, titolo: p.data.titolo, luogo: p.data.luogo ?? '', src: c.src, alt: c.alt } : null;
+}))).filter((x): x is NonNullable<typeof x> => Boolean(x));
 ---
 <!-- navMode light: hero scuro, quindi navbar chiara (logo e menu leggibili) -->
 <BaseLayout navMode="light" {...seoPagina('manifesto')}>
-  <!-- hero manifesto: sezione scura a contrasto -->
+  <!-- apertura: titolo su fondo scuro -->
   <section class="bg-ink text-cream">
-    <div class="u-container pt-40 md:pt-52 pb-20 md:pb-28 text-center">
+    <div class="u-container pt-40 md:pt-52 pb-16 md:pb-24 text-center">
       <p class="u-eyebrow text-cream/60 mb-8 reveal">Manifesto</p>
-      <h1 class="font-display text-[clamp(2rem,6vw,5rem)] leading-[1.1] max-w-[18ch] mx-auto reveal">
+      <h1 class="font-display text-[clamp(2.2rem,6.4vw,5.6rem)] leading-[1.06] max-w-[18ch] mx-auto reveal">
         {manifesto.lead}
       </h1>
-      <div class="mt-12 mx-auto grow-line h-px w-full max-w-[320px] bg-cream/40"></div>
     </div>
   </section>
 
-  {woodImg && (
-    <section class="w-full">
-      <Image src={woodImg} alt="Architettura in legno, immagine del manifesto dello studio Riccardo Bandera" widths={[768, 1280, 1920]} sizes="100vw" class="w-full h-[42vh] md:h-[64vh] object-cover" />
+  <!-- foto delle travi a tutto schermo: si avvicina piano mentre si scorre -->
+  <section class="mf-hero relative overflow-hidden bg-ink h-[48vh] md:h-[78vh]" data-mf-hero>
+    <div class="absolute inset-0" data-mf-zoom>
+      <Image src={woodImg} alt="Dettaglio di travi curve in legno lamellare" widths={[768, 1280, 2000]} sizes="100vw" loading="eager" class="w-full h-full object-cover" />
+    </div>
+  </section>
+
+  <!-- capitoli: foto e testo alternati -->
+  <section class="u-container py-[var(--spacing-section)] space-y-[clamp(5rem,12vw,10rem)]">
+    {capitoli.map((c, i) => (
+      <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
+        {c.foto && (
+          <figure class:list={['lg:col-span-6', i % 2 ? 'lg:order-2' : '']}>
+            <div class="mf-clip reveal overflow-hidden aspect-[4/5] md:aspect-[5/4] bg-surface">
+              <Image src={c.foto.src} alt={c.foto.alt} widths={[600, 900, 1300]} sizes="(max-width:1024px) 92vw, 46vw" class="mf-clip-img w-full h-full object-cover" />
+            </div>
+            {c.progetto && (
+              <figcaption class="mt-4 text-[0.8rem] uppercase tracking-[0.16em] text-muted">
+                <a href={`/progetti/${c.progetto.id}/`} class="u-underline hover:text-ink">{c.progetto.titolo}</a>
+              </figcaption>
+            )}
+          </figure>
+        )}
+        <div class:list={['lg:col-span-6', i % 2 ? 'lg:order-1' : '']}>
+          <span class="block font-display text-[clamp(4rem,10vw,8rem)] leading-none text-muted/35 reveal">{String(i + 1).padStart(2, '0')}</span>
+          <h2 class="mt-4 font-display text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.08] reveal">{c.h}</h2>
+          <p class="mt-8 text-[1.1rem] md:text-[1.2rem] leading-relaxed text-ink/80 max-w-xl reveal">{c.p}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <!-- numeri: si contano entrando nello schermo -->
+  <section class="bg-surface">
+    <div class="u-container py-[clamp(4.5rem,9vw,7.5rem)]">
+      <p class="u-eyebrow mb-12 reveal">Quanto conta un albero</p>
+      <div class="grid md:grid-cols-3 gap-12 md:gap-10">
+        {numeri.map((n, i) => (
+          <div class="reveal border-t border-ink/15 pt-8" data-reveal-delay={i + 1}>
+            <p class="font-display leading-none text-[clamp(3.2rem,7vw,6rem)] whitespace-nowrap">
+              <span>{n.pre}</span><span data-count-to={n.n} data-count-from={n.from ?? 0} data-dec={n.dec}>{fmt(n.n, n.dec)}</span><span class="text-[0.42em] ml-2 align-baseline">{n.unit}</span>
+            </p>
+            <p class="mt-5 text-[1rem] leading-relaxed text-ink/75 max-w-xs">{n.t}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-[0.8rem] uppercase tracking-[0.14em] text-muted reveal">Fonte: Rita Baraldi, CNR di Bologna, Istituto di Biometeorologia</p>
+    </div>
+  </section>
+
+  <!-- frase finale a tutta larghezza -->
+  {finale && (
+    <section class="bg-ink text-cream">
+      <div class="u-container py-[clamp(6rem,14vw,11rem)] text-center">
+        <blockquote class="font-display text-[clamp(2rem,5.4vw,4.8rem)] leading-[1.08] max-w-[20ch] mx-auto reveal">{finale.h}</blockquote>
+        <div class="mt-10 mx-auto grow-line h-px w-full max-w-[220px] bg-cream/40"></div>
+        <p class="mt-10 text-[1.05rem] md:text-[1.15rem] leading-relaxed text-cream/70 max-w-2xl mx-auto reveal">{finale.p}</p>
+        <p class="mt-10 u-eyebrow text-cream/50 reveal">Riccardo Bandera Architetto</p>
+      </div>
     </section>
   )}
 
-  <section class="u-container py-[var(--spacing-section)]">
-    <div class="max-w-3xl mx-auto space-y-16">
-      {manifesto.blocks.map((b, i) => (
-        <article class="reveal">
-          <div class="flex items-baseline gap-5 mb-5">
-            <span class="font-display text-2xl text-muted/50">{String(i + 1).padStart(2, '0')}</span>
-            <h2 class="text-[clamp(1.35rem,3vw,2rem)] font-bold tracking-tight leading-tight">{b.h}</h2>
-          </div>
-          <p class="text-[1.08rem] leading-relaxed text-ink/85 pl-0 md:pl-12">{b.p}</p>
-        </article>
+  <!-- progetti in legno -->
+  <section class="py-[var(--spacing-section)]">
+    <div class="u-container flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <div>
+        <p class="u-eyebrow mb-4 reveal">Il manifesto, costruito</p>
+        <h2 class="text-[clamp(1.9rem,4.5vw,3.2rem)] font-extrabold tracking-tight leading-[1.02] reveal">Progetti in legno</h2>
+      </div>
+      <div class="flex flex-wrap gap-3 reveal">
+        <Button href="/case-in-legno/" variant="solid" arrow>Case in legno</Button>
+        <Button href="/progetti/?materiale=legno" variant="ghost">Tutti i progetti in legno</Button>
+      </div>
+    </div>
+    <ul class="mf-strip flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:thin]">
+      {legno.map((p) => (
+        <li class="snap-start shrink-0 w-[78vw] sm:w-[46vw] lg:w-[30vw] max-w-[440px]">
+          <a href={`/progetti/${p.id}/`} class="group block">
+            <div class="overflow-hidden aspect-[4/5] bg-surface">
+              <Image src={p.src} alt={p.alt} widths={[400, 700]} sizes="(max-width:640px) 78vw, (max-width:1024px) 46vw, 30vw" class="w-full h-full object-cover grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:scale-[1.04]" />
+            </div>
+            <p class="mt-4 font-bold tracking-tight leading-snug group-hover:opacity-60 transition-opacity">{p.titolo}</p>
+            {p.luogo && <p class="mt-1 text-[0.8rem] uppercase tracking-[0.14em] text-muted">{p.luogo}</p>}
+          </a>
+        </li>
       ))}
-    </div>
-    <div class="mt-20 text-center">
-      <Button href="/progetti/#alberghiero" variant="ghost" arrow>Progetti in legno</Button>
-    </div>
+    </ul>
   </section>
 </BaseLayout>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // foto delle travi: zoom lento legato allo scroll (da 1 a 1,12)
+  const hero = document.querySelector<HTMLElement>('[data-mf-hero]');
+  const zoom = document.querySelector<HTMLElement>('[data-mf-zoom]');
+  if (hero && zoom && !reduce) {
+    let ticking = false;
+    const update = () => {
+      const r = hero.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, 1 - r.bottom / (window.innerHeight + r.height)));
+      zoom.style.transform = `scale(${1 + p * 0.12})`;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
+  // numeri: si contano da zero quando entrano nello schermo (senza JS restano i valori finali)
+  const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count-to]'));
+  if (counters.length && !reduce && 'IntersectionObserver' in window) {
+    const fmt = (n: number, dec: number) => n.toFixed(dec).replace('.', ',');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const to = Number(el.dataset.countTo);
+        const dec = Number(el.dataset.dec || 0);
+        const from = Number(el.dataset.countFrom || 0);
+        const t0 = performance.now();
+        const dur = 1400;
+        const tick = (now: number) => {
+          const k = Math.min(1, (now - t0) / dur);
+          const eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = fmt(from + (to - from) * eased, dec);
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((c) => io.observe(c));
+  }
+</script>
+
+<style>
+  [data-mf-zoom] { transform-origin: center; will-change: transform; }
+  /* foto dei capitoli: si aprono dall'alto e dal basso entrando nello schermo */
+  :global(html.js) .mf-clip { clip-path: inset(14% 0 14% 0); opacity: 1; transform: none; transition: clip-path 1.3s var(--ease-out-expo); }
+  :global(html.js) .mf-clip.is-in { clip-path: inset(0 0 0 0); }
+  :global(html.js) .mf-clip .mf-clip-img { transform: scale(1.12); transition: transform 1.6s var(--ease-out-expo); }
+  :global(html.js) .mf-clip.is-in .mf-clip-img { transform: scale(1); }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .mf-clip, :global(html.js) .mf-clip .mf-clip-img { clip-path: none; transform: none; transition: none; }
+  }
+  /* margini laterali uguali a quelli del contenuto della pagina (u-container) */
+  .mf-strip { --gut: calc(max(0px, (100% - 84rem) / 2) + clamp(1.25rem, 5vw, 3.5rem)); padding-inline: var(--gut); scroll-padding-inline: var(--gut); }
+  .mf-strip::-webkit-scrollbar { height: 4px; }
+  .mf-strip::-webkit-scrollbar-thumb { background: var(--color-line); }
+</style>
