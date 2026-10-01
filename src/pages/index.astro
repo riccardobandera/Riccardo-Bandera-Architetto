@@ -5,7 +5,6 @@ import ProjectCard from "../components/ProjectCard.astro";
 import ProcessScroll from "../components/ProcessScroll.astro";
 import Reviews from "../components/Reviews.astro";
 import Clients from "../components/Clients.astro";
-import padiglione from "../images/pagine/padiglione-zanzibar.webp";
 import Button from "../components/Button.astro";
 import { getInEvidenza, getProgetto, coverOf } from "../data/projects";
 import { heroImages } from "../data/curated";
@@ -23,10 +22,6 @@ const heroSlides = await Promise.all(
 const noscriptImg = heroSlides[0];
 
 const featured = await getInEvidenza(6);
-// immagini ai lati della citazione: le stesse della home originale
-const csa = await getProgetto("csa-cantina-vini-colombo-sul-lago-di-garda-vr");
-const mA = padiglione;
-const mB = csa?.data.foto.find((f) => String(f.src.src).includes("foto-10"))?.src ?? (csa ? coverOf(csa)?.src : undefined);
 
 // copertine per gli ambiti: un progetto rappresentativo per ciascuno
 const AMBITO_COVER: Record<string, string> = {
@@ -67,8 +62,19 @@ const ambitiCards = (await Promise.all(
       <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/40"></div>
     </div>
 
+    <!-- frecce: foto precedente / successiva -->
+    {heroSlides.length > 1 && (
+      <>
+        <button type="button" class="hero-arrow left-3 md:left-6" data-hero-prev aria-label="Foto precedente">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="hero-arrow right-3 md:right-6" data-hero-next aria-label="Foto successiva">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </>
+    )}
+
     <div class="u-container relative pb-16 md:pb-24 pt-32 w-full" data-hero-content>
-      <p class="u-eyebrow text-cream/70 mb-6">{site.legalName} · {site.address.city}, {site.address.region}</p>
       <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6.4vw,5.4rem)] max-w-[16ch]">
         {site.tagline}
       </h1>
@@ -81,21 +87,14 @@ const ambitiCards = (await Promise.all(
 
   <!-- ============ MANIFESTO QUOTE ============ -->
   <section class="u-container py-[var(--spacing-section)]">
-    <div class="grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-2 hidden lg:block reveal">
-        {mA && <Image src={mA} alt="" widths={[300, 500]} sizes="220px" class="w-full aspect-[3/4] object-cover" />}
-      </div>
-      <div class="lg:col-span-8 text-center reveal">
-        <p class="u-eyebrow mb-8">Manifesto</p>
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center reveal">
         <blockquote class="font-display text-[clamp(1.5rem,3.4vw,2.6rem)] leading-[1.28] text-ink">
           {manifestoQuote}
         </blockquote>
         <div class="mt-10 flex justify-center">
           <Button href="/manifesto/" variant="ghost" arrow>Leggi il manifesto</Button>
         </div>
-      </div>
-      <div class="lg:col-span-2 hidden lg:block reveal" data-reveal-delay="2">
-        {mB && <Image src={mB} alt="" widths={[300, 500]} sizes="220px" class="w-full aspect-[3/4] object-cover mt-16" />}
       </div>
     </div>
   </section>
@@ -158,33 +157,50 @@ const ambitiCards = (await Promise.all(
   <!-- ============ CLIENTI ============ -->
   <Clients />
 <script>
-    // ---- hero: foto in ordine casuale, crossfade lento ----
+    // ---- hero: foto in ordine casuale (senza ripetizioni), crossfade lento + frecce ----
     const slides = Array.from(document.querySelectorAll<HTMLImageElement>(".hero-slide"));
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const load = (el: HTMLImageElement) => {
       if (!el.getAttribute("src")) { el.srcset = el.dataset.srcset || ""; el.src = el.dataset.src || ""; }
       return el.decode().catch(() => {});
     };
-    if (slides.length > 1 && !reduceMotion) {
-      let cur = (window as unknown as { __heroStart?: number }).__heroStart ?? 0;
-      const pickNext = () => { let n = cur; while (n === cur) n = Math.floor(Math.random() * slides.length); return n; };
-      let next = pickNext();
-      // precarica la prossima dopo che la prima e stata mostrata
-      window.addEventListener("load", () => setTimeout(() => load(slides[next]), 1200), { once: true });
-      const step = async () => {
-        await load(slides[next]);
-        slides[cur].classList.remove("is-active");
-        slides[next].classList.add("is-active");
-        cur = next;
-        next = pickNext();
-        setTimeout(() => load(slides[next]), 2500);
+    if (slides.length > 1) {
+      // sequenza mescolata una volta sola, a partire dalla foto scelta al caricamento:
+      // "avanti" e "indietro" scorrono sempre la stessa sequenza
+      const start = (window as unknown as { __heroStart?: number }).__heroStart ?? 0;
+      const rest = slides.map((_, i) => i).filter((i) => i !== start);
+      for (let i = rest.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [rest[i], rest[j]] = [rest[j], rest[i]]; }
+      const order = [start, ...rest];
+      let pos = 0;
+      const at = (p: number) => slides[order[(p + order.length) % order.length]];
+      const wrap = document.querySelector<HTMLElement>("[data-hero-slides]");
+      let busy = false;
+
+      const go = async (dir: 1 | -1, manual = false) => {
+        if (busy) return;
+        busy = true;
+        const target = at(pos + dir);
+        await load(target);
+        // dal clic il cambio e piu rapido del crossfade automatico
+        wrap?.classList.toggle("is-manual", manual);
+        at(pos).classList.remove("is-active");
+        target.classList.add("is-active");
+        pos += dir;
+        busy = false;
+        // precarica le vicine, cosi le frecce rispondono subito
+        setTimeout(() => { load(at(pos + 1)); load(at(pos - 1)); }, manual ? 300 : 2500);
       };
-      let timer = window.setInterval(step, 5000);
+
+      let timer = 0;
+      const startAuto = () => { clearInterval(timer); if (!reduceMotion && !document.hidden) timer = window.setInterval(() => go(1), 5000); };
+      window.addEventListener("load", () => setTimeout(() => { load(at(1)); load(at(-1)); }, 1200), { once: true });
+      startAuto();
       // pausa quando la scheda non e visibile (niente lavoro inutile)
-      document.addEventListener("visibilitychange", () => {
-        clearInterval(timer);
-        if (!document.hidden) timer = window.setInterval(step, 5000);
-      });
+      document.addEventListener("visibilitychange", startAuto);
+
+      // il conteggio riparte da zero dopo ogni clic, per lasciare il tempo di guardare la foto
+      document.querySelector("[data-hero-prev]")?.addEventListener("click", () => { go(-1, true); startAuto(); });
+      document.querySelector("[data-hero-next]")?.addEventListener("click", () => { go(1, true); startAuto(); });
     }
 
     // scroll-linked hero: zoom contenuto sulla foto (1 -> 1.08), lieve rientro del contenuto
@@ -210,6 +226,22 @@ const ambitiCards = (await Promise.all(
     /* crossfade lento tra le foto dell'hero */
     .hero-slide { opacity: 0; transition: opacity 2.4s ease-in-out; }
     .hero-slide.is-active { opacity: 1; }
+    [data-hero-slides].is-manual .hero-slide { transition-duration: 0.7s; }
+    /* frecce ai lati della foto */
+    .hero-arrow {
+      position: absolute; top: 30%; z-index: 10; transform: translateY(-50%);
+      display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 9999px;
+      color: var(--color-cream); background: rgb(20 20 20 / 0.28); border: 1px solid rgb(240 237 230 / 0.45);
+      backdrop-filter: blur(6px); cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    .hero-arrow:hover { background: var(--color-cream); color: var(--color-ink); border-color: var(--color-cream); }
+    .hero-arrow:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 3px; }
+    /* da tablet in su: frecce a metà altezza, con spazio laterale per non coprire il titolo */
+    @media (min-width: 768px) {
+      .hero-arrow { top: 50%; width: 3.25rem; height: 3.25rem; }
+      [data-hero-content] { padding-inline: max(clamp(1.25rem, 5vw, 3.5rem), calc(6rem - max(0px, (100vw - 84rem) / 2))); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .hero-slide { opacity: 0; }
       .hero-slide.is-active { opacity: 1; transition: none; }
