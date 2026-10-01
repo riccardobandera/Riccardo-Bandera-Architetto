@@ -213,12 +213,9 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   /* blocco d'apertura e link finale centrati sulla stessa riga */
   .ms-mid { margin-top: calc(var(--num) / 2); transform: translateY(-50%); }
 
-  /* foto sotto le scritte: sotto "Ogni progetto" allineata a sinistra e un 5% più piccola,
-     sotto le fasi spostata a destra del numero */
+  /* foto sotto le scritte: tutte uguali, stessa altezza e stesso rientro a destra */
   .ms-shot { height: var(--shot); }
-  .ms-media-lead { margin-top: clamp(1.5rem, 3svh, 2.25rem); }
-  .ms-media-lead .ms-shot { height: calc(var(--shot) * 0.95); }
-  .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); margin-left: calc(var(--num) * 1.05); }
+  .ms-media-lead, .ms-media-phase { margin-top: clamp(1.25rem, 2.6svh, 2rem); margin-left: calc(var(--num) * 1.05); }
   .ms-empty, .ms-fade { aspect-ratio: 4 / 3; background: var(--color-surface); border: 1px solid var(--color-line); }
   /* riquadro per i preventivi: righe di documento che sfumano verso il basso */
   .ms-fade {
