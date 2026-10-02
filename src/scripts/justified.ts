@@ -1,7 +1,8 @@
 // Gallerie dei progetti "giustificate": in ogni riga le foto hanno la stessa altezza e larghezza
 // proporzionale al formato, quindi niente vuoti di colore e niente ritagli.
 // Regole (richiesta cliente): da tablet in su nessuna foto a tutta pagina, almeno 2 foto per riga
-// e nessuna foto oltre il 62% della larghezza. Su telefono una foto per riga va bene.
+// e nessuna foto oltre il 62% della larghezza; tutte le righe piene, senza vuoti bianchi.
+// Su telefono anche una foto per riga va bene.
 // Vive nel layout globale perche le gallerie iniettate nella finestra di /progetti non eseguono script.
 
 const CAP = 0.62;
@@ -13,69 +14,68 @@ function layout(g: HTMLElement) {
   const gap = parseFloat(getComputedStyle(g).columnGap) || 0;
   const r = items.map((it) => parseFloat(it.style.getPropertyValue('--r')) || 1.5);
   const wide = W >= 700;
-  // altezza di riferimento della riga: ogni riga piena le resta il piu vicino possibile (max +40%)
+  // altezza di riferimento delle righe
   const T = wide ? Math.min(300, Math.max(180, W * 0.22)) : Math.max(160, W * 0.6);
-  const minH = T * 0.55;
+  const maxPerRow = wide ? 7 : 3;
+  // altezza massima di una riga piena
+  const maxH = T * (wide ? 1.6 : 1.9);
+  const rowH = (i: number, j: number, sum: number) => (W - (j - i - 1) * gap) / sum;
 
-  const maxOf = (ids: number[]) => Math.max(...ids.map((k) => r[k]));
-  // la riga rispetta le regole: da tablet in su almeno 2 foto e nessuna oltre il tetto
-  const capOk = (ids: number[], h: number) => !wide || (ids.length >= 2 && (maxOf(ids) * h) / W <= CAP);
-  const rowH = (ids: number[]) => (W - (ids.length - 1) * gap) / ids.reduce((t, k) => t + r[k], 0);
+  // costo di una riga (foto da i a j-1, allargata a tutta la larghezza): quanto si allontana
+  // dall'altezza di riferimento, piu penalita se viola le regole (min 2 foto, tetto 62%)
+  const rowCost = (i: number, j: number) => {
+    let sum = 0, maxR = 0;
+    for (let k = i; k < j; k++) { sum += r[k]; maxR = Math.max(maxR, r[k]); }
+    const h = rowH(i, j, sum);
+    let c = Math.log(h / T) ** 2;
+    if (wide && j - i < 2) c += 50;
+    const frac = (maxR * h) / W;
+    if (wide && frac > CAP) c += 20 + (frac - CAP) * 50;
+    if (h > maxH) c += 10 + h / maxH;
+    return c;
+  };
 
-  const rows: { idx: number[]; h: number; full: boolean }[] = [];
-  let i = 0;
-  while (i < items.length) {
-    const idx = [i++];
-    for (;;) {
-      const sum = idx.reduce((t, k) => t + r[k], 0);
-      if (sum * T + (idx.length - 1) * gap < W) {
-        if (i < items.length) { idx.push(i++); continue; }
-        // ultima riga: non si allarga e non supera la riga precedente
-        const prev = rows.length ? rows[rows.length - 1].h : T;
-        let h = Math.min(T, prev, rowH(idx));
-        if (wide) h = Math.min(h, (CAP * W) / maxOf(idx));
-        rows.push({ idx, h, full: false });
-        break;
-      }
-      // riga piena: tra "con" e "senza" l'ultima foto scelgo l'altezza piu vicina a quella di riferimento
-      const withH = rowH(idx);
-      const without = idx.slice(0, -1);
-      const withoutH = without.length ? rowH(without) : Infinity;
-      const okWith = capOk(idx, withH);
-      const okWithout = without.length > 0 && withoutH <= T * 1.4 && capOk(without, withoutH);
-      if (okWithout && (!okWith || Math.abs(withoutH - T) < Math.abs(withH - T))) {
-        i--; rows.push({ idx: without, h: withoutH, full: true }); break;
-      }
-      if (okWith || i >= items.length || (idx.length >= 2 && rowH([...idx, i]) < minH)) { rows.push({ idx, h: withH, full: true }); break; }
-      // riga dominata da una foto troppo larga: aggiungo un'altra foto
-      idx.push(i++);
+  // ripartizione ottimale in righe (programmazione dinamica): TUTTE le righe, anche l'ultima,
+  // arrivano da bordo a bordo, con altezze il piu possibile uniformi
+  const n = items.length;
+  const best = new Array<number>(n + 1).fill(Infinity);
+  const from = new Array<number>(n + 1).fill(0);
+  best[0] = 0;
+  for (let j = 1; j <= n; j++) {
+    for (let i = Math.max(0, j - maxPerRow); i < j; i++) {
+      const c = best[i] + rowCost(i, j);
+      if (c < best[j]) { best[j] = c; from[j] = i; }
     }
   }
-
-  // la foto piu larga di una riga piena oltre il tetto viene ridotta insieme a tutta la riga
-  for (const row of rows) {
-    if (!wide) continue;
-    const maxR = Math.max(...row.idx.map((k) => r[k]));
-    if ((maxR * row.h) / W > CAP) { row.h = (CAP * W) / maxR; row.full = false; }
+  const rows: { idx: number[]; h: number; full: boolean }[] = [];
+  for (let j = n; j > 0; j = from[j]) {
+    const i = from[j];
+    const idx = Array.from({ length: j - i }, (_, k) => i + k);
+    rows.unshift({ idx, h: rowH(i, j, idx.reduce((t, k) => t + r[k], 0)), full: true });
   }
-  // l'ultima riga non e mai piu alta della penultima
-  const last = rows[rows.length - 1];
-  if (rows.length > 1 && !last.full) last.h = Math.min(last.h, rows[rows.length - 2].h);
+
+  // casi senza soluzione (es. una sola tavola panoramica): la riga si riduce fino al tetto
+  for (const row of rows) {
+    const maxR = Math.max(...row.idx.map((k) => r[k]));
+    const capH = wide ? (CAP * W) / maxR : Infinity;
+    const lim = Math.min(capH, maxH);
+    if (row.h > lim) { row.h = lim; row.full = false; }
+  }
 
   g.classList.add('jg--js');
   for (const row of rows) {
-    let used = 0;
+    const gaps = (row.idx.length - 1) * gap;
+    const ws = row.idx.map((k) => Math.floor(r[k] * row.h * 100) / 100);
+    if (row.full) ws[ws.length - 1] = Math.max(0, W - gaps - ws.slice(0, -1).reduce((t, w) => t + w, 0) - 0.5);
+    // riga non piena (1-2 tavole che non possono allargarsi): centrata, il bianco si divide ai lati
+    const left = Math.max(0, W - gaps - ws.reduce((t, w) => t + w, 0) - 0.5);
     row.idx.forEach((k, n) => {
-      const last = n === row.idx.length - 1;
-      const gaps = (row.idx.length - 1) * gap;
-      let w = Math.floor(r[k] * row.h * 100) / 100;
-      if (last && row.full) w = Math.max(0, W - gaps - used - 0.5);
-      used += w;
       const s = items[k].style;
-      s.width = `${w}px`;
+      s.width = `${ws[n]}px`;
       s.height = `${Math.round(row.h * 100) / 100}px`;
+      s.marginLeft = n === 0 && left > 1 ? `${left / 2}px` : '';
       // a fine riga lo spazio avanzato va nel margine, cosi la foto dopo va a capo
-      s.marginRight = last ? `${Math.max(0, W - gaps - used - 0.5)}px` : '';
+      s.marginRight = n === row.idx.length - 1 ? `${left > 1 ? left / 2 : left}px` : '';
     });
   }
 }
