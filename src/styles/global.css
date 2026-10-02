@@ -196,3 +196,12 @@ html.js .grow-line.is-in { transform: scaleX(1); }
 .scheda dt { color: var(--color-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding-top: 0.15rem; }
 .scheda dd { font-weight: 500; }
 @media (max-width: 640px) { .scheda > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+/* galleria dei progetti (globale: serve anche nella finestra della pagina Progetti) */
+/* altezza di riferimento delle righe: le foto si allargano in proporzione per riempire la riga */
+.jg { --h: 200px; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+@media (min-width: 768px) { .jg { --h: 300px; gap: 1rem; } }
+@media (min-width: 1280px) { .jg { --h: 340px; } }
+.jg-item { flex-grow: var(--r); flex-basis: calc(var(--r) * var(--h)); aspect-ratio: var(--r); max-width: calc(var(--r) * var(--h) * 2.2); }
+/* l'ultima riga non si allarga a forza: le foto restano all'altezza di riferimento */
+.jg::after { content: ""; flex-grow: 999999; }
