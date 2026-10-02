@@ -22,7 +22,7 @@ crediti:
   - ruolo: "Cliente"
     nome: "Hotel Michelangelo"
   - ruolo: "Testo"
-    nome: "RIccarcdo Bandera"
+    nome: "Riccardo Bandera"
 foto:
   - src: "./michelangelo-house-mestre-ve-foto-01.webp"
     alt: "Michelangelo House a Mestre, VE, foto 1. Progetto di Riccardo Bandera Architetto"

@@ -97,13 +97,14 @@ const breadcrumbLd = {
           )}
         </div>
         <aside class="lg:col-span-5">
+          <p class="u-eyebrow mb-3 reveal">Scheda del progetto</p>
           <dl class="scheda text-sm reveal">
             {d.luogo && <div><dt>Luogo</dt><dd>{d.luogo}</dd></div>}
             {d.indirizzo && <div><dt>Indirizzo</dt><dd><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.indirizzo)}`} target="_blank" rel="noopener" class="u-underline">{d.indirizzo}</a></dd></div>}
             {d.anno && <div><dt>Anno</dt><dd>{d.anno}</dd></div>}
             {cats.length > 0 && <div><dt>Ambito</dt><dd>{cats.join(', ')}</dd></div>}
             {mats.length > 0 && <div><dt>Materiali</dt><dd>{mats.join(', ')}</dd></div>}
-            {d.crediti.map((c) => <div><dt>{c.ruolo}</dt><dd>{c.nome}</dd></div>)}
+            {d.stato && <div><dt>Stato</dt><dd>{d.stato === 'realizzato' ? 'Realizzato' : 'In progetto'}</dd></div>}
           </dl>
           {settori.length > 0 && (
             <p class="mt-8 text-sm reveal">
@@ -125,6 +126,24 @@ const breadcrumbLd = {
         <Gallery images={s.items} id={`g-${s.key}-${project.id}`} variant={s.variant} eagerFirst={idx === 0 && !cover} />
       </section>
     ))}
+
+    <!-- crediti: chi ha fatto il progetto, in fondo dopo le immagini -->
+    {d.crediti.length > 0 && (
+      <section class="u-container pb-16 md:pb-24">
+        <div class="flex items-baseline justify-between border-t border-line pt-6 mb-8">
+          <h2 class="text-[clamp(1.3rem,2.6vw,1.9rem)] font-bold tracking-tight">Crediti</h2>
+          <span class="u-eyebrow">{d.crediti.length} {d.crediti.length === 1 ? 'voce' : 'voci'}</span>
+        </div>
+        <dl class="crediti grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10">
+          {d.crediti.map((c) => (
+            <div class="py-4 border-b border-line">
+              <dt class="text-[0.72rem] uppercase tracking-[0.12em] text-muted mb-1">{c.ruolo}</dt>
+              <dd class="font-medium leading-snug">{c.nome}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
   </div>
 
   {nav && (
@@ -149,14 +168,3 @@ const breadcrumbLd = {
     </div>
   </section>
 </BaseLayout>
-
-<style is:global>
-  .prose-progetto { font-size: 1.05rem; line-height: 1.8; color: color-mix(in srgb, var(--color-ink) 88%, transparent); }
-  .prose-progetto p { margin: 0 0 1.15rem; }
-  .prose-progetto p:first-child { font-size: 1.2rem; line-height: 1.6; color: var(--color-ink); }
-  .scheda > div { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--color-line); }
-  .scheda > div:last-child { border-bottom: 1px solid var(--color-line); }
-  .scheda dt { color: var(--color-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding-top: 0.15rem; }
-  .scheda dd { font-weight: 500; }
-  @media (max-width: 640px) { .scheda > div { grid-template-columns: 1fr; gap: 0.2rem; } }
-</style>

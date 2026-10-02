@@ -186,3 +186,13 @@ html.js .grow-line.is-in { transform: scaleX(1); }
   animation: marquee 38s linear infinite;
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* pagina progetto (stili globali: servono anche quando il progetto si apre nella finestra della pagina Progetti) */
+.prose-progetto { font-size: 1.05rem; line-height: 1.8; color: color-mix(in srgb, var(--color-ink) 88%, transparent); }
+.prose-progetto p { margin: 0 0 1.15rem; }
+.prose-progetto p:first-child { font-size: 1.2rem; line-height: 1.6; color: var(--color-ink); }
+.scheda > div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--color-line); }
+.scheda > div:last-child { border-bottom: 1px solid var(--color-line); }
+.scheda dt { color: var(--color-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding-top: 0.15rem; }
+.scheda dd { font-weight: 500; }
+@media (max-width: 640px) { .scheda > div { grid-template-columns: 1fr; gap: 0.2rem; } }
