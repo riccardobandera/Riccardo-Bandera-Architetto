@@ -10,7 +10,7 @@ coordinate:
   lng: 11.05154
 evidenza: false
 stato: "realizzato"
-copertina: "./ristrutturazione-appartamento-rovereto-foto-03.webp"
+copertina: "./ristrutturazione-appartamento-rovereto-render-01.webp"
 copertinaAlt: "Ristrutturazione appartamento a Rovereto, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Ristrutturazione appartamento a Rovereto (TN)"
