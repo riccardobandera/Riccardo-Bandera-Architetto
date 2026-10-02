@@ -6,7 +6,8 @@ import { Image } from 'astro:assets';
 import { site } from '../data/site';
 // anteprima: immagine della mappa usata sul sito precedente
 import mappa from '../images/pagine/mappa-studio.webp';
-const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip} ${site.address.city}`);
+// la mappa cerca la scheda Google dello studio (nome + indirizzo), cosi il riquadro mostra "Riccardo Bandera Architetto"
+const mapQuery = encodeURIComponent(`${site.legalName}, ${site.address.street}, ${site.address.zip} ${site.address.city}`);
 ---
 <BaseLayout {...seoPagina('contatti')}>
   <section class="u-container pt-36 md:pt-44 pb-12">
@@ -65,7 +66,7 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.zip}
     </div>
   </section>
   <p class="u-container py-3 text-xs text-muted">La mappa interattiva è fornita da Google Maps e viene caricata solo dopo il clic.</p>
-  <script define:vars={{ src: `https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`, title: `Mappa: ${site.address.street}, ${site.address.city}` }}>
+  <script define:vars={{ src: `https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`, title: `Mappa: ${site.legalName}, ${site.address.street}, ${site.address.city}` }}>
     document.querySelector("[data-map-load]")?.addEventListener("click", () => {
       const wrap = document.querySelector("[data-map]");
       const f = document.createElement("iframe");
