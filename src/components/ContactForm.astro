@@ -43,7 +43,7 @@ import { site } from '../data/site';
     <span class="err" data-err></span>
   </div>
 
-  <label class="consent flex items-start gap-3 text-sm text-muted">
+  <label class="consent -mt-3 flex items-start gap-3 text-sm text-muted">
     <input type="checkbox" name="privacy" required class="mt-1 accent-[var(--color-ink)]" />
     <span>Ho letto e accetto il <a href="/privacy/" class="u-underline text-ink">trattamento dei dati personali</a>. <span aria-hidden="true">*</span></span>
   </label>
@@ -106,7 +106,7 @@ import { site } from '../data/site';
   .field label, .consent { font-size: 0.85rem; }
   .field label { font-weight: 700; letter-spacing: 0.02em; }
   .field label span { color: var(--color-muted); }
-  .contact-form input, .contact-form textarea {
+  .contact-form input:not([type='checkbox']), .contact-form textarea {
     width: 100%;
     background: transparent;
     border: 0;
@@ -119,5 +119,8 @@ import { site } from '../data/site';
   .contact-form input::placeholder, .contact-form textarea::placeholder { color: color-mix(in srgb, var(--color-muted) 60%, transparent); }
   .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--color-ink); }
   .contact-form textarea { resize: vertical; }
+  /* consenso: casella piccola e testo subito accanto, allineati a sinistra */
+  .consent { justify-content: flex-start; }
+  .consent input[type='checkbox'] { flex: none; width: 1rem; height: 1rem; margin: 0.2rem 0 0; }
   .err { font-size: 0.75rem; color: #9a3b3b; min-height: 0.9rem; }
 </style>
