@@ -3,7 +3,6 @@ import { Image, getImage } from 'astro:assets';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Gallery from '../../components/Gallery.astro';
-import Button from '../../components/Button.astro';
 import { getProgetti, adjacent, catLabels, matLabels, coverOf, type Progetto } from '../../data/projects';
 import { site, ORG_ID, PERSON_ID } from '../../data/site';
 import { servizi } from '../../data/seo';
@@ -161,10 +160,4 @@ const breadcrumbLd = {
     </section>
   )}
 
-  <section class="bg-surface">
-    <div class="u-container py-16 md:py-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-      <h2 class="text-[clamp(1.4rem,3.5vw,2.2rem)] font-bold tracking-tight max-w-xl">Hai un progetto simile in mente?</h2>
-      <Button href="/contatti/" variant="solid" arrow>Parliamone</Button>
-    </div>
-  </section>
 </BaseLayout>
