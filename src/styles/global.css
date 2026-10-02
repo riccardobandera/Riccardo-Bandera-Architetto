@@ -199,9 +199,14 @@ html.js .grow-line.is-in { transform: scaleX(1); }
 
 /* galleria dei progetti (globale: serve anche nella finestra della pagina Progetti) */
 /* altezza di riferimento delle righe: le foto si allargano in proporzione per riempire la riga */
-.jg { --h: 200px; display: flex; flex-wrap: wrap; gap: 0.75rem; }
-@media (min-width: 768px) { .jg { --h: 300px; gap: 1rem; } }
-@media (min-width: 1280px) { .jg { --h: 340px; } }
+.jg { --h: 200px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.75rem; }
 .jg-item { flex-grow: var(--r); flex-basis: calc(var(--r) * var(--h)); aspect-ratio: var(--r); max-width: calc(var(--r) * var(--h) * 2.2); }
+/* da tablet in su nessuna foto occupa tutta la riga: righe basse (almeno 2 foto) e tetto al 62% della larghezza */
+@media (min-width: 768px) {
+  .jg { --h: clamp(150px, 19vw, 270px); gap: 1rem; }
+  .jg-item { max-width: min(calc(var(--r) * var(--h) * 1.6), 62%); }
+}
 /* l'ultima riga non si allarga a forza: le foto restano all'altezza di riferimento */
 .jg::after { content: ""; flex-grow: 999999; }
+/* con JS (src/scripts/justified.ts) larghezza e altezza di ogni foto sono calcolate riga per riga */
+.jg.jg--js .jg-item { flex: none; max-width: none; aspect-ratio: auto; }
