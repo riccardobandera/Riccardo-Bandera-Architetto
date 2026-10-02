@@ -1,6 +1,7 @@
 ---
 titolo: "riqualificazione dell’Hotel Tremosine"
 codice: "HTR"
+anno: 2019
 luogo: "Tremosine sul Garda, BS"
 categorie: ["alberghiero"]
 materiali: ["legno"]

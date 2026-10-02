@@ -39,6 +39,7 @@ collections:
       - { label: Titolo, name: titolo, widget: string, hint: "Es. Panificio Moderno in Piazza Lodron a Trento, TN" }
       - { label: Anno, name: anno, widget: number, value_type: int, required: false }
       - { label: Luogo, name: luogo, widget: string, required: false, hint: "Es. Trento, TN" }
+      - { label: Indirizzo, name: indirizzo, widget: string, required: false, hint: "Per i locali aperti al pubblico. Es. Piazza Lodron 21, 38122 Trento, TN" }
       - label: Ambiti
         name: categorie
         widget: select

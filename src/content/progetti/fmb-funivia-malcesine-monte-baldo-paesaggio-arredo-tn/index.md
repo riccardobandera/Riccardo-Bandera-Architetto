@@ -3,6 +3,7 @@ titolo: "Funivia Malcesine Monte Baldo: paesaggio arredo, TN"
 codice: "FMB"
 anno: 2019
 luogo: "Malcesine, Monte Baldo, VR"
+indirizzo: "Loc. Tratto Spino, Monte Baldo, 37018 Malcesine, VR"
 categorie: ["commerciale"]
 materiali: ["legno","vetro"]
 coordinate:

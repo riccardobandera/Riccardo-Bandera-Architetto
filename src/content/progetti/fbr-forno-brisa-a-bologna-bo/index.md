@@ -3,6 +3,7 @@ titolo: "Forno Brisa a Bologna, BO"
 codice: "FBR"
 anno: 2015
 luogo: "Bologna, BO"
+indirizzo: "Via Galliera 34/D, 40121 Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno","intonaco"]
 coordinate:

@@ -3,6 +3,7 @@ titolo: "Forno Brisa a San Lazzaro di Savena, BO"
 codice: "FBSL"
 anno: 2024
 luogo: "San Lazzaro di Savena, BO"
+indirizzo: "Via Carlo Jussi 18, 40068 San Lazzaro di Savena, BO"
 categorie: ["commerciale"]
 materiali: ["legno","metallo"]
 coordinate:

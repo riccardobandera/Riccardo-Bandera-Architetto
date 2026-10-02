@@ -3,6 +3,7 @@ titolo: "Cantina Vini Colombo sul lago di Garda, VR"
 codice: "CSA"
 anno: 2019
 luogo: "Garda, VR"
+indirizzo: "Strada per Marciaga, 37016 Garda, VR"
 categorie: ["commerciale"]
 materiali: ["legno","cemento"]
 coordinate:

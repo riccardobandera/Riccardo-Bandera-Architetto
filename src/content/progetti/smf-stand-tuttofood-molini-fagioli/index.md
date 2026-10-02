@@ -3,6 +3,7 @@ titolo: "Stand TuttoFood Molini Fagioli"
 codice: "SMF"
 anno: 2026
 luogo: "Rho, Fiera Milano, MI"
+indirizzo: "Fiera Milano, Strada Statale del Sempione 28, 20017 Rho, MI"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:

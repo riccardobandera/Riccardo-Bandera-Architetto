@@ -3,6 +3,7 @@ titolo: "Progetto di interni per Caffé De Min a Rovereto, TN"
 codice: "DEM"
 anno: 2017
 luogo: "Rovereto, TN"
+indirizzo: "Via Dante Alighieri 6, 38068 Rovereto, TN"
 categorie: ["commerciale"]
 materiali: ["legno","pietra","metallo"]
 coordinate:

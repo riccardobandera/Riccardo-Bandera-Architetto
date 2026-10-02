@@ -1,6 +1,7 @@
 ---
 titolo: "Hotel Tevini a Commezzadura, TN"
 codice: "HTV"
+anno: 2024
 luogo: "Commezzadura, TN"
 categorie: ["alberghiero"]
 materiali: ["legno"]

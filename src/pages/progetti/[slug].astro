@@ -99,6 +99,7 @@ const breadcrumbLd = {
         <aside class="lg:col-span-5">
           <dl class="scheda text-sm reveal">
             {d.luogo && <div><dt>Luogo</dt><dd>{d.luogo}</dd></div>}
+            {d.indirizzo && <div><dt>Indirizzo</dt><dd><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.indirizzo)}`} target="_blank" rel="noopener" class="u-underline">{d.indirizzo}</a></dd></div>}
             {d.anno && <div><dt>Anno</dt><dd>{d.anno}</dd></div>}
             {cats.length > 0 && <div><dt>Ambito</dt><dd>{cats.join(', ')}</dd></div>}
             {mats.length > 0 && <div><dt>Materiali</dt><dd>{mats.join(', ')}</dd></div>}

@@ -1,6 +1,7 @@
 ---
 titolo: "Ristrutturazione appartamento a Rovereto"
 codice: "C038"
+anno: 2024
 luogo: "Rovereto, TN"
 categorie: ["residenziale"]
 materiali: ["intonaco","legno"]
@@ -9,7 +10,7 @@ coordinate:
   lng: 11.05154
 evidenza: false
 stato: "realizzato"
-copertina: "./ristrutturazione-appartamento-rovereto-foto-02.webp"
+copertina: "./ristrutturazione-appartamento-rovereto-foto-03.webp"
 copertinaAlt: "Ristrutturazione appartamento a Rovereto, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Ristrutturazione appartamento a Rovereto (TN)"

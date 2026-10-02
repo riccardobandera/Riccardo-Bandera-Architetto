@@ -3,6 +3,7 @@ titolo: "Forno Brisa Castiglione: bar, caffetteria e pizza in un unico ambiente 
 codice: "FBC"
 anno: 2017
 luogo: "Bologna, BO"
+indirizzo: "Via Castiglione 43, 40124 Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:

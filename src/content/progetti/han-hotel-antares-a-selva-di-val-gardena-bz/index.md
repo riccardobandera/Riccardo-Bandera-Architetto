@@ -1,6 +1,7 @@
 ---
 titolo: "Hotel Antares a Selva di Val Gardena, BZ"
 codice: "HAN"
+anno: 2025
 luogo: "Selva di Val Gardena, BZ"
 categorie: ["alberghiero"]
 materiali: ["legno"]

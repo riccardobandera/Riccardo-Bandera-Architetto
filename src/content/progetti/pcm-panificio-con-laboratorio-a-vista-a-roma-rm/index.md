@@ -3,6 +3,7 @@ titolo: "Panificio con laboratorio a vista a Roma, RM"
 codice: "PCM"
 anno: 2016
 luogo: "Roma, RM"
+indirizzo: "Viale Carmelo Bene 273/b, 00138 Roma, RM"
 categorie: ["commerciale"]
 materiali: ["vetro","pietra","metallo"]
 coordinate:

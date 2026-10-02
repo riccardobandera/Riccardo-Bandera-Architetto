@@ -1,7 +1,9 @@
 ---
 titolo: "Progetto di interni per la Pasticceria Zaffiro a Rovereto, TN"
 codice: "ZAF"
+anno: 2019
 luogo: "Rovereto, TN"
+indirizzo: "Vicolo Parolari 2, 38068 Rovereto, TN"
 categorie: ["commerciale"]
 materiali: ["pietra","legno"]
 coordinate:

@@ -1,7 +1,9 @@
 ---
 titolo: "Forno Brisa Galliera ampliamento"
 codice: "FBGA"
+anno: 2021
 luogo: "Bologna, BO"
+indirizzo: "Via Galliera 34/D, 40121 Bologna, BO"
 categorie: ["commerciale"]
 materiali: ["legno","metallo","intonaco"]
 coordinate:

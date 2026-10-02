@@ -3,6 +3,7 @@ titolo: "Panificio Moderno in Piazza Lodron: bar e ristorazione in centro a Tren
 codice: "PMT"
 anno: 2017
 luogo: "Trento, TN"
+indirizzo: "Piazza Lodron 21, 38122 Trento, TN"
 categorie: ["commerciale"]
 materiali: ["legno","pietra"]
 coordinate:

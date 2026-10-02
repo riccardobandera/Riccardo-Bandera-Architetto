@@ -1,7 +1,9 @@
 ---
 titolo: "Miralago Active Campus in Riva del Garda, TN"
 codice: "MAC"
+anno: 2014
 luogo: "Riva del Garda, TN"
+indirizzo: "Via Christoph Hartung von Hartungen 4, 38066 Riva del Garda, TN"
 categorie: ["commerciale"]
 materiali: ["legno","vetro"]
 coordinate:

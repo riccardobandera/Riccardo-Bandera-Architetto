@@ -3,6 +3,7 @@ titolo: "Ristorante alpino a Polsa di Brentonico, Trento"
 codice: "BSK"
 anno: 2022
 luogo: "Polsa di Brentonico, TN"
+indirizzo: "Loc. Polsa, Via Bucaneve, 38060 Brentonico, TN"
 categorie: ["commerciale"]
 materiali: ["legno"]
 coordinate:

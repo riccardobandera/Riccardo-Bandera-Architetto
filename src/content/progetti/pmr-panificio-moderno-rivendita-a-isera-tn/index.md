@@ -3,6 +3,7 @@ titolo: "Panificio Moderno Rivendita a Isera, TN"
 codice: "PMR"
 anno: 2015
 luogo: "Isera, TN"
+indirizzo: "Via al Ponte 10, 38060 Isera, TN"
 categorie: ["commerciale"]
 materiali: ["legno","pietra","vetro"]
 coordinate:

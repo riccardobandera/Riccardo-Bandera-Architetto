@@ -1,6 +1,7 @@
 ---
 titolo: "Amani Boutique Hotel a Zanzibar, Tanzania"
 codice: "ABH"
+anno: 2021
 luogo: "Paje, Zanzibar, Tanzania"
 categorie: ["alberghiero"]
 materiali: ["intonaco","legno"]

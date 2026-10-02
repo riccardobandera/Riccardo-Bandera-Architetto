@@ -1,6 +1,7 @@
 ---
 titolo: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN"
 codice: "MHQ"
+anno: 2026
 luogo: "Rovereto, TN"
 categorie: ["direzionale"]
 materiali: ["metallo"]
@@ -9,7 +10,7 @@ coordinate:
   lng: 11.04215
 evidenza: false
 stato: "progetto"
-copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-07.webp"
+copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-render-01.webp"
 copertinaAlt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Headquarter Manica S.p.a. a Rovereto (TN)"

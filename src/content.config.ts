@@ -33,6 +33,8 @@ const progetti = defineCollection({
       codice: z.string().optional(), // interno: non mostrato sul sito
       anno: z.number().int().optional(),
       luogo: z.string().optional(),
+      // indirizzo del locale o dell'edificio (mostrato nella scheda del progetto)
+      indirizzo: z.string().optional(),
       categorie: z.array(z.enum(['residenziale', 'commerciale', 'alberghiero', 'direzionale'])).default([]),
       materiali: z.array(z.enum(['legno', 'pietra', 'cemento', 'vetro', 'metallo', 'intonaco', 'laterizio', 'paglia'])).default([]),
       coordinate: z.object({ lat: z.number(), lng: z.number() }).optional(),
