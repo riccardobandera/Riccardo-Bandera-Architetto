@@ -13,12 +13,29 @@ backend:
     uploadMedia: 'Caricata immagine {{path}}'
     deleteMedia: 'Eliminata immagine {{path}}'
 
+# non scrivere nel file i campi facoltativi lasciati vuoti
+output:
+  omit_empty_optional_fields: true
+
 site_url: https://riccardobandera.com
 display_url: https://riccardobandera.com
 logo_url: /favicon-192.png
 
 media_folder: public/uploads
 public_folder: /uploads
+
+# le immagini caricate vengono ridotte (lato lungo max 2000 px) e convertite in WebP prima dell'invio:
+# il sito resta veloce anche con le foto professionali da molti MB
+media_libraries:
+  default:
+    config:
+      max_file_size: 40000000
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2000
+          height: 2000
 
 collections:
   # ---------------------------------------------------------------- PROGETTI
@@ -55,7 +72,7 @@ collections:
         widget: select
         multiple: true
         required: false
-        hint: "Il primo e il materiale principale. Servono per il filtro Materiale nella pagina Progetti."
+        hint: "Il primo e il materiale principale. Servono per i collegamenti tra progetti simili (es. Progetti in legno)."
         options:
           - { label: Legno, value: legno }
           - { label: Pietra, value: pietra }
@@ -66,15 +83,21 @@ collections:
           - { label: Laterizio, value: laterizio }
           - { label: Paglia e fibre naturali, value: paglia }
       - label: Posizione sulla mappa
+        name: mappa
+        widget: string
+        required: false
+        hint: "Su Google Maps clic destro sul punto e clic sulle coordinate (si copiano da sole), poi incollale qui. Va bene anche il link lungo della barra degli indirizzi. Se lo lasci vuoto resta la posizione gia salvata."
+      - label: Coordinate salvate
         name: coordinate
         widget: object
         required: false
         collapsed: true
-        hint: "Latitudine e longitudine (da Google Maps: tasto destro sul punto, poi copia le coordinate)."
+        hint: "Compilate in automatico per i progetti esistenti. Per spostare il punto usa il campo Posizione sulla mappa qui sopra."
         fields:
-          - { label: Latitudine, name: lat, widget: number, value_type: float }
-          - { label: Longitudine, name: lng, widget: number, value_type: float }
-      - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false }
+          - { label: Latitudine, name: lat, widget: number, value_type: float, required: false }
+          - { label: Longitudine, name: lng, widget: number, value_type: float, required: false }
+      - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false, hint: "La home mostra 6 progetti selezionati. Se ne attivi piu di 6, restano fuori gli ultimi in ordine: per aggiungerne uno, disattivane un altro." }
+      - { label: Posizione in home (da 1 a 6), name: ordineHome, widget: number, value_type: int, min: 1, max: 6, required: false, hint: "Solo per i progetti in evidenza. 1 = primo in alto a sinistra. Senza numero vanno dopo, dal piu recente." }
       - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
       - label: Stato
         name: stato
@@ -112,6 +135,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Foto grande in home, name: home, widget: boolean, default: false, required: false, hint: "Gira tra le foto grandi in alto nella home. Meglio una foto orizzontale e luminosa; ne bastano 8-12 in tutto il sito." }
       - label: Render
         name: render
         widget: list
@@ -120,6 +144,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Foto grande in home, name: home, widget: boolean, default: false, required: false, hint: "Gira tra le foto grandi in alto nella home. Meglio una foto orizzontale e luminosa; ne bastano 8-12 in tutto il sito." }
       - label: Disegni
         name: disegni
         widget: list
@@ -172,9 +197,11 @@ collections:
       - { label: Bozza (non pubblicato), name: draft, widget: boolean, default: false, required: false }
       - { label: Testo, name: body, widget: markdown }
 
-  # ---------------------------------------------------------------- TESTI E RECENSIONI
+  # ---------------------------------------------------------------- RECENSIONI E FAQ
+  # testi delle pagine, pagine per settore e titoli SEO delle pagine restano gestiti dall'agenzia
+  # (src/data/testi.json, servizi.json, seo-pagine.json): non sono nel pannello per non toccare il lavoro SEO/GEO
   - name: dati
-    label: Testi e recensioni
+    label: Recensioni e domande frequenti
     files:
       - name: recensioni
         label: Recensioni Google
@@ -187,80 +214,14 @@ collections:
           - label: Recensioni
             name: recensioni
             widget: list
+            add_to_top: true
+            hint: "Le nuove vanno in cima. In home se ne vedono 8: le prime dell'elenco."
             summary: '{{autore}} · {{stelle}} stelle'
             fields:
               - { label: Autore, name: autore, widget: string }
               - { label: Stelle, name: stelle, widget: number, value_type: int, min: 1, max: 5, default: 5 }
               - { label: Quando, name: quando, widget: string, required: false }
               - { label: Testo, name: testo, widget: text }
-
-      - name: testi
-        label: Testi delle pagine
-        file: src/data/testi.json
-        fields:
-          - label: Home
-            name: home
-            widget: object
-            fields:
-              - { label: Titolo principale, name: tagline, widget: text }
-              - { label: Sottotitolo, name: sottotitolo, widget: text }
-              - { label: Citazione (sezione manifesto), name: citazione, widget: text }
-          - label: Lo Studio
-            name: studio
-            widget: object
-            fields:
-              - { label: Titolo, name: titolo, widget: text }
-              - { label: Biografia (un paragrafo per voce), name: bio, widget: list, field: { label: Paragrafo, name: p, widget: text } }
-              - label: Team
-                name: team
-                widget: list
-                summary: '{{name}}'
-                hint: "Le foto del team sono gestite dall'agenzia: scrivici per aggiungere un ritratto."
-                fields:
-                  - { label: Nome, name: name, widget: string }
-                  - { label: Ruolo, name: role, widget: string }
-          - label: Manifesto
-            name: manifesto
-            widget: object
-            fields:
-              - { label: Frase di apertura, name: lead, widget: text }
-              - label: Blocchi
-                name: blocks
-                widget: list
-                summary: '{{h}}'
-                fields:
-                  - { label: Titolo, name: h, widget: string }
-                  - { label: Testo, name: p, widget: text }
-          - label: Fasi del progetto
-            name: fasi
-            widget: object
-            fields:
-              - { label: Introduzione, name: intro, widget: text }
-              - label: Fasi
-                name: elenco
-                widget: list
-                allow_add: false
-                summary: '{{n}} {{title}}'
-                fields:
-                  - { label: Numero, name: n, widget: string }
-                  - { label: Titolo, name: title, widget: string }
-                  - { label: Titolo breve (home), name: short, widget: string }
-                  - { label: Testo, name: body, widget: text }
-          - label: Altre attivita dello studio
-            name: altreAttivita
-            widget: object
-            fields:
-              - { label: Introduzione, name: intro, widget: string }
-              - { label: Voci, name: voci, widget: list, field: { label: Voce, name: v, widget: string } }
-          - label: Ambiti d'intervento
-            name: ambiti
-            widget: list
-            allow_add: false
-            summary: '{{label}}'
-            fields:
-              - { label: Chiave (non modificare), name: key, widget: string }
-              - { label: Nome, name: label, widget: string }
-              - { label: Descrizione, name: desc, widget: string }
 
       - name: faq
         label: Domande frequenti
@@ -300,38 +261,3 @@ collections:
                   - { label: Zanzibar, value: architetto-zanzibar }
                   - { label: Interni e ristrutturazioni, value: architetto-interni-mestre }
               - { label: Fonte della risposta (non pubblicata), name: fonte, widget: string, required: false }
-
-      - name: settori
-        label: Pagine dei settori
-        file: src/data/servizi.json
-        description: "Le pagine per tipo di lavoro (panifici, hotel, legno, Zanzibar, interni). I progetti si indicano con il codice interno (es. PMT)."
-        fields:
-          - label: Pagine
-            name: pagine
-            widget: list
-            allow_add: false
-            summary: '{{nome}}'
-            fields:
-              - { label: Indirizzo (non modificare), name: slug, widget: string }
-              - { label: Nome breve, name: nome, widget: string }
-              - { label: Titolo per Google (massimo 60 caratteri), name: titolo, widget: string }
-              - { label: Descrizione per Google (massimo 155 caratteri), name: descrizione, widget: text }
-              - { label: Titolo della pagina, name: h1, widget: string }
-              - { label: Testo introduttivo (un paragrafo per voce), name: intro, widget: list, field: { label: Paragrafo, name: p, widget: text } }
-              - { label: Progetti (codici interni), name: progetti, widget: list, field: { label: Codice, name: c, widget: string } }
-              - { label: Zone servite, name: area, widget: list, field: { label: Zona, name: z, widget: string } }
-
-      - name: seo
-        label: Titoli e descrizioni per Google
-        file: src/data/seo-pagine.json
-        description: "Titolo massimo 60 caratteri, descrizione massimo 155. Nel testo {progetti} diventa il numero dei progetti pubblicati."
-        fields:
-          - { label: Home, name: home, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Lo Studio, name: studio, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Manifesto, name: manifesto, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Fasi del progetto, name: fasi, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Progetti, name: progetti, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Contatti, name: contatti, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Journal, name: blog, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Domande frequenti, name: faq, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }
-          - { label: Chi è Riccardo Bandera, name: chi, widget: object, fields: [ { label: Titolo, name: titolo, widget: string }, { label: Descrizione, name: descrizione, widget: text } ] }

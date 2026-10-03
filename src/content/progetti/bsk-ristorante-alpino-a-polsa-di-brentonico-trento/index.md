@@ -33,6 +33,7 @@ crediti:
 foto:
   - src: "./ristorante-alpino-polsa-brentonico-trento-foto-01.webp"
     alt: "Ristorante alpino a Polsa di Brentonico, Trento, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./ristorante-alpino-polsa-brentonico-trento-foto-02.webp"
     alt: "Ristorante alpino a Polsa di Brentonico, Trento, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./ristorante-alpino-polsa-brentonico-trento-foto-03.webp"

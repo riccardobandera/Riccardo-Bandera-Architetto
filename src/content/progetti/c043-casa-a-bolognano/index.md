@@ -26,6 +26,7 @@ foto:
     alt: "Casa a Bolognano Arco, TN, foto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bolognano-arco-tn-foto-02.webp"
     alt: "Casa a Bolognano Arco, TN, foto 2. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./casa-bolognano-arco-tn-foto-03.webp"
     alt: "Casa a Bolognano Arco, TN, foto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bolognano-arco-tn-foto-04.webp"

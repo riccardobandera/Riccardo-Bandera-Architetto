@@ -19,6 +19,7 @@ tag: ["Arredi in legno","Contemporaneo","Interni","Realizzazione"]
 foto:
   - src: "./hotel-tevini-commezzadura-tn-foto-01.webp"
     alt: "Hotel Tevini a Commezzadura, TN, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./hotel-tevini-commezzadura-tn-foto-02.webp"
     alt: "Hotel Tevini a Commezzadura, TN, foto 2. Progetto di Riccardo Bandera Architetto"
 render:

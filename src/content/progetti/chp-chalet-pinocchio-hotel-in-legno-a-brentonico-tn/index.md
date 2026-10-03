@@ -32,6 +32,7 @@ crediti:
 foto:
   - src: "./chalet-pinocchio-hotel-legno-brentonico-tn-foto-01.webp"
     alt: "Chalet Pinocchio: hotel in legno a Brentonico, TN, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./chalet-pinocchio-hotel-legno-brentonico-tn-foto-02.webp"
     alt: "Chalet Pinocchio: hotel in legno a Brentonico, TN, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./chalet-pinocchio-hotel-legno-brentonico-tn-foto-03.webp"

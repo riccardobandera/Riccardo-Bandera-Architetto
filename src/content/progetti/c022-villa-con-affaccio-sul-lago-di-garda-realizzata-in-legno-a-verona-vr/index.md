@@ -32,6 +32,7 @@ crediti:
 foto:
   - src: "./villa-affaccio-lago-garda-legno-verona-vr-foto-01.webp"
     alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./villa-affaccio-lago-garda-legno-verona-vr-foto-02.webp"
     alt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./villa-affaccio-lago-garda-legno-verona-vr-foto-03.webp"

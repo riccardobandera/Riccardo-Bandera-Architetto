@@ -30,10 +30,12 @@ crediti:
 foto:
   - src: "./kono-kono-hotel-and-villas-zanzibar-tanzania-foto-01.webp"
     alt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./kono-kono-hotel-and-villas-zanzibar-tanzania-foto-02.webp"
     alt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./kono-kono-hotel-and-villas-zanzibar-tanzania-foto-03.webp"
     alt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, foto 3. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./kono-kono-hotel-and-villas-zanzibar-tanzania-foto-04.webp"
     alt: "Kono Kono Hotel and Villas a Zanzibar, Tanzania, foto 4. Progetto di Riccardo Bandera Architetto"
   - src: "./kono-kono-hotel-and-villas-zanzibar-tanzania-foto-05.webp"

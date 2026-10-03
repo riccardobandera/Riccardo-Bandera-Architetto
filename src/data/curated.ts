@@ -11,10 +11,7 @@ for (const [p, mod] of Object.entries(files)) {
 const img = (key: string): ImageMetadata | undefined => byKey.get(key);
 const slugOf = (key: string) => key.split('/')[0];
 
-/** 10 foto reali per la hero: l'ordine lo decide il browser, a caso. */
-export const heroImages = curated.hero
-  .map((k) => ({ src: img(k)!, slug: slugOf(k) }))
-  .filter((x) => x.src);
+// le foto della hero non sono qui: si scelgono nel pannello con "Foto grande in home" (vedi getHeroImages)
 
 /** Evoluzione di un progetto, dal disegno all'opera finita (sezione Metodo in home). */
 export const metodoProgetto = curated.metodoProgetto;

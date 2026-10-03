@@ -6,14 +6,13 @@ import ProcessScroll from "../components/ProcessScroll.astro";
 import Reviews from "../components/Reviews.astro";
 import Clients from "../components/Clients.astro";
 import Button from "../components/Button.astro";
-import { getInEvidenza, getProgetto, coverOf } from "../data/projects";
-import { heroImages } from "../data/curated";
+import { getInEvidenza, getProgetto, coverOf, getHeroImages } from "../data/projects";
 import { site, manifestoQuote, ambiti, homeTesti } from "../data/site";
 import { servizi } from "../data/seo";
 
-// hero: 10 foto reali, scelte e alternate a caso nel browser
+// hero: le foto con "Foto grande in home" attivo nel pannello, alternate a caso nel browser
 const heroSlides = await Promise.all(
-  heroImages.map(async (h) => {
+  (await getHeroImages()).map(async (h) => {
     const img = await getImage({ src: h.src, widths: [800, 1280, 1920], format: "webp" });
     const p = await getProgetto(h.slug);
     return { src: img.src, srcset: img.srcSet.attribute, alt: p ? `${p.data.titolo}, progetto di Riccardo Bandera Architetto` : "Progetto di Riccardo Bandera Architetto" };

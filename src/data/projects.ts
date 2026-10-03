@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 
 export type Progetto = CollectionEntry<'progetti'>;
-export type Immagine = { src: ImageMetadata; alt?: string };
+export type Immagine = { src: ImageMetadata; alt?: string; home?: boolean };
 
 export const catLabels: Record<string, string> = {
   residenziale: 'Residenziale',
@@ -33,10 +33,30 @@ export async function getProgetti(): Promise<Progetto[]> {
   return cache;
 }
 
+/**
+ * Progetti selezionati della home (sempre n): prima quelli "In evidenza" nell'ordine scelto nel pannello
+ * (campo "Posizione in home", 1 = primo; senza numero vanno dopo, dal piu recente), poi si completa
+ * con i progetti piu recenti. Se ne sono in evidenza piu di n, restano fuori gli ultimi.
+ */
 export async function getInEvidenza(n = 6): Promise<Progetto[]> {
   const all = await getProgetti();
-  const top = all.filter((p) => p.data.evidenza);
+  const pos = (p: Progetto) => p.data.ordineHome ?? Infinity;
+  const top = all.filter((p) => p.data.evidenza).sort((a, b) => pos(a) - pos(b)); // sort stabile: a parita resta l'anno
   return [...top, ...all.filter((p) => !p.data.evidenza)].slice(0, n);
+}
+
+/**
+ * Foto grandi della hero in home: quelle con "Foto grande in home" attivo nel pannello (fotografie e render).
+ * Se non ne e scelta nessuna, si usano le copertine dei progetti in evidenza, cosi la hero non resta mai vuota.
+ */
+export async function getHeroImages(): Promise<{ src: ImageMetadata; slug: string }[]> {
+  const all = await getProgetti();
+  const scelte = all.flatMap((p) => [...p.data.foto, ...p.data.render].filter((i) => i.home).map((i) => ({ src: i.src, slug: p.id })));
+  if (scelte.length) return scelte;
+  return (await getInEvidenza(6)).flatMap((p) => {
+    const c = coverOf(p);
+    return c ? [{ src: c.src, slug: p.id }] : [];
+  });
 }
 
 export async function byCategory(cat: string): Promise<Progetto[]> {

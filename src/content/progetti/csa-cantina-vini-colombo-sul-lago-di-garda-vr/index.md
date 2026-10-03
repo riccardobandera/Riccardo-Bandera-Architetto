@@ -33,6 +33,7 @@ foto:
     alt: "Cantina Vini Colombo sul lago di Garda, VR, foto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./cantina-vini-colombo-lago-garda-vr-foto-02.webp"
     alt: "Cantina Vini Colombo sul lago di Garda, VR, foto 2. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./cantina-vini-colombo-lago-garda-vr-foto-03.webp"
     alt: "Cantina Vini Colombo sul lago di Garda, VR, foto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./cantina-vini-colombo-lago-garda-vr-foto-04.webp"
