@@ -1,14 +1,14 @@
 ---
 titolo: "Hotel Tevini a Commezzadura, TN"
 codice: "HTV"
-anno: 2024
+anno: 2023
 luogo: "Commezzadura, TN"
 categorie: ["alberghiero"]
 materiali: ["legno"]
 coordinate:
   lat: 46.31299
   lng: 10.83283
-evidenza: true
+evidenza: false
 stato: "realizzato"
 copertina: "./hotel-tevini-commezzadura-tn-foto-01.webp"
 copertinaAlt: "Hotel Tevini a Commezzadura, TN, progetto di Riccardo Bandera Architetto"
@@ -19,7 +19,6 @@ tag: ["Arredi in legno","Contemporaneo","Interni","Realizzazione"]
 foto:
   - src: "./hotel-tevini-commezzadura-tn-foto-01.webp"
     alt: "Hotel Tevini a Commezzadura, TN, foto 1. Progetto di Riccardo Bandera Architetto"
-    home: true
   - src: "./hotel-tevini-commezzadura-tn-foto-02.webp"
     alt: "Hotel Tevini a Commezzadura, TN, foto 2. Progetto di Riccardo Bandera Architetto"
 render:

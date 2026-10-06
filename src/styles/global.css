@@ -209,6 +209,7 @@ html.js .grow-line.is-in { transform: scaleX(1); }
 /* l'ultima riga non si allarga a forza: le foto restano all'altezza di riferimento */
 .jg::after { content: ""; flex-grow: 999999; }
 /* con JS (src/scripts/justified.ts) larghezza e altezza di ogni foto sono calcolate riga per riga */
+.jg-tag { position: absolute; left: 0.6rem; bottom: 0.6rem; pointer-events: none; background: rgb(20 20 20 / 0.82); color: #f0ede6; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.35rem 0.6rem; }
 .jg.jg--js .jg-item { flex: none; max-width: none; aspect-ratio: auto; }
 
 /* lightbox globale delle gallerie (src/scripts/lightbox.ts) */

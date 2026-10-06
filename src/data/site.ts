@@ -13,13 +13,11 @@ export const site = {
   pec: 'riccardobandera@pec.it',
   phone: '+39 349 3772802',
   phoneHref: '+393493772802',
-  phoneOffice: '+39 041 5044332',
-  phoneOfficeHref: '+390415044332',
   piva: '02209210224',
   ordine: "Ordine degli Architetti P.P.C. di Venezia, Sez. A, n. 4391",
   address: {
     street: 'Riviera XX Settembre 38',
-    zip: '30174',
+    zip: '30171',
     city: 'Mestre',
     region: 'Venezia',
     country: 'IT',
@@ -60,6 +58,7 @@ export const homeTesti = testi.home;
 export const manifestoQuote = testi.home.citazione;
 export const studioTitolo = testi.studio.titolo;
 export const studioBio = testi.studio.bio;
+export const studioFirma = (testi.studio as { firma?: string }).firma;
 export const team = testi.studio.team;
 export const manifesto = testi.manifesto;
 export const fasiIntro = testi.fasi.intro;

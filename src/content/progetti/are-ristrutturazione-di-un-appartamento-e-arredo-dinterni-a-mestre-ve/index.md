@@ -1,6 +1,7 @@
 ---
 titolo: "Ristrutturazione di un appartamento e arredo d’interni a Mestre, VE"
 codice: "ARE"
+anno: 2017
 luogo: "Mestre, VE"
 categorie: ["residenziale"]
 materiali: ["intonaco","legno"]

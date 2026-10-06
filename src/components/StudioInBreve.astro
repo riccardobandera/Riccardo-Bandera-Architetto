@@ -1,14 +1,14 @@
 ---
-// Pagina "in breve" per motori di ricerca e assistenti IA (GEO): fatti verificabili sullo studio,
-// scritti in modo che si possano citare. Tutto viene dai dati del sito, niente di inventato.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Button from '../components/Button.astro';
+// "Lo studio in breve" (GEO): fatti verificabili sullo studio, scritti in modo che si possano citare.
+// Sta dentro la pagina Lo studio, in un pannello che si apre con la freccia (richiesta del cliente):
+// il testo resta comunque nell'HTML, quindi motori di ricerca e assistenti IA lo leggono.
+// Tutto viene dai dati del sito, niente di inventato.
 import { getProgetti, catLabels } from '../data/projects';
-import { site, ORG_ID, PERSON_ID, fasi, altreAttivita } from '../data/site';
-import { seoPagina, servizi } from '../data/seo';
+import { site, fasi, altreAttivita } from '../data/site';
+import { servizi } from '../data/seo';
 import reviews from '../data/reviews.json';
 
-const AGGIORNATO = '2026-09-24';
+const AGGIORNATO = '2026-10-06';
 const progetti = await getProgetti();
 
 // regione dalla sigla di provincia del luogo (es. "Rovereto, TN")
@@ -37,37 +37,14 @@ const citazioni = [
   { fonte: 'Architools', cosa: 'il progetto di paesaggio e arredo sul Monte Baldo (2024)', url: 'https://architools.info/progettare-il-paesaggio-arredo-con-sketchup-sul-monte-baldo/' },
 ];
 
-const url = new URL('/chi-e-riccardo-bandera/', site.url).href;
-const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    '@id': url,
-    url,
-    name: seoPagina('chi').title,
-    inLanguage: 'it-IT',
-    dateModified: AGGIORNATO,
-    mainEntity: { '@id': PERSON_ID },
-    about: { '@id': ORG_ID },
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url + '/' },
-      { '@type': 'ListItem', position: 2, name: 'Chi è Riccardo Bandera', item: url },
-    ],
-  },
-];
-
 const scheda: [string, string, string?][] = [
   ['Nome dello studio', site.legalName],
   ['Titolare', 'arch. Riccardo Bandera'],
   ['Iscrizione', site.ordine],
+  ['Formazione', 'laurea in Architettura all’Università Iuav di Venezia'],
   ['Attività', `studio autonomo dal ${site.attivoDal}`],
   ['Sede', `${site.address.street}, ${site.address.zip} ${site.address.city} (${site.address.region})`, site.googleMaps],
-  ['Telefono', site.phoneOffice, `tel:${site.phoneOfficeHref}`],
-  ['Cellulare', site.phone, `tel:${site.phoneHref}`],
+  ['Telefono', site.phone, `tel:${site.phoneHref}`],
   ['Email', site.email, `mailto:${site.email}`],
   ['PEC', site.pec, `mailto:${site.pec}`],
   ['Partita IVA', site.piva],
@@ -80,21 +57,19 @@ const profili: [string, string][] = [
 ];
 const esterno = (h?: string) => !!h && h.startsWith('http');
 ---
-<BaseLayout {...seoPagina('chi')} jsonLd={jsonLd}>
-  <section class="u-container pt-36 md:pt-44 pb-12">
-    <p class="u-eyebrow mb-6 reveal">In breve</p>
-    <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6vw,4.6rem)] max-w-[18ch] reveal">Chi è Riccardo Bandera, architetto a Mestre</h1>
-    <p class="mt-10 max-w-3xl text-[1.2rem] md:text-[1.4rem] leading-relaxed reveal">
-      Riccardo Bandera è un architetto iscritto all’Ordine degli Architetti P.P.C. di Venezia (Sez. A, n. {site.ordineNumero}) e titolare dello studio {site.legalName}, con sede a {site.address.city} ({site.address.region}) in {site.address.street}. Dal {site.attivoDal} segue in prima persona progetti di architettura e d’interni, dalla fase creativa alla realizzazione: abitazioni, hotel, panifici, bar, ristoranti e uffici, con una particolare attenzione alle costruzioni in legno.
+  <section class="u-container pt-12 md:pt-16 pb-12">
+    <h2 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(1.8rem,5vw,3.6rem)] max-w-[18ch]">Chi è Riccardo Bandera, architetto a Mestre</h2>
+    <p class="mt-10 max-w-3xl text-[1.2rem] md:text-[1.4rem] leading-relaxed">
+      Riccardo Bandera, nato a Rovereto e laureato all’Università Iuav di Venezia, è un architetto iscritto all’Ordine degli Architetti P.P.C. di Venezia (Sez. A, n. {site.ordineNumero}) e titolare dello studio {site.legalName}, con sede a {site.address.city} ({site.address.region}) in {site.address.street}. Dal {site.attivoDal} segue in prima persona progetti di architettura e d’interni, dalla fase creativa alla realizzazione: abitazioni, hotel, panifici, bar, ristoranti e uffici, con una particolare attenzione alle costruzioni in legno.
     </p>
   </section>
 
   <!-- scheda dati -->
   <section class="u-container pb-16 md:pb-20">
     <div class="grid lg:grid-cols-12 gap-10">
-      <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Scheda dello studio</h2>
+      <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Scheda dello studio</h2>
       <div class="lg:col-span-8">
-        <dl class="scheda-geo text-[0.98rem] reveal">
+        <dl class="scheda-geo text-[0.98rem]">
           {scheda.map(([k, v, href]) => (
             <div>
               <dt>{k}</dt>
@@ -114,13 +89,13 @@ const esterno = (h?: string) => !!h && h.startsWith('http');
   <section class="bg-surface">
     <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
       <div class="lg:col-span-4">
-        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Cosa progetta lo studio</h2>
-        <p class="mt-5 text-muted leading-relaxed reveal">Progetti pubblicati per ambito: {perAmbito.map((a) => `${a.label.toLowerCase()} ${a.n}`).join(', ')}.</p>
+        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Cosa progetta lo studio</h2>
+        <p class="mt-5 text-muted leading-relaxed">Progetti pubblicati per ambito: {perAmbito.map((a) => `${a.label.toLowerCase()} ${a.n}`).join(', ')}.</p>
       </div>
       <div class="lg:col-span-8 space-y-10">
         <ul class="border-t border-line">
           {servizi.map((s) => (
-            <li class="border-b border-line py-5 reveal">
+            <li class="border-b border-line py-5">
               <a href={`/${s.slug}/`} class="group flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
                 <span class="text-[1.1rem] font-bold tracking-tight group-hover:opacity-60 transition-opacity">{s.h1}</span>
                 <span class="text-sm text-muted">{s.progetti.length} progetti</span>
@@ -128,7 +103,7 @@ const esterno = (h?: string) => !!h && h.startsWith('http');
             </li>
           ))}
         </ul>
-        <div class="reveal">
+        <div >
           <h3 class="u-eyebrow mb-4">Come lavora: le 6 fasi</h3>
           <ol class="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-[1rem]">
             {fasi.map((f) => <li><span class="text-muted mr-2">{f.n}</span>{f.title}</li>)}
@@ -142,8 +117,8 @@ const esterno = (h?: string) => !!h && h.startsWith('http');
 
   <!-- dove ha lavorato -->
   <section class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
-    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Dove ha lavorato</h2>
-    <dl class="lg:col-span-8 scheda-geo text-[0.98rem] reveal">
+    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Dove ha lavorato</h2>
+    <dl class="lg:col-span-8 scheda-geo text-[0.98rem]">
       {zoneList.map((z) => (
         <div><dt>{z.nome} · {z.n}</dt><dd>{z.luoghi.join(', ')}</dd></div>
       ))}
@@ -179,12 +154,12 @@ const esterno = (h?: string) => !!h && h.startsWith('http');
   <section class="bg-surface">
     <div class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
       <div class="lg:col-span-4">
-        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Ne hanno scritto</h2>
-        <p class="mt-5 text-muted leading-relaxed reveal">Pagine pubblicate da altri che citano i progetti dello studio.</p>
+        <h2 class="text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Ne hanno scritto</h2>
+        <p class="mt-5 text-muted leading-relaxed">Pagine pubblicate da altri che citano i progetti dello studio.</p>
       </div>
       <ul class="lg:col-span-8 border-t border-line">
         {citazioni.map((c) => (
-          <li class="border-b border-line py-5 reveal">
+          <li class="border-b border-line py-5">
             <a href={c.url} target="_blank" rel="noopener" class="group block">
               <span class="block font-bold tracking-tight group-hover:opacity-60 transition-opacity">{c.fonte}</span>
               <span class="block text-sm text-muted mt-1">{c.cosa}</span>
@@ -197,20 +172,14 @@ const esterno = (h?: string) => !!h && h.startsWith('http');
 
   <!-- da sapere -->
   <section class="u-container py-[var(--spacing-section)] grid lg:grid-cols-12 gap-10">
-    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight reveal">Da sapere</h2>
-    <div class="lg:col-span-8 space-y-4 text-[1.02rem] leading-relaxed text-ink/85 reveal">
-      <p>La sede dello studio è a {site.address.city} ({site.address.region}). Molti progetti si trovano in Trentino, in particolare a Rovereto e dintorni: per questo alcuni portali indicano lo studio a Rovereto, ma l’indirizzo è {site.address.street}, {site.address.zip} {site.address.city}.</p>
+    <h2 class="lg:col-span-4 text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Da sapere</h2>
+    <div class="lg:col-span-8 space-y-4 text-[1.02rem] leading-relaxed text-ink/85">
+      <p>La sede dello studio è a {site.address.city} ({site.address.region}). Riccardo Bandera è nato a Rovereto e molti progetti si trovano in Trentino, a Rovereto e dintorni: per questo alcuni portali indicano lo studio a Rovereto, ma l’indirizzo è {site.address.street}, {site.address.zip} {site.address.city}.</p>
       <p>Il nome ufficiale è {site.legalName}. Il sito ufficiale è {site.domain}.</p>
       <p class="text-sm text-muted">Pagina aggiornata il {dataAgg}.</p>
     </div>
   </section>
 
-  <section class="u-container pb-20 flex flex-wrap gap-4">
-    <Button href="/contatti/" variant="solid" arrow>Contatta lo studio</Button>
-    <Button href="/lo-studio/" variant="ghost">Lo studio e il team</Button>
-    <Button href="/domande-frequenti/" variant="ghost">Domande frequenti</Button>
-  </section>
-</BaseLayout>
 
 <style>
   .scheda-geo > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--color-line); }

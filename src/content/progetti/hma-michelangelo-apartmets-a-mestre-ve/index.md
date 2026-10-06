@@ -1,13 +1,14 @@
 ---
 titolo: "Michelangelo House a Mestre, VE"
 codice: "HMA"
-anno: 2026
+anno: 2025
 luogo: "Mestre, VE"
+indirizzo: "Via Forte Marghera 67, 30173 Venezia, VE"
 categorie: ["alberghiero"]
 materiali: ["intonaco","legno"]
 coordinate:
-  lat: 45.49819
-  lng: 12.23863
+  lat: 45.4911339
+  lng: 12.2472194
 evidenza: false
 stato: "realizzato"
 copertina: "./michelangelo-house-mestre-ve-foto-01.webp"
@@ -94,4 +95,4 @@ cantiere:
 ---
 Il progetto nasce dalla volontà di ridare vita a un edificio dai tratti tipicamente veneziani situato in terraferma, proprio lungo la suggestiva via d’acqua che conduce a Piazza Barche. L’obiettivo principale dell’intervento è stato quello di trasformare e riqualificare la struttura per rispondere alla forte vocazione turistica del territorio circostante, donandole una nuova e moderna veste interamente dedicata all’ospitalità. L’edificio storico, che nel corso degli anni era stato rimaneggiato a causa della presenza di un ristorante, è stato sottoposto a una profonda riconfigurazione. Attraverso questo attento lavoro sugli spazi interni, sono stati ricavati sette mini-appartamenti, pensati su misura per offrire un’esperienza ottimale durante i brevi soggiorni. Ogni unità è stata concepita per garantire la massima autonomia e comodità agli ospiti, racchiudendo in un ambiente ben organizzato una mini-cucina, un bagno privato e un pratico armadio a giorno.
 
-L’intero iter progettuale, dalla nuova distribuzione funzionale degli ambienti fino alla meticolosa scelta delle finiture e degli arredi, è stato curato dallo Studio Riccardo Bandiera. Il cuore concettuale dell’opera risiede nella ricerca di un delicato e continuo equilibrio tra innovazione contemporanea e tradizione locale. Questa filosofia si riflette chiaramente nel design degli interni: le scelte cromatiche si ispirano fortemente alla storia veneziana e alle ricche sfumature rinascimentali. Gli ambienti, infatti, giocano su una raffinata bicromia rosso-blu che richiama le calde tonalità del rosso mattone, impreziosita da eleganti accenti dorati che esaltano i dettagli. Infine, a dare il benvenuto agli ospiti nell’ingresso della struttura, troviamo le ceramiche Sant’Agostino, una scelta materica ed estetica che rievoca il fascino intramontabile del classico terrazzo veneziano, rileggendolo in una chiave rigorosamente contemporanea.
+L’intero iter progettuale, dalla nuova distribuzione funzionale degli ambienti fino alla meticolosa scelta delle finiture e degli arredi, è stato curato dallo Studio Riccardo Bandera. Il cuore concettuale dell’opera risiede nella ricerca di un delicato e continuo equilibrio tra innovazione contemporanea e tradizione locale. Questa filosofia si riflette chiaramente nel design degli interni: le scelte cromatiche si ispirano fortemente alla storia veneziana e alle ricche sfumature rinascimentali. Gli ambienti, infatti, giocano su una raffinata bicromia rosso-blu che richiama le calde tonalità del rosso mattone, impreziosita da eleganti accenti dorati che esaltano i dettagli. Infine, a dare il benvenuto agli ospiti nell’ingresso della struttura, troviamo le ceramiche Sant’Agostino, una scelta materica ed estetica che rievoca il fascino intramontabile del classico terrazzo veneziano, rileggendolo in una chiave rigorosamente contemporanea.

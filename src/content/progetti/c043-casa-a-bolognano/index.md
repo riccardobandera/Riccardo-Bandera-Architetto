@@ -8,9 +8,9 @@ materiali: ["legno","vetro"]
 coordinate:
   lat: 45.91321
   lng: 10.90394
-evidenza: true
+evidenza: false
 stato: "progetto"
-copertina: "./casa-bolognano-arco-tn-foto-02.webp"
+copertina: "./casa-bolognano-arco-tn-render-08.webp"
 copertinaAlt: "Casa a Bolognano Arco, TN, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Casa in legno e Xlam a Bolognano di Arco (TN)"
@@ -21,25 +21,12 @@ crediti:
     nome: "Riccardo Bandera"
   - ruolo: "Cliente"
     nome: "privato"
-foto:
-  - src: "./casa-bolognano-arco-tn-foto-01.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 1. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-02.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 2. Progetto di Riccardo Bandera Architetto"
-    home: true
-  - src: "./casa-bolognano-arco-tn-foto-03.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 3. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-04.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 4. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-05.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 5. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-06.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 6. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-07.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 7. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bolognano-arco-tn-foto-08.webp"
-    alt: "Casa a Bolognano Arco, TN, foto 8. Progetto di Riccardo Bandera Architetto"
 render:
+  - src: "./casa-bolognano-arco-tn-render-08.webp"
+    alt: "Casa a Bolognano Arco, TN, render della villa vista dal prato. Progetto di Riccardo Bandera Architetto"
+    home: true
+  - src: "./casa-bolognano-arco-tn-render-09.webp"
+    alt: "Casa a Bolognano Arco, TN, render della villa vista dall’alto tra i vigneti. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bolognano-arco-tn-render-01.webp"
     alt: "Casa a Bolognano Arco, TN, render 1. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bolognano-arco-tn-render-02.webp"

@@ -34,6 +34,7 @@ const ratio = (im: Immagine) => (im.src.width && im.src.height ? im.src.width / 
           class:list={['w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]', variant === 'disegni' ? 'object-contain p-3 md:p-5' : 'object-cover']}
         />
       </button>
+      {im.etichetta && <span class="jg-tag">{im.etichetta}</span>}
     </figure>
   ))}
 </div>

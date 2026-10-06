@@ -8,9 +8,10 @@ materiali: ["legno","vetro","intonaco"]
 coordinate:
   lat: 46.09727
   lng: 12.43893
-evidenza: false
+evidenza: true
+ordineHome: 5
 stato: "realizzato"
-copertina: "./ristrutturazione-casera-alpago-tambre-bl-foto-03.webp"
+copertina: "./ristrutturazione-casera-alpago-tambre-bl-foto-07.webp"
 copertinaAlt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Casera ristrutturata nell'Alpago a Tambre (BL)"
@@ -29,7 +30,6 @@ crediti:
 foto:
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-01.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 1. Progetto di Riccardo Bandera Architetto"
-    home: true
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-02.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-03.webp"
@@ -56,6 +56,7 @@ foto:
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 13. Progetto di Riccardo Bandera Architetto"
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-14.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 14. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-15.webp"
     alt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, foto 15. Progetto di Riccardo Bandera Architetto"
   - src: "./ristrutturazione-casera-alpago-tambre-bl-foto-16.webp"

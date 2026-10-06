@@ -42,9 +42,9 @@ const businessLd = {
   description: home.description,
   url: site.url,
   email: site.email,
-  telephone: site.phoneOffice,
+  telephone: site.phone,
   contactPoint: [
-    { '@type': 'ContactPoint', telephone: site.phoneOffice, contactType: 'customer service', availableLanguage: 'it' },
+    { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: 'it' },
     { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: 'it' },
   ],
   image: ogImage,
@@ -81,7 +81,9 @@ const personLd = {
   honorificPrefix: 'arch.',
   jobTitle: 'Architetto',
   worksFor: { '@id': ORG_ID },
-  url: new URL('/chi-e-riccardo-bandera/', site.url).href,
+  url: new URL('/lo-studio/', site.url).href,
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Università Iuav di Venezia', url: 'https://www.iuav.it' },
+  birthPlace: { '@type': 'Place', name: 'Rovereto (TN)' },
   hasCredential: {
     '@type': 'EducationalOccupationalCredential',
     credentialCategory: 'Iscrizione all’albo professionale',

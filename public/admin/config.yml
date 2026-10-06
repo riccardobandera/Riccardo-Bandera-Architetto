@@ -96,8 +96,8 @@ collections:
         fields:
           - { label: Latitudine, name: lat, widget: number, value_type: float, required: false }
           - { label: Longitudine, name: lng, widget: number, value_type: float, required: false }
-      - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false, hint: "La home mostra 6 progetti selezionati. Se ne attivi piu di 6, restano fuori gli ultimi in ordine: per aggiungerne uno, disattivane un altro." }
-      - { label: Posizione in home (da 1 a 6), name: ordineHome, widget: number, value_type: int, min: 1, max: 6, required: false, hint: "Solo per i progetti in evidenza. 1 = primo in alto a sinistra. Senza numero vanno dopo, dal piu recente." }
+      - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false, hint: "La home mostra tutti i progetti in evidenza, 3 per riga (se sono meno di 6 completa con i piu recenti). Con 6 o 9 le righe restano piene." }
+      - { label: Posizione in home, name: ordineHome, widget: number, value_type: int, min: 1, max: 12, required: false, hint: "Solo per i progetti in evidenza. 1 = primo in alto a sinistra. Senza numero vanno dopo, dal piu recente." }
       - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
       - label: Stato
         name: stato
@@ -135,6 +135,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Etichetta sulla foto, name: etichetta, widget: string, required: false, hint: "Facoltativa, poche parole visibili sulla foto. Es. Prima dei lavori" }
           - { label: Foto grande in home, name: home, widget: boolean, default: false, required: false, hint: "Gira tra le foto grandi in alto nella home. Meglio una foto orizzontale e luminosa; ne bastano 8-12 in tutto il sito." }
       - label: Render
         name: render
@@ -144,6 +145,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Etichetta sulla foto, name: etichetta, widget: string, required: false, hint: "Facoltativa, poche parole visibili sulla foto. Es. Prima dei lavori" }
           - { label: Foto grande in home, name: home, widget: boolean, default: false, required: false, hint: "Gira tra le foto grandi in alto nella home. Meglio una foto orizzontale e luminosa; ne bastano 8-12 in tutto il sito." }
       - label: Disegni
         name: disegni
@@ -153,6 +155,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Etichetta sulla foto, name: etichetta, widget: string, required: false, hint: "Facoltativa, poche parole visibili sulla foto. Es. Prima dei lavori" }
       - label: Foto di cantiere
         name: cantiere
         widget: list
@@ -161,6 +164,7 @@ collections:
         fields:
           - { label: Immagine, name: src, widget: image }
           - { label: Descrizione (per Google e accessibilita), name: alt, widget: string, required: false }
+          - { label: Etichetta sulla foto, name: etichetta, widget: string, required: false, hint: "Facoltativa, poche parole visibili sulla foto. Es. Prima dei lavori" }
       - { label: Codice interno (non mostrato sul sito), name: codice, widget: string, required: false }
       - { label: Descrizione del progetto, name: body, widget: markdown }
 

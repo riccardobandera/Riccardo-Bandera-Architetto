@@ -1,16 +1,17 @@
 ---
 titolo: "Hotel Cime D’Oro a Madonna di Campiglio, TN"
 codice: "HCD"
-anno: 2025
+anno: 2026
 luogo: "Madonna di Campiglio, TN"
 categorie: ["alberghiero"]
 materiali: ["legno","intonaco","pietra"]
 coordinate:
   lat: 46.22699
   lng: 10.82702
-evidenza: false
+evidenza: true
+ordineHome: 6
 stato: "realizzato"
-copertina: "./hotel-cime-oro-madonna-campiglio-tn-foto-02.webp"
+copertina: "./hotel-cime-oro-madonna-campiglio-tn-foto-09.webp"
 copertinaAlt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Hotel Cime d'Oro a Madonna di Campiglio (TN)"
@@ -20,27 +21,52 @@ crediti:
     nome: "Riccardo Bandera"
   - ruolo: "Cliente"
     nome: "Hotel Cime d'Oro"
+  - ruolo: "Fotografia"
+    nome: "Luca Casonato"
   - ruolo: "Testo"
     nome: "Riccardo Bandera"
 foto:
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-01.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 1. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 1. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+    home: true
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-02.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 2. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 2. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-03.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 3. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 3. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-04.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 4. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 4. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-05.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 5. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 5. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-06.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 6. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 6. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-07.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 7. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 7. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-08.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 8. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 8. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
   - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-09.webp"
-    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 9. Progetto di Riccardo Bandera Architetto"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 9. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-10.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 10. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-11.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 11. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-12.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 12. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-13.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 13. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-foto-14.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, foto 14. Progetto di Riccardo Bandera Architetto. Fotografia di Luca Casonato"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-prima-01.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, l’edificio prima dei lavori, foto 1"
+    etichetta: "Prima dei lavori"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-prima-02.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, l’edificio prima dei lavori, foto 2"
+    etichetta: "Prima dei lavori"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-prima-03.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, l’edificio prima dei lavori, foto 3"
+    etichetta: "Prima dei lavori"
+  - src: "./hotel-cime-oro-madonna-campiglio-tn-prima-04.webp"
+    alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, l’edificio prima dei lavori, foto 4"
+    etichetta: "Prima dei lavori"
 render:
   - src: "./hotel-cime-oro-madonna-campiglio-tn-render-01.webp"
     alt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, render 1. Progetto di Riccardo Bandera Architetto"

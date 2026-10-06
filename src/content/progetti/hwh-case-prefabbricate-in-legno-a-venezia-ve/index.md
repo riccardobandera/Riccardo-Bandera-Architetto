@@ -1,20 +1,20 @@
 ---
-titolo: "Case prefabbricate in legno a Venezia, VE"
+titolo: "Case prefabbricate in legno a Cavallino-Treporti, VE"
 codice: "HWH"
 anno: 2015
-luogo: "Venezia, VE"
+luogo: "Cavallino-Treporti, VE"
 categorie: ["residenziale"]
 materiali: ["legno","vetro"]
 coordinate:
-  lat: 45.43719
-  lng: 12.33459
+  lat: 45.4792171
+  lng: 12.515257
 evidenza: false
 stato: "progetto"
 copertina: "./case-prefabbricate-legno-venezia-ve-foto-02.webp"
-copertinaAlt: "Case prefabbricate in legno a Venezia, VE, progetto di Riccardo Bandera Architetto"
+copertinaAlt: "Case prefabbricate in legno a Cavallino-Treporti, VE, progetto di Riccardo Bandera Architetto"
 seo:
-  titolo: "Ville prefabbricate in legno sulla costa veneziana"
-  descrizione: "Proposta di dodici ville monofamiliari prefabbricate in legno per un parco di pini sulla costa veneziana. Progetto di Riccardo Bandera Architetto, 2015."
+  titolo: "Ville prefabbricate in legno a Cavallino-Treporti (VE)"
+  descrizione: "Dodici ville monofamiliari prefabbricate in legno in un parco di pini a Cavallino-Treporti, sulla costa veneziana. Progetto di Riccardo Bandera, 2015."
 crediti:
   - ruolo: "Progettista"
     nome: "Riccardo Bandera Architetto"
@@ -22,22 +22,22 @@ crediti:
     nome: "Riccardo Bandera Architetto"
 foto:
   - src: "./case-prefabbricate-legno-venezia-ve-foto-01.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, foto 1. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, foto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-foto-02.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, foto 2. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-foto-03.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, foto 3. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, foto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-foto-04.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, foto 4. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, foto 4. Progetto di Riccardo Bandera Architetto"
 disegni:
   - src: "./case-prefabbricate-legno-venezia-ve-disegno-01.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, disegno di progetto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-disegno-02.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, disegno di progetto 2. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, disegno di progetto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-disegno-03.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, disegno di progetto 3. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, disegno di progetto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./case-prefabbricate-legno-venezia-ve-disegno-04.webp"
-    alt: "Case prefabbricate in legno a Venezia, VE, disegno di progetto 4. Progetto di Riccardo Bandera Architetto"
+    alt: "Case prefabbricate in legno a Cavallino-Treporti, VE, disegno di progetto 4. Progetto di Riccardo Bandera Architetto"
 ---
 In un contesto pianeggiante, come quello che si può trovare lungo le coste del Golfo di Venezia, dal Po a Grado, all’interno di un parco di 1 ettaro circa, con essenze ad alto fusto (pini marittimi / pioppi / ecc…), si propone una aggregazione di 12 Ville monofamiliari dalle dimensioni di 102 mq ciascuna.
 

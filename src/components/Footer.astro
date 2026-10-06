@@ -48,7 +48,7 @@ const year = new Date().getFullYear();
         ))}
         <li><a href="/blog/" class="u-underline text-cream/80 hover:text-cream">Journal</a></li>
         <li><a href="/domande-frequenti/" class="u-underline text-cream/80 hover:text-cream">FAQ</a></li>
-        <li><a href="/chi-e-riccardo-bandera/" class="u-underline text-cream/80 hover:text-cream">Lo studio in breve</a></li>
+        <li><a href="/lo-studio/#in-breve" class="u-underline text-cream/80 hover:text-cream">Lo studio in breve</a></li>
       </ul>
     </nav>
 
@@ -69,8 +69,7 @@ const year = new Date().getFullYear();
         <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
         <p class="f-gap">
           <a href={`mailto:${site.email}`} class="u-underline block w-fit">{site.email}</a>
-          <a href={`tel:${site.phoneOfficeHref}`} class="u-underline block w-fit">Tel. {site.phoneOffice}</a>
-          <a href={`tel:${site.phoneHref}`} class="u-underline block w-fit">Cell. {site.phone}</a>
+          <a href={`tel:${site.phoneHref}`} class="u-underline block w-fit">Tel. {site.phone}</a>
           <a href={`mailto:${site.pec}`} class="u-underline block w-fit">PEC {site.pec}</a>
         </p>
       </address>

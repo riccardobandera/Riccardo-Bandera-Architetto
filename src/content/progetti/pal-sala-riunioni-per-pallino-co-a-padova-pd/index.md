@@ -1,6 +1,7 @@
 ---
 titolo: "Sala riunioni per Pallino & Co a Padova, PD"
 codice: "PAL"
+anno: 2013
 luogo: "Padova, PD"
 categorie: ["direzionale"]
 materiali: ["legno"]

@@ -20,7 +20,7 @@ const heroSlides = await Promise.all(
 );
 const noscriptImg = heroSlides[0];
 
-const featured = await getInEvidenza(6);
+const featured = await getInEvidenza();
 
 // copertine per gli ambiti: un progetto rappresentativo per ciascuno
 const AMBITO_COVER: Record<string, string> = {
@@ -65,10 +65,10 @@ const ambitiCards = (await Promise.all(
     {heroSlides.length > 1 && (
       <>
         <button type="button" class="hero-arrow left-3 md:left-6" data-hero-prev aria-label="Foto precedente">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
         </button>
         <button type="button" class="hero-arrow right-3 md:right-6" data-hero-next aria-label="Foto successiva">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
         </button>
       </>
     )}
@@ -113,12 +113,12 @@ const ambitiCards = (await Promise.all(
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {ambitiCards.map((a, i) => (
-          <a href={`/progetti/?ambito=${a.key}`} class="group relative overflow-hidden aspect-[3/4] bg-white/5 reveal" data-reveal-delay={(i % 4) + 1}>
+          <a href={`/progetti/?ambito=${a.key}`} class="amb-card group relative overflow-hidden aspect-[3/4] bg-white/5 reveal" data-reveal-delay={(i % 4) + 1}>
             {a.cover && (
               <Image src={a.cover} alt={a.alt ?? a.label} widths={[300, 500, 700]} sizes="(max-width:1024px) 46vw, 24vw"
-                class="w-full h-full object-cover grayscale opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.04]" />
+                class="amb-img w-full h-full object-cover" />
             )}
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent"></div>
+            <div class="amb-veil absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent"></div>
             <div class="absolute inset-0 p-5 flex flex-col justify-end">
               <h3 class="text-lg md:text-xl font-bold tracking-tight">{a.label}</h3>
               <p class="text-[0.78rem] text-cream/60 mt-1 leading-snug">{a.desc}</p>
@@ -236,19 +236,26 @@ const ambitiCards = (await Promise.all(
     .hero-slide { opacity: 0; transition: opacity 2.4s ease-in-out; }
     .hero-slide.is-active { opacity: 1; }
     [data-hero-slides].is-manual .hero-slide { transition-duration: 0.7s; }
-    /* frecce ai lati della foto */
+    /* ambiti: foto in bianco e nero che si colora al passaggio del mouse (o con la tastiera) */
+    .amb-card :global(.amb-img) { filter: grayscale(1) brightness(0.72); transform: scale(1); transition: filter 0.7s var(--ease-out-expo), transform 0.9s var(--ease-out-expo); }
+    .amb-veil { transition: opacity 0.7s var(--ease-out-expo); }
+    .amb-card:hover :global(.amb-img), .amb-card:focus-visible :global(.amb-img) { filter: grayscale(0) brightness(1); transform: scale(1.04); }
+    .amb-card:hover .amb-veil, .amb-card:focus-visible .amb-veil { opacity: 0.55; }
+    /* frecce ai lati della foto: solo la freccia, senza cerchio (richiesta del cliente), con un'ombra leggera per leggerla su ogni foto */
     .hero-arrow {
       position: absolute; top: 30%; z-index: 10; transform: translateY(-50%);
-      display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 9999px;
-      color: var(--color-cream); background: rgb(20 20 20 / 0.28); border: 1px solid rgb(240 237 230 / 0.45);
-      backdrop-filter: blur(6px); cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      display: grid; place-items: center; width: 2.75rem; height: 3.5rem;
+      color: var(--color-cream); background: none; border: 0; cursor: pointer;
+      filter: drop-shadow(0 1px 6px rgb(0 0 0 / 0.55));
+      opacity: 0.85; transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    .hero-arrow:hover { background: var(--color-cream); color: var(--color-ink); border-color: var(--color-cream); }
+    .hero-arrow:hover { opacity: 1; }
+    .hero-arrow[data-hero-prev]:hover { transform: translate(-3px, -50%); }
+    .hero-arrow[data-hero-next]:hover { transform: translate(3px, -50%); }
     .hero-arrow:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 3px; }
     /* da tablet in su: frecce a metà altezza, con spazio laterale per non coprire il titolo */
     @media (min-width: 768px) {
-      .hero-arrow { top: 50%; width: 3.25rem; height: 3.25rem; }
+      .hero-arrow { top: 50%; width: 3.25rem; height: 4rem; }
       [data-hero-content] { padding-inline: max(clamp(1.25rem, 5vw, 3.5rem), calc(6rem - max(0px, (100vw - 84rem) / 2))); }
     }
     @media (prefers-reduced-motion: reduce) {

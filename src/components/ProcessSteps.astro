@@ -17,12 +17,10 @@ import { fasiImages } from '../data/curated';
           <p class="text-muted leading-relaxed text-[1.02rem] max-w-3xl">{f.body}</p>
           {imgs.length > 0 && (
             <>
-              <button type="button" class="fase-toggle mt-8 inline-flex items-center gap-3 text-[0.78rem] uppercase tracking-[0.16em] font-bold" aria-expanded="false" aria-controls={panel} data-fase-toggle>
-                <span class="fase-toggle-ico grid place-items-center w-9 h-9 rounded-full border border-ink" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                </span>
-                <span data-label-open>Vedi le immagini ({imgs.length})</span>
-                <span data-label-close hidden>Nascondi le immagini</span>
+              <button type="button" class="fase-toggle mt-8 inline-flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.16em] font-bold" aria-expanded="false" aria-controls={panel} data-fase-toggle>
+                <svg class="fase-toggle-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
+                <span data-label-open>Vedi esempi</span>
+                <span data-label-close hidden>Nascondi gli esempi</span>
               </button>
               <div id={panel} class="fase-imgs" data-fase-panel>
                 <div class="fase-imgs-inner">
@@ -74,9 +72,10 @@ import { fasiImages } from '../data/curated';
   .fase-imgs-inner { overflow: hidden; min-height: 0; }
   .fase-img { opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
   .fase-imgs.is-open .fase-img { opacity: 1; transform: none; transition-delay: var(--d); }
-  .fase-toggle-ico { transition: transform 0.4s var(--ease-out-expo), background-color 0.3s ease, color 0.3s ease; }
-  .fase-toggle:hover .fase-toggle-ico { background: var(--color-ink); color: var(--color-bg); }
-  .fase-toggle[aria-expanded='true'] .fase-toggle-ico { transform: rotate(45deg); }
+  /* solo la freccia in giu (richiesta del cliente): scende un poco al passaggio, si gira quando e aperto */
+  .fase-toggle-ico { transition: transform 0.4s var(--ease-out-expo); }
+  .fase-toggle:hover .fase-toggle-ico { transform: translateY(3px); }
+  .fase-toggle[aria-expanded='true'] .fase-toggle-ico { transform: rotate(180deg); }
   .fase-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) {
     .fase-imgs, .fase-img, .fase-toggle-ico { transition: none; }

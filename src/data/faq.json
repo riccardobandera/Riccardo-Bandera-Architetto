@@ -1,5 +1,5 @@
 {
-  "aggiornato": "2026-09-24",
+  "aggiornato": "2026-10-06",
   "domande": [
     {
       "domanda": "Quanto costa un architetto per ristrutturare casa?",
@@ -7,7 +7,9 @@
       "risposta": "",
       "traccia": "Una forbice indicativa in euro per un appartamento tipo (per esempio 80-100 mq) o in percentuale sui lavori, e cosa cambia se l'incarico comprende solo il progetto oppure anche pratiche e direzione lavori. Un esempio reale dello studio aiuta.",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Come calcolate la parcella: a percentuale, a corpo o a ore?",
@@ -47,31 +49,38 @@
       "risposta": "Ogni progetto si sviluppa attraverso una serie di 6 fasi per la progettazione degli interventi definiti con la committenza, così da tenere sotto controllo gli aspetti tecnico-economici senza precludere le potenzialità creative dell’incarico. Le fasi sono: progetto architettonico e di interni, progetto amministrativo, progetto esecutivo, preventivazione e quadro economico, direzione lavori, fine lavori.",
       "fonte": "Testo del cliente: introduzione e titoli delle 6 fasi",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Per ristrutturare casa serve un architetto o bastano un geometra o l'impresa?",
       "tema": "lavoro",
-      "risposta": "",
+      "risposta": "Per ristrutturare casa serve per legge un tecnico abilitato che possa firmare il progetto: non basta l'impresa. Tra i tecnici possibili ci sono gli architetti, i geometri, ma anche ingegneri civili e periti edili. Ogni figura però ha caratteristiche e capacità diverse. Nelle ristrutturazioni quel che conta è l'attenzione al dettaglio, all'ottimizzazione dello spazio e all'uso dei materiali, che fanno tutta la differenza del mondo tra un progetto tecnico e un progetto accogliente. Aggiungo un dettaglio importante: spesso gli architetti, come nel caso del mio studio, uniscono al progetto di ristrutturazione anche il progetto di elementi di arredo su misura, armadi, boiserie, banconi nel caso di bar, che completano il progetto. Poter unire progetto edilizio e progetto d'arredo ha un valore non paragonabile all'affidamento a due figure distinte.",
       "traccia": "In quali casi l'architetto fa la differenza (distribuzione degli spazi, interni, immobili vincolati, controllo del budget), senza sminuire le altre figure. Un progetto in cui il ridisegno degli spazi ha cambiato la casa.",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Come si comincia? Cosa succede al primo incontro e cosa devo portare?",
       "tema": "lavoro",
-      "risposta": "",
+      "risposta": "Al primo incontro analizzeremo assieme l'edificio o il lotto, le caratteristiche e il potenziale. Ragioneremo su budget e desideri, sulle norme che ci vincolano e su come superare gli ostacoli. Dopo il primo incontro verrà formulata una proposta in 6 fasi concrete utili a raggiungere la realizzazione del progetto. Cosa portare? L'indirizzo dell'intervento e una planimetria del lotto o dell'edificio. Al resto pensiamo noi.",
       "traccia": "I passi concreti (contatto, incontro, sopralluogo, proposta) e i documenti utili: planimetria catastale, atto, foto, un'idea di budget, riferimenti di stile.",
       "priorita": "alta",
-      "pagine": []
+      "pagine": [],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Quanto tempo ci vuole, dal progetto alla consegna delle chiavi?",
       "tema": "lavoro",
-      "risposta": "",
+      "risposta": "Dipende da moltissimi fattori: la dimensione del progetto in primis, e le dinamiche economiche come secondo elemento. Qualche esempio. Per la ristrutturazione di un appartamento o di un locale commerciale ci vogliono circa 6 mesi dall'affidamento alla consegna delle chiavi. Per progettare e realizzare una casa singola, un piccolo condominio o un ampliamento alberghiero circa 18-24 mesi. Per condomini, sedi aziendali o alberghi circa 3 anni.",
       "traccia": "Tempi indicativi per fase (progetto, pratiche, cantiere) per un appartamento tipo e per un locale commerciale; cosa allunga i tempi (vincoli, forniture su misura, varianti).",
       "priorita": "alta",
-      "pagine": []
+      "pagine": [],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Lavorate anche fuori Venezia e Mestre?",
@@ -88,23 +97,30 @@
       "risposta": "Sì. Nella prima fase, il progetto architettonico e di interni, si definisce la distribuzione degli spazi e l’organizzazione degli ambienti interni ed esterni. Vengono sviluppate planimetrie e prospetti iniziali, studiati i flussi funzionali e creati modelli 3D per la visualizzazione realistica del progetto finale. Le attività vengono organizzate in una serie di presentazioni che vanno a dettagliare le scelte condivise con la committenza.",
       "fonte": "Testo del cliente: fase 01, Progetto architettonico e di interni",
       "priorita": "media",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Quante revisioni del progetto sono comprese? Posso cambiare idea strada facendo?",
       "tema": "lavoro",
-      "risposta": "",
+      "risposta": "Tutti i progetti si sviluppano in più incontri, nei quali si affina il progetto di proposta in proposta: prima l'insieme, poi il dettaglio e per finire i preventivi delle aziende. In questo modo le revisioni diventano quasi superflue, perché ogni incontro calibra il progetto sulle esigenze e sulle aspettative. Per ogni incontro lo studio porta una o più proposte sul tema dell'incontro e il committente può scegliere un'opzione o proporre la sua scelta, che verrà verificata solo dal punto di vista tecnico e normativo.",
       "traccia": "Quante revisioni sono incluse e da quale momento un cambio diventa costoso (per esempio dopo il progetto esecutivo o a cantiere aperto).",
       "priorita": "media",
-      "pagine": []
+      "pagine": [],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Progettate anche gli interni e gli arredi su misura?",
       "tema": "lavoro",
-      "risposta": "",
+      "risposta": "Sì, un progetto è tanto migliore quanto più riesce a unire progetto architettonico e progetto di arredo. Progettiamo regolarmente arredi fissi su misura come armadi a incasso, banconi, boiserie, zone operative e sale conferenze. Lasciamo invece libertà nell'arredo da catalogo, dove ogni cliente può personalizzare la propria casa. Per le attività commerciali come gli alberghi arriviamo a scegliere anche i tessuti e gli imbottiti, per un progetto totale.",
       "traccia": "Come lo studio unisce architettura e interni, come segue falegnami e fornitori; un esempio di casa o locale con arredo disegnato dallo studio.",
       "priorita": "media",
-      "pagine": ["architetto-interni-mestre", "progettazione-panifici-bar-ristoranti"]
+      "pagine": [
+        "architetto-interni-mestre",
+        "progettazione-panifici-bar-ristoranti"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Quali pratiche edilizie seguite?",
@@ -112,15 +128,18 @@
       "risposta": "Nella fase del progetto amministrativo si gestiscono tutte le autorizzazioni necessarie (Permesso di Costruire, SCIA, CILA e le pratiche complementari: autorizzazioni paesaggistiche e commissioni edilizie, antincendio, impianti, termotecnica ex L.10/91, barriere architettoniche L.13/89, parcheggi privati L.122/89 e standard a verde e parcheggio pubblico, autorizzazioni allo scarico, oneri, ecc.), assicurando la conformità del progetto alle normative vigenti e permettendo l’avvio dei lavori.",
       "fonte": "Testo del cliente: fase 02, Progetto amministrativo",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Che pratica serve per i miei lavori: CILA, SCIA o permesso di costruire?",
       "tema": "pratiche",
-      "risposta": "",
+      "risposta": "La casistica è ampia e bisogna vedere ogni caso specifico, ma facciamo qualche esempio concreto. Lavori interni come lo spostamento di tramezzi, senza interventi strutturali: CILA. Modifica dei fori delle finestre, interventi sulle strutture, cambi d'uso e piccoli ampliamenti: SCIA. Nuovi edifici, grandi ampliamenti e interventi complessi: permesso di costruire.",
       "traccia": "Una regola pratica con 2 o 3 esempi (spostare tramezzi, toccare strutture o facciate, ampliare), i tempi tipici di ciascuna e chi firma l'asseverazione.",
       "priorita": "alta",
-      "pagine": []
+      "pagine": [],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Vi occupate di sanatorie, Salva Casa e verifica della conformità edilizia?",
@@ -128,21 +147,15 @@
       "risposta": "Sì. Lo studio gestisce casistiche complesse inerenti a: sanatorie e condoni edilizi, accesso agli atti e verifica della conformità edilizia, applicazione della normativa sulle tolleranze definita dalla legge Salva Casa, volture e proroghe di pratiche edilizie in corso, varianti in corso d’opera, richiesta di pre-pareri e studi di fattibilità per interventi complessi.",
       "fonte": "Testo del cliente: Altre attività dello studio",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Potete verificare una casa prima che la compri?",
       "tema": "pratiche",
       "risposta": "",
       "traccia": "Cosa si controlla (accesso agli atti, confronto con catasto e stato di fatto), cosa si può sistemare con il Salva Casa e cosa no (immobili vincolati); tempi e costo indicativo di una verifica.",
-      "priorita": "alta",
-      "pagine": []
-    },
-    {
-      "domanda": "Ristrutturare a Venezia centro storico: servono permessi della Soprintendenza e quanto tempo ci vuole?",
-      "tema": "pratiche",
-      "risposta": "",
-      "traccia": "Differenza tra Mestre e terraferma e centro storico o isole; quali interventi chiedono parere o autorizzazione paesaggistica; tempi realistici; logistica del cantiere in acqua, se lo studio ne ha esperienza.",
       "priorita": "alta",
       "pagine": []
     },
@@ -160,15 +173,18 @@
       "risposta": "Nella fase di preventivazione e quadro economico vengono richiesti uno o più preventivi per singola categoria di fornitori (ad esempio: impresa edile, idraulico, elettricista, serramentista, posatore, general contractor, ecc.) e comparati attraverso il quadro economico, il quadro detrazioni e il quadro affidamenti, utili per selezionare l’impresa edile e avviare la costruzione. Questa fase garantisce il controllo dei costi prima dell’inizio delle opere.",
       "fonte": "Testo del cliente: fase 04, Preventivazione e quadro economico",
       "priorita": "alta",
-      "pagine": ["architetto-interni-mestre"]
+      "pagine": [
+        "architetto-interni-mestre"
+      ]
     },
     {
       "domanda": "Chi sceglie l'impresa? Avete imprese di fiducia?",
       "tema": "cantiere",
-      "risposta": "",
+      "risposta": "Lavoriamo sia con imprese con le quali abbiamo già lavorato in passato, sia con le imprese del cliente o con nuove imprese. Prima di affidare un incarico facciamo un confronto sulla dimensione dell'impresa, sullo storico dei suoi lavori e sul preventivo che ha proposto. Solo a questo punto, assieme al cliente, si definisce qual è l'impresa più adatta al progetto.",
       "traccia": "Come lo studio seleziona o propone le imprese, se il cliente può portare la propria, perché il direttore lavori lavora per il cliente e non per l'impresa.",
       "priorita": "alta",
-      "pagine": []
+      "pagine": [],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Cosa comprende la direzione lavori?",
@@ -189,18 +205,24 @@
     {
       "domanda": "Dobbiamo ristrutturare il nostro hotel o chalet: si può fare senza perdere la stagione?",
       "tema": "locali",
-      "risposta": "",
+      "risposta": "Le tempistiche sono fondamentali nel settore alberghiero. Il segreto è pianificare meticolosamente e con pazienza il cronoprogramma, solo dopo aver affidato gli incarichi alle imprese e fissando penali rigorose. La progettazione deve essere più lunga del cantiere stesso, ma questo garantisce il controllo durante la chiusura della struttura. Recentemente abbiamo completato il cantiere dell'Hotel Cime D'Oro a Madonna di Campiglio in meno di tre mesi effettivi, rifacendo completamente le facciate, i terrazzi, i serramenti e parte delle camere.",
       "traccia": "Come si programma il cantiere per lotti o in bassa stagione, con un esempio reale (Cime d'Oro, Tevini, Antares, Chalet Pinocchio); tempi tipici; requisiti delle strutture ricettive (antincendio, accessibilità, classificazione).",
       "priorita": "alta",
-      "pagine": ["progettazione-hotel-chalet"]
+      "pagine": [
+        "progettazione-hotel-chalet"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Voglio aprire un panificio, un bar o un ristorante: quali requisiti deve avere il locale?",
       "tema": "locali",
-      "risposta": "",
+      "risposta": "Il locale deve avere in primis la destinazione d'uso urbanistica corretta; ambienti interni (compresi bagni, spogliatoi e magazzini) più grandi delle prescrizioni minime di legge, con aerazione e riscaldamento garantiti; impianti nuovi o a norma con le dichiarazioni di conformità; aree di preparazione e di lavoro ben organizzate in settori, con superfici lavabili fino a 2 metri; cappe con esalazione dei vapori a tetto in una canna fumaria dedicata (spesso si può fare ex novo), separata dalle canne per i fumi. Una volta terminati i lavori si comunica l'inizio attività tramite SCIA al SUAP con la dichiarazione ASL. Tutti i locali che abbiamo progettato in questi anni hanno considerato questi temi come punto di partenza e di arrivo del progetto: una volta risolti, si può lasciare libertà al progetto creativo.",
       "traccia": "I punti che bloccano più spesso l'apertura (destinazione d'uso, altezze, aerazione, servizi, separazione tra laboratorio e vendita, canne fumarie), il coordinamento con ASL, SUAP e consulente HACCP; l'esempio di un panificio o bar progettato dallo studio (Forno Brisa, Panificio Moderno).",
       "priorita": "alta",
-      "pagine": ["progettazione-panifici-bar-ristoranti"]
+      "pagine": [
+        "progettazione-panifici-bar-ristoranti"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Quanto costa e quanto tempo serve per progettare e aprire un locale?",
@@ -208,7 +230,9 @@
       "risposta": "",
       "traccia": "Forbice indicativa al mq (opere e arredi) e tempi dalla firma all'apertura; cosa incide di più (impianti, cappa, arredi su misura, attrezzature).",
       "priorita": "media",
-      "pagine": ["progettazione-panifici-bar-ristoranti"]
+      "pagine": [
+        "progettazione-panifici-bar-ristoranti"
+      ]
     },
     {
       "domanda": "Quanto costa costruire una casa in legno (Xlam) e quanto dura?",
@@ -216,15 +240,20 @@
       "risposta": "",
       "traccia": "Forbice al mq chiavi in mano e cosa comprende; durata attesa e condizioni (dettagli costruttivi, protezione dall'acqua, manutenzione); due righe su fuoco, umidità e assicurazione.",
       "priorita": "alta",
-      "pagine": ["case-in-legno"]
+      "pagine": [
+        "case-in-legno"
+      ]
     },
     {
       "domanda": "Meglio Xlam o telaio? Il legno va bene in montagna, in zona sismica o vicino alla laguna?",
       "tema": "legno",
-      "risposta": "",
+      "risposta": "Meglio Xlam! L'Xlam è un pannello di legno pieno, massiccio, a strati incrociati: se in fase di montaggio si bagna, può asciugarsi in tempi rapidi. Al contrario un pannello intelaiato contiene lana che, una volta bagnata, fa fatica ad asciugare e può dare fenomeni di muffa molto critici. Inoltre il pannello intelaiato ha meno massa, quindi meno inerzia termica, ed è composto da materiali poveri come i pannelli in OSB. Una casa in legno va bene ovunque: nelle zone sismiche si comporta meglio del cemento, in montagna è il suo habitat ideale vista l'escursione termica e la bassa umidità dell'aria, mentre vicino al mare o alla laguna, dove l'umidità è molta, è meglio progettarla con attenzione all'impiantistica.",
       "traccia": "Criteri di scelta tra i due sistemi (sisma, comfort estivo, tempi, costi); esperienza dello studio in montagna (Chalet Pinocchio) e in pianura (Villa in Linea a Veronella); ampliamenti e sopraelevazioni in legno su edifici esistenti.",
       "priorita": "media",
-      "pagine": ["case-in-legno"]
+      "pagine": [
+        "case-in-legno"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Seguite progetti all'estero?",
@@ -232,20 +261,25 @@
       "risposta": "Sì. A Zanzibar, in Tanzania, lo studio ha progettato il restyling dell’Amani Boutique Hotel a Paje, il nuovo fronte mare del Kono Kono Hotel, quattro suite sull’acqua per un resort nella baia di Unguja, una villa tropicale a Pwani Mchangani e una guest house a Nungwi.",
       "fonte": "Dati dei progetti pubblicati sul sito",
       "priorita": "media",
-      "pagine": ["architetto-zanzibar"]
+      "pagine": [
+        "architetto-zanzibar"
+      ]
     },
     {
       "domanda": "Come gestite un cantiere a Zanzibar a distanza?",
       "tema": "estero",
-      "risposta": "",
+      "risposta": "Ci piacciono i cantieri distanti, perché dimostrano quanto sia ben pianificato il progetto. Il progetto non si improvvisa in cantiere con le maestranze: in opera si fanno aggiustamenti di fino, ma il grosso deve essere pianificato prima. La distanza obbliga all'organizzazione. A Zanzibar abbiamo disegnato tutti gli elementi che compongono il progetto, la posizione degli impianti, degli arredi e degli elementi decorativi, e poi, grazie a WhatsApp, abbiamo aiutato l'impresario edile locale a capire i disegni e a perfezionare l'opera man mano (è il caso di dirlo) che avanzava. Il cantiere è un lavoro di squadra: bisogna aiutare con umiltà il collega ad affrontare le complicazioni che inevitabilmente un cantiere porta con sé.",
       "traccia": "Il ruolo dello studio, imprese e maestranze locali, materiali locali o importati, frequenza dei viaggi, strumenti di controllo a distanza; per quali progetti all'estero lo studio è disponibile.",
       "priorita": "media",
-      "pagine": ["architetto-zanzibar"]
+      "pagine": [
+        "architetto-zanzibar"
+      ],
+      "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
     },
     {
       "domanda": "Dove si trova lo studio e come posso contattarvi?",
       "tema": "lavoro",
-      "risposta": "Lo studio è a Mestre (Venezia), in Riviera XX Settembre 38, 30174. Telefono 041 5044332, cellulare 349 3772802, email studio@riccardobandera.com. Si può scrivere anche dal modulo della pagina Contatti.",
+      "risposta": "Lo studio è a Mestre (Venezia), in Riviera XX Settembre 38, 30171. Telefono 349 3772802, email studio@riccardobandera.com. Si può scrivere anche dal modulo della pagina Contatti.",
       "fonte": "Dati di contatto dello studio",
       "priorita": "media",
       "pagine": []

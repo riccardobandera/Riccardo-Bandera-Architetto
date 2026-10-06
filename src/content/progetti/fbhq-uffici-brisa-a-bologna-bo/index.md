@@ -1,7 +1,7 @@
 ---
 titolo: "Uffici in casa Brisa a Bologna, BO"
 codice: "FBHQ"
-anno: 2024
+anno: 2025
 luogo: "Bologna, BO"
 categorie: ["direzionale"]
 materiali: ["vetro","metallo","legno"]

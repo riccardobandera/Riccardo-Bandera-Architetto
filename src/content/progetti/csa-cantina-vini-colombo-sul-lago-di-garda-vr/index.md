@@ -1,7 +1,7 @@
 ---
 titolo: "Cantina Vini Colombo sul lago di Garda, VR"
 codice: "CSA"
-anno: 2019
+anno: 2024
 luogo: "Garda, VR"
 indirizzo: "Strada per Marciaga, 37016 Garda, VR"
 categorie: ["commerciale"]
@@ -10,6 +10,7 @@ coordinate:
   lat: 45.58741
   lng: 10.71148
 evidenza: true
+ordineHome: 4
 stato: "realizzato"
 copertina: "./cantina-vini-colombo-lago-garda-vr-foto-01.webp"
 copertinaAlt: "Cantina Vini Colombo sul lago di Garda, VR, progetto di Riccardo Bandera Architetto"

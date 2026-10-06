@@ -3,7 +3,8 @@ import { seoPagina } from '../data/seo';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
-import { studioBio, team, studioTitolo } from '../data/site';
+import StudioInBreve from '../components/StudioInBreve.astro';
+import { studioBio, studioFirma, team, studioTitolo, site, ORG_ID, PERSON_ID } from '../data/site';
 
 // ritratti reali del team (nell'ordine della sezione originale)
 import pRiccardo from '../images/team/RB_Front-800x1000.png';
@@ -14,8 +15,22 @@ const portraits = [pRiccardo, pAldo, pThomas, pMarco];
 const teamWithPhotos = team.map((m, i) => ({ ...m, photo: portraits[i] }));
 
 import portrait from '../images/team/riccardo-bandera-architetto.webp';
+
+// la pagina descrive lo studio e il suo titolare (prima c'era una pagina "in breve" separata)
+const url = new URL('/lo-studio/', site.url).href;
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'AboutPage', '@id': url, url, name: seoPagina('studio').title, inLanguage: 'it-IT', mainEntity: { '@id': PERSON_ID }, about: { '@id': ORG_ID } },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Lo studio', item: url },
+    ],
+  },
+];
 ---
-<BaseLayout {...seoPagina('studio')}>
+<BaseLayout {...seoPagina('studio')} jsonLd={jsonLd}>
   <section class="u-container pt-36 md:pt-44 pb-16">
     <p class="u-eyebrow mb-6 reveal">Lo Studio</p>
     <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)] max-w-[15ch] reveal">{studioTitolo}</h1>
@@ -29,12 +44,29 @@ import portrait from '../images/team/riccardo-bandera-architetto.webp';
       <div class="lg:col-span-7 lg:pt-6">
         <div class="space-y-6 text-[1.08rem] leading-relaxed text-ink/90 max-w-2xl">
           {studioBio.map((p) => <p class="reveal">{p}</p>)}
+          {studioFirma && <p class="reveal font-display text-[1.6rem] text-ink">{studioFirma}</p>}
         </div>
         <div class="mt-10 flex flex-wrap gap-4">
           <Button href="/progetti/" variant="ghost" arrow>I progetti</Button>
           <Button href="/manifesto/" variant="ghost">Il manifesto</Button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- lo studio in breve: pannello che si apre con la freccia -->
+  <section id="in-breve" class="border-t border-line scroll-mt-24">
+    <div class="u-container">
+      <button type="button" class="inbreve-toggle group w-full flex items-center justify-between gap-6 py-8 md:py-10 text-left" aria-expanded="false" aria-controls="in-breve-panel" data-inbreve-toggle>
+        <span>
+          <span class="u-eyebrow block mb-2">Scheda, zone, elenco dei progetti</span>
+          <span class="block text-[clamp(1.4rem,3vw,2rem)] font-extrabold tracking-tight">Lo studio in breve</span>
+        </span>
+        <svg class="inbreve-chevron shrink-0" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
+      </button>
+    </div>
+    <div id="in-breve-panel" class="inbreve-panel" data-inbreve-panel>
+      <div class="inbreve-inner"><StudioInBreve /></div>
     </div>
   </section>
 
@@ -70,3 +102,29 @@ import portrait from '../images/team/riccardo-bandera-architetto.webp';
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // "Lo studio in breve": si apre e si chiude con la freccia; aperto da subito se il link porta a #in-breve
+  const btn = document.querySelector<HTMLButtonElement>('[data-inbreve-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-inbreve-panel]');
+  if (btn && panel) {
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      panel.classList.toggle('is-open', open);
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    if (location.hash === '#in-breve') set(true);
+  }
+</script>
+
+<style>
+  .inbreve-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.7s var(--ease-out-expo); }
+  .inbreve-panel.is-open { grid-template-rows: 1fr; }
+  .inbreve-inner { overflow: hidden; min-height: 0; }
+  .inbreve-chevron { transition: transform 0.5s var(--ease-out-expo); }
+  .inbreve-toggle[aria-expanded='true'] .inbreve-chevron { transform: rotate(180deg); }
+  .inbreve-toggle:hover .inbreve-chevron { transform: translateY(3px); }
+  .inbreve-toggle[aria-expanded='true']:hover .inbreve-chevron { transform: rotate(180deg) translateY(3px); }
+  .inbreve-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { .inbreve-panel, .inbreve-chevron { transition: none; } }
+</style>

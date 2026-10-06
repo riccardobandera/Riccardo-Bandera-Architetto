@@ -1,6 +1,10 @@
 # Redirect 301 da TUTTI i vecchi indirizzi (WordPress, Blogger .html, vecchi slug, tag)
 # Generato dall'elenco storico Wayback Machine + crawl del sito precedente. Nessun 404 dai vecchi link.
 
+# la pagina "in breve" ora e un pannello dentro Lo studio
+/chi-e-riccardo-bandera/   /lo-studio/#in-breve   301
+/chi-e-riccardo-bandera    /lo-studio/#in-breve   301
+
 /2005/02/mis-edificio-residenziale-tipologia.html                              /progetti/ 301
 /2006/06/nuovo-rettorato-iuav.html                                             /progetti/ 301
 /2008/03/gua-asilo-affacciato-sul-guadalquivir.html                            /progetti/ 301

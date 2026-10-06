@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 
 export type Progetto = CollectionEntry<'progetti'>;
-export type Immagine = { src: ImageMetadata; alt?: string; home?: boolean };
+export type Immagine = { src: ImageMetadata; alt?: string; home?: boolean; etichetta?: string };
 
 export const catLabels: Record<string, string> = {
   residenziale: 'Residenziale',
@@ -34,15 +34,15 @@ export async function getProgetti(): Promise<Progetto[]> {
 }
 
 /**
- * Progetti selezionati della home (sempre n): prima quelli "In evidenza" nell'ordine scelto nel pannello
- * (campo "Posizione in home", 1 = primo; senza numero vanno dopo, dal piu recente), poi si completa
- * con i progetti piu recenti. Se ne sono in evidenza piu di n, restano fuori gli ultimi.
+ * Progetti selezionati della home: TUTTI quelli "In evidenza", nell'ordine scelto nel pannello
+ * (campo "Posizione in home", 1 = primo; senza numero vanno dopo, dal piu recente).
+ * Se sono meno di `min`, si completa con i progetti piu recenti.
  */
-export async function getInEvidenza(n = 6): Promise<Progetto[]> {
+export async function getInEvidenza(min = 6): Promise<Progetto[]> {
   const all = await getProgetti();
   const pos = (p: Progetto) => p.data.ordineHome ?? Infinity;
   const top = all.filter((p) => p.data.evidenza).sort((a, b) => pos(a) - pos(b)); // sort stabile: a parita resta l'anno
-  return [...top, ...all.filter((p) => !p.data.evidenza)].slice(0, n);
+  return top.length >= min ? top : [...top, ...all.filter((p) => !p.data.evidenza)].slice(0, min);
 }
 
 /**

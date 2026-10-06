@@ -43,7 +43,8 @@ const coordDaLink = (t?: string) => {
 
 const immagini = (image: () => z.ZodTypeAny) =>
   // home: la foto gira nella hero della home (foto grande in alto)
-  lista(z.object({ src: image(), alt: testo(), home: sino() }));
+  // etichetta: scritta breve mostrata sulla foto (es. "Prima dei lavori")
+  lista(z.object({ src: image(), alt: testo(), home: sino(), etichetta: testo() }));
 
 const progetti = defineCollection({
   loader: glob({

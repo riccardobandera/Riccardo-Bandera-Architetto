@@ -3,25 +3,26 @@ import { seoPagina } from '../data/seo';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { manifesto } from '../data/site';
 import { getProgetto, coverOf } from '../data/projects';
 // foto di dettaglio delle travi in legno (fornita dal cliente)
 import woodImg from '../images/pagine/manifesto-legno.webp';
 
-// capitoli: i primi due blocchi del manifesto, ognuno con la foto di un progetto in legno dello studio
+// capitoli: i tre blocchi del manifesto, ognuno con la foto di un progetto in legno dello studio
+// (il terzo prima era una fascia nera a tutta larghezza: il cliente l'ha voluto come capitolo 03)
 const FOTO_CAPITOLI = [
   'pmt-panificio-moderno-in-piazza-lodron-bar-e-ristorazione-in-centro-a-trento-tn', // abete trentino
   'csa-cantina-vini-colombo-sul-lago-di-garda-vr', // avvolti in legno
+  'chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn', // hotel costruito in legno
 ];
 const capitoli = await Promise.all(
-  manifesto.blocks.slice(0, 2).map(async (b, i) => {
+  manifesto.blocks.slice(0, 3).map(async (b, i) => {
     const p = await getProgetto(FOTO_CAPITOLI[i]);
     const c = p ? coverOf(p) : null;
     return { ...b, foto: c, progetto: p ? { id: p.id, titolo: p.data.titolo } : null };
   }),
 );
-// l'ultimo blocco diventa la frase finale a tutta larghezza (come nel sito originale)
-const finale = manifesto.blocks[2];
 
 // numeri presi dal testo del capitolo sulla CO2 (fonte: CNR di Bologna, Istituto di Biometeorologia)
 const numeri = [
@@ -31,7 +32,7 @@ const numeri = [
 ];
 const fmt = (n: number, dec: number) => n.toFixed(dec).replace('.', ',');
 
-// progetti in legno per la striscia finale
+// progetti in legno per la griglia finale
 const IN_LEGNO = [
   'c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr',
   'chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn',
@@ -40,11 +41,7 @@ const IN_LEGNO = [
   'fmb-funivia-malcesine-monte-baldo-paesaggio-arredo-tn',
   'c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl',
 ];
-const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
-  const p = await getProgetto(id);
-  const c = p ? coverOf(p) : null;
-  return p && c ? { id: p.id, titolo: p.data.titolo, luogo: p.data.luogo ?? '', src: c.src, alt: c.alt } : null;
-}))).filter((x): x is NonNullable<typeof x> => Boolean(x));
+const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter((p): p is NonNullable<typeof p> => Boolean(p));
 ---
 <!-- navMode light: hero scuro, quindi navbar chiara (logo e menu leggibili) -->
 <BaseLayout navMode="light" {...seoPagina('manifesto')}>
@@ -67,7 +64,7 @@ const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
 
   <!-- capitoli: foto e testo alternati -->
   <section class="u-container py-[var(--spacing-section)] space-y-[clamp(5rem,12vw,10rem)]">
-    {capitoli.map((c, i) => (
+    {capitoli.slice(0, 2).map((c, i) => (
       <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
         {c.foto && (
           <figure class:list={['lg:col-span-6', i % 2 ? 'lg:order-2' : '']}>
@@ -108,17 +105,30 @@ const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
     </div>
   </section>
 
-  <!-- frase finale a tutta larghezza -->
-  {finale && (
-    <section class="bg-ink text-cream">
-      <div class="u-container py-[clamp(6rem,14vw,11rem)] text-center">
-        <blockquote class="font-display text-[clamp(2rem,5.4vw,4.8rem)] leading-[1.08] max-w-[20ch] mx-auto reveal">{finale.h}</blockquote>
-        <div class="mt-10 mx-auto grow-line h-px w-full max-w-[220px] bg-cream/40"></div>
-        <p class="mt-10 text-[1.05rem] md:text-[1.15rem] leading-relaxed text-cream/70 max-w-2xl mx-auto reveal">{finale.p}</p>
-        <p class="mt-10 u-eyebrow text-cream/50 reveal">Riccardo Bandera Architetto</p>
-      </div>
-    </section>
-  )}
+  <!-- capitolo 03 (prima era la fascia nera finale) -->
+  <section class="u-container py-[var(--spacing-section)]">
+    {capitoli.slice(2).map((c, k) => { const i = k + 2; return (
+      <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
+        {c.foto && (
+          <figure class:list={['lg:col-span-6', i % 2 ? 'lg:order-2' : '']}>
+            <div class="mf-clip reveal overflow-hidden aspect-[4/5] md:aspect-[5/4] bg-surface">
+              <Image src={c.foto.src} alt={c.foto.alt} widths={[600, 900, 1300]} sizes="(max-width:1024px) 92vw, 46vw" class="mf-clip-img w-full h-full object-cover" />
+            </div>
+            {c.progetto && (
+              <figcaption class="mt-4 text-[0.8rem] uppercase tracking-[0.16em] text-muted">
+                <a href={`/progetti/${c.progetto.id}/`} class="u-underline hover:text-ink">{c.progetto.titolo}</a>
+              </figcaption>
+            )}
+          </figure>
+        )}
+        <div class:list={['lg:col-span-6', i % 2 ? 'lg:order-1' : '']}>
+          <span class="block font-display text-[clamp(4rem,10vw,8rem)] leading-none text-muted/35 reveal">{String(i + 1).padStart(2, '0')}</span>
+          <h2 class="mt-4 font-display text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.08] reveal">{c.h}</h2>
+          <p class="mt-8 text-[1.1rem] md:text-[1.2rem] leading-relaxed text-ink/80 max-w-xl reveal">{c.p}</p>
+        </div>
+      </article>
+    ); })}
+  </section>
 
   <!-- progetti in legno -->
   <section class="py-[var(--spacing-section)]">
@@ -129,22 +139,11 @@ const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
       </div>
       <div class="flex flex-wrap gap-3 reveal">
         <Button href="/case-in-legno/" variant="solid" arrow>Case in legno</Button>
-        <Button href="/progetti/?materiale=legno" variant="ghost">Tutti i progetti in legno</Button>
       </div>
     </div>
-    <ul class="mf-strip flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:thin]">
-      {legno.map((p) => (
-        <li class="snap-start shrink-0 w-[78vw] sm:w-[46vw] lg:w-[30vw] max-w-[440px]">
-          <a href={`/progetti/${p.id}/`} class="group block">
-            <div class="overflow-hidden aspect-[4/5] bg-surface">
-              <Image src={p.src} alt={p.alt} widths={[400, 700]} sizes="(max-width:640px) 78vw, (max-width:1024px) 46vw, 30vw" class="w-full h-full object-cover grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:scale-[1.04]" />
-            </div>
-            <p class="mt-4 font-bold tracking-tight leading-snug group-hover:opacity-60 transition-opacity">{p.titolo}</p>
-            {p.luogo && <p class="mt-1 text-[0.8rem] uppercase tracking-[0.14em] text-muted">{p.luogo}</p>}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="u-container grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
+      {legno.map((p, i) => <ProjectCard project={p} index={i} />)}
+    </div>
   </section>
 </BaseLayout>
 
@@ -203,8 +202,4 @@ const legno = (await Promise.all(IN_LEGNO.map(async (id) => {
   @media (prefers-reduced-motion: reduce) {
     :global(html.js) .mf-clip, :global(html.js) .mf-clip .mf-clip-img { clip-path: none; transform: none; transition: none; }
   }
-  /* margini laterali uguali a quelli del contenuto della pagina (u-container) */
-  .mf-strip { --gut: calc(max(0px, (100% - 84rem) / 2) + clamp(1.25rem, 5vw, 3.5rem)); padding-inline: var(--gut); scroll-padding-inline: var(--gut); }
-  .mf-strip::-webkit-scrollbar { height: 4px; }
-  .mf-strip::-webkit-scrollbar-thumb { background: var(--color-line); }
 </style>

@@ -1,6 +1,7 @@
 ---
 titolo: "Restyling Bistrò alla Stretta"
 codice: "BAS"
+anno: 2021
 luogo: "Lago di Toblino, TN"
 indirizzo: "Via Nazionale 188, loc. Due Laghi, Padergnone, 38096 Vallelaghi, TN"
 categorie: ["commerciale"]
@@ -10,12 +11,14 @@ coordinate:
   lng: 10.97829
 evidenza: false
 stato: "realizzato"
-copertina: "./restyling-bistro-stretta-foto-04.webp"
+copertina: "./restyling-bistro-stretta-foto-06.webp"
 copertinaAlt: "Restyling Bistrò alla Stretta, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Bistrò alla Stretta, lago di Toblino: restyling e veranda"
   descrizione: "Restyling del Bistrò alla Stretta tra i laghi di Santa Massenza e Toblino (TN): nuova immagine esterna e una veranda affacciata sul paesaggio."
 foto:
+  - src: "./restyling-bistro-stretta-foto-06.webp"
+    alt: "Restyling Bistrò alla Stretta, il ristorante pizzeria visto dalla strada. Progetto di Riccardo Bandera Architetto"
   - src: "./restyling-bistro-stretta-foto-01.webp"
     alt: "Restyling Bistrò alla Stretta, foto 1. Progetto di Riccardo Bandera Architetto"
   - src: "./restyling-bistro-stretta-foto-02.webp"

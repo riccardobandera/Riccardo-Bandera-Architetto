@@ -3,14 +3,16 @@ titolo: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN"
 codice: "MHQ"
 anno: 2026
 luogo: "Rovereto, TN"
+indirizzo: "Via all'Adige 4, 38068 Rovereto, TN"
 categorie: ["direzionale"]
 materiali: ["metallo"]
 coordinate:
-  lat: 45.88263
-  lng: 11.04215
-evidenza: false
+  lat: 45.8895332
+  lng: 11.0296086
+evidenza: true
+ordineHome: 7
 stato: "progetto"
-copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-render-01.webp"
+copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-01.webp"
 copertinaAlt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Headquarter Manica S.p.a. a Rovereto (TN)"
@@ -27,18 +29,18 @@ crediti:
 foto:
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-01.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 1. Progetto di Riccardo Bandera Architetto"
+    home: true
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-02.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 2. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-03.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 3. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-04.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 4. Progetto di Riccardo Bandera Architetto"
-  - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-05.webp"
-    alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 5. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-06.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 6. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-07.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 7. Progetto di Riccardo Bandera Architetto"
+    etichetta: "Prima dei lavori"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-08.webp"
     alt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, foto 8. Progetto di Riccardo Bandera Architetto"
   - src: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-09.webp"
