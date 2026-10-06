@@ -14,6 +14,12 @@ export const site = {
   phone: '+39 349 3772802',
   phoneHref: '+393493772802',
   piva: '02209210224',
+  // modulo contatti: script Google (Apps Script) che salva su Google Sheet e manda la mail a studio@
+  // endpoint = URL /exec del deploy dello script; token = SHARED_TOKEN nello script (filtro anti abuso leggero)
+  form: {
+    endpoint: '',
+    token: 'OcfcY5OOiEYVOuLRl7sVKKSnLPtyUUaI',
+  },
   ordine: "Ordine degli Architetti P.P.C. di Venezia, Sez. A, n. 4391",
   address: {
     street: 'Riviera XX Settembre 38',

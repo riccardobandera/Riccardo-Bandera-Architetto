@@ -1,17 +1,18 @@
 ---
 import { site } from '../data/site';
 ---
+<!-- il modulo invia a uno script Google che salva su Google Sheet e manda la mail allo studio (site.form) -->
 <form
   name="contatti"
   method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  action="/contatti/?inviato=1"
+  action={site.form.endpoint || undefined}
+  data-endpoint={site.form.endpoint}
   class="contact-form grid gap-6"
   novalidate
 >
-  <input type="hidden" name="form-name" value="contatti" />
-  <p class="hidden"><label>Non compilare: <input name="bot-field" /></label></p>
+  <input type="hidden" name="token" value={site.form.token} />
+  <input type="hidden" name="pagina" value="" />
+  <p class="hidden" aria-hidden="true"><label>Non compilare: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
 
   <div class="grid sm:grid-cols-2 gap-6">
     <div class="field">
@@ -44,7 +45,7 @@ import { site } from '../data/site';
   </div>
 
   <label class="consent -mt-3 flex items-start gap-3 text-sm text-muted">
-    <input type="checkbox" name="privacy" required class="mt-1 accent-[var(--color-ink)]" />
+    <input type="checkbox" name="privacy" value="sì" required class="mt-1 accent-[var(--color-ink)]" />
     <span>Ho letto e accetto il <a href="/privacy/" class="u-underline text-ink">trattamento dei dati personali</a>. <span aria-hidden="true">*</span></span>
   </label>
 
@@ -88,13 +89,19 @@ import { site } from '../data/site';
       status.textContent = 'Invio in corso…';
       status.className = 'form-status text-sm text-muted';
       try {
+        const endpoint = form.dataset.endpoint;
+        if (!endpoint) throw new Error('endpoint mancante');
+        (form.elements.namedItem('pagina') as HTMLInputElement).value = location.pathname;
         const data = new FormData(form);
-        await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data as any).toString() });
+        // URLSearchParams = richiesta semplice, niente preflight: lo script Google risponde in JSON
+        const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams(data as any) });
+        const out = await res.json().catch(() => ({ ok: false }));
+        if (!out.ok) throw new Error(out.error || 'invio non riuscito');
         form.reset();
         status.textContent = 'Grazie! Ti risponderemo al più presto.';
         status.className = 'form-status text-sm text-ink font-bold';
       } catch {
-        status.textContent = `Qualcosa è andato storto. Scrivici a ${'studio@riccardobandera.com'}.`;
+        status.textContent = `Qualcosa è andato storto. Scrivici a ${'studio@riccardobandera.com'} o chiama il ${'349 3772802'}.`;
         status.className = 'form-status text-sm text-ink';
       }
     });
