@@ -11,7 +11,7 @@ coordinate:
   lng: 11.34293
 evidenza: false
 stato: "realizzato"
-copertina: "./forno-brisa-galliera-ampliamento-foto-04.webp"
+copertina: "./forno-brisa-galliera-ampliamento-foto-01.webp"
 copertinaAlt: "Forno Brisa Galliera ampliamento, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Forno Brisa via Galliera, Bologna: ampliamento"
