@@ -8,7 +8,6 @@ import Clients from "../components/Clients.astro";
 import Button from "../components/Button.astro";
 import { getInEvidenza, getProgetto, coverOf, getHeroImages } from "../data/projects";
 import { site, manifestoQuote, ambiti, homeTesti } from "../data/site";
-import { servizi } from "../data/seo";
 
 // hero: le foto con "Foto grande in home" attivo nel pannello, alternate a caso nel browser
 const heroSlides = await Promise.all(
@@ -125,15 +124,6 @@ const ambitiCards = (await Promise.all(
             </div>
           </a>
         ))}
-      </div>
-      <!-- pagine per settore (link interni per Google e per chi cerca un tipo di lavoro preciso) -->
-      <div class="mt-10 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-        <p class="u-eyebrow text-cream/50 shrink-0">Specializzazioni</p>
-        <ul class="flex flex-wrap gap-2.5">
-          {servizi.map((s) => (
-            <li><a href={`/${s.slug}/`} class="inline-block border border-white/20 rounded-full px-4 py-2 text-sm text-cream/85 hover:bg-cream hover:text-ink transition-colors">{s.nome}</a></li>
-          ))}
-        </ul>
       </div>
     </div>
   </section>
