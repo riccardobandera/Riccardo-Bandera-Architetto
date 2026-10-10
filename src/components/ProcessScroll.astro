@@ -2,16 +2,20 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { metodoImages as M, metodoProgetto } from '../data/curated';
-import { getProgetto, coverOf } from '../data/projects';
+import { getProgetto } from '../data/projects';
+// immagini della casera nell'Alpago in ordine cronologico (cartella "Metodo" di Riccardo, ottobre 2026)
+import primaLavori from '../images/metodo/casera-prima-dei-lavori.webp';
+import modello3d from '../images/metodo/casera-modello-3d.webp';
+import prospetti from '../images/metodo/casera-prospetti-progetto-amministrativo.webp';
 // dettaglio costruttivo ritagliato dalla tavola esecutiva della casera (la parte scelta dal cliente)
 import dettaglio from '../images/metodo/dettaglio-esecutivo.webp';
+// preventivazione: la tavola riassuntiva del quadro budget (stessa della pagina Fasi)
+import quadroBudget from '../images/fasi/04/fase-04-quadro-economico-02.webp';
+import ponteggi from '../images/metodo/casera-cantiere-ponteggi.webp';
 
 // il progetto raccontato: dalla pianta all'opera finita
 const progetto = await getProgetto(metodoProgetto);
 const nomeProgetto = progetto?.data.titolo ?? '';
-// foto d'apertura scelta dal cliente: la Cantina Vini Colombo
-const cantina = await getProgetto('csa-cantina-vini-colombo-sul-lago-di-garda-vr');
-const cantinaCover = cantina ? coverOf(cantina) : null;
 
 const curve = `<svg viewBox="0 0 120 60" fill="none" class="ms-curve"><path d="M2 42 C 30 4, 90 4, 118 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 
@@ -27,21 +31,18 @@ type Tok =
   | { kind: 'svg' };
 
 const flow: Tok[] = [
-  {
-    kind: 'lead', t: 'Ogni progetto',
-    media: cantinaCover ? { kind: 'img', src: cantinaCover.src, alt: cantinaCover.alt, cap: 'Cantina Vini Colombo, lago di Garda', href: `/progetti/${cantina!.id}/` } : undefined,
-  },
+  { kind: 'lead', t: 'Ogni progetto', media: { kind: 'img', src: primaLavori, alt: `${nomeProgetto}: il rustico sotto la neve prima dei lavori`, cap: 'Prima dei lavori' } },
   { kind: 'text', t: 'nasce dal disegno,' },
-  { kind: 'phase', n: '01', t: 'Progetto architettonico e di interni', media: { kind: 'empty' } }, // render 3D in arrivo
+  { kind: 'phase', n: '01', t: 'Progetto architettonico e di interni', media: { kind: 'img', src: modello3d, alt: `${nomeProgetto}: modello 3D di progetto`, cap: 'Modello 3D' } },
   { kind: 'text', t: 'ottiene i permessi col' },
-  { kind: 'phase', n: '02', t: 'Progetto amministrativo', media: { kind: 'empty' } },
+  { kind: 'phase', n: '02', t: 'Progetto amministrativo', media: { kind: 'img', src: prospetti, alt: `${nomeProgetto}: prospetti della tavola di progetto per il Comune`, cap: 'Prospetti di progetto', drawing: true } },
   { kind: 'text', t: 'si fa dettaglio nel' },
   { kind: 'phase', n: '03', t: 'Progetto esecutivo', media: { kind: 'img', src: dettaglio, alt: `${nomeProgetto}: dettaglio costruttivo`, cap: 'Dettaglio costruttivo', drawing: true } },
   { kind: 'text', t: 'trova il suo costo nella' },
-  { kind: 'phase', n: '04', t: 'Preventivazione', media: { kind: 'fade' } }, // preventivi del cliente in arrivo
+  { kind: 'phase', n: '04', t: 'Preventivazione', media: { kind: 'img', src: quadroBudget, alt: 'Quadro budget riassuntivo di un progetto dello studio: minimo, massimo e scelte consigliate', cap: 'Quadro budget', drawing: true } },
   { kind: 'svg' },
   { kind: 'text', t: 'si costruisce durante la' },
-  { kind: 'phase', n: '05', t: 'Direzione lavori', media: M['05'] ? { kind: 'img', src: M['05'], alt: `${nomeProgetto}: cantiere`, cap: 'Cantiere' } : undefined },
+  { kind: 'phase', n: '05', t: 'Direzione lavori', media: { kind: 'img', src: ponteggi, alt: `${nomeProgetto}: cantiere con i ponteggi`, cap: 'Cantiere' } },
   { kind: 'text', t: 'e diventa realtà con la' },
   { kind: 'phase', n: '06', t: 'Fine lavori.', media: M['06'] ? { kind: 'img', src: M['06'], alt: `${nomeProgetto}: opera finita`, cap: 'Opera finita' } : undefined },
 ];
