@@ -24,19 +24,32 @@ import { fasiImages } from '../data/curated';
               </button>
               <div id={panel} class="fase-imgs" data-fase-panel>
                 <div class="fase-imgs-inner">
-                  <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 pt-6">
-                    {imgs.map((im, i) => (
-                      <a href={`/progetti/${im.slug}/`} class="fase-img group relative block overflow-hidden bg-surface aspect-[4/3]" style={`--d:${i * 70}ms`} aria-label="Vedi il progetto" tabindex="-1">
-                        <Image
-                          src={im.src}
-                          alt={`${f.title}: immagine dal progetto`}
-                          widths={[360, 640]}
-                          sizes="(max-width: 768px) 46vw, 22vw"
-                          loading="lazy"
-                          class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-                        />
-                      </a>
-                    ))}
+                  <!-- clic su un'immagine: si apre a schermo intero con lo zoom (lightbox globale) -->
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 pt-6" data-gallery>
+                    {imgs.map((im, i) => {
+                      const alt = im.alt || `${f.title}: immagine dal progetto`;
+                      return (
+                        <button
+                          type="button"
+                          class:list={['fase-img group relative block overflow-hidden aspect-[4/3] cursor-zoom-in', im.tavola ? 'bg-bg border border-line' : 'bg-surface']}
+                          style={`--d:${i * 70}ms`}
+                          data-lightbox
+                          data-full={im.src.src}
+                          data-alt={alt}
+                          aria-label={`Ingrandisci: ${alt}`}
+                          tabindex="-1"
+                        >
+                          <Image
+                            src={im.src}
+                            alt={alt}
+                            widths={[360, 640, 900]}
+                            sizes="(max-width: 768px) 46vw, 22vw"
+                            loading="lazy"
+                            class:list={['w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]', im.tavola ? 'object-contain p-2 md:p-3' : 'object-cover']}
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -53,7 +66,7 @@ import { fasiImages } from '../data/curated';
   document.querySelectorAll<HTMLButtonElement>('[data-fase-toggle]').forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
     if (!panel) return;
-    const links = panel.querySelectorAll<HTMLAnchorElement>('a');
+    const links = panel.querySelectorAll<HTMLButtonElement>('[data-lightbox]');
     btn.addEventListener('click', () => {
       const open = btn.getAttribute('aria-expanded') !== 'true';
       btn.setAttribute('aria-expanded', String(open));

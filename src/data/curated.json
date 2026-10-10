@@ -32,28 +32,100 @@
  },
  "fasi": {
   "01": [
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-disegno-02.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-render-02.webp",
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-render-01.webp",
-   "c043-casa-a-bolognano/casa-bolognano-arco-tn-render-04.webp",
-   "han-hotel-antares-a-selva-di-val-gardena-bz/hotel-antares-selva-val-gardena-bz-render-01.webp",
-   "chp-chalet-pinocchio-hotel-in-legno-a-brentonico-tn/chalet-pinocchio-hotel-legno-brentonico-tn-render-01.webp"
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-01.webp",
+    "alt": "Render del soggiorno di Casa a Bolognano, Arco",
+    "tavola": false
+   },
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-02.webp",
+    "alt": "Render di una cucina sotto le travi in legno",
+    "tavola": false
+   },
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-03.webp",
+    "alt": "Render di una cucina con boiserie a listelli",
+    "tavola": false
+   },
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-04.webp",
+    "alt": "Render della facciata del nuovo headquarter Manica, Rovereto",
+    "tavola": false
+   },
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-05.webp",
+    "alt": "Render di un edificio a torre con facciata in lamiera",
+    "tavola": false
+   },
+   {
+    "src": "fasi/01/fase-01-progetto-architettonico-06.webp",
+    "alt": "Tavola dei materiali per Michelangelo House, Mestre",
+    "tavola": false
+   }
   ],
   "02": [
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-disegno-01.webp",
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-disegno-01.webp",
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-03.webp",
-   "crf-ristrutturazione-con-ampliamento-a-martellago-ve/ristrutturazione-ampliamento-martellago-ve-disegno-03.webp",
-   "pes-ampliamenti-contemporanei-camera-e-padiglione-a-scorze-ve/ampliamenti-contemporanei-camera-padiglione-scorze-ve-disegno-01.webp",
-   "htr-riqualificazione-dellhotel-tremosine/riqualificazione-hotel-tremosine-disegno-01.webp"
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-01.webp",
+    "alt": "Tavola di progetto per Casa a Bolognano: sezioni e inserimento nel paesaggio",
+    "tavola": true
+   },
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-02.webp",
+    "alt": "Prospetti della SCIA per l’Hotel Cime D’Oro, Madonna di Campiglio",
+    "tavola": true
+   },
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-03.webp",
+    "alt": "Planimetria di progetto con il verde e le alberature",
+    "tavola": true
+   },
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-04.webp",
+    "alt": "Prospetti di raffronto per il nuovo headquarter Manica",
+    "tavola": true
+   },
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-05.webp",
+    "alt": "Tavole architettoniche di un edificio a torre",
+    "tavola": true
+   },
+   {
+    "src": "fasi/02/fase-02-progetto-amministrativo-06.webp",
+    "alt": "Piante di progetto per la pratica edilizia",
+    "tavola": true
+   }
   ],
   "03": [
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-01.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-disegno-03.webp",
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-disegno-02.webp",
-   "bsk-ristorante-alpino-a-polsa-di-brentonico-trento/ristorante-alpino-polsa-brentonico-trento-disegno-01.webp",
-   "han-hotel-antares-a-selva-di-val-gardena-bz/hotel-antares-selva-val-gardena-bz-disegno-01.webp",
-   "pes-ampliamenti-contemporanei-camera-e-padiglione-a-scorze-ve/ampliamenti-contemporanei-camera-padiglione-scorze-ve-disegno-05.webp"
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-01.webp",
+    "alt": "Dettaglio esecutivo di una scala",
+    "tavola": true
+   },
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-02.webp",
+    "alt": "Esecutivo di scala e parapetti del Forno Brisa a San Lazzaro di Savena",
+    "tavola": true
+   },
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-03.webp",
+    "alt": "Esecutivo del rivestimento di facciata dell’Hotel Cime D’Oro",
+    "tavola": true
+   },
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-04.webp",
+    "alt": "Abaco dei pavimenti e rivestimenti di Michelangelo House",
+    "tavola": true
+   },
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-05.webp",
+    "alt": "Esecutivo della scala vela del nuovo headquarter Manica",
+    "tavola": true
+   },
+   {
+    "src": "fasi/03/fase-03-progetto-esecutivo-06.webp",
+    "alt": "Campionatura dei materiali e delle finiture",
+    "tavola": true
+   }
   ],
   "04": [
    "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-01.webp",
@@ -64,20 +136,68 @@
    "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-cantiere-02.webp"
   ],
   "05": [
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-cantiere-01.webp",
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-cantiere-04.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-cantiere-01.webp",
-   "c021-ristrutturazione-attico-con-soppalco-e-giardino-a-isera-tn/ristrutturazione-attico-soppalco-giardino-isera-tn-cantiere-07.webp",
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-03.webp",
-   "fbsl-forno-brisa-a-san-lazzaro-di-savena-bo/forno-brisa-san-lazzaro-savena-bo-cantiere-03.webp"
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-01.webp",
+    "alt": "Cantiere: struttura in legno degli interni",
+    "tavola": false
+   },
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-02.webp",
+    "alt": "Cantiere della facciata del nuovo headquarter Manica",
+    "tavola": false
+   },
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-03.webp",
+    "alt": "Ponteggi del cantiere dell’Hotel Cime D’Oro, Madonna di Campiglio",
+    "tavola": false
+   },
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-04.webp",
+    "alt": "Cantiere della copertura in acciaio del nuovo headquarter Manica",
+    "tavola": false
+   },
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-05.webp",
+    "alt": "Cantiere: rivestimento in piastrelle bianche e blu",
+    "tavola": false
+   },
+   {
+    "src": "fasi/05/fase-05-direzione-lavori-06.webp",
+    "alt": "Cantiere: sottotetto in legno",
+    "tavola": false
+   }
   ],
   "06": [
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-foto-01.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-foto-01.webp",
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-foto-02.webp",
-   "c021-ristrutturazione-attico-con-soppalco-e-giardino-a-isera-tn/ristrutturazione-attico-soppalco-giardino-isera-tn-copertina.webp",
-   "fbsl-forno-brisa-a-san-lazzaro-di-savena-bo/forno-brisa-san-lazzaro-savena-bo-copertina.webp",
-   "fbga-forno-brisa-galliera-ampliamento/forno-brisa-galliera-ampliamento-foto-01.webp"
+   {
+    "src": "fasi/06/fase-06-fine-lavori-01.webp",
+    "alt": "Panificio Moderno in Piazza Lodron a Trento, a lavori finiti",
+    "tavola": false
+   },
+   {
+    "src": "fasi/06/fase-06-fine-lavori-02.webp",
+    "alt": "La casera nell’Alpago ristrutturata, al tramonto",
+    "tavola": false
+   },
+   {
+    "src": "fasi/06/fase-06-fine-lavori-03.webp",
+    "alt": "Hotel Cime D’Oro a Madonna di Campiglio a lavori finiti. Foto di Luca Casonato",
+    "tavola": false
+   },
+   {
+    "src": "fasi/06/fase-06-fine-lavori-04.webp",
+    "alt": "Cantina Vini Colombo sul lago di Garda, la volta in legno",
+    "tavola": false
+   },
+   {
+    "src": "fasi/06/fase-06-fine-lavori-05.webp",
+    "alt": "Villa in legno sul lago di Garda a lavori finiti",
+    "tavola": false
+   },
+   {
+    "src": "fasi/06/fase-06-fine-lavori-06.webp",
+    "alt": "Kono Kono Hotel a Zanzibar, il portico sul mare",
+    "tavola": false
+   }
   ]
  },
  "metodoProgetto": "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl"

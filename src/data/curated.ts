@@ -18,7 +18,31 @@ export const metodoProgetto = curated.metodoProgetto;
 export const metodoImages = Object.fromEntries(curated.metodo.map(([n, k]) => [n, img(k)!])) as Record<string, ImageMetadata>;
 export const metodoExtra = Object.fromEntries(Object.entries(curated.metodoExtra).map(([n, k]) => [n, img(k as string)!])) as Record<string, ImageMetadata>;
 
-/** Immagini per le card della pagina Fasi. */
+// immagini scelte da Riccardo per la pagina Fasi (cartelle Drive, ottobre 2026), in src/images/fasi/<fase>/
+const fasiFiles = import.meta.glob<{ default: ImageMetadata }>('../images/fasi/*/*.webp', { eager: true });
+const fasiByKey = new Map<string, ImageMetadata>();
+for (const [p, mod] of Object.entries(fasiFiles)) fasiByKey.set(p.replace('../images/', ''), mod.default);
+
+export type FaseImg = { src: ImageMetadata; alt: string; slug?: string; tavola?: boolean };
+type VoceFase = string | { src: string; alt: string; tavola?: boolean };
+
+/**
+ * Immagini delle 6 fasi (si aprono con "Vedi esempi").
+ * Ogni voce e una foto di un progetto del sito ("slug/file.webp") oppure un'immagine propria della pagina
+ * ({ src: "fasi/01/...", alt, tavola }); tavola = disegno tecnico, mostrato intero.
+ */
 export const fasiImages = Object.fromEntries(
-  Object.entries(curated.fasi).map(([n, keys]) => [n, (keys as string[]).map((k) => ({ src: img(k)!, slug: slugOf(k) })).filter((x) => x.src)]),
-) as Record<string, { src: ImageMetadata; slug: string }[]>;
+  Object.entries(curated.fasi).map(([n, voci]) => [
+    n,
+    (voci as VoceFase[])
+      .map((v): FaseImg | null => {
+        if (typeof v === 'string') {
+          const src = img(v);
+          return src ? { src, alt: '', slug: slugOf(v) } : null;
+        }
+        const src = fasiByKey.get(v.src);
+        return src ? { src, alt: v.alt, tavola: !!v.tavola } : null;
+      })
+      .filter((x): x is FaseImg => x !== null),
+  ]),
+) as Record<string, FaseImg[]>;
