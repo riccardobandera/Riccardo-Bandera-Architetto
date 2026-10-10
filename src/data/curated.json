@@ -128,12 +128,36 @@
    }
   ],
   "04": [
-   "c028-ristrutturazione-di-una-casera-nellalpago-a-tambre-bl/ristrutturazione-casera-alpago-tambre-bl-cantiere-01.webp",
-   "hma-michelangelo-apartmets-a-mestre-ve/michelangelo-house-mestre-ve-render-04.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-render-04.webp",
-   "c021-ristrutturazione-attico-con-soppalco-e-giardino-a-isera-tn/ristrutturazione-attico-soppalco-giardino-isera-tn-cantiere-01.webp",
-   "fbga-forno-brisa-galliera-ampliamento/forno-brisa-galliera-ampliamento-cantiere-01.webp",
-   "c022-villa-con-affaccio-sul-lago-di-garda-realizzata-in-legno-a-verona-vr/villa-affaccio-lago-garda-legno-verona-vr-cantiere-02.webp"
+   {
+    "src": "fasi/04/fase-04-quadro-economico-01.webp",
+    "alt": "Fase 04, quadro economico: copertina del quadro budget di una manutenzione straordinaria a Rovereto",
+    "tavola": true
+   },
+   {
+    "src": "fasi/04/fase-04-quadro-economico-02.webp",
+    "alt": "Fase 04, quadro economico: quadro budget riassuntivo: minimo, massimo ragionevole e scelte consigliate per ogni voce",
+    "tavola": true
+   },
+   {
+    "src": "fasi/04/fase-04-quadro-economico-03.webp",
+    "alt": "Fase 04, quadro economico: superfici e misure dei vani, ipotesi minima e massima",
+    "tavola": true
+   },
+   {
+    "src": "fasi/04/fase-04-quadro-economico-04.webp",
+    "alt": "Fase 04, quadro economico: stima delle opere edili e degli esterni",
+    "tavola": true
+   },
+   {
+    "src": "fasi/04/fase-04-quadro-economico-05.webp",
+    "alt": "Fase 04, quadro economico: stima di serramenti, isolamenti, contropareti e controsoffitti",
+    "tavola": true
+   },
+   {
+    "src": "fasi/04/fase-04-quadro-economico-06.webp",
+    "alt": "Fase 04, quadro economico: stima delle finiture: pavimenti, rivestimenti, pitture, porte e battiscopa",
+    "tavola": true
+   }
   ],
   "05": [
    {
