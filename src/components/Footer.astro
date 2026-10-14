@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { site, nav, manifestoQuote } from '../data/site';
+import { site, nav, manifestoQuote, homeTesti } from '../data/site';
 import { servizi } from '../data/seo';
 import monogram from '../images/monogram-white.png';
 const year = new Date().getFullYear();
@@ -34,7 +34,7 @@ const year = new Date().getFullYear();
         </span>
       </div>
       <p class="text-sm max-w-xs">
-        Studio di architettura e d’interni. Residenziale, hospitality, commerciale e direzionale, con una vocazione alla bioedilizia e alle costruzioni in legno.
+        {homeTesti.footer}
       </p>
       <p class="f-gap text-sm text-cream/85 max-w-xs">{manifestoQuote}</p>
     </div>

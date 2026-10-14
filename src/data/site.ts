@@ -1,5 +1,7 @@
 // Dati di contatto dello studio. I testi delle pagine stanno in testi.json (modificabili dal CMS).
 import testi from './testi.json';
+// contatti modificabili dal pannello (Testi e dati > Contatti dello studio)
+import contatti from './contatti.json';
 
 export const site = {
   name: 'Riccardo Bandera',
@@ -9,10 +11,10 @@ export const site = {
   url: 'https://riccardobandera.com',
   get tagline() { return testi.home.tagline; },
   claim: 'Architettura, interni e bioedilizia in legno.',
-  email: 'studio@riccardobandera.com',
-  pec: 'riccardobandera@pec.it',
-  phone: '+39 349 3772802',
-  phoneHref: '+393493772802',
+  email: contatti.email,
+  pec: contatti.pec,
+  phone: contatti.telefono,
+  phoneHref: contatti.telefono.replace(/[^\d+]/g, ''),
   piva: '02209210224',
   // modulo contatti: script Google (Apps Script) che salva su Google Sheet e manda la mail a studio@
   // endpoint = URL /exec del deploy dello script; token = SHARED_TOKEN nello script (filtro anti abuso leggero)
@@ -22,19 +24,15 @@ export const site = {
   },
   ordine: "Ordine degli Architetti P.P.C. di Venezia, Sez. A, n. 4391",
   address: {
-    street: 'Riviera XX Settembre 38',
-    zip: '30171',
-    city: 'Mestre',
-    region: 'Venezia',
+    street: contatti.indirizzo.via,
+    zip: contatti.indirizzo.cap,
+    city: contatti.indirizzo.citta,
+    region: contatti.indirizzo.provincia,
     country: 'IT',
   },
   geo: { lat: 45.4930668, lng: 12.2382017 },
   googleMaps: 'https://www.google.com/maps/place/Riccardo+Bandera+Architetto/@45.4930668,12.2382017,17z/data=!4m6!3m5!1s0x477eb448172c9ca7:0x433ec3bc8b6f20a3!8m2!3d45.4930668!4d12.2382017',
-  social: {
-    facebook: 'https://www.facebook.com/riccardobanderaarchitetto/',
-    instagram: 'https://www.instagram.com/riccardobanderaarchitetto/',
-    linkedin: 'https://www.linkedin.com/in/riccardo-bandera-a0370b65/',
-  },
+  social: contatti.social,
   // profili su portali di architettura (stessa identità: servono a Google e alle IA per riconoscere lo studio)
   profili: {
     houzz: 'https://www.houzz.it/professionisti/architetti/riccardo-bandera-architetto-pfvwit-pf~26771995',
@@ -44,7 +42,7 @@ export const site = {
   attivoDal: 2014,
   ordineNumero: '4391',
   ordineNome: 'Ordine degli Architetti, Pianificatori, Paesaggisti e Conservatori della Provincia di Venezia',
-} as const;
+};
 
 // identificativi stabili per i dati strutturati (schema.org): studio e architetto
 export const ORG_ID = `${site.url}/#studio`;

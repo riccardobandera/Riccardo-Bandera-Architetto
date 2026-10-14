@@ -2,7 +2,47 @@
   "home": {
     "tagline": "Studio di architettura e d'interni per abitazioni, hotel, uffici e negozi.",
     "sottotitolo": "Architettura, interni e bioedilizia tra Veneto, Trentino e oltre.",
-    "citazione": "\"Sviluppiamo i progetti nei quali siamo coinvolti seguendo un processo ordinato che tenga sotto controllo gli aspetti tecnico-economici durante tutte le fasi del progetto senza precludere le potenzialità creative dell’incarico.\""
+    "citazione": "\"Sviluppiamo i progetti nei quali siamo coinvolti seguendo un processo ordinato che tenga sotto controllo gli aspetti tecnico-economici durante tutte le fasi del progetto senza precludere le potenzialità creative dell’incarico.\"",
+    "ambitiIntro": "Quattro campi, un unico metodo. Ogni progetto nasce dal luogo e dalle persone che lo vivono.",
+    "metodo": {
+      "titolo": "Le 6 fasi\ndel progetto",
+      "sottotitolo": "Un progetto vero, dal disegno all’opera finita:",
+      "inizio": "Ogni edificio",
+      "passi": [
+        {
+          "frase": "nasce dal disegno,",
+          "fase": "Progetto architettonico e di interni",
+          "didascalia": "Modello 3D"
+        },
+        {
+          "frase": "ottiene i permessi col",
+          "fase": "Progetto amministrativo",
+          "didascalia": "Prospetti di progetto"
+        },
+        {
+          "frase": "si fa dettaglio nel",
+          "fase": "Progetto esecutivo",
+          "didascalia": "Dettaglio costruttivo"
+        },
+        {
+          "frase": "trova il suo costo nella",
+          "fase": "Preventivazione",
+          "didascalia": "Quadro budget"
+        },
+        {
+          "frase": "si costruisce durante la",
+          "fase": "Direzione lavori",
+          "didascalia": "Cantiere"
+        },
+        {
+          "frase": "e diventa realtà con la",
+          "fase": "Fine lavori.",
+          "didascalia": "Opera finita"
+        }
+      ],
+      "linkFinale": "Come lavoriamo"
+    },
+    "footer": "Studio di architettura e d’interni. Residenziale, hospitality, commerciale e direzionale, con una vocazione alla bioedilizia e alle costruzioni in legno."
   },
   "studio": {
     "titolo": "Architettura come connessione.",
@@ -37,7 +77,8 @@
         "role": "Collaboratore"
       }
     ],
-    "firma": "R. B."
+    "firma": "R. B.",
+    "reteIntro": "Ogni progetto lo seguiamo con una rete di professionisti e imprese di fiducia: ingegneri strutturisti, termotecnici, impiantisti, geometri, coordinatori della sicurezza, artigiani e fotografi. Lo studio coordina tutti, il cliente ha un solo riferimento."
   },
   "manifesto": {
     "lead": "Amiamo progettare usando il legno per avere un impatto positivo sull’ambiente e sulle persone.",

@@ -108,7 +108,7 @@ const ambitiCards = (await Promise.all(
     <div class="u-container">
       <div class="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <h2 class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight uppercase">Ambiti d’intervento</h2>
-        <p class="max-w-sm text-cream/60 leading-relaxed">Quattro campi, un unico metodo. Ogni progetto nasce dal luogo e dalle persone che lo vivono.</p>
+        <p class="max-w-sm text-cream/60 leading-relaxed">{homeTesti.ambitiIntro}</p>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {ambitiCards.map((a, i) => (

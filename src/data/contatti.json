@@ -1,0 +1,16 @@
+{
+  "email": "studio@riccardobandera.com",
+  "pec": "riccardobandera@pec.it",
+  "telefono": "+39 349 3772802",
+  "indirizzo": {
+    "via": "Riviera XX Settembre 38",
+    "cap": "30171",
+    "citta": "Mestre",
+    "provincia": "Venezia"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/riccardobanderaarchitetto/",
+    "instagram": "https://www.instagram.com/riccardobanderaarchitetto/",
+    "linkedin": "https://www.linkedin.com/in/riccardo-bandera-a0370b65/"
+  }
+}

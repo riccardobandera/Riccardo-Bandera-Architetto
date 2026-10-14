@@ -3,6 +3,7 @@
 // Nomi e ruoli vengono SOLO dai crediti dei progetti pubblicati, gia visibili sul sito: niente di inventato.
 // Si aggiorna da solo quando si aggiungono progetti con i crediti dal pannello.
 import { getProgetti } from '../data/projects';
+import testi from '../data/testi.json';
 
 const progetti = await getProgetti();
 
@@ -57,9 +58,7 @@ const oltre = Math.floor(totale / 10) * 10;
     <div class="lg:col-span-5">
       <p class="u-eyebrow mb-4 reveal">Collaborazioni</p>
       <h2 id="rete-title" class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight leading-[1.02] reveal">La rete</h2>
-      <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">
-        Ogni progetto lo seguiamo con una rete di professionisti e imprese di fiducia: ingegneri strutturisti, termotecnici, impiantisti, geometri, coordinatori della sicurezza, artigiani e fotografi. Lo studio coordina tutti, il cliente ha un solo riferimento.
-      </p>
+      <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">{testi.studio.reteIntro}</p>
       {oltre >= 10 && (
         <p class="mt-10 reveal">
           <span class="block font-display text-[clamp(3.5rem,8vw,6rem)] leading-none">oltre {oltre}</span>
