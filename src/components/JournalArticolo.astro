@@ -1,0 +1,61 @@
+---
+// Un articolo del Journal, intero, con sotto le anteprime degli altri articoli.
+// Usato da /blog/ (che apre direttamente l'ultimo articolo) e da /blog/<articolo>/.
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const altri = (await getCollection('blog'))
+  .filter((p) => !p.data.draft && p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<article class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
+  <header class="max-w-3xl mx-auto text-center mb-12">
+    <p class="u-eyebrow"><a href="/blog/" class="hover:text-ink">Journal</a> · <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time></p>
+    <h1 class="text-[clamp(2rem,5vw,3.6rem)] font-extrabold tracking-tight leading-[1.02] mt-4">{post.data.title}</h1>
+  </header>
+  {post.data.cover && (
+    <Image src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} widths={[768, 1280, 1600]} sizes="100vw" loading="eager" class="w-full max-h-[62vh] object-cover mb-12" />
+  )}
+  <div class="prose-article max-w-2xl mx-auto">
+    <Content />
+  </div>
+</article>
+
+{altri.length > 0 && (
+  <section class="u-container pb-[var(--spacing-section)]" aria-labelledby="altri-articoli">
+    <div class="border-t border-line pt-12">
+      <h2 id="altri-articoli" class="u-eyebrow mb-8">Altri articoli</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+        {altri.map((p) => (
+          <a href={`/blog/${p.id}/`} class="group block">
+            {p.data.cover && (
+              <div class="overflow-hidden bg-surface aspect-[16/11] mb-4">
+                <Image src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} widths={[400, 700, 1000]} sizes="(max-width:1024px) 100vw, 33vw" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            )}
+            <time class="u-eyebrow" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+            <h3 class="text-xl font-bold tracking-tight mt-2 group-hover:opacity-60 transition-opacity">{p.data.title}</h3>
+            {p.data.excerpt && <p class="text-muted mt-2 leading-relaxed">{p.data.excerpt}</p>}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  .prose-article { font-size: 1.08rem; line-height: 1.8; color: color-mix(in srgb, var(--color-ink) 92%, transparent); }
+  .prose-article h2 { font-size: 1.6rem; font-weight: 700; margin: 2.4rem 0 1rem; letter-spacing: -0.01em; }
+  .prose-article h3 { font-size: 1.25rem; font-weight: 700; margin: 1.8rem 0 0.8rem; }
+  .prose-article p { margin: 1.1rem 0; }
+  .prose-article a { text-decoration: underline; text-underline-offset: 3px; }
+  .prose-article img { margin: 2rem 0; }
+  .prose-article ul, .prose-article ol { margin: 1.1rem 0; padding-left: 1.4rem; }
+  .prose-article li { margin: 0.4rem 0; }
+  .prose-article blockquote { border-left: 2px solid var(--color-ink); padding-left: 1.2rem; font-style: italic; color: var(--color-muted); margin: 1.6rem 0; }
+</style>

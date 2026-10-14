@@ -9,6 +9,8 @@ interface Props {
   type?: 'website' | 'article';
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** percorso della pagina "vera" quando lo stesso contenuto compare anche altrove (es. /blog/ mostra l'ultimo articolo) */
+  canonical?: string;
 }
 
 const home = seoPagina('home');
@@ -19,6 +21,7 @@ const {
   type = 'website',
   noindex = false,
   jsonLd,
+  canonical: canonicalPath,
 } = Astro.props;
 
 // Titolo: il nome dello studio si aggiunge solo se il totale resta entro 60 caratteri
@@ -30,7 +33,7 @@ const componi = (t: string) => {
   return t;
 };
 const fullTitle = title ? componi(title) : home.title;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site ?? site.url).href;
 const ogImage = new URL(image, Astro.site ?? site.url).href;
 
 // Studio e architetto: stessi dati visibili nel footer, in Contatti e nella pagina "Chi è Riccardo Bandera"

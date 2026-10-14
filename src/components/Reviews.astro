@@ -13,7 +13,10 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
     <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
       <div class="lg:col-span-7">
         <p class="u-eyebrow mb-4 reveal">Dicono di noi</p>
-        <h2 id="rev-title" class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight leading-[1] reveal">Recensioni</h2>
+        <div class="flex items-end justify-between gap-4">
+          <h2 id="rev-title" class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight leading-[1] reveal">Recensioni</h2>
+          <button type="button" class="strip-hint" data-strip-next="rev-lista" aria-label="Scorri alle recensioni successive">Scorri <span class="strip-hint-arrow" aria-hidden="true">→</span></button>
+        </div>
       </div>
       <div class="lg:col-span-5 flex items-end gap-6 lg:justify-end reveal">
         <div class="font-display text-[clamp(3.5rem,8vw,5.5rem)] leading-none">{voto}</div>
@@ -25,7 +28,7 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
     </div>
 
     {items.length > 0 && (
-      <ul class="rev-grid" data-rev-list>
+      <ul id="rev-lista" class="rev-grid m-strip" data-rev-list>
         {items.map((r, i) => (
           <li class:list={['rev reveal', i >= limit && 'rev--more']} data-reveal-delay={(i % 3) + 1} data-rev-extra={i >= limit ? '' : undefined}>
             <div class="text-sm tracking-[0.15em] mb-4" aria-label={`${r.stelle} stelle su 5`}>{Stars(r.stelle)}</div>
@@ -48,6 +51,7 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
 </section>
 
 <script>
+  import '../scripts/strip';
   // altre recensioni: si aprono e si richiudono nella pagina
   const more = document.querySelector<HTMLButtonElement>('[data-rev-more]');
   more?.addEventListener('click', () => {

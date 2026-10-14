@@ -9,10 +9,10 @@ const year = new Date().getFullYear();
 <footer class="bg-ink text-cream/70">
   <!-- CTA a tutta larghezza -->
   <a href="/contatti/" class="block group border-b border-white/12">
-    <div class="u-container py-16 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+    <div class="u-container py-12 sm:py-16 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6 sm:gap-8">
       <div>
-        <p class="u-eyebrow text-cream/50 mb-4">Contatti</p>
-        <h2 class="font-display text-cream text-[clamp(2.6rem,8vw,6.5rem)] leading-[0.95] tracking-tight">
+        <p class="u-eyebrow text-cream/50 mb-3 sm:mb-4">Contatti</p>
+        <h2 class="font-display text-cream text-[clamp(2.3rem,8vw,6.5rem)] leading-[0.95] tracking-tight">
           Start a project
         </h2>
       </div>
@@ -23,9 +23,10 @@ const year = new Date().getFullYear();
     </div>
   </a>
 
-  <div class="f-grid u-container py-16 grid gap-12 sm:grid-cols-2 md:grid-cols-12">
+  <!-- telefono: Menu e Settori affiancati, social in riga, niente citazione (e gia in home): footer piu corto -->
+  <div class="f-grid u-container py-10 sm:py-16 grid grid-cols-2 gap-x-6 gap-y-9 sm:gap-12 md:grid-cols-12">
     <!-- brand -->
-    <div class="md:col-span-3">
+    <div class="col-span-2 sm:col-span-1 md:col-span-3">
       <div class="f-head gap-3 text-cream">
         <Image src={monogram} alt="" width={38} height={40} class="w-[34px] h-auto" />
         <span class="flex flex-col leading-[1.05]">
@@ -36,7 +37,7 @@ const year = new Date().getFullYear();
       <p class="text-sm max-w-xs">
         {homeTesti.footer}
       </p>
-      <p class="f-gap text-sm text-cream/85 max-w-xs">{manifestoQuote}</p>
+      <p class="f-gap text-sm text-cream/85 max-w-xs max-sm:hidden">{manifestoQuote}</p>
     </div>
 
     <!-- menu -->
@@ -62,7 +63,7 @@ const year = new Date().getFullYear();
     </nav>
 
     <!-- contatti -->
-    <div class="md:col-span-3">
+    <div class="col-span-2 sm:col-span-1 md:col-span-3">
       <p class="f-head u-eyebrow text-cream/40">Studio</p>
       <address class="not-italic text-sm">
         <p>{site.address.street}<br />{site.address.zip} {site.address.city}, {site.address.region}</p>
@@ -75,9 +76,9 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- social -->
-    <div class="md:col-span-2">
+    <div class="col-span-2 sm:col-span-1 md:col-span-2">
       <p class="f-head u-eyebrow text-cream/40">Social</p>
-      <ul class="text-sm">
+      <ul class="text-sm flex flex-wrap gap-x-6 sm:block">
         <li><a href={site.social.instagram} target="_blank" rel="noopener" class="u-underline">Instagram</a></li>
         <li><a href={site.social.facebook} target="_blank" rel="noopener" class="u-underline">Facebook</a></li>
         <li><a href={site.social.linkedin} target="_blank" rel="noopener" class="u-underline">LinkedIn</a></li>
@@ -85,7 +86,7 @@ const year = new Date().getFullYear();
     </div>
   </div>
 
-  <div class="u-container py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-cream/45">
+  <div class="u-container py-5 sm:py-6 border-t border-white/10 flex flex-col sm:flex-row gap-2.5 sm:gap-3 sm:items-center sm:justify-between text-xs text-cream/45">
     <p>© {year} {site.legalName} · P.IVA {site.piva} · {site.ordine}</p>
     <div class="flex gap-5">
       <a href="/privacy/" class="u-underline">Privacy</a>
@@ -103,4 +104,9 @@ const year = new Date().getFullYear();
   .f-grid { --fl: 1.4375rem; }
   .f-grid p:not(.f-head), .f-grid li, .f-grid address a { line-height: var(--fl); }
   .f-grid .f-gap { margin-top: var(--fl); }
+  /* telefono: etichette compatte (l'allineamento tra colonne serve solo da tablet in su) */
+  @media (max-width: 639px) {
+    .f-head { height: auto; margin-bottom: 0.7rem; }
+    .f-grid .f-gap { margin-top: 0.6rem; }
+  }
 </style>

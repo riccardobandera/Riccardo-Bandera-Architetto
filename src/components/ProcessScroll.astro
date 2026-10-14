@@ -46,11 +46,25 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 ---
 
 <section class="method-scroll relative bg-bg text-ink lg:-mt-[14svh]" data-method-scroll aria-label="Le 6 fasi del progetto">
+  <!-- telefono: titolo sopra la striscia, cosi la striscia parte subito con le fasi e le foto -->
+  <div class="ms-intro-m lg:hidden">
+    <p class="u-eyebrow mb-4">Metodo</p>
+    <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,11vw,4rem)]">{T.titolo.split(/\n/).map((riga, i) => <>{i > 0 && <br />}{riga}</>)}</h2>
+    {nomeProgetto && <p class="mt-5 text-base text-muted leading-relaxed">{T.sottotitolo}<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
+    <div class="ms-intro-row">
+      <p class="ms-lead ms-lead-m">{T.inizio}</p>
+      <!-- invito a scorrere verso destra: la freccia porta avanti di una scheda -->
+      <button type="button" class="ms-hint" data-hint aria-label="Scorri alle fasi successive">
+        <span>Scorri</span>
+        <span class="ms-hint-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
   <div class="ms-pin lg:h-[100svh] flex items-start lg:overflow-x-auto lg:overflow-y-hidden [scrollbar-width:none]" data-pin>
     <!-- data-gallery: le immagini delle fasi si aprono a schermo intero con lo zoom (lightbox globale) -->
     <div class="ms-track relative flex items-start gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track data-gallery>
 
-      <div class="ms-mid shrink-0 pr-[3vw] max-w-[36rem]">
+      <div class="ms-mid shrink-0 pr-[3vw] max-w-[36rem] max-lg:hidden">
         <p class="u-eyebrow mb-4">Metodo</p>
         <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,8vw,7rem)]">{T.titolo.split(/\n/).map((riga, i) => <>{i > 0 && <br />}{riga}</>)}</h2>
         {nomeProgetto && <p class="mt-6 text-base md:text-lg text-muted leading-relaxed whitespace-normal">{T.sottotitolo}<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
@@ -63,6 +77,8 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
           <span class="ms-muted ms-conn shrink-0 lg:whitespace-nowrap">{it.t}</span>
         ) : (
           <div class="ms-phase shrink-0 flex flex-col items-start" data-phase={it.n}>
+            <!-- su telefono la frase di collegamento sta dentro la scheda della fase -->
+            <span class="ms-conn-m lg:hidden" aria-hidden="true">{T.passi[Number(it.n) - 1]?.frase}</span>
             <span class="ms-numwrap relative self-start">
               <span class="ms-num block font-display text-muted/45 leading-none">{it.n}</span>
               {it.media && it.media.kind === 'img' && (
@@ -145,14 +161,70 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 
     // mobile o movimento ridotto: scorrimento orizzontale nativo, la linea segue lo scroll del contenitore
     if (reduce || isMobile || distance() <= 0) {
+      let nudging = false;
       const onScroll = () => {
         const max = pinWrap.scrollWidth - pinWrap.clientWidth || 1;
         paint(pinWrap.scrollLeft / max);
+        // dopo il primo scorrimento dell'utente l'invito sparisce; in fondo togliamo la sfumatura a destra
+        if (!nudging && pinWrap.scrollLeft > 40) section.classList.add('is-moved');
+        section.classList.toggle('is-end', pinWrap.scrollLeft >= max - 4);
       };
       pinWrap.addEventListener('scroll', onScroll, { passive: true });
       marks.forEach((m, i) => m.addEventListener('click', () => {
         pinWrap.scrollTo({ left: at[i] * (pinWrap.scrollWidth - pinWrap.clientWidth), behavior: reduce ? 'auto' : 'smooth' });
       }));
+      // la freccia porta avanti di una scheda (in fondo torna all'inizio)
+      section.querySelector('[data-hint]')?.addEventListener('click', () => {
+        const max = pinWrap.scrollWidth - pinWrap.clientWidth;
+        const step = (phases[0]?.offsetWidth ?? window.innerWidth * 0.78) + window.innerWidth * 0.07;
+        const left = pinWrap.scrollLeft >= max - 4 ? 0 : pinWrap.scrollLeft + step;
+        pinWrap.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
+      });
+
+      // le foto della striscia si caricano tutte dopo il caricamento della pagina: fuori schermo a destra
+      // il caricamento differito del browser le lascerebbe bianche
+      section.querySelectorAll<HTMLImageElement>('.ms-img').forEach((img) => (img.loading = 'eager'));
+
+      // col mouse (finestra stretta sul computer) la striscia si trascina
+      let dragX = 0, dragLeft = 0, dragging = false, moved = false, noClick = false;
+      pinWrap.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        dragging = true; moved = false; dragX = e.clientX; dragLeft = pinWrap.scrollLeft;
+      });
+      window.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - dragX;
+        if (!moved && Math.abs(dx) > 5) { moved = true; pinWrap.classList.add('is-drag'); }
+        if (moved) { e.preventDefault(); pinWrap.scrollLeft = dragLeft - dx; }
+      });
+      window.addEventListener('pointerup', () => {
+        if (!dragging) return;
+        dragging = false;
+        if (moved) {
+          pinWrap.classList.remove('is-drag');
+          // dopo un trascinamento il clic non apre l'immagine
+          noClick = true;
+          setTimeout(() => (noClick = false), 0);
+        }
+      });
+      pinWrap.addEventListener('click', (ev) => { if (noClick) { ev.stopPropagation(); ev.preventDefault(); } }, { capture: true });
+      pinWrap.addEventListener('dragstart', (e) => e.preventDefault());
+      // la prima volta che la striscia entra nello schermo fa un piccolo "assaggio" verso destra e torna indietro
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          io.disconnect();
+          if (pinWrap.scrollLeft > 0) return;
+          nudging = true;
+          pinWrap.style.scrollSnapType = 'none';
+          pinWrap.scrollTo({ left: Math.min(90, window.innerWidth * 0.22), behavior: 'smooth' });
+          setTimeout(() => {
+            pinWrap.scrollTo({ left: 0, behavior: 'smooth' });
+            setTimeout(() => { pinWrap.style.scrollSnapType = ''; nudging = false; }, 900);
+          }, 650);
+        }, { threshold: 0.45 });
+        io.observe(pinWrap);
+      }
       return;
     }
 
@@ -217,25 +289,50 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   .ms-media { position: absolute; right: 0; top: calc(100% + 0.5rem + var(--title) + var(--gap)); display: flex; flex-direction: column; align-items: flex-end; }
   .ms-shot:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 
-  /* telefono e tablet: niente striscia orizzontale, la sequenza si legge dall'alto in basso */
+  .ms-conn-m { display: none; }
+
+  /* telefono e tablet: striscia da scorrere col dito, una scheda per fase; la scheda dopo si vede
+     a destra, cosi e chiaro che la sequenza continua (scorrere tutto in verticale allungava troppo la home) */
   @media (max-width: 1023px) {
-    .ms-pin { height: auto; }
-    .ms-track { flex-direction: column; align-items: stretch; gap: 0.6rem; margin-top: 0; padding: clamp(4rem, 14vw, 6rem) 6vw; transform: none !important; }
-    .ms-mid { margin-top: 0; transform: none; padding-right: 0; margin-bottom: 1.5rem; max-width: none; }
-    .ms-conn { margin-top: 1.6rem; }
-    .ms-phase { width: 100%; }
-    /* numero, titolo e poi l'immagine a tutta larghezza */
-    .ms-numwrap { position: static; }
-    .ms-media { position: static; order: 3; margin-top: 1rem; align-items: stretch; width: 100%; }
-    .ms-phase { display: flex; flex-direction: column; }
+    .ms-pin {
+      height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+      cursor: grab;
+    }
+    .ms-pin.is-drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+    .ms-intro-m { padding: clamp(3.5rem, 12vw, 5rem) 6vw 0; }
+    .ms-intro-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+    .ms-lead-m { font-size: clamp(1.6rem, 7.5vw, 2.6rem); white-space: nowrap; }
+    .ms-track { flex-direction: row; align-items: flex-start; gap: 7vw; margin-top: 0; padding: 1.75rem 6vw 1.25rem; transform: none !important; }
+    .ms-track > * { scroll-snap-align: start; scroll-margin-left: 6vw; }
+    .ms-mid { margin-top: 0; transform: none; padding-right: 0; align-self: center; }
+    .ms-conn { display: none; }
+    .ms-conn-m { display: block; order: 0; margin-bottom: 0.6rem; font-family: var(--font-display); font-style: italic; color: var(--color-muted); font-size: clamp(1.15rem, 5vw, 1.5rem); line-height: 1.1; }
+    .ms-phase { width: 78vw; max-width: 30rem; display: flex; flex-direction: column; }
+    /* frase, numero, titolo e poi l'immagine intera (nessun ritaglio) */
     .ms-numwrap { display: contents; }
     .ms-num { order: 1; }
-    .ms-title { order: 2; }
-    .ms-shot { height: auto; width: 100%; }
-    .ms-shot :global(.ms-img) { width: 100%; height: auto; }
-    .ms-progress { display: none; }
+    .ms-title { order: 2; white-space: normal; }
+    .ms-media { position: static; order: 3; margin-top: 1rem; align-items: flex-end; width: fit-content; max-width: 100%; }
+    /* le tavole quasi quadrate restano basse come le foto: schede di altezza simile */
+    .ms-shot { height: auto; width: fit-content; max-width: 100%; }
+    .ms-shot :global(.ms-img) { width: auto; height: auto; max-width: 100%; max-height: 58vw; }
+
+    /* invito a scorrere in alto, linea con le 6 fasi sotto la striscia */
+    .ms-hint {
+      display: flex; align-items: center; gap: 0.75rem; background: none; border: 0; padding: 0; cursor: pointer;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink);
+      transition: opacity 0.4s ease;
+    }
+    .ms-hint-arrow {
+      display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 9999px;
+      background: var(--color-ink); color: var(--color-bg); font-size: 1.15rem; letter-spacing: 0;
+      animation: ms-swipe 1.4s ease-in-out infinite;
+    }
+    @keyframes ms-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.6rem); } }
+    .method-scroll.is-end .ms-hint { opacity: 0.3; }
+    .ms-progress { position: relative; left: auto; right: auto; bottom: auto; margin: 2.6rem 6vw 3rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .ms-go { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .ms-go, .ms-hint-arrow { animation: none; } }
 
   .ms-pin::-webkit-scrollbar { display: none; }
 

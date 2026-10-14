@@ -242,3 +242,30 @@ html.js .grow-line.is-in { transform: scaleX(1); }
 @media (min-width: 768px) { .glb-prev { left: 1.25rem; } .glb-next { right: 1.25rem; } }
 /* durante lo zoom le frecce si nascondono per non coprire la foto */
 .glb.is-zoomed .glb-nav, .glb.is-single .glb-nav { opacity: 0; pointer-events: none; }
+
+/* telefono: elenchi lunghi della home (progetti selezionati, recensioni) in una striscia da scorrere a destra,
+   la scheda dopo si intravede; il tasto "Scorri" porta avanti di una scheda (src/scripts/strip.ts) */
+.strip-hint { display: none; }
+@media (max-width: 639px) {
+  .m-strip {
+    display: flex !important; columns: auto; gap: 1rem; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none;
+    margin-inline: calc(-1 * clamp(1.25rem, 5vw, 3.5rem)); padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+    scroll-padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+  }
+  .m-strip::-webkit-scrollbar { display: none; }
+  .m-strip > * { flex: 0 0 80%; scroll-snap-align: start; margin-bottom: 0; }
+  .m-strip.is-drag { scroll-snap-type: none; user-select: none; cursor: grabbing; }
+  .strip-hint {
+    display: inline-flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+    background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-ink);
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .strip-hint-arrow {
+    display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 9999px;
+    background: var(--color-ink); color: var(--color-bg); font-size: 1.15rem; letter-spacing: 0;
+    animation: strip-swipe 1.4s ease-in-out infinite;
+  }
+}
+@keyframes strip-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.6rem); } }
+@media (prefers-reduced-motion: reduce) { .strip-hint-arrow { animation: none; } }

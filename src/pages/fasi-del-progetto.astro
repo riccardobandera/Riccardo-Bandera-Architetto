@@ -4,7 +4,6 @@ import ProcessSteps from '../components/ProcessSteps.astro';
 import Button from '../components/Button.astro';
 import { fasi, fasiIntro, altreAttivita } from '../data/site';
 import { seoPagina } from '../data/seo';
-import { getCollection } from 'astro:content';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -12,14 +11,6 @@ const jsonLd = {
   name: 'Le 6 fasi del progetto',
   description: fasiIntro,
   step: fasi.map((f, i) => ({ '@type': 'HowToStep', position: i + 1, name: f.title, text: f.body })),
-};
-// ogni attività porta all'articolo del Journal collegato; finché non c'è, alla pagina Journal
-const articoli = (await getCollection('blog'))
-  .filter((p) => !p.data.draft && p.data.attivita)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const linkAttivita = (v: string) => {
-  const a = articoli.find((p) => p.data.attivita === v);
-  return a ? `/blog/${a.id}/` : '/blog/';
 };
 ---
 <BaseLayout {...seoPagina('fasi')} jsonLd={jsonLd}>
@@ -33,28 +24,33 @@ const linkAttivita = (v: string) => {
     <ProcessSteps />
   </section>
 
-  <!-- altre attività: fondo scuro, sta in una schermata; le card partono all'altezza della frase introduttiva -->
-  <section class="bg-ink text-cream">
-    <div class="u-container py-[clamp(3.5rem,8svh,6rem)] grid lg:grid-cols-12 gap-x-16 gap-y-8 lg:gap-y-10">
-      <div class="lg:col-span-12">
-        <p class="u-eyebrow text-cream/50 mb-4 reveal">Oltre il progetto</p>
-        <h2 class="font-display text-[clamp(2.2rem,4.6vw,4rem)] leading-[1.02] reveal">Altre attività dello studio</h2>
-      </div>
-      <div class="lg:col-span-4">
-        <p class="text-cream/65 text-[1.05rem] leading-relaxed reveal">{altreAttivita.intro}</p>
-        <div class="mt-8 reveal">
-          <Button href="/contatti/" variant="onDark" arrow>Parliamone</Button>
+  <!-- altre attività: fondo scuro; titolo e frase in alto, sotto le 8 card a tutta larghezza (niente vuoti) -->
+  <!-- ogni card apre la pagina della sua attivita quando nel pannello c'e il testo; finche non c'e, porta al Journal -->
+  <section id="altre-attivita" class="bg-ink text-cream scroll-mt-20">
+    <div class="u-container py-[clamp(3.5rem,8svh,5.5rem)]">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-x-16 gap-y-6 mb-10 lg:mb-12">
+        <div>
+          <p class="u-eyebrow text-cream/50 mb-4 reveal">Oltre il progetto</p>
+          <h2 class="font-display text-[clamp(2.2rem,4.6vw,4rem)] leading-[1.02] xl:whitespace-nowrap reveal">Altre attività dello studio</h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-5 lg:justify-end lg:pb-2">
+          <p class="text-cream/65 text-[1.05rem] leading-relaxed reveal">{altreAttivita.intro}</p>
+          <div class="reveal">
+            <Button href="/contatti/" variant="onDark" arrow>Parliamone</Button>
+          </div>
         </div>
       </div>
-      <ol class="lg:col-span-8 grid sm:grid-cols-2 gap-2.5 md:gap-3">
-        {altreAttivita.voci.map((v, i) => (
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-3">
+        {altreAttivita.schede.map(({ titolo: v, href }, i) => (
           <li>
-            <a href={linkAttivita(v)} class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
-              <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <span class="oa-title">{v}</span>
-              <span class="oa-arrow" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            <a href={href ?? '/blog/'} class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
+              <span class="oa-top">
+                <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span class="oa-arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                </span>
               </span>
+              <span class="oa-title">{v}</span>
               <span class="oa-line" aria-hidden="true"></span>
             </a>
           </li>
@@ -68,8 +64,9 @@ const linkAttivita = (v: string) => {
 <style>
   .oa-card {
     position: relative; isolation: isolate; overflow: hidden;
-    display: flex; align-items: center; gap: clamp(1rem, 1.8vw, 1.5rem);
-    min-height: clamp(4.75rem, 9svh, 6rem); padding: 0.9rem clamp(1.1rem, 1.8vw, 1.5rem);
+    /* numero e freccia in alto, titolo in basso: tutte le card alte uguali */
+    display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;
+    min-height: clamp(9rem, 17svh, 11rem); padding: clamp(1.1rem, 1.6vw, 1.4rem) clamp(1.1rem, 1.6vw, 1.4rem) 1.5rem;
     border: 1px solid rgb(240 237 230 / 0.14);
     transition: color 0.5s var(--ease-out-expo), border-color 0.5s var(--ease-out-expo);
   }
@@ -82,13 +79,14 @@ const linkAttivita = (v: string) => {
   }
   .oa-card:hover { color: var(--color-ink); border-color: var(--color-cream); }
   .oa-card:hover::before { transform: scaleY(1); }
+  .oa-top { display: flex; align-items: flex-start; justify-content: space-between; }
   .oa-num {
-    flex-shrink: 0; width: 2.4ch; font-size: clamp(1.9rem, 2.8vw, 2.5rem); line-height: 1; color: rgb(240 237 230 / 0.32);
+    flex-shrink: 0; font-size: clamp(1.9rem, 2.8vw, 2.5rem); line-height: 1; color: rgb(240 237 230 / 0.32);
     transition: color 0.5s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
   }
   .oa-card:hover .oa-num { color: rgb(20 20 20 / 0.3); transform: translateX(0.4rem); }
   .oa-card { height: 100%; }
-  .oa-title { font-size: clamp(0.98rem, 1.2vw, 1.08rem); line-height: 1.32; font-weight: 500; flex: 1; }
+  .oa-title { font-size: clamp(0.98rem, 1.15vw, 1.06rem); line-height: 1.32; font-weight: 500; }
   /* freccia: appare al passaggio del mouse, segnala che la card si apre */
   .oa-arrow { flex-shrink: 0; opacity: 0.35; transform: translate(-4px, 4px); transition: opacity 0.4s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); }
   .oa-card:hover .oa-arrow, .oa-card:focus-visible .oa-arrow { opacity: 1; transform: none; }
@@ -101,6 +99,14 @@ const linkAttivita = (v: string) => {
   }
   .oa-card.is-in .oa-line { transform: scaleX(0.18); }
   .oa-card:hover .oa-line { transform: scaleX(1); transition-delay: 0s; }
+  /* telefono: card compatte su una riga (numero, titolo, freccia) */
+  @media (max-width: 639px) {
+    .oa-card { flex-direction: row; align-items: center; justify-content: flex-start; gap: 1rem; min-height: 4.5rem; padding: 0.85rem 1.1rem; }
+    .oa-top { display: contents; }
+    .oa-num { order: 0; width: 2.4ch; font-size: 1.9rem; }
+    .oa-title { order: 1; flex: 1; }
+    .oa-arrow { order: 2; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .oa-card, .oa-card::before, .oa-num, .oa-line { transition: none; }
   }

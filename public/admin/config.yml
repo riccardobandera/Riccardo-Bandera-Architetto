@@ -189,7 +189,7 @@ collections:
         name: attivita
         widget: select
         required: false
-        hint: "La card di questa attività nella pagina Fasi del progetto porterà a questo articolo."
+        hint: "L'articolo compare in fondo alla pagina di questa attività, tra gli approfondimenti."
         options:
           - { label: "Sanatorie e condoni edilizi", value: "Sanatorie e condoni edilizi" }
           - { label: "Accesso agli atti e verifica della conformità edilizia", value: "Accesso agli atti e verifica della conformità edilizia" }
@@ -287,7 +287,16 @@ collections:
             widget: object
             fields:
               - { label: Introduzione, name: intro, widget: string }
-              - { label: Voci, name: voci, widget: list, field: { label: Voce, name: v, widget: string } }
+              - label: Attività
+                name: voci
+                widget: list
+                summary: '{{titolo}}'
+                hint: "Ogni attività ha la sua pagina sul sito appena scrivi il testo: la card nella pagina Fasi diventa cliccabile."
+                fields:
+                  - { label: Titolo, name: titolo, widget: string }
+                  - { label: Indirizzo della pagina, name: slug, widget: string, required: false, hint: "Parte finale dell'indirizzo, es. sanatorie-e-condoni-edilizi. Non cambiarlo dopo la pubblicazione. Se lo lasci vuoto si crea dal titolo." }
+                  - { label: Testo della pagina, name: testo, widget: text, required: false, hint: "Lascia una riga vuota tra un paragrafo e l'altro. Finché è vuoto la pagina non esiste e la card non è cliccabile." }
+                  - { label: Descrizione per Google, name: descrizione, widget: string, required: false, hint: "Una frase di circa 150 caratteri. Se vuota si usa l'inizio del testo." }
           - label: Ambiti d'intervento
             name: ambiti
             widget: list

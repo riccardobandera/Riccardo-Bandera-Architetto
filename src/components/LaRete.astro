@@ -2,8 +2,10 @@
 // "La rete": i partner esterni dello studio (richiesta di Riccardo: far capire che la rete e ampia).
 // Nomi e ruoli vengono SOLO dai crediti dei progetti pubblicati, gia visibili sul sito: niente di inventato.
 // Si aggiorna da solo quando si aggiungono progetti con i crediti dal pannello.
+import { Image } from 'astro:assets';
 import { getProgetti } from '../data/projects';
 import testi from '../data/testi.json';
+import monogram from '../images/monogram-white.png';
 
 const progetti = await getProgetti();
 
@@ -22,13 +24,14 @@ const ALIAS: [RegExp, string][] = [
 ];
 const canonico = (n: string) => ALIAS.find(([re]) => re.test(n))?.[1] ?? n;
 
+// icona: tracciato di un'icona a linea 24x24
 const GRUPPI = [
-  { key: 'strutture', titolo: 'Strutture e sicurezza', re: /strutt|sicurezza|csp|cse/i },
-  { key: 'impianti', titolo: 'Impianti e illuminazione', re: /impiant|elettric|termotecn|meccanic|condizion|illumin|frigor|montacarichi|idraul/i },
-  { key: 'imprese', titolo: 'Imprese e costruzioni', re: /impresa|costruzion|edil|rubner|scale/i },
-  { key: 'arredi', titolo: 'Arredi su misura', re: /arredo|falegnam|gastro|pedrali|tonolli/i },
-  { key: 'finiture', titolo: 'Serramenti, vetrine e finiture', re: /serrament|infissi|vetrin|vetro|pavimento|ceramich/i },
-  { key: 'foto', titolo: 'Fotografia', re: /fotograf/i },
+  { key: 'strutture', titolo: 'Strutture e sicurezza', re: /strutt|sicurezza|csp|cse/i, icona: 'M4 20V9l8-5 8 5v11M4 20h16M9 20v-6h6v6M8 11h8' },
+  { key: 'impianti', titolo: 'Impianti e illuminazione', re: /impiant|elettric|termotecn|meccanic|condizion|illumin|frigor|montacarichi|idraul/i, icona: 'M13 3 5 13h6l-1 8 8-10h-6l1-8Z' },
+  { key: 'imprese', titolo: 'Imprese e costruzioni', re: /impresa|costruzion|edil|rubner|scale/i, icona: 'M3 21h18M5 21V10h6v11M11 21V5h8v16M14 9h2M14 13h2M14 17h2M7 14h2M7 17h2' },
+  { key: 'arredi', titolo: 'Arredi su misura', re: /arredo|falegnam|gastro|pedrali|tonolli/i, icona: 'M6 4v9h12V4M4 13h16v3H4zM6 16v4M18 16v4' },
+  { key: 'finiture', titolo: 'Serramenti, vetrine e finiture', re: /serrament|infissi|vetrin|vetro|pavimento|ceramich/i, icona: 'M5 3h14v18H5zM12 3v18M5 12h14' },
+  { key: 'foto', titolo: 'Fotografia', re: /fotograf/i, icona: 'M3 8h4l2-3h6l2 3h4v12H3zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z' },
 ];
 const ESCLUSI = /^(cliente|committente|testo|progettisti)$/i;
 
@@ -52,29 +55,173 @@ const gruppi = GRUPPI.map((g) => ({ ...g, nomi: [...perGruppo.get(g.key)!].sort(
 // numero arrotondato per difetto alla decina: "oltre 30"
 const totale = tutti.size;
 const oltre = Math.floor(totale / 10) * 10;
+// linee dello schema: dallo studio (a sinistra, a meta altezza) a ogni specialita
+const n = gruppi.length;
+const fan = gruppi.map((_, i) => {
+  const y = ((i + 0.5) / n) * 600;
+  return `M0,300 C55,300 45,${y.toFixed(1)} 100,${y.toFixed(1)}`;
+});
 ---
-<section class="py-[var(--spacing-section)] border-t border-line" aria-labelledby="rete-title">
-  <div class="u-container grid lg:grid-cols-12 gap-10 lg:gap-16">
-    <div class="lg:col-span-5">
-      <p class="u-eyebrow mb-4 reveal">Collaborazioni</p>
-      <h2 id="rete-title" class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight leading-[1.02] reveal">La rete</h2>
-      <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">{testi.studio.reteIntro}</p>
-      {oltre >= 10 && (
-        <p class="mt-10 reveal">
-          <span class="block font-display text-[clamp(3.5rem,8vw,6rem)] leading-none">oltre {oltre}</span>
-          <span class="block mt-3 text-sm uppercase tracking-[0.14em] text-muted">imprese e professionisti nei progetti pubblicati</span>
-        </p>
-      )}
-    </div>
-    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-x-10 gap-y-8">
-      {gruppi.map((g) => (
-        <div class="border-t border-line pt-4 reveal">
-          <h3 class="text-[0.72rem] uppercase tracking-[0.14em] text-muted mb-3">{g.titolo}</h3>
-          <ul class="space-y-1.5 text-[0.98rem] leading-snug">
-            {g.nomi.map((n) => <li>{n}</li>)}
+<section class="pt-[var(--spacing-section)] pb-10 md:pb-12 border-t border-line" aria-labelledby="rete-title">
+  <div class="u-container">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-5">
+        <p class="u-eyebrow mb-4 reveal">Collaborazioni</p>
+        <h2 id="rete-title" class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight leading-[1.02] reveal">La rete</h2>
+        <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">{testi.studio.reteIntro}</p>
+        {oltre >= 10 && (
+          <p class="mt-8 flex items-center gap-4 reveal">
+            <span class="font-display text-[clamp(3rem,6vw,4.5rem)] leading-none">oltre {oltre}</span>
+            <span class="text-[0.72rem] uppercase tracking-[0.14em] text-muted leading-snug max-w-[12rem]">imprese e professionisti nei progetti pubblicati</span>
+          </p>
+        )}
+      </div>
+
+      <!-- schema: il cliente parla solo con lo studio, lo studio coordina le specialita.
+           Ogni specialita porta alla sua scheda qui sotto. -->
+      <div class="lg:col-span-7 reveal" data-hub>
+        <div class="hub">
+          <div class="hub-client"><span>Il cliente</span></div>
+          <span class="hub-line" aria-hidden="true"></span>
+          <div class="hub-studio">
+            <Image src={monogram} alt="" width={38} height={40} class="w-7 h-auto" />
+            <span>Lo studio</span>
+          </div>
+          <!-- le linee prendono l'altezza dell'elenco delle specialita -->
+          <div class="hub-fanwrap" aria-hidden="true">
+            <svg class="hub-fan" viewBox="0 0 100 600" preserveAspectRatio="none">
+              {fan.map((d, i) => <path d={d} pathLength="1" data-fan={i} style={`--d:${(i * 0.08).toFixed(2)}s`} />)}
+            </svg>
+          </div>
+          <ul class="hub-cats">
+            {gruppi.map((g, i) => (
+              <li>
+                <a href={`#rete-${g.key}`} class:list={['hub-cat', i === 0 && 'is-sel']} data-cat={i}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d={g.icona} /></svg>
+                  <span class="hub-cat-t">{g.titolo}</span>
+                  <span class="hub-cat-n" aria-label={`${g.nomi.length} collaboratori`}>{g.nomi.length}</span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+      </div>
+    </div>
+
+    <!-- le specialita, con i nomi di chi ha lavorato ai progetti -->
+    <!-- telefono: si vede una scheda alla volta, quella scelta nello schema -->
+    <div class="rete-cards mt-6 md:mt-16 lg:mt-24">
+      {gruppi.map((g, i) => (
+        <article id={`rete-${g.key}`} class:list={['rete-card reveal', i === 0 && 'is-open']} data-card={i}>
+          <header class="flex items-center gap-3 mb-5">
+            <span class="rete-ico" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d={g.icona} /></svg>
+            </span>
+            <h3 class="font-bold tracking-tight leading-tight">{g.titolo}</h3>
+            <span class="ml-auto font-display text-[1.6rem] leading-none text-muted">{g.nomi.length}</span>
+          </header>
+          <ul class="flex flex-wrap gap-2">
+            {g.nomi.map((nome) => <li class="rete-tag">{nome}</li>)}
+          </ul>
+        </article>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  // passando su una specialita dello schema si accende la sua linea
+  document.querySelectorAll<HTMLElement>('.hub-cat').forEach((a) => {
+    const path = document.querySelector<SVGPathElement>(`[data-fan="${a.dataset.cat}"]`);
+    const on = () => path?.classList.add('is-on');
+    const off = () => path?.classList.remove('is-on');
+    a.addEventListener('mouseenter', on);
+    a.addEventListener('mouseleave', off);
+    a.addEventListener('focus', on);
+    a.addEventListener('blur', off);
+  });
+
+  // telefono: toccando una specialita si apre la sua scheda sotto lo schema (una alla volta)
+  const mobile = window.matchMedia('(max-width: 767px)');
+  document.querySelectorAll<HTMLAnchorElement>('.hub-cat').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (!mobile.matches) return;
+      e.preventDefault();
+      document.querySelectorAll('.hub-cat').forEach((x) => x.classList.toggle('is-sel', x === a));
+      document.querySelectorAll<HTMLElement>('.rete-card').forEach((c) => c.classList.toggle('is-open', c.dataset.card === a.dataset.cat));
+      const card = document.querySelector<HTMLElement>(`.rete-card[data-card="${a.dataset.cat}"]`);
+      const r = card?.getBoundingClientRect();
+      if (card && r && r.bottom > window.innerHeight) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+</script>
+
+<style>
+  /* ---------- schema cliente / studio / specialita ---------- */
+  .hub { display: grid; grid-template-columns: auto 2.5rem auto minmax(3rem, 6rem) 1fr; align-items: center; }
+  .hub-client, .hub-studio {
+    display: grid; place-items: center; border-radius: 9999px; text-align: center;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.2;
+  }
+  .hub-client { width: 5.5rem; height: 5.5rem; border: 1px solid var(--color-ink); }
+  .hub-studio { width: 7.5rem; height: 7.5rem; background: var(--color-ink); color: var(--color-bg); align-content: center; gap: 0.5rem; }
+  .hub-line { height: 1px; background: var(--color-ink); }
+  .hub-fanwrap { position: relative; align-self: stretch; }
+  .hub-fan { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .hub-fan path {
+    fill: none; stroke: color-mix(in srgb, var(--color-ink) 30%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke 0.3s ease;
+  }
+  /* le linee si disegnano quando lo schema entra nello schermo */
+  [data-hub]:global(.is-in) .hub-fan path { animation: hub-draw 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d) forwards; }
+  :global(html:not(.js)) .hub-fan path { stroke-dashoffset: 0; }
+  @keyframes hub-draw { to { stroke-dashoffset: 0; } }
+  .hub-fan path.is-on { stroke: var(--color-ink); }
+  .hub-cats { display: flex; flex-direction: column; }
+  .hub-cat {
+    display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.9rem;
+    border-left: 1px solid transparent; transition: background-color 0.25s ease, border-color 0.25s ease;
+  }
+  .hub-cat:hover, .hub-cat:focus-visible { background: var(--color-surface); border-left-color: var(--color-ink); }
+  .hub-cat-t { font-size: 0.95rem; font-weight: 600; line-height: 1.2; }
+  .hub-cat-n {
+    margin-left: auto; min-width: 1.75rem; height: 1.75rem; padding: 0 0.45rem; display: grid; place-items: center;
+    border-radius: 9999px; border: 1px solid var(--color-line); font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--color-muted);
+  }
+
+  /* telefono: schema in verticale, specialita in due colonne */
+  @media (max-width: 767px) {
+    .hub { grid-template-columns: 1fr; justify-items: center; }
+    .hub-line { width: 1px; height: 1.75rem; }
+    .hub-fanwrap { display: none; }
+    .hub-studio { margin-bottom: 1.75rem; position: relative; }
+    .hub-studio::after { content: ""; position: absolute; top: 100%; left: 50%; width: 1px; height: 1.75rem; background: var(--color-ink); }
+    .hub-cats { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; border-top: 1px solid var(--color-ink); padding-top: 0.75rem; }
+    .hub-cat { border: 1px solid var(--color-line); padding: 0.6rem 0.7rem; gap: 0.5rem; height: 100%; }
+    .hub-cat-t { font-size: 0.8rem; }
+  }
+
+  /* ---------- schede delle specialita ---------- */
+  .rete-cards { columns: 1; column-gap: 1.25rem; }
+  @media (min-width: 768px) { .rete-cards { columns: 2; } }
+  @media (min-width: 1100px) { .rete-cards { columns: 3; } }
+  .rete-card {
+    break-inside: avoid; margin-bottom: 1.25rem; padding: 1.5rem; border: 1px solid var(--color-line);
+    scroll-margin-top: 7rem; transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  @media (max-width: 767px) {
+    .rete-card { display: none; margin-bottom: 0; padding: 1.25rem; border-color: var(--color-ink); }
+    .rete-card.is-open { display: block; animation: rete-in 0.35s ease; }
+    .hub-cat.is-sel { border-color: var(--color-ink); background: var(--color-surface); }
+    .hub-cat.is-sel .hub-cat-n { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-bg); }
+  }
+  @keyframes rete-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  /* arrivando dallo schema la scheda si evidenzia */
+  .rete-card:target { border-color: var(--color-ink); box-shadow: 0 18px 40px -28px rgb(20 20 20 / 0.45); }
+  .rete-ico { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 9999px; background: var(--color-surface); flex-shrink: 0; }
+  .rete-tag { font-size: 0.85rem; line-height: 1.2; padding: 0.45rem 0.75rem; border: 1px solid var(--color-line); border-radius: 9999px; background: var(--color-bg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hub-fan path { stroke-dashoffset: 0; animation: none !important; }
+  }
+</style>

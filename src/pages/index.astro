@@ -72,13 +72,13 @@ const ambitiCards = (await Promise.all(
       </>
     )}
 
-    <div class="u-container relative pb-16 md:pb-24 pt-32 w-full" data-hero-content>
-      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2rem,6.4vw,5.4rem)] max-w-[16ch]">
+    <div class="u-container relative pb-24 md:pb-24 pt-32 w-full" data-hero-content>
+      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(1.6rem,7vw,5.4rem)] md:text-[clamp(2rem,6.4vw,5.4rem)] max-w-[20ch] md:max-w-[16ch] text-balance">
         {site.tagline}
       </h1>
-      <div class="mt-9 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+      <div class="mt-7 md:mt-9 flex flex-col items-start sm:flex-row sm:items-center gap-5 sm:gap-10">
         <Button href="/progetti/" variant="onDark" arrow>Scopri i progetti</Button>
-        <p class="max-w-md text-cream/75 text-[0.98rem] leading-relaxed">{homeTesti.sottotitolo}</p>
+        <p class="max-w-md text-cream/75 text-[0.92rem] md:text-[0.98rem] leading-relaxed">{homeTesti.sottotitolo}</p>
       </div>
     </div>
   </section>
@@ -135,9 +135,12 @@ const ambitiCards = (await Promise.all(
         <p class="u-eyebrow mb-4">Portfolio</p>
         <h2 class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight">Progetti <span class="font-display italic font-normal">selezionati</span></h2>
       </div>
-      <Button href="/progetti/" variant="ghost" arrow>Tutti i progetti</Button>
+      <div class="flex items-center justify-between gap-4">
+        <Button href="/progetti/" variant="ghost" arrow>Tutti i progetti</Button>
+        <button type="button" class="strip-hint" data-strip-next="selezionati-lista" aria-label="Scorri ai progetti successivi">Scorri <span class="strip-hint-arrow" aria-hidden="true">→</span></button>
+      </div>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+    <div id="selezionati-lista" class="m-strip grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
       {featured.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
     </div>
   </section>
@@ -149,6 +152,7 @@ const ambitiCards = (await Promise.all(
   <!-- ============ CLIENTI ============ -->
   <Clients />
 <script>
+    import '../scripts/strip';
     // arrivo da un link con ancora (es. "Progetti selezionati" dalla pagina Progetti):
     // la sezione Metodo aggiunge altezza solo dopo il caricamento, quindi il salto si rifà dopo
     window.addEventListener("load", () => {
@@ -243,6 +247,15 @@ const ambitiCards = (await Promise.all(
     .hero-arrow[data-hero-prev]:hover { transform: translate(-3px, -50%); }
     .hero-arrow[data-hero-next]:hover { transform: translate(3px, -50%); }
     .hero-arrow:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 3px; }
+    /* telefono: le due frecce vicine in basso a destra, sotto i testi, invece che sospese sulla foto */
+    @media (max-width: 767px) {
+      .hero-arrow { top: auto; bottom: 1.25rem; transform: none; width: 2.75rem; height: 2.75rem; }
+      .hero-arrow[data-hero-prev] { left: auto; right: calc(clamp(1.25rem, 5vw, 3.5rem) + 2.1rem); }
+      .hero-arrow[data-hero-next] { right: clamp(1.25rem, 5vw, 3.5rem); margin-right: -0.6rem; }
+      .hero-arrow[data-hero-prev]:hover { transform: translateX(-3px); }
+      .hero-arrow[data-hero-next]:hover { transform: translateX(3px); }
+      .hero-arrow svg { width: 28px; height: 28px; }
+    }
     /* da tablet in su: frecce a metà altezza, con spazio laterale per non coprire il titolo */
     @media (min-width: 768px) {
       .hero-arrow { top: 50%; width: 3.25rem; height: 4rem; }

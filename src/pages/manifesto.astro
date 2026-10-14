@@ -63,7 +63,7 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
   </section>
 
   <!-- capitoli: foto e testo alternati -->
-  <section class="u-container py-[var(--spacing-section)] space-y-[clamp(5rem,12vw,10rem)]">
+  <section class="u-container pt-[var(--spacing-section)] pb-[clamp(4rem,8vw,6.5rem)] space-y-[clamp(4rem,8vw,6.5rem)]">
     {capitoli.slice(0, 2).map((c, i) => (
       <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
         {c.foto && (
@@ -87,8 +87,8 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
     ))}
   </section>
 
-  <!-- capitolo 03 (prima della fascia dei numeri, richiesta del cliente) -->
-  <section class="u-container py-[var(--spacing-section)]">
+  <!-- capitolo 03 (prima della fascia dei numeri, richiesta del cliente): stesso stacco degli altri capitoli -->
+  <section class="u-container pb-[clamp(4rem,8vw,6.5rem)]">
     {capitoli.slice(2).map((c, k) => { const i = k + 2; return (
       <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
         {c.foto && (
@@ -114,8 +114,8 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
 
   <!-- numeri: si contano entrando nello schermo -->
   <section class="bg-surface">
-    <div class="u-container py-[clamp(4.5rem,9vw,7.5rem)]">
-      <p class="u-eyebrow mb-12 reveal">Quanto conta un albero</p>
+    <div class="u-container py-[clamp(3.5rem,6vw,5rem)]">
+      <p class="u-eyebrow mb-10 reveal">Quanto conta un albero</p>
       <div class="grid md:grid-cols-3 gap-12 md:gap-10">
         {numeri.map((n, i) => (
           <div class="reveal border-t border-ink/15 pt-8" data-reveal-delay={i + 1}>
@@ -130,7 +130,7 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
   </section>
 
   <!-- progetti in legno -->
-  <section class="py-[var(--spacing-section)]">
+  <section class="pt-[clamp(4rem,8vw,6.5rem)] pb-[var(--spacing-section)]">
     <div class="u-container flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
       <div>
         <p class="u-eyebrow mb-4 reveal">Il manifesto, costruito</p>

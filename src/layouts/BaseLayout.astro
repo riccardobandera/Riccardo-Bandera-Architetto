@@ -13,9 +13,10 @@ interface Props {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** "dark" = nav scura da subito (pagine senza hero immersivo) */
   navMode?: 'light' | 'dark';
+  canonical?: string;
 }
 
-const { title, description, image, type, noindex, jsonLd, navMode = 'dark' } = Astro.props;
+const { title, description, image, type, noindex, jsonLd, navMode = 'dark', canonical } = Astro.props;
 // font ospitati sul sito: nessun collegamento a Google Fonts (privacy)
 import '@fontsource/almarai/300.css';
 import '@fontsource/almarai/400.css';
@@ -35,7 +36,7 @@ import CookieConsent from '../components/CookieConsent.astro';
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#ffffff" />
 
-    <SEO title={title} description={description} image={image} type={type} noindex={noindex} jsonLd={jsonLd} />
+    <SEO title={title} description={description} image={image} type={type} noindex={noindex} jsonLd={jsonLd} canonical={canonical} />
     <slot name="head" />
   </head>
   <body data-nav={navMode}>

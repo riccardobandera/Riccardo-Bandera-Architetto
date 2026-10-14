@@ -67,5 +67,14 @@ export const team = testi.studio.team;
 export const manifesto = testi.manifesto;
 export const fasiIntro = testi.fasi.intro;
 export const fasi = testi.fasi.elenco;
-export const altreAttivita = testi.altreAttivita;
+// altre attivita: ogni voce ha la sua pagina /attivita/<slug>/ appena nel pannello c'e il testo
+type VoceAttivita = { titolo: string; slug?: string; descrizione?: string; testo?: string };
+const slugify = (t: string) =>
+  t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const schedeAttivita = (testi.altreAttivita.voci as (VoceAttivita | string)[]).map((v) => {
+  const o = typeof v === 'string' ? { titolo: v } : v;
+  const testo = (o.testo ?? '').trim();
+  return { titolo: o.titolo, slug: o.slug?.trim() || slugify(o.titolo), descrizione: (o.descrizione ?? '').trim(), testo, href: testo ? `/attivita/${o.slug?.trim() || slugify(o.titolo)}/` : null };
+});
+export const altreAttivita = { intro: testi.altreAttivita.intro, voci: schedeAttivita.map((s) => s.titolo), schede: schedeAttivita };
 export const ambiti = testi.ambiti;

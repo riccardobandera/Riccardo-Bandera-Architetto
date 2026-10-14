@@ -141,14 +141,54 @@
   "altreAttivita": {
     "intro": "Gestiamo casistiche complesse inerenti a:",
     "voci": [
-      "Sanatorie e condoni edilizi",
-      "Accesso agli atti e verifica della conformità edilizia",
-      "Applicazione della normativa sulle tolleranze definita dalla legge Salva Casa",
-      "Volture e proroghe di pratiche edilizie in corso",
-      "Varianti in corso d’opera",
-      "Rendering e video-rendering commerciali di presentazione del progetto",
-      "Richiesta di pre-pareri",
-      "Studi di fattibilità per interventi complessi"
+      {
+        "titolo": "Sanatorie e condoni edilizi",
+        "slug": "sanatorie-e-condoni-edilizi",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Accesso agli atti e verifica della conformità edilizia",
+        "slug": "accesso-agli-atti-e-conformita-edilizia",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Applicazione della normativa sulle tolleranze definita dalla legge Salva Casa",
+        "slug": "tolleranze-legge-salva-casa",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Volture e proroghe di pratiche edilizie in corso",
+        "slug": "volture-e-proroghe-pratiche-edilizie",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Varianti in corso d’opera",
+        "slug": "varianti-in-corso-d-opera",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Rendering e video-rendering commerciali di presentazione del progetto",
+        "slug": "rendering-e-video-rendering",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Richiesta di pre-pareri",
+        "slug": "richiesta-di-pre-pareri",
+        "descrizione": "",
+        "testo": ""
+      },
+      {
+        "titolo": "Studi di fattibilità per interventi complessi",
+        "slug": "studi-di-fattibilita",
+        "descrizione": "",
+        "testo": ""
+      }
     ]
   },
   "ambiti": [
