@@ -9,7 +9,6 @@
     "bio": [
       "Fondato a Mestre, lo Studio Riccardo Bandera Architetto opera dal 2014 nella progettazione architettonica, con interventi in Italia e all’estero.",
       "Nel corso degli anni lo studio ha sviluppato progetti di diversa scala e natura: dalla piccola casa agli appartamenti, fino a interventi più complessi come la riqualificazione di hotel a 5 stelle in località esotiche, la progettazione di spazi commerciali, ristoranti, edifici dedicati al benessere e chalet di montagna. Una varietà di esperienze che ha permesso di costruire un approccio capace di adattarsi a contesti, esigenze e linguaggi differenti.",
-      "Il progetto nasce dall’incontro tra ascolto, ricerca e conoscenza del luogo. L’architettura è intesa come un processo capace di mettere in relazione passato e futuro, natura e costruito, funzionalità ed espressione. Ogni intervento cerca così una propria identità, attraverso soluzioni contemporanee attente al contesto e pensate per durare nel tempo.",
       "Dal 2024 lo studio ha ampliato la propria struttura con l’ingresso di nuovi collaboratori, rafforzando la capacità operativa e mantenendo un’organizzazione basata sul confronto e sulla condivisione delle competenze. Il lavoro di squadra accompagna ogni fase del progetto, dalla prima idea alle scelte esecutive, con una particolare attenzione al dettaglio.",
       "Lo studio segue direttamente tutte le fasi dell’intervento, dalla concezione alla direzione dei lavori, dalla gestione amministrativa allo sviluppo dei dettagli costruttivi. La modellazione e la simulazione 3D consentono di verificare le idee attraverso rappresentazioni realistiche, utili sia nella fase creativa sia nel passaggio alla costruzione, mentre il rapporto con professionisti e studi tecnici locali permette di affrontare ogni progetto con una conoscenza concreta del territorio.",
       "L’obiettivo è trasformare esigenze, idee e desideri in spazi capaci di raccontare chi li abita e il luogo in cui nascono. Un lavoro che parte dall’immaginazione, ma trova la propria misura nella concretezza del costruire."
@@ -28,6 +27,10 @@
         "role": "Architetto"
       },
       {
+        "name": "arch. Eleonora Reato",
+        "role": "Architetto"
+      },
+      {
         "name": "Marco Reato",
         "role": "Collaboratore"
       }
@@ -35,7 +38,7 @@
     "firma": "R. B."
   },
   "manifesto": {
-    "lead": "Il legno è il materiale da costruzione più sostenibile.",
+    "lead": "Amiamo progettare usando il legno per avere un impatto positivo sull’ambiente e sulle persone.",
     "blocks": [
       {
         "h": "Perché usare il legno?",
@@ -43,7 +46,7 @@
       },
       {
         "h": "Quanta anidride carbonica assorbe un albero?",
-        "p": "Una pianta adulta, come spiega Rita Baraldi, ricercatore del CNR di Bologna all’Istituto di Biometeorologia, nell’arco di dodici mesi soddisfa il fabbisogno di ossigeno di 10 persone ed è in grado di assorbire dai 20 ai 50 chili di anidride carbonica, a seconda della specie. Una quercia, ad esempio, nell’arco di mezzo secolo riesce a immagazzinare oltre 5 tonnellate e mezzo di CO2 sotto forma di biomassa."
+        "p": "Una pianta adulta nell’arco di dodici mesi soddisfa il fabbisogno di ossigeno di 10 persone ed è in grado di assorbire dai 20 ai 50 chili di anidride carbonica, a seconda della specie. Una quercia, ad esempio, nell’arco di mezzo secolo riesce a immagazzinare oltre 5 tonnellate e mezzo di CO2 sotto forma di biomassa."
       },
       {
         "h": "Costruire con il legno significa immobilizzare tonnellate di CO2 per decenni.",

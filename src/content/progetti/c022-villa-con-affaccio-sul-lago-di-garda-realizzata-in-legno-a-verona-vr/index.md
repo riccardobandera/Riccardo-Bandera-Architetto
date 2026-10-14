@@ -9,7 +9,6 @@ coordinate:
   lat: 45.5788
   lng: 10.68483
 evidenza: true
-ordineHome: 2
 stato: "realizzato"
 copertina: "./villa-affaccio-lago-garda-legno-verona-vr-copertina.webp"
 copertinaAlt: "Villa con affaccio sul lago di Garda realizzata in legno a Verona, VR, progetto di Riccardo Bandera Architetto"

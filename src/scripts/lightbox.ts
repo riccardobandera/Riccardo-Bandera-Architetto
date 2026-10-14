@@ -170,6 +170,29 @@ function close() {
 }
 const go = (d: number) => { if (slides.length > 1) { cur = (cur + d + slides.length) % slides.length; render(); } };
 
+// copertina del progetto: apre la prima immagine della galleria
+document.addEventListener('click', (e) => {
+  const cov = (e.target as Element).closest<HTMLElement>('[data-open-gallery]');
+  if (!cov) return;
+  const scope = cov.closest('[data-project-modal]') ?? document;
+  const first = scope.querySelector<HTMLElement>('[data-gallery] [data-lightbox]');
+  if (first) { e.preventDefault(); first.click(); }
+});
+
+// testo lungo del progetto: "Continua a leggere" / "Riduci"
+document.addEventListener('click', (e) => {
+  const btn = (e.target as Element).closest<HTMLButtonElement>('[data-more-toggle]');
+  if (!btn) return;
+  const box = btn.closest('[data-more]');
+  if (!box) return;
+  const open = !box.classList.contains('is-open');
+  box.classList.toggle('is-open', open);
+  btn.setAttribute('aria-expanded', String(open));
+  const label = btn.querySelector('[data-more-label]');
+  if (label) label.textContent = open ? 'Riduci' : 'Continua a leggere';
+  if (!open) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 // clic su una foto di qualsiasi galleria (anche iniettata in seguito)
 document.addEventListener('click', (e) => {
   const btn = (e.target as Element).closest<HTMLElement>('[data-lightbox]');

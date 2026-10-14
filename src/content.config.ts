@@ -72,6 +72,8 @@ const progetti = defineCollection({
       // posizione tra i progetti in evidenza in home (1 = primo); vuoto = dopo quelli numerati
       ordineHome: z.preprocess(vuoto, z.number().int().optional()),
       bozza: sino(),
+      // uscita programmata: fino a questa data il progetto non compare sul sito pubblicato (serve una ricostruzione del sito quel giorno)
+      pubblicaDal: z.preprocess(vuoto, z.coerce.date().optional()),
       // realizzato = opera costruita; progetto = non costruito o in corso
       stato: z.preprocess(vuoto, z.enum(['realizzato', 'progetto']).optional()),
       copertina: z.preprocess(vuoto, image().optional()),

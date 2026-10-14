@@ -2,7 +2,8 @@
 import data from '../data/reviews.json';
 
 interface Props { limit?: number }
-const { limit = 8 } = Astro.props;
+// in home se ne vedono 5; le altre si aprono con il pulsante, senza lasciare il sito
+const { limit = 5 } = Astro.props;
 const items = data.recensioni.filter((r) => r.testo && r.testo.trim().length > 0);
 const voto = data.valutazione.toFixed(1).replace('.', ',');
 const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
@@ -26,7 +27,7 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
     {items.length > 0 && (
       <ul class="rev-grid" data-rev-list>
         {items.map((r, i) => (
-          <li class:list={['rev reveal', i >= limit && 'rev--more']} data-reveal-delay={(i % 3) + 1}>
+          <li class:list={['rev reveal', i >= limit && 'rev--more']} data-reveal-delay={(i % 3) + 1} data-rev-extra={i >= limit ? '' : undefined}>
             <div class="text-sm tracking-[0.15em] mb-4" aria-label={`${r.stelle} stelle su 5`}>{Stars(r.stelle)}</div>
             <blockquote class="text-[1.02rem] leading-relaxed text-ink/90">{r.testo}</blockquote>
             <p class="mt-5 text-sm font-bold">{r.autore}</p>
@@ -36,16 +37,29 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
     )}
 
     <div class="mt-10 flex flex-wrap gap-4">
-      {items.length > limit && <button class="btn btn--ghost" data-rev-more>Mostra tutte</button>}
+      {items.length > limit && (
+        <button type="button" class="btn btn--solid" data-rev-more aria-expanded="false">
+          <span data-rev-label>Mostra altre recensioni ({items.length - limit})</span>
+        </button>
+      )}
       <a href={data.link} target="_blank" rel="noopener" class="btn btn--ghost">Leggi su Google</a>
     </div>
   </div>
 </section>
 
 <script>
-  document.querySelector('[data-rev-more]')?.addEventListener('click', (e) => {
-    document.querySelectorAll('.rev--more').forEach((el) => { el.classList.remove('rev--more'); el.classList.add('is-in'); });
-    (e.currentTarget as HTMLElement).remove();
+  // altre recensioni: si aprono e si richiudono nella pagina
+  const more = document.querySelector<HTMLButtonElement>('[data-rev-more]');
+  more?.addEventListener('click', () => {
+    const open = more.getAttribute('aria-expanded') !== 'true';
+    more.setAttribute('aria-expanded', String(open));
+    document.querySelectorAll<HTMLElement>('[data-rev-extra]').forEach((el) => {
+      el.classList.toggle('rev--more', !open);
+      if (open) el.classList.add('is-in');
+    });
+    const label = more.querySelector('[data-rev-label]');
+    if (label) label.textContent = open ? 'Mostra meno' : `Mostra altre recensioni (${document.querySelectorAll('[data-rev-extra]').length})`;
+    if (!open) document.getElementById('rev-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 </script>
 

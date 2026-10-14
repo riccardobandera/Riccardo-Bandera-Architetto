@@ -9,7 +9,6 @@ coordinate:
   lat: 46.09727
   lng: 12.43893
 evidenza: true
-ordineHome: 5
 stato: "realizzato"
 copertina: "./ristrutturazione-casera-alpago-tambre-bl-foto-07.webp"
 copertinaAlt: "Ristrutturazione di una casera nell’Alpago a Tambre, BL, progetto di Riccardo Bandera Architetto"

@@ -9,7 +9,6 @@ coordinate:
   lat: 46.22699
   lng: 10.82702
 evidenza: true
-ordineHome: 6
 stato: "realizzato"
 copertina: "./hotel-cime-oro-madonna-campiglio-tn-foto-09.webp"
 copertinaAlt: "Hotel Cime D’Oro a Madonna di Campiglio, TN, progetto di Riccardo Bandera Architetto"

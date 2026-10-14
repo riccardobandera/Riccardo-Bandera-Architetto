@@ -97,8 +97,9 @@ collections:
           - { label: Latitudine, name: lat, widget: number, value_type: float, required: false }
           - { label: Longitudine, name: lng, widget: number, value_type: float, required: false }
       - { label: In evidenza in home, name: evidenza, widget: boolean, default: false, required: false, hint: "La home mostra tutti i progetti in evidenza, 3 per riga (se sono meno di 6 completa con i piu recenti). Con 6 o 9 le righe restano piene." }
-      - { label: Posizione in home, name: ordineHome, widget: number, value_type: int, min: 1, max: 12, required: false, hint: "Solo per i progetti in evidenza. 1 = primo in alto a sinistra. Senza numero vanno dopo, dal piu recente." }
+      - { label: Posizione in home, name: ordineHome, widget: number, value_type: int, min: 1, max: 12, required: false, hint: "Facoltativa. Di norma i progetti in evidenza sono in ordine di data, dal piu recente: scrivi un numero solo per forzare una posizione (1 = primo in alto a sinistra)." }
       - { label: Bozza (non pubblicato), name: bozza, widget: boolean, default: false, required: false }
+      - { label: Pubblica dal, name: pubblicaDal, widget: datetime, time_format: false, date_format: 'DD/MM/YYYY', format: 'YYYY-MM-DD', required: false, hint: "Facoltativo. Per programmare le uscite (per esempio un progetto al mese): fino a questa data il progetto resta nascosto, poi compare da solo." }
       - label: Stato
         name: stato
         widget: select

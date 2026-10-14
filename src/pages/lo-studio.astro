@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import StudioInBreve from '../components/StudioInBreve.astro';
+import LaRete from '../components/LaRete.astro';
 import { studioBio, studioFirma, team, studioTitolo, site, ORG_ID, PERSON_ID } from '../data/site';
 
 // ritratti reali del team (nell'ordine della sezione originale)
@@ -11,8 +12,10 @@ import pRiccardo from '../images/team/RB_Front-800x1000.png';
 import pAldo from '../images/team/Adobe-Express-file-768x960.png';
 import pThomas from '../images/team/Adobe-Express-file-3-800x1000.png';
 import pMarco from '../images/team/Adobe-Express-file-2-800x1000.png';
-const portraits = [pRiccardo, pAldo, pThomas, pMarco];
-const teamWithPhotos = team.map((m, i) => ({ ...m, photo: portraits[i] }));
+import pEleonora from '../images/team/eleonora-reato-architetto.webp';
+// ritratti per nome (non per posizione: aggiungendo persone l'ordine puo cambiare)
+const ritratti: [RegExp, typeof pRiccardo][] = [[/riccardo/i, pRiccardo], [/aldo/i, pAldo], [/thomas/i, pThomas], [/eleonora/i, pEleonora], [/marco/i, pMarco]];
+const teamWithPhotos = team.map((m) => ({ ...m, photo: ritratti.find(([re]) => re.test(m.name))?.[1] }));
 
 import portrait from '../images/team/riccardo-bandera-architetto.webp';
 
@@ -57,6 +60,40 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- team -->
+  <section class="bg-surface py-[var(--spacing-section)]">
+    <div class="u-container">
+      <div class="flex items-end justify-between mb-12">
+        <h2 class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight">Il team</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+        {teamWithPhotos.map((m, i) => (
+          <figure class="team-card group reveal" data-reveal-delay={(i % 4) + 1}>
+            <div class="relative overflow-hidden bg-bg aspect-[4/5]">
+              {m.photo ? (
+              <Image
+                src={m.photo}
+                alt={`Ritratto di ${m.name}`}
+                widths={[300, 500, 700]}
+                sizes="(max-width:1024px) 46vw, 22vw"
+                class="team-img w-full h-full object-cover object-top"
+              />
+              ) : (
+              <span class="absolute inset-0 grid place-items-center font-display text-5xl text-muted/60">{m.name.replace(/^arch.s*/i, "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span>
+              )}
+            </div>
+            <figcaption class="pt-3">
+              <h3 class="text-[0.95rem] font-bold tracking-tight capitalize">{m.name}</h3>
+              <p class="text-sm text-muted mt-0.5">{m.role}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LaRete />
+
   <!-- lo studio in breve: pannello che si apre con la freccia -->
   <section id="in-breve" class="border-t border-line scroll-mt-24">
     <div class="u-container">
@@ -73,37 +110,6 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- team -->
-  <section class="bg-surface py-[var(--spacing-section)]">
-    <div class="u-container">
-      <div class="flex items-end justify-between mb-12">
-        <h2 class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight">Il team</h2>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        {teamWithPhotos.map((m, i) => (
-          <figure class="team-card group reveal" data-reveal-delay={(i % 4) + 1}>
-            <div class="relative overflow-hidden bg-bg aspect-[4/5]">
-              {m.photo ? (
-              <Image
-                src={m.photo}
-                alt={`Ritratto di ${m.name}`}
-                widths={[300, 500, 700]}
-                sizes="(max-width:1024px) 46vw, 22vw"
-                class="w-full h-full object-cover object-top grayscale opacity-95 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.04]"
-              />
-              ) : (
-              <span class="absolute inset-0 grid place-items-center font-display text-5xl text-muted/60">{m.name.replace(/^arch.s*/i, "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span>
-              )}
-            </div>
-            <figcaption class="pt-3">
-              <h3 class="text-[0.95rem] font-bold tracking-tight capitalize">{m.name}</h3>
-              <p class="text-sm text-muted mt-0.5">{m.role}</p>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <script>
@@ -128,6 +134,9 @@ const jsonLd = [
   .inbreve-toggle[aria-expanded='true'] .inbreve-chevron { transform: rotate(180deg); }
   .inbreve-toggle:hover .inbreve-chevron { transform: translateY(3px); }
   .inbreve-toggle[aria-expanded='true']:hover .inbreve-chevron { transform: rotate(180deg) translateY(3px); }
+  /* team: in bianco e nero, a colori al passaggio del mouse (o con la tastiera) */
+  .team-card :global(.team-img) { filter: grayscale(1); opacity: 0.95; transform: scale(1); transition: filter 0.8s var(--ease-out-expo), opacity 0.8s var(--ease-out-expo), transform 0.9s var(--ease-out-expo); }
+  .team-card:hover :global(.team-img), .team-card:focus-within :global(.team-img) { filter: grayscale(0); opacity: 1; transform: scale(1.04); }
   .inbreve-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) { .inbreve-panel, .inbreve-chevron { transition: none; } }
 </style>

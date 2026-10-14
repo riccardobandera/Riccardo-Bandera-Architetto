@@ -10,7 +10,6 @@ coordinate:
   lat: 45.77978
   lng: 10.93956
 evidenza: true
-ordineHome: 3
 stato: "realizzato"
 copertina: "./ristorante-alpino-polsa-brentonico-trento-copertina.webp"
 copertinaAlt: "Ristorante alpino a Polsa di Brentonico, Trento, progetto di Riccardo Bandera Architetto"

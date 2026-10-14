@@ -1,0 +1,81 @@
+---
+// "La rete": i partner esterni dello studio (richiesta di Riccardo: far capire che la rete e ampia).
+// Nomi e ruoli vengono SOLO dai crediti dei progetti pubblicati, gia visibili sul sito: niente di inventato.
+// Si aggiorna da solo quando si aggiungono progetti con i crediti dal pannello.
+import { getProgetti } from '../data/projects';
+
+const progetti = await getProgetti();
+
+// nome pulito per non contare due volte la stessa impresa o persona
+const pulisci = (n: string) =>
+  n
+    .replace(/^CSP-CSE:\s*/i, '')
+    .replace(/,\s*Modello:.*$/i, '')
+    .replace(/\s+Fotografo$/i, '')
+    .replace(/\s*\(@[^)]*\)/, '')
+    .replace(/'/g, '’')
+    .trim();
+const ALIAS: [RegExp, string][] = [
+  [/tonolli/i, 'Tonolli Soluzioni d’Arredo'],
+  [/baroni/i, 'Carlo Baroni'],
+];
+const canonico = (n: string) => ALIAS.find(([re]) => re.test(n))?.[1] ?? n;
+
+const GRUPPI = [
+  { key: 'strutture', titolo: 'Strutture e sicurezza', re: /strutt|sicurezza|csp|cse/i },
+  { key: 'impianti', titolo: 'Impianti e illuminazione', re: /impiant|elettric|termotecn|meccanic|condizion|illumin|frigor|montacarichi|idraul/i },
+  { key: 'imprese', titolo: 'Imprese e costruzioni', re: /impresa|costruzion|edil|rubner|scale/i },
+  { key: 'arredi', titolo: 'Arredi su misura', re: /arredo|falegnam|gastro|pedrali|tonolli/i },
+  { key: 'finiture', titolo: 'Serramenti, vetrine e finiture', re: /serrament|infissi|vetrin|vetro|pavimento|ceramich/i },
+  { key: 'foto', titolo: 'Fotografia', re: /fotograf/i },
+];
+const ESCLUSI = /^(cliente|committente|testo|progettisti)$/i;
+
+const perGruppo = new Map<string, Set<string>>(GRUPPI.map((g) => [g.key, new Set()]));
+const tutti = new Set<string>();
+for (const p of progetti) {
+  for (const c of p.data.crediti) {
+    if (ESCLUSI.test(c.ruolo.trim()) || /bandera/i.test(c.nome)) continue;
+    for (const parte of c.nome.split(/,\s*(?=[A-Z])/)) {
+      const nome = canonico(pulisci(parte));
+      if (!nome) continue;
+      const testo = `${c.ruolo} ${nome}`;
+      const g = GRUPPI.find((x) => x.re.test(c.ruolo)) ?? GRUPPI.find((x) => x.re.test(testo));
+      if (!g) continue;
+      perGruppo.get(g.key)!.add(nome);
+      tutti.add(nome.toLowerCase());
+    }
+  }
+}
+const gruppi = GRUPPI.map((g) => ({ ...g, nomi: [...perGruppo.get(g.key)!].sort((a, b) => a.localeCompare(b, 'it')) })).filter((g) => g.nomi.length);
+// numero arrotondato per difetto alla decina: "oltre 30"
+const totale = tutti.size;
+const oltre = Math.floor(totale / 10) * 10;
+---
+<section class="py-[var(--spacing-section)] border-t border-line" aria-labelledby="rete-title">
+  <div class="u-container grid lg:grid-cols-12 gap-10 lg:gap-16">
+    <div class="lg:col-span-5">
+      <p class="u-eyebrow mb-4 reveal">Collaborazioni</p>
+      <h2 id="rete-title" class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight leading-[1.02] reveal">La rete</h2>
+      <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">
+        Ogni progetto lo seguiamo con una rete di professionisti e imprese di fiducia: ingegneri strutturisti, termotecnici, impiantisti, geometri, coordinatori della sicurezza, artigiani e fotografi. Lo studio coordina tutti, il cliente ha un solo riferimento.
+      </p>
+      {oltre >= 10 && (
+        <p class="mt-10 reveal">
+          <span class="block font-display text-[clamp(3.5rem,8vw,6rem)] leading-none">oltre {oltre}</span>
+          <span class="block mt-3 text-sm uppercase tracking-[0.14em] text-muted">imprese e professionisti nei progetti pubblicati</span>
+        </p>
+      )}
+    </div>
+    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-x-10 gap-y-8">
+      {gruppi.map((g) => (
+        <div class="border-t border-line pt-4 reveal">
+          <h3 class="text-[0.72rem] uppercase tracking-[0.14em] text-muted mb-3">{g.titolo}</h3>
+          <ul class="space-y-1.5 text-[0.98rem] leading-snug">
+            {g.nomi.map((n) => <li>{n}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

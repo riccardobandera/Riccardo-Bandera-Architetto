@@ -4,7 +4,6 @@ import type { ImageMetadata } from 'astro';
 import { metodoImages as M, metodoProgetto } from '../data/curated';
 import { getProgetto } from '../data/projects';
 // immagini della casera nell'Alpago in ordine cronologico (cartella "Metodo" di Riccardo, ottobre 2026)
-import primaLavori from '../images/metodo/casera-prima-dei-lavori.webp';
 import modello3d from '../images/metodo/casera-modello-3d.webp';
 import prospetti from '../images/metodo/casera-prospetti-progetto-amministrativo.webp';
 // dettaglio costruttivo ritagliato dalla tavola esecutiva della casera (la parte scelta dal cliente)
@@ -17,7 +16,6 @@ import ponteggi from '../images/metodo/casera-cantiere-ponteggi.webp';
 const progetto = await getProgetto(metodoProgetto);
 const nomeProgetto = progetto?.data.titolo ?? '';
 
-const curve = `<svg viewBox="0 0 120 60" fill="none" class="ms-curve"><path d="M2 42 C 30 4, 90 4, 118 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 
 // media sotto le scritte: foto vera, oppure riquadro vuoto in attesa delle foto del cliente
 type Media =
@@ -25,13 +23,10 @@ type Media =
   | { kind: 'empty' }
   | { kind: 'fade' };
 type Tok =
-  | { kind: 'lead'; t: string; media?: Media }
   | { kind: 'text'; t: string }
-  | { kind: 'phase'; n: string; t: string; media?: Media }
-  | { kind: 'svg' };
+  | { kind: 'phase'; n: string; t: string; media?: Media };
 
 const flow: Tok[] = [
-  { kind: 'lead', t: 'Ogni progetto', media: { kind: 'img', src: primaLavori, alt: `${nomeProgetto}: il rustico sotto la neve prima dei lavori`, cap: 'Prima dei lavori' } },
   { kind: 'text', t: 'nasce dal disegno,' },
   { kind: 'phase', n: '01', t: 'Progetto architettonico e di interni', media: { kind: 'img', src: modello3d, alt: `${nomeProgetto}: modello 3D di progetto`, cap: 'Modello 3D' } },
   { kind: 'text', t: 'ottiene i permessi col' },
@@ -40,7 +35,6 @@ const flow: Tok[] = [
   { kind: 'phase', n: '03', t: 'Progetto esecutivo', media: { kind: 'img', src: dettaglio, alt: `${nomeProgetto}: dettaglio costruttivo`, cap: 'Dettaglio costruttivo', drawing: true } },
   { kind: 'text', t: 'trova il suo costo nella' },
   { kind: 'phase', n: '04', t: 'Preventivazione', media: { kind: 'img', src: quadroBudget, alt: 'Quadro budget riassuntivo di un progetto dello studio: minimo, massimo e scelte consigliate', cap: 'Quadro budget', drawing: true } },
-  { kind: 'svg' },
   { kind: 'text', t: 'si costruisce durante la' },
   { kind: 'phase', n: '05', t: 'Direzione lavori', media: { kind: 'img', src: ponteggi, alt: `${nomeProgetto}: cantiere con i ponteggi`, cap: 'Cantiere' } },
   { kind: 'text', t: 'e diventa realtà con la' },
@@ -49,49 +43,43 @@ const flow: Tok[] = [
 const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: string }).n);
 ---
 
-<section class="method-scroll relative bg-bg text-ink -mt-[20svh] lg:-mt-[14svh]" data-method-scroll aria-label="Le 6 fasi del progetto">
-  <div class="ms-pin h-[100svh] flex items-start overflow-x-auto overflow-y-hidden [scrollbar-width:none]" data-pin>
-    <div class="ms-track relative flex items-start gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track>
+<section class="method-scroll relative bg-bg text-ink lg:-mt-[14svh]" data-method-scroll aria-label="Le 6 fasi del progetto">
+  <div class="ms-pin lg:h-[100svh] flex items-start lg:overflow-x-auto lg:overflow-y-hidden [scrollbar-width:none]" data-pin>
+    <!-- data-gallery: le immagini delle fasi si aprono a schermo intero con lo zoom (lightbox globale) -->
+    <div class="ms-track relative flex items-start gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track data-gallery>
 
       <div class="ms-mid shrink-0 pr-[3vw] max-w-[36rem]">
         <p class="u-eyebrow mb-4">Metodo</p>
         <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,8vw,7rem)]">Le 6 fasi<br />del progetto</h2>
         {nomeProgetto && <p class="mt-6 text-base md:text-lg text-muted leading-relaxed whitespace-normal">Un progetto vero, dal disegno all'opera finita:<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
+        <!-- inizio della frase che prosegue con le fasi (su telefono, sotto) -->
+        <p class="ms-lead ms-lead-start inline-flex items-center gap-4 whitespace-nowrap">Ogni edificio <span class="ms-go" aria-hidden="true">»</span></p>
       </div>
 
       {flow.map((it) => (
         it.kind === 'text' ? (
-          <span class="ms-muted ms-conn shrink-0 whitespace-nowrap">{it.t}</span>
-        ) : it.kind === 'svg' ? (
-          <span class="ms-svgwrap ms-conn shrink-0 text-ink/70" set:html={curve}></span>
+          <span class="ms-muted ms-conn shrink-0 lg:whitespace-nowrap">{it.t}</span>
         ) : (
-          <div class="shrink-0 flex flex-col items-start" data-phase={it.kind === 'phase' ? it.n : undefined}>
-            {it.kind === 'lead' ? (
-              <span class="ms-lead ms-lead-pos whitespace-nowrap">{it.t}</span>
-            ) : (
-              <span class="flex flex-col leading-none">
-                <span class="ms-num font-display text-muted/45">{it.n}</span>
-                <span class="ms-title font-sans font-extrabold uppercase tracking-tight mt-2 whitespace-nowrap">{it.t}</span>
-              </span>
-            )}
-            {it.media && (
-              <figure class:list={['ms-media self-stretch flex flex-col items-end', it.kind === 'lead' ? 'ms-media-lead' : 'ms-media-phase']}>
-                {it.media.kind === 'img' ? (
-                  <>
-                    <span class:list={['ms-shot block w-fit overflow-hidden', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}>
-                      <Image src={it.media.src} alt={it.media.alt} widths={[500, 800, 1100]} sizes="50vw" class:list={['h-full w-auto max-w-none', it.media.drawing ? 'object-contain' : 'object-cover']} />
-                    </span>
-                    <figcaption class="mt-2 text-right text-[0.8rem] md:text-[0.86rem] uppercase tracking-[0.16em] text-muted">
-                      {it.media.href ? <a href={it.media.href} class="u-underline hover:text-ink">{it.media.cap}</a> : it.media.cap}
-                    </figcaption>
-                  </>
-                ) : it.media.kind === 'empty' ? (
-                  <span class="ms-shot ms-empty block" aria-hidden="true"></span>
-                ) : (
-                  <span class="ms-shot ms-fade block" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
-                )}
-              </figure>
-            )}
+          <div class="ms-phase shrink-0 flex flex-col items-start" data-phase={it.n}>
+            <span class="ms-numwrap relative self-start">
+              <span class="ms-num block font-display text-muted/45 leading-none">{it.n}</span>
+              {it.media && it.media.kind === 'img' && (
+                <figure class="ms-media">
+                  <button
+                    type="button"
+                    class:list={['ms-shot group block w-fit overflow-hidden cursor-zoom-in', it.media.drawing ? 'bg-bg border border-line p-2 md:p-3' : 'bg-surface']}
+                    data-lightbox
+                    data-full={it.media.src.src}
+                    data-alt={it.media.alt}
+                    aria-label={`Ingrandisci: ${it.media.alt}`}
+                  >
+                    <Image src={it.media.src} alt={it.media.alt} widths={[500, 800, 1100]} sizes="(max-width: 1023px) 88vw, 40vw" class:list={['ms-img transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]', it.media.drawing ? 'object-contain' : 'object-cover']} />
+                  </button>
+                  <figcaption class="mt-2 text-right text-[0.8rem] md:text-[0.86rem] uppercase tracking-[0.16em] text-muted">{it.media.cap}</figcaption>
+                </figure>
+              )}
+            </span>
+            <span class="ms-title font-sans font-extrabold uppercase tracking-tight mt-2 leading-none lg:whitespace-nowrap">{it.t}</span>
           </div>
         )
       ))}
@@ -198,46 +186,53 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     isolation: isolate;
     --num: min(clamp(3.5rem, 9vw, 8rem), 13svh);  /* numero della fase */
     --conn: clamp(1.3rem, 3.2vw, 3rem);          /* frasi di collegamento */
-    --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni progetto" */
+    --lead: clamp(2rem, 5.5vw, 5rem);            /* "Ogni edificio" */
     --title: clamp(1rem, 2.2vw, 1.9rem);         /* titolo della fase */
     --gap: clamp(1.25rem, 2.6svh, 2rem);         /* spazio tra scritta e foto */
     --mid: 44svh;                                /* altezza della riga delle scritte */
     --shot: clamp(187px, 27.5svh, 363px);        /* altezza foto e riquadri */
   }
-  /* tutte le scritte stanno sulla stessa riga, a metà schermo; foto e riquadri pendono sotto */
+  /* tutte le scritte stanno sulla stessa riga, a metà schermo; le immagini pendono sotto */
   .ms-track { margin-top: calc(var(--mid) - var(--num) / 2); }
-  .ms-num { font-size: var(--num); line-height: 1; }
-  .ms-title { font-size: var(--title); line-height: 1; }
+  .ms-num { font-size: var(--num); }
+  .ms-title { font-size: var(--title); }
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: var(--lead); line-height: 0.9; }
+  .ms-lead-start { margin-top: clamp(2.5rem, 5svh, 3.5rem); }
+  /* le » invitano a proseguire: si muovono piano verso destra */
+  .ms-go { display: inline-block; font-weight: 400; animation: ms-go 1.8s ease-in-out infinite; }
+  @keyframes ms-go { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.35em); } }
   .ms-muted { font-family: var(--font-display); font-style: italic; color: var(--color-muted); font-size: var(--conn); line-height: 1; }
   .ms-conn { margin-top: calc(var(--num) / 2 - var(--conn) / 2); }
-  .ms-lead-pos { margin-top: calc(var(--num) / 2 - var(--lead) * 0.45); }
-  .ms-svgwrap { margin-top: calc(var(--num) / 2 - clamp(20px, 2.6vw, 40px)); }
-  .ms-svgwrap :global(.ms-curve) { width: clamp(70px, 9vw, 140px); height: auto; }
   /* blocco d'apertura e link finale centrati sulla stessa riga */
   .ms-mid { margin-top: calc(var(--num) / 2); transform: translateY(-50%); }
 
-  /* foto sotto le scritte: tutte alte uguali, allineate a destra con l'ultima lettera della scritta sopra */
+  /* immagini: tutte alte uguali, sotto il titolo della fase e a SINISTRA del numero:
+     il bordo destro coincide con la fine del numero e l'immagine si allunga sotto la frase di collegamento
+     (impaginazione della striscia preparata dal cliente) */
   .ms-shot { height: var(--shot); }
-  /* la foto non parte mai sotto il numero: rientro fisso a sinistra, poi allineata a destra.
-     Se è più stretta del titolo finisce sotto l'ultima lettera; se è più larga parte dopo il numero */
-  .ms-media { padding-left: calc(var(--num) * 1.6); }
-  .ms-media-phase { margin-top: var(--gap); }
-  /* sotto "Ogni progetto" la foto parte alla stessa altezza di quelle sotto le fasi
-     (numero + titolo della fase), non subito sotto la scritta */
-  .ms-media-lead { margin-top: calc(var(--num) / 2 + 0.5rem + var(--title) - var(--lead) * 0.45 + var(--gap)); }
-  .ms-empty, .ms-fade { aspect-ratio: 4 / 3; background: var(--color-surface); border: 1px solid var(--color-line); }
-  /* riquadro per i preventivi: righe di documento che sfumano verso il basso */
-  .ms-fade {
-    display: flex; flex-direction: column; gap: 9%; padding: 12% 10%;
-    -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  .ms-shot :global(.ms-img) { height: 100%; width: auto; max-width: none; }
+  .ms-media { position: absolute; right: 0; top: calc(100% + 0.5rem + var(--title) + var(--gap)); display: flex; flex-direction: column; align-items: flex-end; }
+  .ms-shot:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+
+  /* telefono e tablet: niente striscia orizzontale, la sequenza si legge dall'alto in basso */
+  @media (max-width: 1023px) {
+    .ms-pin { height: auto; }
+    .ms-track { flex-direction: column; align-items: stretch; gap: 0.6rem; margin-top: 0; padding: clamp(4rem, 14vw, 6rem) 6vw; transform: none !important; }
+    .ms-mid { margin-top: 0; transform: none; padding-right: 0; margin-bottom: 1.5rem; max-width: none; }
+    .ms-conn { margin-top: 1.6rem; }
+    .ms-phase { width: 100%; }
+    /* numero, titolo e poi l'immagine a tutta larghezza */
+    .ms-numwrap { position: static; }
+    .ms-media { position: static; order: 3; margin-top: 1rem; align-items: stretch; width: 100%; }
+    .ms-phase { display: flex; flex-direction: column; }
+    .ms-numwrap { display: contents; }
+    .ms-num { order: 1; }
+    .ms-title { order: 2; }
+    .ms-shot { height: auto; width: 100%; }
+    .ms-shot :global(.ms-img) { width: 100%; height: auto; }
+    .ms-progress { display: none; }
   }
-  .ms-fade span { display: block; height: 2px; background: color-mix(in srgb, var(--color-ink) 18%, transparent); }
-  .ms-fade span:nth-child(2) { width: 82%; }
-  .ms-fade span:nth-child(3) { width: 90%; }
-  .ms-fade span:nth-child(4) { width: 64%; }
-  .ms-fade span:nth-child(5) { width: 76%; }
+  @media (prefers-reduced-motion: reduce) { .ms-go { animation: none; } }
 
   .ms-pin::-webkit-scrollbar { display: none; }
 

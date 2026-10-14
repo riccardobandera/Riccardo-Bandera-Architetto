@@ -10,7 +10,6 @@ coordinate:
   lat: 45.8895332
   lng: 11.0296086
 evidenza: true
-ordineHome: 7
 stato: "progetto"
 copertina: "./nuovo-headquarter-manica-s-p-rovereto-tn-foto-01.webp"
 copertinaAlt: "Nuovo Headquarter Manica S.p.a. a Rovereto, TN, progetto di Riccardo Bandera Architetto"

@@ -49,7 +49,7 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
   <section class="bg-ink text-cream">
     <div class="u-container pt-40 md:pt-52 pb-16 md:pb-24 text-center">
       <p class="u-eyebrow text-cream/60 mb-8 reveal">Manifesto</p>
-      <h1 class="font-display text-[clamp(2.2rem,6.4vw,5.6rem)] leading-[1.06] max-w-[18ch] mx-auto reveal">
+      <h1 class="font-display text-[clamp(2rem,4.6vw,4.3rem)] leading-[1.08] max-w-[26ch] mx-auto reveal">
         {manifesto.lead}
       </h1>
     </div>
@@ -87,25 +87,7 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
     ))}
   </section>
 
-  <!-- numeri: si contano entrando nello schermo -->
-  <section class="bg-surface">
-    <div class="u-container py-[clamp(4.5rem,9vw,7.5rem)]">
-      <p class="u-eyebrow mb-12 reveal">Quanto conta un albero</p>
-      <div class="grid md:grid-cols-3 gap-12 md:gap-10">
-        {numeri.map((n, i) => (
-          <div class="reveal border-t border-ink/15 pt-8" data-reveal-delay={i + 1}>
-            <p class="font-display leading-none text-[clamp(3.2rem,7vw,6rem)] whitespace-nowrap">
-              <span>{n.pre}</span><span data-count-to={n.n} data-count-from={n.from ?? 0} data-dec={n.dec}>{fmt(n.n, n.dec)}</span><span class="text-[0.42em] ml-2 align-baseline">{n.unit}</span>
-            </p>
-            <p class="mt-5 text-[1rem] leading-relaxed text-ink/75 max-w-xs">{n.t}</p>
-          </div>
-        ))}
-      </div>
-      <p class="mt-12 text-[0.8rem] uppercase tracking-[0.14em] text-muted reveal">Fonte: Rita Baraldi, CNR di Bologna, Istituto di Biometeorologia</p>
-    </div>
-  </section>
-
-  <!-- capitolo 03 (prima era la fascia nera finale) -->
+  <!-- capitolo 03 (prima della fascia dei numeri, richiesta del cliente) -->
   <section class="u-container py-[var(--spacing-section)]">
     {capitoli.slice(2).map((c, k) => { const i = k + 2; return (
       <article class:list={['grid lg:grid-cols-12 gap-10 lg:gap-16 items-center']}>
@@ -128,6 +110,23 @@ const legno = (await Promise.all(IN_LEGNO.map((id) => getProgetto(id)))).filter(
         </div>
       </article>
     ); })}
+  </section>
+
+  <!-- numeri: si contano entrando nello schermo -->
+  <section class="bg-surface">
+    <div class="u-container py-[clamp(4.5rem,9vw,7.5rem)]">
+      <p class="u-eyebrow mb-12 reveal">Quanto conta un albero</p>
+      <div class="grid md:grid-cols-3 gap-12 md:gap-10">
+        {numeri.map((n, i) => (
+          <div class="reveal border-t border-ink/15 pt-8" data-reveal-delay={i + 1}>
+            <p class="font-display leading-none text-[clamp(3.2rem,7vw,6rem)] whitespace-nowrap">
+              <span>{n.pre}</span><span data-count-to={n.n} data-count-from={n.from ?? 0} data-dec={n.dec}>{fmt(n.n, n.dec)}</span><span class="text-[0.42em] ml-2 align-baseline">{n.unit}</span>
+            </p>
+            <p class="mt-5 text-[1rem] leading-relaxed text-ink/75 max-w-xs">{n.t}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 
   <!-- progetti in legno -->

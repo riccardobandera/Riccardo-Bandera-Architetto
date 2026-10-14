@@ -28,7 +28,10 @@ let cache: Progetto[] | null = null;
 export async function getProgetti(): Promise<Progetto[]> {
   // in sviluppo niente cache: le modifiche ai progetti (anche dal CMS) si vedono subito
   if (cache && import.meta.env.PROD) return cache;
-  const all = (await getCollection('progetti')).filter((p) => !p.data.bozza);
+  // fuori: le bozze e, sul sito pubblicato, i progetti con uscita programmata non ancora arrivata
+  const oggi = new Date();
+  const visibile = (p: Progetto) => !p.data.bozza && (!import.meta.env.PROD || !p.data.pubblicaDal || p.data.pubblicaDal <= oggi);
+  const all = (await getCollection('progetti')).filter(visibile);
   cache = all.sort((a, b) => (b.data.anno ?? 0) - (a.data.anno ?? 0) || a.data.titolo.localeCompare(b.data.titolo, 'it'));
   return cache;
 }
