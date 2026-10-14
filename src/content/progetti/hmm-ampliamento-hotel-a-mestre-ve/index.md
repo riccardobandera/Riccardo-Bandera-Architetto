@@ -10,7 +10,7 @@ coordinate:
   lat: 45.4914396
   lng: 12.2478339
 evidenza: false
-bozza: true
+bozza: false
 stato: "progetto"
 copertina: "./ampliamento-hotel-mestre-ve-render-01.webp"
 copertinaAlt: "Ampliamento di un hotel a Mestre, VE, progetto di Riccardo Bandera Architetto"

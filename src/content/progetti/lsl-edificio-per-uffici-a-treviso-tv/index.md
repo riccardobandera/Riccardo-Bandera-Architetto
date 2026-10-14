@@ -6,7 +6,7 @@ luogo: "Treviso, TV"
 categorie: ["direzionale", "residenziale"]
 materiali: ["legno"]
 evidenza: false
-bozza: true
+bozza: false
 stato: "progetto"
 copertina: "./edificio-lotto-san-lazzaro-treviso-tv-render-01.webp"
 copertinaAlt: "Edificio per uffici a Treviso, TV, progetto di Riccardo Bandera Architetto"

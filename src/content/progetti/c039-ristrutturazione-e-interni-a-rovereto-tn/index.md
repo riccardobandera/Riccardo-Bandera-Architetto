@@ -6,7 +6,7 @@ luogo: "Rovereto, TN"
 categorie: ["residenziale"]
 materiali: ["legno"]
 evidenza: false
-bozza: true
+bozza: false
 stato: "progetto"
 copertina: "./ristrutturazione-interni-rovereto-tn-render-01.webp"
 copertinaAlt: "Ristrutturazione e interni a Rovereto, TN, progetto di Riccardo Bandera Architetto"

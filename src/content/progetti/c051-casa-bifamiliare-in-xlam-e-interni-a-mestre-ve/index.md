@@ -6,7 +6,7 @@ luogo: "Mestre, VE"
 categorie: ["residenziale"]
 materiali: ["legno"]
 evidenza: false
-bozza: true
+bozza: false
 stato: "progetto"
 copertina: "./casa-bifamiliare-xlam-interni-mestre-ve-render-01.webp"
 copertinaAlt: "Casa bifamiliare in Xlam e interni a Mestre, VE, progetto di Riccardo Bandera Architetto"
