@@ -2,48 +2,6 @@
   "aggiornato": "2026-10-06",
   "domande": [
     {
-      "domanda": "Quanto costa un architetto per ristrutturare casa?",
-      "tema": "costi",
-      "risposta": "",
-      "traccia": "Una forbice indicativa in euro per un appartamento tipo (per esempio 80-100 mq) o in percentuale sui lavori, e cosa cambia se l'incarico comprende solo il progetto oppure anche pratiche e direzione lavori. Un esempio reale dello studio aiuta.",
-      "priorita": "alta",
-      "pagine": [
-        "architetto-interni-mestre"
-      ]
-    },
-    {
-      "domanda": "Come calcolate la parcella: a percentuale, a corpo o a ore?",
-      "tema": "costi",
-      "risposta": "",
-      "traccia": "Il metodo usato dallo studio e perché; se il preventivo è scritto e firmato prima di iniziare; come si pagano le singole fasi.",
-      "priorita": "alta",
-      "pagine": []
-    },
-    {
-      "domanda": "Il primo incontro è gratuito? E se poi decido di non proseguire?",
-      "tema": "costi",
-      "risposta": "",
-      "traccia": "Cosa è gratuito (telefonata, primo incontro in studio) e cosa è a pagamento (sopralluogo, studio di fattibilità); se un eventuale costo iniziale viene scalato dalla parcella in caso di incarico.",
-      "priorita": "alta",
-      "pagine": []
-    },
-    {
-      "domanda": "Cosa comprende il vostro preventivo e cosa si paga a parte?",
-      "tema": "costi",
-      "risposta": "",
-      "traccia": "Cosa c'è dentro (rilievo, progetto, pratiche, esecutivo, computo, direzione lavori, fine lavori) e cosa no (diritti comunali, strutturista, coordinatore della sicurezza, catasto, impiantista). Si può incaricare lo studio solo per alcune fasi?",
-      "priorita": "media",
-      "pagine": []
-    },
-    {
-      "domanda": "La parcella dell'architetto rientra nei bonus per la ristrutturazione?",
-      "tema": "costi",
-      "risposta": "",
-      "traccia": "Sì o no, con il rinvio al commercialista per il caso specifico; come va pagata (bonifico parlante). Le aliquote cambiano: nel 2026 50% prima casa e 36% altre, nel 2027 36% e 30%. Indicare l'anno.",
-      "priorita": "media",
-      "pagine": []
-    },
-    {
       "domanda": "In cosa consiste il vostro lavoro, dal progetto alla fine dei lavori?",
       "tema": "lavoro",
       "risposta": "Ogni progetto si sviluppa attraverso una serie di 6 fasi per la progettazione degli interventi definiti con la committenza, così da tenere sotto controllo gli aspetti tecnico-economici senza precludere le potenzialità creative dell’incarico. Le fasi sono: progetto architettonico e di interni, progetto amministrativo, progetto esecutivo, preventivazione e quadro economico, direzione lavori, fine lavori.",
@@ -152,14 +110,6 @@
       ]
     },
     {
-      "domanda": "Potete verificare una casa prima che la compri?",
-      "tema": "pratiche",
-      "risposta": "",
-      "traccia": "Cosa si controlla (accesso agli atti, confronto con catasto e stato di fatto), cosa si può sistemare con il Salva Casa e cosa no (immobili vincolati); tempi e costo indicativo di una verifica.",
-      "priorita": "alta",
-      "pagine": []
-    },
-    {
       "domanda": "Cosa succede a fine lavori? Vi occupate dell'agibilità?",
       "tema": "pratiche",
       "risposta": "Sì. Nella fase di fine lavori si effettua il passaggio conclusivo della costruzione, fondamentale per garantire che l’opera sia completata correttamente (dichiarazioni di conformità), asseverata rispetto alle normative (agibile/abitabile), inserita nel registro fabbricati (catasto), comunicata agli enti (SUAP) e abbia la possibilità di accedere alle detrazioni fiscali.",
@@ -195,14 +145,6 @@
       "pagine": []
     },
     {
-      "domanda": "Ogni quanto venite in cantiere e come mi tenete aggiornato?",
-      "tema": "cantiere",
-      "risposta": "",
-      "traccia": "Frequenza tipica dei sopralluoghi, come viene aggiornato il cliente (foto, verbali, report), controllo della contabilità, cosa succede se ci sono problemi con l'impresa.",
-      "priorita": "media",
-      "pagine": []
-    },
-    {
       "domanda": "Dobbiamo ristrutturare il nostro hotel o chalet: si può fare senza perdere la stagione?",
       "tema": "locali",
       "risposta": "Le tempistiche sono fondamentali nel settore alberghiero. Il segreto è pianificare meticolosamente e con pazienza il cronoprogramma, solo dopo aver affidato gli incarichi alle imprese e fissando penali rigorose. La progettazione deve essere più lunga del cantiere stesso, ma questo garantisce il controllo durante la chiusura della struttura. Recentemente abbiamo completato il cantiere dell'Hotel Cime D'Oro a Madonna di Campiglio in meno di tre mesi effettivi, rifacendo completamente le facciate, i terrazzi, i serramenti e parte delle camere.",
@@ -223,26 +165,6 @@
         "progettazione-panifici-bar-ristoranti"
       ],
       "fonte": "Risposta di Riccardo Bandera (questionario, ottobre 2026)"
-    },
-    {
-      "domanda": "Quanto costa e quanto tempo serve per progettare e aprire un locale?",
-      "tema": "locali",
-      "risposta": "",
-      "traccia": "Forbice indicativa al mq (opere e arredi) e tempi dalla firma all'apertura; cosa incide di più (impianti, cappa, arredi su misura, attrezzature).",
-      "priorita": "media",
-      "pagine": [
-        "progettazione-panifici-bar-ristoranti"
-      ]
-    },
-    {
-      "domanda": "Quanto costa costruire una casa in legno (Xlam) e quanto dura?",
-      "tema": "legno",
-      "risposta": "",
-      "traccia": "Forbice al mq chiavi in mano e cosa comprende; durata attesa e condizioni (dettagli costruttivi, protezione dall'acqua, manutenzione); due righe su fuoco, umidità e assicurazione.",
-      "priorita": "alta",
-      "pagine": [
-        "case-in-legno"
-      ]
     },
     {
       "domanda": "Meglio Xlam o telaio? Il legno va bene in montagna, in zona sismica o vicino alla laguna?",

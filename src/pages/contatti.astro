@@ -51,10 +51,23 @@ const mapQuery = encodeURIComponent(`${site.legalName}, ${site.address.street}, 
     </div>
   </section>
 
-  <!-- mappa Google della sede: caricata direttamente, solo quando si arriva in fondo alla pagina (loading lazy) -->
-  <section class="relative w-full h-[45vh] bg-surface border-t border-line overflow-hidden">
+  <!-- mappa Google della sede: si carica da sola se il visitatore ha acconsentito ai contenuti di terze parti
+       (banner dei cookie); altrimenti un riquadro spiega e permette di caricarla con un clic -->
+  <section class="relative w-full h-[45vh] bg-surface border-t border-line overflow-hidden" data-mappa-google>
+    <div class="absolute inset-0 grid place-items-center p-6 text-center" data-mappa-avviso>
+      <div class="max-w-md">
+        <p class="font-bold">{site.legalName}</p>
+        <p class="mt-1 text-sm text-muted">{site.address.street}, {site.address.zip} {site.address.city} ({site.address.region})</p>
+        <p class="mt-5 text-sm text-ink/80 leading-relaxed">La mappa è fornita da Google Maps, che può impostare propri cookie. La carichiamo solo con il tuo consenso.</p>
+        <div class="mt-5 flex flex-wrap justify-center gap-3">
+          <button type="button" class="btn btn--solid" data-consenti-mappa>Carica la mappa</button>
+          <a href={site.googleMaps} target="_blank" rel="noopener" class="btn btn--ghost">Apri in Google Maps</a>
+        </div>
+      </div>
+    </div>
     <iframe
-      src={`https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`}
+      data-src={`https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`}
+      hidden
       title={`Mappa: ${site.legalName}, ${site.address.street}, ${site.address.city}`}
       class="absolute inset-0 w-full h-full grayscale"
       loading="lazy"
@@ -62,3 +75,25 @@ const mapQuery = encodeURIComponent(`${site.legalName}, ${site.address.street}, 
     ></iframe>
   </section>
 </BaseLayout>
+
+<script>
+  // la mappa si carica solo con il consenso ai contenuti di terze parti
+  const box = document.querySelector<HTMLElement>('[data-mappa-google]');
+  const frame = box?.querySelector<HTMLIFrameElement>('iframe[data-src]');
+  const avviso = box?.querySelector<HTMLElement>('[data-mappa-avviso]');
+  const mostra = () => {
+    if (!frame || frame.src) return;
+    frame.src = frame.dataset.src!;
+    frame.hidden = false;
+    if (avviso) avviso.hidden = true;
+  };
+  const nascondi = () => {
+    if (!frame) return;
+    frame.removeAttribute('src');
+    frame.hidden = true;
+    if (avviso) avviso.hidden = false;
+  };
+  const decidi = (s: { maps?: boolean } | null) => (s?.maps ? mostra() : nascondi());
+  window.addEventListener('rb-consenso', (e) => decidi((e as CustomEvent).detail));
+  decidi((window as unknown as { rbConsenso?: () => { maps?: boolean } | null }).rbConsenso?.() ?? null);
+</script>

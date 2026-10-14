@@ -1,21 +1,61 @@
 ---
+// Cookie policy: art. 122 del Codice privacy e Linee guida del Garante sui cookie del 10 giugno 2021.
+// Elenco aderente a quello che il sito fa davvero (nessun analytics, nessuna pubblicita).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+
+const AGGIORNATA = '14 ottobre 2026';
 ---
-<BaseLayout title="Cookie Policy" description="Informativa sull'uso dei cookie." noindex={true}>
+<BaseLayout title="Cookie policy" description="Informativa sui cookie e sui contenuti di terze parti del sito di Riccardo Bandera Architetto." noindex={true}>
   <section class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
     <p class="u-eyebrow mb-6">Legale</p>
-    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-10">Cookie Policy</h1>
+    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-4">Cookie policy</h1>
+    <p class="text-sm text-muted mb-12">Informativa ai sensi dell’art. 122 del D.Lgs. 196/2003 e delle Linee guida del Garante privacy sui cookie e altri strumenti di tracciamento (10 giugno 2021). Ultimo aggiornamento: {AGGIORNATA}.</p>
 
-    <div class="max-w-2xl space-y-6 text-ink/85 leading-relaxed">
-      <p>Questo sito è statico e non utilizza cookie di profilazione. Non tracciamo la tua navigazione a fini pubblicitari.</p>
-      <p><strong>Cookie tecnici.</strong> Possono essere impiegati cookie strettamente necessari al funzionamento delle pagine, per i quali non è richiesto consenso.</p>
-      <p><strong>Servizi di terze parti.</strong> La mappa nella pagina Contatti è fornita da Google Maps: consultando quella sezione potrebbero essere impostati cookie da parte di Google secondo la sua informativa.</p>
-      <p><strong>Gestione.</strong> Puoi bloccare o cancellare i cookie dalle impostazioni del tuo browser in qualsiasi momento.</p>
-      <p>Per qualsiasi richiesta scrivi a <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
-      <p class="text-sm text-muted border-t border-line pt-6 mt-10">
-        Nota per la consegna: bozza operativa. Se in futuro verranno aggiunti servizi con cookie (analytics, embed social), integrare un banner di consenso e aggiornare questa informativa.
-      </p>
+    <div class="legal max-w-3xl">
+      <h2>In breve</h2>
+      <p>Questo sito non usa cookie di profilazione, di pubblicità o di statistica. Usa solo strumenti tecnici necessari al funzionamento e, soltanto se acconsenti, la mappa di Google Maps nella pagina Contatti.</p>
+
+      <h2>Cosa sono i cookie</h2>
+      <p>I cookie e gli strumenti simili (come la memoria locale del browser) sono piccoli dati che un sito salva sul tuo dispositivo per ricordare informazioni durante la navigazione o tra una visita e l’altra.</p>
+
+      <h2>Strumenti tecnici usati dal sito</h2>
+      <table>
+        <thead><tr><th>Nome</th><th>Tipo</th><th>Scopo</th><th>Durata</th></tr></thead>
+        <tbody>
+          <tr><td>rb-consenso</td><td>Memoria locale del browser, tecnico</td><td>Ricorda la tua scelta sui cookie, così il banner non ricompare a ogni pagina</td><td>6 mesi, poi la scelta viene richiesta di nuovo</td></tr>
+        </tbody>
+      </table>
+      <p>Gli strumenti tecnici non richiedono il consenso. I dati restano sul tuo dispositivo e non vengono inviati allo studio.</p>
+
+      <h2>Contenuti di terze parti</h2>
+      <table>
+        <thead><tr><th>Servizio</th><th>Dove</th><th>Cookie</th><th>Consenso</th></tr></thead>
+        <tbody>
+          <tr><td>Google Maps (Google)</td><td>Pagina Contatti</td><td>Google può impostare propri cookie, anche di profilazione, quando la mappa viene caricata</td><td>Sì: la mappa si carica solo se acconsenti</td></tr>
+          <tr><td>OpenStreetMap (OpenStreetMap Foundation)</td><td>Mappa della pagina Progetti</td><td>Nessun cookie: il server riceve solo l’indirizzo IP per inviare le cartine</td><td>No</td></tr>
+        </tbody>
+      </table>
+      <p>Per i cookie di Google: <a href="https://policies.google.com/technologies/cookies?hl=it" target="_blank" rel="noopener">policies.google.com/technologies/cookies</a>. Senza consenso la mappa non viene caricata e puoi comunque aprire la posizione dello studio direttamente su Google Maps.</p>
+
+      <h2>Come dare, negare o cambiare il consenso</h2>
+      <p>Alla prima visita un banner ti chiede la scelta: “Accetta”, “Rifiuta” o “Personalizza”. Chiudere il banner con la X equivale a rifiutare. Puoi cambiare idea in qualsiasi momento dal link <button type="button" class="link-btn" data-cookie-prefs>Preferenze cookie</button>, presente anche in fondo a ogni pagina.</p>
+      <p>Puoi anche bloccare o cancellare cookie e dati dei siti dalle impostazioni del tuo browser.</p>
+
+      <h2>Titolare e contatti</h2>
+      <p>{site.legalName}, {site.address.street}, {site.address.zip} {site.address.city} ({site.address.region}). Per domande scrivi a <a href={`mailto:${site.email}`}>{site.email}</a>. Tutte le informazioni sul trattamento dei dati sono nella <a href="/privacy/">privacy policy</a>.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .legal { color: color-mix(in srgb, var(--color-ink) 86%, transparent); line-height: 1.75; font-size: 1.02rem; }
+  .legal h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: var(--color-ink); margin: 2.6rem 0 0.8rem; }
+  .legal h2:first-child { margin-top: 0; }
+  .legal p { margin: 0 0 0.9rem; }
+  .legal a, .link-btn { text-decoration: underline; text-underline-offset: 3px; }
+  .legal table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin: 0.5rem 0 1rem; }
+  .legal th { text-align: left; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); padding: 0 0.8rem 0.6rem 0; border-bottom: 1px solid var(--color-ink); }
+  .legal td { padding: 0.7rem 0.8rem 0.7rem 0; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+  @media (max-width: 640px) { .legal table { display: block; overflow-x: auto; } }
+</style>

@@ -1,21 +1,81 @@
 ---
+// Informativa privacy (artt. 13 e 14 GDPR). Base: l'informativa del vecchio sito dello studio, aggiornata ai servizi
+// che questo sito usa davvero (hosting Netlify, modulo contatti su Google, mappe, font ospitati sul sito).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+
+const AGGIORNATA = '14 ottobre 2026';
 ---
-<BaseLayout title="Privacy Policy" description="Informativa sul trattamento dei dati personali." noindex={true}>
+<BaseLayout title="Privacy policy" description="Informativa sul trattamento dei dati personali del sito di Riccardo Bandera Architetto." noindex={true}>
   <section class="u-container pt-36 md:pt-44 pb-[var(--spacing-section)]">
     <p class="u-eyebrow mb-6">Legale</p>
-    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-10">Privacy Policy</h1>
+    <h1 class="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight mb-4">Privacy policy</h1>
+    <p class="text-sm text-muted mb-12">Informativa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 (GDPR) e del D.Lgs. 196/2003 (Codice privacy). Ultimo aggiornamento: {AGGIORNATA}.</p>
 
-    <div class="max-w-2xl space-y-6 text-ink/85 leading-relaxed">
-      <p><strong>Titolare del trattamento.</strong> {site.legalName}, {site.address.street}, {site.address.zip} {site.address.city} ({site.address.region}). Email: <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
-      <p><strong>Dati raccolti.</strong> Attraverso il modulo di contatto raccogliamo nome, email, eventuale città, telefono e il contenuto del messaggio, al solo fine di rispondere alle richieste. I dati inviati vengono salvati in un foglio Google Sheets dello studio e inoltrati via email allo studio; Google agisce come fornitore del servizio.</p>
-      <p><strong>Finalità e base giuridica.</strong> I dati sono trattati per dare seguito alla tua richiesta (art. 6.1.b GDPR) e non vengono ceduti a terzi per finalità di marketing.</p>
-      <p><strong>Conservazione.</strong> I dati sono conservati per il tempo necessario a gestire la richiesta e adempiere agli obblighi di legge.</p>
-      <p><strong>Diritti.</strong> Puoi richiedere in ogni momento accesso, rettifica, cancellazione o limitazione dei tuoi dati scrivendo a <a href={`mailto:${site.email}`} class="u-underline">{site.email}</a>.</p>
-      <p class="text-sm text-muted border-t border-line pt-6 mt-10">
-        Nota per la consegna: questo testo è una bozza operativa. La versione definitiva dell’informativa va validata con il consulente privacy dello studio prima della pubblicazione.
-      </p>
+    <div class="legal max-w-3xl">
+      <h2>1. Titolare del trattamento</h2>
+      <p>{site.legalName}, arch. Riccardo Bandera, {site.address.street}, {site.address.zip} {site.address.city} ({site.address.region}), P.IVA {site.piva}. Email <a href={`mailto:${site.email}`}>{site.email}</a>, PEC <a href={`mailto:${site.pec}`}>{site.pec}</a>, telefono {site.phone}.</p>
+
+      <h2>2. Quali dati trattiamo</h2>
+      <h3>Dati di navigazione</h3>
+      <p>I server che ospitano il sito registrano automaticamente alcuni dati tecnici a ogni visita: indirizzo IP, tipo di browser e di dispositivo, pagina richiesta, data e ora. Servono a far funzionare il sito e a proteggerlo da abusi e attacchi; non sono usati per identificare o profilare chi visita il sito.</p>
+      <h3>Dati che ci invii tu</h3>
+      <p>Se ci scrivi dal modulo della pagina Contatti, trattiamo i dati che inserisci: nome e cognome, email, città e telefono (facoltativi), il testo del messaggio e la pagina da cui scrivi. Lo stesso vale se ci contatti via email, PEC, telefono o WhatsApp. Ti chiediamo di non inserire nel messaggio dati particolari (per esempio relativi alla salute) che non servono alla richiesta.</p>
+      <h3>Contenuti di terze parti</h3>
+      <p>La pagina Contatti può mostrare una mappa di Google Maps, che viene caricata solo se dai il consenso dal banner dei cookie o dal pulsante “Carica la mappa”. La mappa dei progetti nella pagina Progetti usa le cartine di OpenStreetMap: per mostrarle il tuo browser contatta i server di OpenStreetMap, che ricevono l’indirizzo IP ma non impostano cookie. I caratteri tipografici sono ospitati sul sito stesso: non vengono richiesti a servizi esterni.</p>
+      <p>Il sito non usa strumenti di statistica, pubblicità o profilazione.</p>
+
+      <h2>3. Perché li trattiamo e su quale base</h2>
+      <ul>
+        <li><strong>Rispondere alle tue richieste</strong> e, se lo chiedi, preparare un preventivo o un incarico: esecuzione di misure precontrattuali o di un contratto (art. 6.1.b GDPR).</li>
+        <li><strong>Sicurezza e funzionamento del sito</strong>, prevenzione di spam e abusi: legittimo interesse del titolare e degli utenti (art. 6.1.f GDPR). Puoi opporti in ogni momento.</li>
+        <li><strong>Obblighi di legge</strong>, per esempio fiscali e professionali, se dalla richiesta nasce un incarico (art. 6.1.c GDPR).</li>
+        <li><strong>Mappa di Google Maps</strong>: il tuo consenso (art. 6.1.a GDPR e art. 122 del Codice privacy), che puoi revocare quando vuoi da “Preferenze cookie” in fondo a ogni pagina.</li>
+      </ul>
+      <p>Fornire i dati del modulo è facoltativo, ma senza nome, email e messaggio non possiamo risponderti.</p>
+
+      <h2>4. Chi tratta i dati per nostro conto</h2>
+      <p>I dati sono trattati dallo studio e dai suoi collaboratori autorizzati. Per il funzionamento del sito ci avvaliamo di fornitori che agiscono come responsabili del trattamento:</p>
+      <ul>
+        <li><strong>Netlify, Inc.</strong>: hosting del sito e registri tecnici di accesso.</li>
+        <li><strong>Google</strong> (Google Workspace e Google Sheets): ricezione e archiviazione dei messaggi del modulo contatti e invio della notifica email allo studio.</li>
+        <li><strong>Il fornitore che cura lo sviluppo e la manutenzione del sito</strong>, solo per gli interventi tecnici necessari.</li>
+      </ul>
+      <p>Se carichi la mappa, Google tratta i dati come titolare autonomo secondo la propria informativa: <a href="https://policies.google.com/privacy?hl=it" target="_blank" rel="noopener">policies.google.com/privacy</a>. Lo stesso vale per la OpenStreetMap Foundation per le cartine della pagina Progetti: <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">osmfoundation.org</a>.</p>
+      <p>I dati non vengono venduti né ceduti a terzi per finalità di marketing. Possono essere comunicati alle autorità solo nei casi previsti dalla legge.</p>
+
+      <h2>5. Trasferimento fuori dall’Unione europea</h2>
+      <p>Alcuni fornitori (Netlify e Google) hanno sede negli Stati Uniti e possono trattare dati anche fuori dall’Unione europea. In questi casi il trasferimento avviene con le garanzie previste dagli articoli 44 e seguenti del GDPR: la decisione di adeguatezza della Commissione europea sul Data Privacy Framework UE-USA, per le società aderenti, oppure le clausole contrattuali standard approvate dalla Commissione.</p>
+
+      <h2>6. Per quanto tempo li conserviamo</h2>
+      <ul>
+        <li>Messaggi e richieste di contatto: per il tempo necessario a rispondere e a gestire la richiesta, e comunque non oltre 24 mesi dall’ultimo contatto se non nasce un incarico.</li>
+        <li>Se nasce un incarico: per la durata del rapporto e poi per il tempo previsto dalla legge per la documentazione fiscale e professionale (in genere 10 anni).</li>
+        <li>Dati di navigazione: per il tempo tecnico stabilito dal fornitore di hosting per i registri di sicurezza, salvo necessità di accertare reati o abusi.</li>
+      </ul>
+
+      <h2>7. Sicurezza</h2>
+      <p>Il sito è servito solo in modalità protetta (HTTPS), che cifra i dati durante l’invio. L’accesso ai messaggi è limitato allo studio e ai suoi collaboratori autorizzati, con account protetti.</p>
+
+      <h2>8. I tuoi diritti</h2>
+      <p>In ogni momento puoi chiedere l’accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione del trattamento, la portabilità, e puoi opporti al trattamento basato sul legittimo interesse (articoli da 15 a 22 GDPR). Puoi revocare il consenso dato per la mappa senza effetti sui trattamenti già svolti.</p>
+      <p>Per esercitare i diritti scrivi a <a href={`mailto:${site.email}`}>{site.email}</a> o via PEC a <a href={`mailto:${site.pec}`}>{site.pec}</a>. La richiesta è gratuita e ti rispondiamo entro un mese, prorogabile di due mesi nei casi più complessi, come previsto dall’articolo 12 GDPR.</p>
+      <p>Se ritieni che il trattamento violi la normativa, puoi proporre reclamo al Garante per la protezione dei dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>) o all’autorità del Paese in cui vivi o lavori.</p>
+
+      <h2>9. Altre informazioni</h2>
+      <p>Non prendiamo decisioni basate unicamente su trattamenti automatizzati e non facciamo profilazione. Il sito non è rivolto a minori di 14 anni. Per i cookie e i contenuti esterni consulta la <a href="/cookie/">cookie policy</a>.</p>
+      <p>Questa informativa può essere aggiornata, per esempio se cambiano i servizi usati dal sito o la normativa: la data in alto indica l’ultima versione.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .legal { color: color-mix(in srgb, var(--color-ink) 86%, transparent); line-height: 1.75; font-size: 1.02rem; }
+  .legal h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: var(--color-ink); margin: 2.6rem 0 0.8rem; }
+  .legal h2:first-child { margin-top: 0; }
+  .legal h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); margin: 1.4rem 0 0.4rem; }
+  .legal p { margin: 0 0 0.9rem; }
+  .legal ul { margin: 0 0 1rem; padding-left: 1.2rem; list-style: disc; }
+  .legal li { margin: 0.35rem 0; }
+  .legal a { text-decoration: underline; text-underline-offset: 3px; }
+</style>

@@ -1,0 +1,109 @@
+---
+// Banner dei cookie, senza servizi esterni (Linee guida del Garante privacy del 10 giugno 2021):
+// - i cookie tecnici non richiedono consenso;
+// - i contenuti di terze parti (mappa Google nella pagina Contatti) si attivano solo con il consenso;
+// - "Rifiuta" ha lo stesso peso di "Accetta"; chiudere con la X equivale a rifiutare;
+// - la scelta vale 6 mesi, poi il banner ricompare; si cambia quando si vuole da "Preferenze cookie" nel footer.
+// La scelta resta solo nel browser (localStorage, chiave rb-consenso): nessun dato inviato.
+---
+<div id="cookie-banner" class="ck" role="dialog" aria-modal="false" aria-labelledby="ck-title" hidden data-ck>
+  <div class="ck-box">
+    <button type="button" class="ck-x" data-ck-reject aria-label="Chiudi e rifiuta i cookie non necessari">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <p id="ck-title" class="ck-title">Cookie e contenuti esterni</p>
+    <p class="ck-text">
+      Usiamo solo cookie tecnici, necessari al sito. La mappa della pagina Contatti è fornita da Google Maps, che può impostare propri cookie: la carichiamo solo se acconsenti.
+      Dettagli nella <a href="/cookie/" class="u-underline">cookie policy</a> e nella <a href="/privacy/" class="u-underline">privacy policy</a>.
+    </p>
+    <div class="ck-prefs" data-ck-prefs hidden>
+      <label class="ck-row">
+        <input type="checkbox" checked disabled />
+        <span><strong>Necessari</strong> sempre attivi: fanno funzionare il sito e ricordano questa scelta.</span>
+      </label>
+      <label class="ck-row">
+        <input type="checkbox" data-ck-maps />
+        <span><strong>Contenuti di terze parti</strong>: mappa di Google Maps nella pagina Contatti.</span>
+      </label>
+    </div>
+    <div class="ck-actions">
+      <button type="button" class="ck-btn" data-ck-reject>Rifiuta</button>
+      <button type="button" class="ck-btn" data-ck-accept>Accetta</button>
+      <button type="button" class="ck-link" data-ck-custom>Personalizza</button>
+      <button type="button" class="ck-btn" data-ck-save hidden>Salva le scelte</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'rb-consenso';
+  const DURATA = 1000 * 60 * 60 * 24 * 182; // circa 6 mesi
+  type Scelta = { v: 1; maps: boolean; quando: number };
+
+  const leggi = (): Scelta | null => {
+    try {
+      const s = JSON.parse(localStorage.getItem(KEY) || 'null') as Scelta | null;
+      return s && s.v === 1 && Date.now() - s.quando < DURATA ? s : null;
+    } catch { return null; }
+  };
+  const applica = (s: Scelta | null) => {
+    // le parti che dipendono dal consenso ascoltano questo evento (es. la mappa di Contatti)
+    window.dispatchEvent(new CustomEvent('rb-consenso', { detail: s }));
+  };
+  const banner = document.querySelector<HTMLElement>('[data-ck]');
+  const prefs = banner?.querySelector<HTMLElement>('[data-ck-prefs]');
+  const maps = banner?.querySelector<HTMLInputElement>('[data-ck-maps]');
+  const save = banner?.querySelector<HTMLElement>('[data-ck-save]');
+
+  const salva = (mapsOk: boolean) => {
+    const s: Scelta = { v: 1, maps: mapsOk, quando: Date.now() };
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* browser senza memoria: vale solo per questa pagina */ }
+    if (banner) banner.hidden = true;
+    applica(s);
+  };
+  const apri = (personalizza = false) => {
+    if (!banner) return;
+    const s = leggi();
+    if (maps) maps.checked = !!s?.maps;
+    if (prefs) prefs.hidden = !personalizza;
+    if (save) save.hidden = !personalizza;
+    banner.hidden = false;
+  };
+
+  banner?.querySelectorAll('[data-ck-reject]').forEach((b) => b.addEventListener('click', () => salva(false)));
+  banner?.querySelector('[data-ck-accept]')?.addEventListener('click', () => salva(true));
+  banner?.querySelector('[data-ck-custom]')?.addEventListener('click', () => apri(true));
+  save?.addEventListener('click', () => salva(!!maps?.checked));
+  // "Preferenze cookie" nel footer e "Carica la mappa" in Contatti
+  document.addEventListener('click', (e) => {
+    const t = e.target as Element;
+    if (t.closest('[data-cookie-prefs]')) { e.preventDefault(); apri(true); }
+    if (t.closest('[data-consenti-mappa]')) { e.preventDefault(); salva(true); }
+  });
+
+  const attuale = leggi();
+  if (!attuale) apri(false);
+  applica(attuale);
+  (window as unknown as { rbConsenso: () => Scelta | null }).rbConsenso = leggi;
+</script>
+
+<style>
+  .ck { position: fixed; z-index: 120; left: 1rem; right: 1rem; bottom: 1rem; display: flex; justify-content: flex-start; pointer-events: none; }
+  .ck[hidden] { display: none; }
+  .ck-box { pointer-events: auto; position: relative; max-width: 30rem; background: var(--color-ink); color: var(--color-cream); padding: 1.5rem 1.5rem 1.25rem; box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.5); }
+  .ck-x { position: absolute; top: 0.6rem; right: 0.6rem; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; color: rgb(240 237 230 / 0.7); }
+  .ck-x:hover { color: var(--color-cream); }
+  .ck-title { font-weight: 800; font-size: 1rem; margin-bottom: 0.5rem; padding-right: 2rem; }
+  .ck-text { font-size: 0.86rem; line-height: 1.55; color: rgb(240 237 230 / 0.82); }
+  .ck-prefs { margin-top: 1rem; display: grid; gap: 0.7rem; border-top: 1px solid rgb(240 237 230 / 0.18); padding-top: 1rem; }
+  .ck-prefs[hidden] { display: none; }
+  .ck-row { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.84rem; line-height: 1.45; color: rgb(240 237 230 / 0.85); }
+  .ck-row input { margin-top: 0.2rem; width: 1rem; height: 1rem; flex: none; accent-color: var(--color-cream); }
+  .ck-actions { margin-top: 1.1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+  /* Accetta e Rifiuta con lo stesso aspetto (nessuna scelta spinta) */
+  .ck-btn { border: 1px solid rgb(240 237 230 / 0.6); padding: 0.6rem 1.1rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-cream); transition: background-color 0.2s ease, color 0.2s ease; }
+  .ck-btn:hover { background: var(--color-cream); color: var(--color-ink); }
+  .ck-btn[hidden] { display: none; }
+  .ck-link { font-size: 0.8rem; text-decoration: underline; text-underline-offset: 3px; color: rgb(240 237 230 / 0.8); margin-left: 0.25rem; }
+  .ck-btn:focus-visible, .ck-link:focus-visible, .ck-x:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 2px; }
+</style>
