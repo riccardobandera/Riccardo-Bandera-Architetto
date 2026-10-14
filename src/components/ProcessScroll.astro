@@ -197,7 +197,8 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   .ms-num { font-size: var(--num); }
   .ms-title { font-size: var(--title); }
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: var(--lead); line-height: 0.9; }
-  .ms-lead-start { margin-top: clamp(2.5rem, 5svh, 3.5rem); }
+  /* "Ogni edificio »": come nella striscia del cliente, piu piccolo del titolo e all altezza delle immagini */
+  .ms-lead-start { font-size: calc(var(--title) * 1.55); margin-top: clamp(3rem, 9svh, 6rem); }
   /* le » invitano a proseguire: si muovono piano verso destra */
   .ms-go { display: inline-block; font-weight: 400; animation: ms-go 1.8s ease-in-out infinite; }
   @keyframes ms-go { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.35em); } }

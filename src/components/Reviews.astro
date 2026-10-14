@@ -42,7 +42,7 @@ const Stars = (n: number) => '★★★★★'.slice(0, Math.round(n));
           <span data-rev-label>Mostra altre recensioni ({items.length - limit})</span>
         </button>
       )}
-      <a href={data.link} target="_blank" rel="noopener" class="btn btn--ghost">Leggi su Google</a>
+      <a href={data.link} target="_blank" rel="noopener" class="btn btn--ghost">Tutte le {data.totale} recensioni su Google <span class="sr-only">(si apre in una nuova scheda)</span></a>
     </div>
   </div>
 </section>
