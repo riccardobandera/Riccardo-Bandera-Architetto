@@ -25,7 +25,7 @@ const jsonLd = {
   </section>
 
   <!-- altre attività: fondo scuro; titolo e frase in alto, sotto le 8 card a tutta larghezza (niente vuoti) -->
-  <!-- ogni card apre la pagina della sua attivita quando nel pannello c'e il testo; finche non c'e, porta al Journal -->
+  <!-- una card apre la pagina della sua attivita solo quando nel pannello c'e il testo; senza testo non porta da nessuna parte -->
   <section id="altre-attivita" class="bg-ink text-cream scroll-mt-20">
     <div class="u-container py-[clamp(3.5rem,8svh,5.5rem)]">
       <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-x-16 gap-y-6 mb-10 lg:mb-12">
@@ -41,20 +41,25 @@ const jsonLd = {
         </div>
       </div>
       <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-3">
-        {altreAttivita.schede.map(({ titolo: v, href }, i) => (
-          <li>
-            <a href={href ?? '/blog/'} class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
-              <span class="oa-top">
-                <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <span class="oa-arrow" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        {altreAttivita.schede.map(({ titolo: v, href }, i) => {
+          const Tag = href ? 'a' : 'div';
+          return (
+            <li>
+              <Tag href={href ?? undefined} class="oa-card reveal" data-reveal-delay={(i % 4) + 1}>
+                <span class="oa-top">
+                  <span class="oa-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  {href && (
+                    <span class="oa-arrow" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    </span>
+                  )}
                 </span>
-              </span>
-              <span class="oa-title">{v}</span>
-              <span class="oa-line" aria-hidden="true"></span>
-            </a>
-          </li>
-        ))}
+                <span class="oa-title">{v}</span>
+                <span class="oa-line" aria-hidden="true"></span>
+              </Tag>
+            </li>
+          );
+        })}
       </ol>
     </div>
   </section>
