@@ -342,7 +342,7 @@ collections:
             name: recensioni
             widget: list
             add_to_top: true
-            hint: "Le nuove vanno in cima. In home se ne vedono 8: le prime dell'elenco."
+            hint: "Le nuove vanno in cima. In home se ne vedono 5, le prime dell'elenco; le altre si aprono con Mostra altre recensioni."
             summary: '{{autore}} · {{stelle}} stelle'
             fields:
               - { label: Autore, name: autore, widget: string }
