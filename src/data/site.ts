@@ -19,7 +19,7 @@ export const site = {
   // modulo contatti: script Google (Apps Script) che salva su Google Sheet e manda la mail a studio@
   // endpoint = URL /exec del deploy dello script; token = SHARED_TOKEN nello script (filtro anti abuso leggero)
   form: {
-    endpoint: 'https://script.google.com/macros/s/AKfycbxS4GMg2ReGZ8JuAIBQbhxJ54BasiR-G6nl7Boxzrr7TIG1wXZi-yJBnNTShTJs1-dn/exec',
+    endpoint: 'https://script.google.com/macros/s/AKfycbw_eFD4ze8agsih9f8VSqYPyzvgEb9GuKQ1quj-p2zk1gtdHkqcSypscPv_pwdnseTkiA/exec',
     token: 'OcfcY5OOiEYVOuLRl7sVKKSnLPtyUUaI',
   },
   ordine: "Ordine degli Architetti P.P.C. di Venezia, Sez. A, n. 4391",
