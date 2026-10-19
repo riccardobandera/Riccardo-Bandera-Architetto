@@ -2,7 +2,7 @@
 # Ogni salvataggio crea un commit su GitHub e Netlify ripubblica il sito in 1-2 minuti.
 backend:
   name: github
-  repo: bdmediamain-maker/Riccardo-Bandera-Architetto
+  repo: riccardobandera/Riccardo-Bandera-Architetto
   branch: main
   # accesso con GitHub tramite il provider OAuth di Netlify
   base_url: https://api.netlify.com
