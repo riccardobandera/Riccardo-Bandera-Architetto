@@ -10,7 +10,7 @@ coordinate:
   lng: 39.49293
 evidenza: false
 stato: "progetto"
-copertina: "./overwater-villas-zanzibar-tanzania-foto-01.webp"
+copertina: "./overwater-villas-zanzibar-tanzania-foto-02.webp"
 copertinaAlt: "Overwater Villas a Zanzibar, Tanzania, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Overwater villas a Zanzibar: suite sull'acqua"

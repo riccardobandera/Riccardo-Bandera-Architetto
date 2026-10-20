@@ -11,7 +11,7 @@ coordinate:
 evidenza: false
 bozza: false
 stato: "realizzato"
-copertina: "./ristrutturazione-interni-mestre-ve-foto-04.webp"
+copertina: "./ristrutturazione-interni-mestre-ve-copertina.webp"
 copertinaAlt: "Ristrutturazione di interni a Mestre, VE, progetto di Riccardo Bandera Architetto"
 seo:
   titolo: "Ristrutturazione di interni a Mestre (VE)"

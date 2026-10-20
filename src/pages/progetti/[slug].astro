@@ -17,6 +17,8 @@ const d = project.data;
 const { Content } = await render(project);
 const nav = await adjacent(project.id);
 const cover = coverOf(project);
+// copertina verticale o quadrata: in pagina si vede intera (alta al massimo come lo schermo), non tagliata a fascia
+const coverAlta = !!cover && cover.src.height >= cover.src.width * 0.9;
 const cats = d.categorie.map((c) => catLabels[c]);
 const mats = d.materiali.map((m) => matLabels[m]);
 
@@ -83,8 +85,8 @@ const breadcrumbLd = {
     {cover && (
       <section class="u-container pb-12">
         <!-- clic sulla copertina: si apre la galleria delle immagini a schermo intero -->
-        <button type="button" class="cover-open" data-open-gallery aria-label="Apri la galleria delle immagini">
-          <Image src={cover.src} alt={cover.alt} widths={[768, 1280, 1920]} sizes="(max-width: 1400px) 94vw, 1300px" loading="eager" fetchpriority="high" class="w-full max-h-[78vh] object-cover" />
+        <button type="button" class:list={['cover-open', coverAlta && 'cover-open--alta']} data-open-gallery aria-label="Apri la galleria delle immagini">
+          <Image src={cover.src} alt={cover.alt} widths={[768, 1280, 1920]} sizes="(max-width: 1400px) 94vw, 1300px" loading="eager" fetchpriority="high" class:list={[coverAlta ? 'w-auto h-auto max-w-full max-h-[78vh]' : 'w-full max-h-[78vh] object-cover']} />
         </button>
       </section>
     )}

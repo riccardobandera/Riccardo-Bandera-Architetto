@@ -49,8 +49,6 @@ disegni:
     alt: "Casa bifamiliare in Xlam e interni a Mestre, VE, disegno 6. Progetto di Riccardo Bandera Architetto"
   - src: "./casa-bifamiliare-xlam-interni-mestre-ve-disegno-07.webp"
     alt: "Casa bifamiliare in Xlam e interni a Mestre, VE, disegno 7. Progetto di Riccardo Bandera Architetto"
-  - src: "./casa-bifamiliare-xlam-interni-mestre-ve-disegno-08.webp"
-    alt: "Casa bifamiliare in Xlam e interni a Mestre, VE, disegno 8. Progetto di Riccardo Bandera Architetto"
 cantiere: []
 ---
 

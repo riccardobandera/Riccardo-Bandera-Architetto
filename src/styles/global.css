@@ -198,6 +198,7 @@ html.js .grow-line.is-in { transform: scaleX(1); }
 .testo-toggle:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
 /* copertina del progetto: apre la galleria */
 .cover-open { display: block; width: 100%; cursor: zoom-in; overflow: hidden; }
+.cover-open--alta { width: fit-content; max-width: 100%; }
 .cover-open img { transition: transform 1s var(--ease-out-expo); }
 .cover-open:hover img { transform: scale(1.015); }
 .cover-open:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
