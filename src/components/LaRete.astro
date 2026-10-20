@@ -55,6 +55,9 @@ const gruppi = GRUPPI.map((g) => ({ ...g, nomi: [...perGruppo.get(g.key)!].sort(
 // numero arrotondato per difetto alla decina: "oltre 30"
 const totale = tutti.size;
 const oltre = Math.floor(totale / 10) * 10;
+// numero e frase sulle imprese del cliente: dal pannello (Lo Studio); se vuoti si usa il conteggio dai crediti
+const reteNumero = ((testi.studio as { reteNumero?: string }).reteNumero ?? '').trim() || (oltre >= 10 ? `oltre ${oltre}` : '');
+const reteApertura = ((testi.studio as { reteApertura?: string }).reteApertura ?? '').trim();
 // linee dello schema: dallo studio (a sinistra, a meta altezza) a ogni specialita
 const n = gruppi.length;
 const fan = gruppi.map((_, i) => {
@@ -69,16 +72,17 @@ const fan = gruppi.map((_, i) => {
         <p class="u-eyebrow mb-4 reveal">Collaborazioni</p>
         <h2 id="rete-title" class="text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold tracking-tight leading-[1.02] reveal">La rete</h2>
         <p class="mt-6 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">{testi.studio.reteIntro}</p>
-        {oltre >= 10 && (
+        {reteApertura && <p class="mt-4 text-[1.05rem] leading-relaxed text-ink/85 max-w-md reveal">{reteApertura}</p>}
+        {reteNumero && (
           <p class="mt-8 flex items-center gap-4 reveal">
-            <span class="font-display text-[clamp(3rem,6vw,4.5rem)] leading-none">oltre {oltre}</span>
-            <span class="text-[0.72rem] uppercase tracking-[0.14em] text-muted leading-snug max-w-[12rem]">imprese e professionisti nei progetti pubblicati</span>
+            <span class="font-display text-[clamp(3rem,6vw,4.5rem)] leading-none">{reteNumero}</span>
+            <span class="text-[0.72rem] uppercase tracking-[0.14em] text-muted leading-snug max-w-[12rem]">imprese e professionisti</span>
           </p>
         )}
       </div>
 
       <!-- schema: il cliente parla solo con lo studio, lo studio coordina le specialita.
-           Ogni specialita porta alla sua scheda qui sotto. -->
+           Senza nomi né numeri: il cliente preferisce non elencare le persone (ce ne sarebbero molte altre) -->
       <div class="lg:col-span-7 reveal" data-hub>
         <div class="hub">
           <div class="hub-client"><span>Il cliente</span></div>
@@ -96,11 +100,10 @@ const fan = gruppi.map((_, i) => {
           <ul class="hub-cats">
             {gruppi.map((g, i) => (
               <li>
-                <a href={`#rete-${g.key}`} class:list={['hub-cat', i === 0 && 'is-sel']} data-cat={i}>
+                <div class="hub-cat" data-cat={i}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d={g.icona} /></svg>
                   <span class="hub-cat-t">{g.titolo}</span>
-                  <span class="hub-cat-n" aria-label={`${g.nomi.length} collaboratori`}>{g.nomi.length}</span>
-                </a>
+                </div>
               </li>
             ))}
           </ul>
@@ -108,24 +111,6 @@ const fan = gruppi.map((_, i) => {
       </div>
     </div>
 
-    <!-- le specialita, con i nomi di chi ha lavorato ai progetti -->
-    <!-- telefono: si vede una scheda alla volta, quella scelta nello schema -->
-    <div class="rete-cards mt-6 md:mt-16 lg:mt-24">
-      {gruppi.map((g, i) => (
-        <article id={`rete-${g.key}`} class:list={['rete-card reveal', i === 0 && 'is-open']} data-card={i}>
-          <header class="flex items-center gap-3 mb-5">
-            <span class="rete-ico" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d={g.icona} /></svg>
-            </span>
-            <h3 class="font-bold tracking-tight leading-tight">{g.titolo}</h3>
-            <span class="ml-auto font-display text-[1.6rem] leading-none text-muted">{g.nomi.length}</span>
-          </header>
-          <ul class="flex flex-wrap gap-2">
-            {g.nomi.map((nome) => <li class="rete-tag">{nome}</li>)}
-          </ul>
-        </article>
-      ))}
-    </div>
   </div>
 </section>
 
@@ -139,20 +124,6 @@ const fan = gruppi.map((_, i) => {
     a.addEventListener('mouseleave', off);
     a.addEventListener('focus', on);
     a.addEventListener('blur', off);
-  });
-
-  // telefono: toccando una specialita si apre la sua scheda sotto lo schema (una alla volta)
-  const mobile = window.matchMedia('(max-width: 767px)');
-  document.querySelectorAll<HTMLAnchorElement>('.hub-cat').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      if (!mobile.matches) return;
-      e.preventDefault();
-      document.querySelectorAll('.hub-cat').forEach((x) => x.classList.toggle('is-sel', x === a));
-      document.querySelectorAll<HTMLElement>('.rete-card').forEach((c) => c.classList.toggle('is-open', c.dataset.card === a.dataset.cat));
-      const card = document.querySelector<HTMLElement>(`.rete-card[data-card="${a.dataset.cat}"]`);
-      const r = card?.getBoundingClientRect();
-      if (card && r && r.bottom > window.innerHeight) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
   });
 </script>
 
@@ -200,26 +171,6 @@ const fan = gruppi.map((_, i) => {
     .hub-cat { border: 1px solid var(--color-line); padding: 0.6rem 0.7rem; gap: 0.5rem; height: 100%; }
     .hub-cat-t { font-size: 0.8rem; }
   }
-
-  /* ---------- schede delle specialita ---------- */
-  .rete-cards { columns: 1; column-gap: 1.25rem; }
-  @media (min-width: 768px) { .rete-cards { columns: 2; } }
-  @media (min-width: 1100px) { .rete-cards { columns: 3; } }
-  .rete-card {
-    break-inside: avoid; margin-bottom: 1.25rem; padding: 1.5rem; border: 1px solid var(--color-line);
-    scroll-margin-top: 7rem; transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  }
-  @media (max-width: 767px) {
-    .rete-card { display: none; margin-bottom: 0; padding: 1.25rem; border-color: var(--color-ink); }
-    .rete-card.is-open { display: block; animation: rete-in 0.35s ease; }
-    .hub-cat.is-sel { border-color: var(--color-ink); background: var(--color-surface); }
-    .hub-cat.is-sel .hub-cat-n { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-bg); }
-  }
-  @keyframes rete-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  /* arrivando dallo schema la scheda si evidenzia */
-  .rete-card:target { border-color: var(--color-ink); box-shadow: 0 18px 40px -28px rgb(20 20 20 / 0.45); }
-  .rete-ico { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 9999px; background: var(--color-surface); flex-shrink: 0; }
-  .rete-tag { font-size: 0.85rem; line-height: 1.2; padding: 0.45rem 0.75rem; border: 1px solid var(--color-line); border-radius: 9999px; background: var(--color-bg); }
 
   @media (prefers-reduced-motion: reduce) {
     .hub-fan path { stroke-dashoffset: 0; animation: none !important; }

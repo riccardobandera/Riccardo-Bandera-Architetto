@@ -1,18 +1,66 @@
 ---
-// Journal: si apre direttamente l'articolo piu recente, intero; sotto le anteprime degli altri.
-// L'articolo ha comunque il suo indirizzo (/blog/<articolo>/), che resta quello indicato a Google.
+// Journal: con 1 o 2 articoli si apre direttamente il piu recente (intero, con gli altri sotto);
+// da 3 articoli in poi questa pagina diventa l'indice: il piu recente in grande e gli altri in griglia.
+// Ogni articolo ha comunque il suo indirizzo (/blog/<articolo>/).
 import { seoPagina } from '../../data/seo';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import JournalArticolo from '../../components/JournalArticolo.astro';
+
+// soglia condivisa con la sitemap (astro.config.mjs): da qui in su /blog/ e una pagina indice vera
+const SOGLIA_INDICE = 3;
 
 const posts = (await getCollection('blog'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const ultimo = posts[0];
+const indice = posts.length >= SOGLIA_INDICE;
+const [primo, ...altri] = posts;
+const fmt = (d: Date) => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
 ---
-{ultimo ? (
+{indice ? (
+  <BaseLayout {...seoPagina('blog')}>
+    <section class="u-container pt-36 md:pt-44 pb-10">
+      <p class="u-eyebrow mb-6">Journal</p>
+      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(2.2rem,7vw,5.4rem)]">Journal</h1>
+    </section>
+
+    <section class="u-container pb-[var(--spacing-section)]">
+      <!-- l'articolo piu recente, in grande -->
+      <a href={`/blog/${primo.id}/`} class="group grid lg:grid-cols-12 gap-6 lg:gap-12 items-center border-y border-line py-10 mb-14">
+        {primo.data.cover && (
+          <div class="lg:col-span-7 overflow-hidden bg-surface aspect-[16/10]">
+            <Image src={primo.data.cover} alt={primo.data.coverAlt ?? primo.data.title} widths={[700, 1100, 1500]} sizes="(max-width:1024px) 100vw, 58vw" loading="eager" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+        )}
+        <div class="lg:col-span-5">
+          <time class="u-eyebrow" datetime={primo.data.date.toISOString()}>{fmt(primo.data.date)}</time>
+          <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.4rem)] font-extrabold tracking-tight leading-[1.1] group-hover:opacity-70 transition-opacity">{primo.data.title}</h2>
+          {primo.data.excerpt && <p class="mt-4 text-muted leading-relaxed">{primo.data.excerpt}</p>}
+          <span class="mt-6 inline-block text-sm font-bold uppercase tracking-[0.14em] u-underline">Leggi l'articolo</span>
+        </div>
+      </a>
+
+      <!-- tutti gli altri articoli -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
+        {altri.map((p) => (
+          <a href={`/blog/${p.id}/`} class="group block">
+            {p.data.cover && (
+              <div class="overflow-hidden bg-surface aspect-[16/11] mb-4">
+                <Image src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} widths={[400, 700, 1000]} sizes="(max-width:1024px) 100vw, 33vw" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            )}
+            <time class="u-eyebrow" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+            <h3 class="text-xl font-bold tracking-tight mt-2 group-hover:opacity-60 transition-opacity">{p.data.title}</h3>
+            {p.data.excerpt && <p class="text-muted mt-2 leading-relaxed">{p.data.excerpt}</p>}
+          </a>
+        ))}
+      </div>
+    </section>
+  </BaseLayout>
+) : ultimo ? (
   <BaseLayout {...seoPagina('blog')} type="article" canonical={`/blog/${ultimo.id}/`}>
     <JournalArticolo post={ultimo} />
   </BaseLayout>

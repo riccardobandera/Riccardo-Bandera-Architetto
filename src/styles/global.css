@@ -257,15 +257,12 @@ html.js .grow-line.is-in { transform: scaleX(1); }
   .m-strip > * { flex: 0 0 80%; scroll-snap-align: start; margin-bottom: 0; }
   .m-strip.is-drag { scroll-snap-type: none; user-select: none; cursor: grabbing; }
   .strip-hint {
-    display: inline-flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 0.6rem; flex-shrink: 0; margin-left: auto;
     background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-ink);
     font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
   }
-  .strip-hint-arrow {
-    display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 9999px;
-    background: var(--color-ink); color: var(--color-bg); font-size: 1.15rem; letter-spacing: 0;
-    animation: strip-swipe 1.4s ease-in-out infinite;
-  }
+  /* solo la scritta e una freccia sottile che si muove (il cerchio nero era troppo, richiesta del cliente) */
+  .strip-hint-arrow { display: inline-block; font-size: 1.1rem; font-weight: 400; letter-spacing: 0; animation: strip-swipe 1.4s ease-in-out infinite; }
 }
 @keyframes strip-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.6rem); } }
 @media (prefers-reduced-motion: reduce) { .strip-hint-arrow { animation: none; } }

@@ -33,97 +33,97 @@
  "fasi": {
   "01": [
    {
+    "alt": "Concept: studio dei volumi degli edifici sul lotto",
     "src": "fasi/01/fase-01-progetto-architettonico-01.webp",
-    "alt": "Render del soggiorno di Casa a Bolognano, Arco",
     "tavola": false
    },
    {
-    "src": "fasi/01/fase-01-progetto-architettonico-02.webp",
-    "alt": "Render di una cucina sotto le travi in legno",
-    "tavola": false
-   },
-   {
-    "src": "fasi/01/fase-01-progetto-architettonico-03.webp",
-    "alt": "Render di una cucina con boiserie a listelli",
-    "tavola": false
-   },
-   {
-    "src": "fasi/01/fase-01-progetto-architettonico-04.webp",
-    "alt": "Render della facciata del nuovo headquarter Manica, Rovereto",
-    "tavola": false
-   },
-   {
-    "src": "fasi/01/fase-01-progetto-architettonico-05.webp",
-    "alt": "Render di un edificio a torre con facciata in lamiera",
-    "tavola": false
-   },
-   {
-    "src": "fasi/01/fase-01-progetto-architettonico-06.webp",
     "alt": "Tavola dei materiali per Michelangelo House, Mestre",
+    "src": "fasi/01/fase-01-progetto-architettonico-02.webp",
+    "tavola": false
+   },
+   {
+    "alt": "Render del soggiorno con cucina, ristrutturazione e interni a Rovereto",
+    "src": "fasi/01/fase-01-progetto-architettonico-03.webp",
+    "tavola": false
+   },
+   {
+    "alt": "Render di una camera con le travi in legno a vista",
+    "src": "fasi/01/fase-01-progetto-architettonico-04.webp",
+    "tavola": false
+   },
+   {
+    "alt": "Render degli uffici del nuovo headquarter Manica, Rovereto",
+    "src": "fasi/01/fase-01-progetto-architettonico-05.webp",
+    "tavola": false
+   },
+   {
+    "alt": "Render dell’Hotel Cime D’Oro sotto la neve, Madonna di Campiglio",
+    "src": "fasi/01/fase-01-progetto-architettonico-06.webp",
     "tavola": false
    }
   ],
   "02": [
    {
+    "alt": "Sezioni e prospetti di progetto di Casa a Bolognano, Arco",
     "src": "fasi/02/fase-02-progetto-amministrativo-01.webp",
-    "alt": "Tavola di progetto per Casa a Bolognano: sezioni e inserimento nel paesaggio",
     "tavola": true
    },
    {
+    "alt": "Tavola comparativa tra stato di fatto e progetto, ristrutturazione a Rovereto",
     "src": "fasi/02/fase-02-progetto-amministrativo-02.webp",
-    "alt": "Prospetti della SCIA per l’Hotel Cime D’Oro, Madonna di Campiglio",
     "tavola": true
    },
    {
+    "alt": "Prospetti di progetto per l’ampliamento di un hotel",
     "src": "fasi/02/fase-02-progetto-amministrativo-03.webp",
-    "alt": "Planimetria di progetto con il verde e le alberature",
     "tavola": true
    },
    {
+    "alt": "Piante e sezioni di progetto per un edificio a Treviso",
     "src": "fasi/02/fase-02-progetto-amministrativo-04.webp",
-    "alt": "Prospetti di raffronto per il nuovo headquarter Manica",
     "tavola": true
    },
    {
+    "alt": "Sezioni di raffronto per il nuovo headquarter Manica, Rovereto",
     "src": "fasi/02/fase-02-progetto-amministrativo-05.webp",
-    "alt": "Tavole architettoniche di un edificio a torre",
     "tavola": true
    },
    {
+    "alt": "Sezioni e pianta interrata dell’edificio per uffici in Via Torino, Mestre",
     "src": "fasi/02/fase-02-progetto-amministrativo-06.webp",
-    "alt": "Piante di progetto per la pratica edilizia",
     "tavola": true
    }
   ],
   "03": [
    {
+    "alt": "Dettaglio esecutivo di una scala in legno",
     "src": "fasi/03/fase-03-progetto-esecutivo-01.webp",
-    "alt": "Dettaglio esecutivo di una scala",
     "tavola": true
    },
    {
-    "src": "fasi/03/fase-03-progetto-esecutivo-02.webp",
     "alt": "Esecutivo di scala e parapetti del Forno Brisa a San Lazzaro di Savena",
+    "src": "fasi/03/fase-03-progetto-esecutivo-02.webp",
     "tavola": true
    },
    {
-    "src": "fasi/03/fase-03-progetto-esecutivo-03.webp",
     "alt": "Esecutivo del rivestimento di facciata dell’Hotel Cime D’Oro",
+    "src": "fasi/03/fase-03-progetto-esecutivo-03.webp",
     "tavola": true
    },
    {
+    "alt": "Esecutivo dei terrazzini dell’Hotel Cime D’Oro",
     "src": "fasi/03/fase-03-progetto-esecutivo-04.webp",
-    "alt": "Abaco dei pavimenti e rivestimenti di Michelangelo House",
     "tavola": true
    },
    {
+    "alt": "Progetto dell’illuminazione per la ristrutturazione a Rovereto",
     "src": "fasi/03/fase-03-progetto-esecutivo-05.webp",
-    "alt": "Esecutivo della scala vela del nuovo headquarter Manica",
     "tavola": true
    },
    {
+    "alt": "Esecutivo della scala del nuovo headquarter Manica, Rovereto",
     "src": "fasi/03/fase-03-progetto-esecutivo-06.webp",
-    "alt": "Campionatura dei materiali e delle finiture",
     "tavola": true
    }
   ],

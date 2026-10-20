@@ -51,9 +51,9 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     <p class="u-eyebrow mb-4">Metodo</p>
     <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,11vw,4rem)]">{T.titolo.split(/\n/).map((riga, i) => <>{i > 0 && <br />}{riga}</>)}</h2>
     {nomeProgetto && <p class="mt-5 text-base text-muted leading-relaxed">{T.sottotitolo}<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
-    <div class="ms-intro-row">
-      <p class="ms-lead ms-lead-m">{T.inizio}</p>
-      <!-- invito a scorrere verso destra: la freccia porta avanti di una scheda -->
+    <p class="ms-lead ms-lead-m mt-8">{T.inizio}</p>
+    <!-- invito a scorrere verso destra, appena sopra la striscia: tocca e porta avanti di una scheda -->
+    <div class="flex mt-5">
       <button type="button" class="ms-hint" data-hint aria-label="Scorri alle fasi successive">
         <span>Scorri</span>
         <span class="ms-hint-arrow" aria-hidden="true">→</span>
@@ -64,12 +64,13 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
     <!-- data-gallery: le immagini delle fasi si aprono a schermo intero con lo zoom (lightbox globale) -->
     <div class="ms-track relative flex items-start gap-[4vw] md:gap-[5vw] pl-[8vw] pr-[10vw] will-change-transform" data-track data-gallery>
 
+      <!-- blocco largo quanto il titolo: "Ogni edificio" sta sotto e finisce dove finisce "PROGETTO" -->
       <div class="ms-mid shrink-0 pr-[3vw] max-w-[36rem] max-lg:hidden">
         <p class="u-eyebrow mb-4">Metodo</p>
         <h2 class="font-sans font-extrabold uppercase leading-[0.88] tracking-[-0.02em] text-[clamp(2.6rem,8vw,7rem)]">{T.titolo.split(/\n/).map((riga, i) => <>{i > 0 && <br />}{riga}</>)}</h2>
         {nomeProgetto && <p class="mt-6 text-base md:text-lg text-muted leading-relaxed whitespace-normal">{T.sottotitolo}<br /><a href={`/progetti/${metodoProgetto}/`} class="u-underline text-ink">{nomeProgetto}</a>.</p>}
-        <!-- inizio della frase che prosegue con le fasi (su telefono, sotto) -->
-        <p class="ms-lead ms-lead-start inline-flex items-center gap-4 whitespace-nowrap">{T.inizio} <span class="ms-go" aria-hidden="true">»</span></p>
+        <!-- sotto il titolo; lo script lo sposta perché finisca dove finisce l'ultima riga ("PROGETTO") -->
+        <p class="ms-lead ms-lead-start w-fit whitespace-nowrap" data-ogni>{T.inizio}</p>
       </div>
 
       {flow.map((it) => (
@@ -148,6 +149,24 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 
     // a che punto dello scorrimento ogni fase arriva a un terzo dello schermo
     let at: number[] = [];
+    // "Ogni edificio" finisce esattamente dove finisce l'ultima riga del titolo
+    const ogni = track.querySelector<HTMLElement>('[data-ogni]');
+    const titolo = track.querySelector<HTMLElement>('.ms-mid h2');
+    const allinea = () => {
+      if (!ogni || !titolo) return;
+      ogni.style.marginLeft = '';
+      const r = document.createRange();
+      r.selectNodeContents(titolo);
+      const righe = Array.from(r.getClientRects()).filter((x) => x.width > 0);
+      const ultima = righe[righe.length - 1];
+      if (!ultima) return;
+      const dx = ultima.right - ogni.getBoundingClientRect().right;
+      if (dx > 0) ogni.style.marginLeft = `${dx.toFixed(1)}px`;
+    };
+    allinea();
+    window.addEventListener('resize', allinea);
+    document.fonts?.ready.then(allinea);
+
     const measure = () => {
       const d = distance() || 1;
       at = phases.map((el) => (el ? Math.min(1, Math.max(0, (el.offsetLeft - window.innerWidth * 0.33) / d)) : 0));
@@ -284,8 +303,8 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
   .ms-num { font-size: var(--num); }
   .ms-title { font-size: var(--title); }
   .ms-lead { font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: var(--lead); line-height: 0.9; }
-  /* "Ogni edificio »": come nella striscia del cliente, piu piccolo del titolo e all altezza delle immagini */
-  .ms-lead-start { font-size: calc(var(--title) * 1.55); margin-top: clamp(3rem, 9svh, 6rem); }
+  /* "Ogni edificio": sotto il titolo, allineato a destra con la fine di "PROGETTO" */
+  .ms-lead-start { font-size: calc(var(--title) * 1.55); margin-top: clamp(2.5rem, 7svh, 5rem); }
   /* le » invitano a proseguire: si muovono piano verso destra */
   .ms-go { display: inline-block; font-weight: 400; animation: ms-go 1.8s ease-in-out infinite; }
   @keyframes ms-go { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.35em); } }
@@ -332,15 +351,11 @@ const fasiNum = flow.filter((t) => t.kind === 'phase').map((t) => (t as { n: str
 
     /* invito a scorrere in alto, linea con le 6 fasi sotto la striscia */
     .ms-hint {
-      display: flex; align-items: center; gap: 0.75rem; background: none; border: 0; padding: 0; cursor: pointer;
+      display: flex; align-items: center; gap: 0.6rem; margin-left: auto; background: none; border: 0; padding: 0; cursor: pointer;
       font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink);
       transition: opacity 0.4s ease;
     }
-    .ms-hint-arrow {
-      display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 9999px;
-      background: var(--color-ink); color: var(--color-bg); font-size: 1.15rem; letter-spacing: 0;
-      animation: ms-swipe 1.4s ease-in-out infinite;
-    }
+    .ms-hint-arrow { display: inline-block; font-size: 1.1rem; font-weight: 400; letter-spacing: 0; animation: ms-swipe 1.4s ease-in-out infinite; }
     @keyframes ms-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(0.6rem); } }
     .method-scroll.is-end .ms-hint { opacity: 0.3; }
     .ms-progress { position: relative; left: auto; right: auto; bottom: auto; margin: 2.6rem 6vw 3rem; }

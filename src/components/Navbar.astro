@@ -10,7 +10,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   <div class="u-container flex items-center justify-between py-5 md:py-6">
     <a href="/" class="flex items-center gap-3 group" aria-label={`${site.legalName}, home`}>
       <Image src={monogram} alt="" width={38} height={40} loading="eager" class="nav-logo w-[30px] h-auto md:w-[34px]" />
-      <span class="hidden sm:flex flex-col leading-[1.05]">
+      <span class="nav-logo-text flex flex-col leading-[1.05]">
         <span class="text-[0.82rem] font-bold tracking-[0.12em] uppercase">Riccardo Bandera</span>
         <span class="text-[0.6rem] tracking-[0.34em] uppercase text-current/60">Architetto</span>
       </span>
@@ -71,6 +71,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     toggle?.setAttribute('aria-expanded', String(v));
     toggle?.setAttribute('aria-label', v ? 'Chiudi menu' : 'Apri menu');
     toggle?.classList.toggle('is-open', v);
+    nav?.classList.toggle('menu-open', v);
     root.style.overflow = v ? 'hidden' : '';
   };
   toggle?.addEventListener('click', () => setOpen(!open));

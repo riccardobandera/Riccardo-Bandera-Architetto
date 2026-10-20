@@ -216,7 +216,7 @@ collections:
             fields:
               - { label: Titolo principale, name: tagline, widget: text }
               - { label: Sottotitolo, name: sottotitolo, widget: text }
-              - { label: Citazione (sotto il titolo e nel footer), name: citazione, widget: text }
+              - { label: Citazione (sotto il titolo), name: citazione, widget: text, hint: "Per mettere in grassetto alcune parole scrivile tra due asterischi, es. **potenzialità creative**" }
               - { label: Introduzione degli ambiti d'intervento, name: ambitiIntro, widget: text }
               - { label: Descrizione nel footer, name: footer, widget: text }
               - label: Sezione Metodo (le 6 fasi)
@@ -253,6 +253,8 @@ collections:
                   - { label: Ruolo, name: role, widget: string }
                   - { label: Foto (verticale, facoltativa), name: foto, widget: image, required: false, hint: "Se la lasci vuota resta il ritratto attuale. Meglio uno scatto verticale su fondo neutro." }
               - { label: Testo della sezione La rete, name: reteIntro, widget: text }
+              - { label: La rete, secondo paragrafo (le imprese del cliente), name: reteApertura, widget: text, required: false }
+              - { label: La rete, numero grande, name: reteNumero, widget: string, required: false, hint: "Es. oltre 50" }
           - label: Manifesto
             name: manifesto
             widget: object

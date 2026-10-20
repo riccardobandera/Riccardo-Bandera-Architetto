@@ -18,7 +18,7 @@ Questi materiali richiedono processi di estrazione e lavorazione a temperature a
 
 ## Il bosco come tecnologia perfetta: i dati sull'assorbimento
 
-La natura, al contrario, ha già brevettato la tecnologia di cattura del carbonio più efficiente esistente: l'albero. Secondo i dati riportati nel documento ["Capacità Assorbimento CO2 Alberi"](/blog/2026-10-co2-negli-alberi/), un albero sano e maturo assorbe in media tra i 10 e i 20 kg di CO₂ all'anno, equivalenti a circa 5 kg di carbonio elementare. Quando ci riferiamo a popolamenti forestali stabili, i tassi di fissazione annua effettiva oscillano tra i 15 e i 30 kg, con picchi che superano i 50 kg annui per gli individui dominanti e di grande taglia.
+La natura, al contrario, ha già brevettato la tecnologia di cattura del carbonio più efficiente esistente: l'albero. Secondo i dati riportati nel documento "Capacità Assorbimento CO2 Alberi", un albero sano e maturo assorbe in media tra i 10 e i 20 kg di CO₂ all'anno, equivalenti a circa 5 kg di carbonio elementare. Quando ci riferiamo a popolamenti forestali stabili, i tassi di fissazione annua effettiva oscillano tra i 15 e i 30 kg, con picchi che superano i 50 kg annui per gli individui dominanti e di grande taglia.
 
 Nel corso della sua traiettoria biologica, un albero di media o grande taglia riesce ad accumulare tra 1 e 3 tonnellate di CO₂ all'interno della propria biomassa strutturale permanente. La quantità di massa anidra, e quindi di carbonio trattenuto, è direttamente proporzionale alla densità basale del legno: specie a legno compatto come la farnia e il faggio presentano una densità energetica e un tenore di carbonio nettamente superiori rispetto alle specie pioniere a rapido accrescimento, come il pioppo.
 

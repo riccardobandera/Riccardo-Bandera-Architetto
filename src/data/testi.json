@@ -2,7 +2,7 @@
   "home": {
     "tagline": "Studio di architettura e d'interni per abitazioni, hotel, uffici e negozi.",
     "sottotitolo": "Architettura, interni e bioedilizia tra Veneto, Trentino e oltre.",
-    "citazione": "\"Sviluppiamo i progetti nei quali siamo coinvolti seguendo un processo ordinato che tenga sotto controllo gli aspetti tecnico-economici durante tutte le fasi del progetto senza precludere le potenzialità creative dell’incarico.\"",
+    "citazione": "\"Sviluppiamo i progetti nei quali siamo coinvolti seguendo un processo ordinato che tenga sotto controllo gli **aspetti tecnico-economici** durante tutte le fasi del progetto senza precludere le **potenzialità creative** dell’incarico.\"",
     "ambitiIntro": "Quattro campi, un unico metodo. Ogni progetto nasce dal luogo e dalle persone che lo vivono.",
     "metodo": {
       "titolo": "Le 6 fasi\ndel progetto",
@@ -78,7 +78,9 @@
       }
     ],
     "firma": "R. B.",
-    "reteIntro": "Ogni progetto lo seguiamo con una rete di professionisti e imprese di fiducia: ingegneri strutturisti, termotecnici, impiantisti, geometri, coordinatori della sicurezza, artigiani e fotografi. Lo studio coordina tutti, il cliente ha un solo riferimento."
+    "reteIntro": "Ogni progetto lo seguiamo con una rete di professionisti e imprese di fiducia: ingegneri strutturisti, termotecnici, impiantisti, geometri, coordinatori della sicurezza, artigiani e fotografi. Lo studio coordina tutti, il cliente ha un solo riferimento.",
+    "reteApertura": "Il cliente può sempre portare le sue imprese di fiducia: non imponiamo le imprese a nessuno. E siamo sempre aperti a nuove collaborazioni: molte delle imprese con cui lavoriamo le abbiamo conosciute proprio così.",
+    "reteNumero": "oltre 50"
   },
   "manifesto": {
     "lead": "Amiamo progettare usando il legno per avere un impatto positivo sull’ambiente e sulle persone.",

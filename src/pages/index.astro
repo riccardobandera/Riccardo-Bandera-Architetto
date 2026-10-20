@@ -12,12 +12,34 @@ import { site, manifestoQuote, ambiti, homeTesti } from "../data/site";
 // hero: le foto con "Foto grande in home" attivo nel pannello, alternate a caso nel browser
 const heroSlides = await Promise.all(
   (await getHeroImages()).map(async (h) => {
-    const img = await getImage({ src: h.src, widths: [800, 1280, 1920], format: "webp" });
+    // versioni fino a 3840 px: su telefono in verticale la foto riempie l'altezza dello schermo,
+    // quindi serve molto più larga dello schermo (sizes calcolato sulla forma della foto)
+    const img = await getImage({ src: h.src, widths: [800, 1280, 1920, 2560, 3200, 3840], format: "webp" });
+    const ratio = h.src.width / h.src.height;
+    const sizes = `(orientation: portrait) ${Math.ceil(100 * ratio)}vh, 100vw`;
     const p = await getProgetto(h.slug);
-    return { src: img.src, srcset: img.srcSet.attribute, alt: p ? `${p.data.titolo}, progetto di Riccardo Bandera Architetto` : "Progetto di Riccardo Bandera Architetto" };
+    return { src: img.src, srcset: img.srcSet.attribute, sizes, alt: p ? `${p.data.titolo}, progetto di Riccardo Bandera Architetto` : "Progetto di Riccardo Bandera Architetto" };
   }),
 );
 const noscriptImg = heroSlides[0];
+
+// titolo della hero: abitazioni, hotel, uffici e negozi portano ai progetti di quell'ambito
+// (il testo resta modificabile dal pannello: si collegano solo le parole che ci sono)
+const AMBITI_TITOLO: [RegExp, string][] = [
+  [/(?<!\p{L})(abitazioni|case)(?!\p{L})/iu, 'residenziale'],
+  [/(?<!\p{L})(hotel|alberghi)(?!\p{L})/iu, 'alberghiero'],
+  [/(?<!\p{L})(uffici)(?!\p{L})/iu, 'direzionale'],
+  [/(?<!\p{L})(negozi|locali)(?!\p{L})/iu, 'commerciale'],
+];
+// citazione: le parole tra **due asterischi** (scritte così nel pannello) diventano grassetto
+const citazioneHtml = manifestoQuote
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold">$1</strong>');
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+let taglineLinkata = esc(site.tagline);
+for (const [re, ambito] of AMBITI_TITOLO) {
+  taglineLinkata = taglineLinkata.replace(re, (w) => `<a href="/progetti/?ambito=${ambito}" class="hero-word">${w}</a>`);
+}
 
 const featured = await getInEvidenza();
 
@@ -43,7 +65,7 @@ const ambitiCards = (await Promise.all(
     <div class="hero-media absolute inset-0" data-hero-media>
       <div class="absolute inset-0" data-hero-slides>
         {heroSlides.map((s) => (
-          <img class="hero-slide absolute inset-0 w-full h-full object-cover" data-src={s.src} data-srcset={s.srcset} sizes="100vw" alt={s.alt} decoding="async" />
+          <img class="hero-slide absolute inset-0 w-full h-full object-cover" data-src={s.src} data-srcset={s.srcset} sizes={s.sizes} alt={s.alt} decoding="async" />
         ))}
         <script is:inline>
           (function () {
@@ -55,7 +77,7 @@ const ambitiCards = (await Promise.all(
             el.classList.add("is-active"); window.__heroStart = r;
           })();
         </script>
-        <noscript><img class="absolute inset-0 w-full h-full object-cover" src={noscriptImg.src} srcset={noscriptImg.srcset} sizes="100vw" alt={noscriptImg.alt} /></noscript>
+        <noscript><img class="absolute inset-0 w-full h-full object-cover" src={noscriptImg.src} srcset={noscriptImg.srcset} sizes={noscriptImg.sizes} alt={noscriptImg.alt} /></noscript>
       </div>
       <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/40"></div>
     </div>
@@ -73,9 +95,7 @@ const ambitiCards = (await Promise.all(
     )}
 
     <div class="u-container relative pb-24 md:pb-24 pt-32 w-full" data-hero-content>
-      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(1.6rem,7vw,5.4rem)] md:text-[clamp(2rem,6.4vw,5.4rem)] max-w-[20ch] md:max-w-[16ch] text-balance">
-        {site.tagline}
-      </h1>
+      <h1 class="font-sans font-extrabold uppercase tracking-[-0.02em] leading-[0.98] text-[clamp(1.6rem,7vw,5.4rem)] md:text-[clamp(2rem,6.4vw,5.4rem)] max-w-[20ch] md:max-w-[16ch] text-balance" set:html={taglineLinkata} />
       <div class="mt-7 md:mt-9 flex flex-col items-start sm:flex-row sm:items-center gap-5 sm:gap-10">
         <Button href="/progetti/" variant="onDark" arrow>Scopri i progetti</Button>
         <p class="max-w-md text-cream/75 text-[0.92rem] md:text-[0.98rem] leading-relaxed">{homeTesti.sottotitolo}</p>
@@ -90,7 +110,7 @@ const ambitiCards = (await Promise.all(
     <div class="max-w-4xl mx-auto">
       <div class="text-center reveal">
         <blockquote class="font-display text-[clamp(1.5rem,3.4vw,2.6rem)] leading-[1.28] text-ink">
-          {manifestoQuote}
+          <Fragment set:html={citazioneHtml} />
         </blockquote>
         <div class="mt-10 flex justify-center">
           <Button href="/manifesto/" variant="ghost" arrow>Leggi il manifesto</Button>
@@ -134,10 +154,10 @@ const ambitiCards = (await Promise.all(
         <p class="u-eyebrow mb-4">Portfolio</p>
         <h2 class="text-[clamp(1.9rem,5vw,3.4rem)] font-extrabold tracking-tight">Progetti <span class="font-display italic font-normal">selezionati</span></h2>
       </div>
-      <div class="flex items-center justify-between gap-4">
-        <Button href="/progetti/" variant="ghost" arrow>Tutti i progetti</Button>
-        <button type="button" class="strip-hint" data-strip-next="selezionati-lista" aria-label="Scorri ai progetti successivi">Scorri <span class="strip-hint-arrow" aria-hidden="true">→</span></button>
-      </div>
+      <Button href="/progetti/" variant="ghost" arrow>Tutti i progetti</Button>
+    </div>
+    <div class="flex -mt-6 mb-4 sm:hidden">
+      <button type="button" class="strip-hint" data-strip-next="selezionati-lista" aria-label="Scorri ai progetti successivi">Scorri <span class="strip-hint-arrow" aria-hidden="true">→</span></button>
     </div>
     <div id="selezionati-lista" class="m-strip grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-12">
       {featured.map((p, i) => <ProjectCard project={p} index={i} eager={i < 3} />)}
@@ -203,6 +223,15 @@ const ambitiCards = (await Promise.all(
       // il conteggio riparte da zero dopo ogni clic, per lasciare il tempo di guardare la foto
       document.querySelector("[data-hero-prev]")?.addEventListener("click", () => { go(-1, true); startAuto(); });
       document.querySelector("[data-hero-next]")?.addEventListener("click", () => { go(1, true); startAuto(); });
+
+      // telefono: scorrendo il dito a destra o a sinistra sulla foto si passa alla precedente o alla successiva
+      const hero = document.querySelector<HTMLElement>(".hero");
+      let tx = 0, ty = 0;
+      hero?.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+      hero?.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) { go(dx < 0 ? 1 : -1, true); startAuto(); }
+      }, { passive: true });
     }
 
     // scroll-linked hero: zoom contenuto sulla foto (1 -> 1.08), lieve rientro del contenuto
@@ -225,6 +254,13 @@ const ambitiCards = (await Promise.all(
 
   <style>
     [data-hero-media] { will-change: transform; transform-origin: center; transition: transform 0.1s linear; }
+    /* parole del titolo che portano ai progetti: si notano solo passandoci sopra (sottolineatura che si disegna) */
+    .hero :global(.hero-word) {
+      color: inherit; text-decoration: none;
+      background: linear-gradient(currentColor, currentColor) 0 92% / 0 0.08em no-repeat;
+      transition: background-size 0.45s var(--ease-out-expo);
+    }
+    .hero :global(.hero-word:hover), .hero :global(.hero-word:focus-visible) { background-size: 100% 0.08em; outline: none; }
     /* crossfade lento tra le foto dell'hero */
     .hero-slide { opacity: 0; transition: opacity 2.4s ease-in-out; }
     .hero-slide.is-active { opacity: 1; }
@@ -246,7 +282,7 @@ const ambitiCards = (await Promise.all(
     .hero-arrow[data-hero-prev]:hover { transform: translate(-3px, -50%); }
     .hero-arrow[data-hero-next]:hover { transform: translate(3px, -50%); }
     .hero-arrow:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 3px; }
-    /* telefono: le due frecce vicine in basso a destra, sotto i testi, invece che sospese sulla foto */
+    /* telefono: le due frecce vicine in basso a destra, sotto i testi; le foto si cambiano anche facendo scorrere il dito */
     @media (max-width: 767px) {
       .hero-arrow { top: auto; bottom: 1.25rem; transform: none; width: 2.75rem; height: 2.75rem; }
       .hero-arrow[data-hero-prev] { left: auto; right: calc(clamp(1.25rem, 5vw, 3.5rem) + 2.1rem); }

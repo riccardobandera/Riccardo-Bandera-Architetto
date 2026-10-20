@@ -36,7 +36,40 @@ const loghi = Object.entries(files).map(([p, m]) => {
   </div>
 </section>
 
+<script>
+  // la fascia scorre da sola; col dito (o trascinando col mouse) si sposta avanti e indietro,
+  // e quando la si lascia riprende a scorrere da dove è rimasta
+  document.querySelectorAll<HTMLElement>('.marquee').forEach((box) => {
+    const track = box.querySelector<HTMLElement>('.marquee-track');
+    if (!track || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    box.classList.add('is-js');
+    const SPEED = 40; // pixel al secondo
+    let x = 0, last = performance.now(), dragging = false, startX = 0, startOff = 0, hover = false, resumeAt = 0;
+    const half = () => track.scrollWidth / 2;
+    const wrap = () => { const h = half(); if (h > 0) { while (x <= -h) x += h; while (x > 0) x -= h; } };
+    const tick = (t: number) => {
+      const dt = Math.min(0.05, (t - last) / 1000); last = t;
+      if (!dragging && !hover && t >= resumeAt) x -= SPEED * dt;
+      wrap();
+      track.style.transform = `translate3d(${x}px,0,0)`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    box.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
+    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hover = false; });
+    box.addEventListener('pointerdown', (e) => { dragging = true; startX = e.clientX; startOff = x; box.setPointerCapture?.(e.pointerId); });
+    box.addEventListener('pointermove', (e) => { if (dragging) { x = startOff + (e.clientX - startX); wrap(); } });
+    const end = () => { if (dragging) { dragging = false; resumeAt = performance.now() + 1200; } };
+    box.addEventListener('pointerup', end);
+    box.addEventListener('pointercancel', end);
+    box.addEventListener('dragstart', (e) => e.preventDefault());
+  });
+</script>
+
 <style>
+  /* con lo script attivo l'animazione la guida lo script (così si può trascinare) */
+  .marquee.is-js { touch-action: pan-y; cursor: grab; user-select: none; }
+  .marquee.is-js :global(.marquee-track) { animation: none; }
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
   }
