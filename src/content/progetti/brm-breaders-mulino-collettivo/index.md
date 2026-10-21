@@ -9,6 +9,8 @@ materiali:
   - vetro
 evidenza: false
 bozza: true
+stato: progetto
+copertina: copertina brm.webp
 ---
 
 Nelle campagne dell'Abruzzo, questo ambizioso progetto di demolizione e ricostruzione di un casonato agricolo reinterpreta l'architettura rurale in chiave contemporanea, creando un innovativo polo dedicato a workshop e attività condivise. L'intervento mira a preservare la memoria del luogo, riproponendo materiali tipici della zona e mantenendo un forte legame visivo con i fabbricati preesistenti.
