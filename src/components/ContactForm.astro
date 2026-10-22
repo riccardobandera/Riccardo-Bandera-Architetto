@@ -95,10 +95,12 @@ import { site } from '../data/site';
         data.set('token', modulo.token);
         data.set('t', String(aperto));
         data.set('f', String((aperto % 1000003) * 7 + 13));
-        // URLSearchParams = richiesta semplice, niente preflight: lo script Google risponde in JSON
-        const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams(data as any) });
-        const out = await res.json().catch(() => ({ ok: false }));
-        if (!out.ok) throw new Error(out.error || 'invio non riuscito');
+        // Lo script Google risponde con un redirect a googleusercontent.com, che i browser con blocco
+        // tracker (es. Brave) bloccano: leggere quella risposta fallirebbe anche se il messaggio è
+        // arrivato. Con redirect:'manual' ci fermiamo al redirect, senza toccare l'indirizzo bloccato:
+        // se la richiesta non dà errore di rete, lo script ha ricevuto i dati (controlli e mail lato script).
+        // URLSearchParams = richiesta semplice, niente preflight.
+        await fetch(endpoint, { method: 'POST', body: new URLSearchParams(data as any), redirect: 'manual' });
         form.reset();
         status.textContent = 'Grazie! Ti risponderemo al più presto.';
         status.className = 'form-status text-sm text-ink font-bold';
