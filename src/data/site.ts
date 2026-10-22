@@ -2,6 +2,7 @@
 import testi from './testi.json';
 // contatti modificabili dal pannello (Testi e dati > Contatti dello studio)
 import contatti from './contatti.json';
+import { modulo } from './modulo';
 
 export const site = {
   name: 'Riccardo Bandera',
@@ -16,12 +17,8 @@ export const site = {
   phone: contatti.telefono,
   phoneHref: contatti.telefono.replace(/[^\d+]/g, ''),
   piva: '02209210224',
-  // modulo contatti: script Google (Apps Script) che salva su Google Sheet e manda la mail a studio@
-  // endpoint = URL /exec del deploy dello script; token = SHARED_TOKEN nello script (filtro anti abuso leggero)
-  form: {
-    endpoint: 'https://script.google.com/macros/s/AKfycbw_eFD4ze8agsih9f8VSqYPyzvgEb9GuKQ1quj-p2zk1gtdHkqcSypscPv_pwdnseTkiA/exec',
-    token: 'OcfcY5OOiEYVOuLRl7sVKKSnLPtyUUaI',
-  },
+  // modulo contatti (script Google): vedi modulo.ts
+  form: modulo,
   ordine: "Ordine degli Architetti P.P.C. di Venezia, Sez. A, n. 4391",
   address: {
     street: contatti.indirizzo.via,

@@ -1,16 +1,11 @@
 ---
 import { site } from '../data/site';
 ---
-<!-- il modulo invia a uno script Google che salva su Google Sheet e manda la mail allo studio (site.form) -->
-<form
-  name="contatti"
-  method="POST"
-  action={site.form.endpoint || undefined}
-  data-endpoint={site.form.endpoint}
-  class="contact-form grid gap-6"
-  novalidate
->
-  <input type="hidden" name="token" value={site.form.token} />
+<!-- il modulo invia a uno script Google che salva su Google Sheet e manda la mail allo studio (src/data/modulo.ts).
+     Antispam: l'indirizzo dello script e il token stanno solo nel codice JS (non nella pagina), il modulo
+     funziona solo con JavaScript, deve restare aperto qualche secondo (t/f) e ha il campo trappola "website".
+     Lo script Google scarta o mette nel foglio Spam i messaggi sospetti. -->
+<form name="contatti" method="POST" class="contact-form grid gap-6" novalidate>
   <input type="hidden" name="pagina" value="" />
   <p class="hidden" aria-hidden="true"><label>Non compilare: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
 
@@ -63,8 +58,12 @@ import { site } from '../data/site';
 </form>
 
 <script>
+  import { modulo } from '../data/modulo';
+
   const form = document.querySelector<HTMLFormElement>('.contact-form');
   if (form) {
+    // momento di apertura della pagina: lo script Google scarta gli invii troppo veloci (bot)
+    const aperto = Date.now();
     const status = form.querySelector<HTMLElement>('.form-status')!;
     const setErr = (input: HTMLInputElement | HTMLTextAreaElement, msg: string) => {
       const holder = input.closest('.field')?.querySelector<HTMLElement>('[data-err]');
@@ -89,10 +88,13 @@ import { site } from '../data/site';
       status.textContent = 'Invio in corso…';
       status.className = 'form-status text-sm text-muted';
       try {
-        const endpoint = form.dataset.endpoint;
+        const endpoint = modulo.endpoint;
         if (!endpoint) throw new Error('endpoint mancante');
         (form.elements.namedItem('pagina') as HTMLInputElement).value = location.pathname;
         const data = new FormData(form);
+        data.set('token', modulo.token);
+        data.set('t', String(aperto));
+        data.set('f', String((aperto % 1000003) * 7 + 13));
         // URLSearchParams = richiesta semplice, niente preflight: lo script Google risponde in JSON
         const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams(data as any) });
         const out = await res.json().catch(() => ({ ok: false }));

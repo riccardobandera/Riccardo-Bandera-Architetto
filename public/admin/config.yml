@@ -30,6 +30,8 @@ media_libraries:
   default:
     config:
       max_file_size: 40000000
+      # nomi dei file senza spazi e accenti (es. "Copertina BRM.jpg" diventa "copertina-brm.webp")
+      slugify_filename: true
       transformations:
         raster_image:
           format: webp
@@ -51,10 +53,28 @@ collections:
     slug: '{{titolo}}'
     identifier_field: titolo
     summary: '{{titolo}} · {{anno}}'
-    sortable_fields: [titolo, anno]
+    sortable_fields: [titolo, anno, mese]
     fields:
       - { label: Titolo, name: titolo, widget: string, hint: "Es. Panificio Moderno in Piazza Lodron a Trento, TN" }
       - { label: Anno, name: anno, widget: number, value_type: int, required: false }
+      - label: Mese
+        name: mese
+        widget: select
+        required: false
+        hint: "Facoltativo. Mette in ordine i progetti dello stesso anno, dal piu recente, e nella scheda del progetto compare la data (es. Ottobre 2026)."
+        options:
+          - { label: Gennaio, value: 1 }
+          - { label: Febbraio, value: 2 }
+          - { label: Marzo, value: 3 }
+          - { label: Aprile, value: 4 }
+          - { label: Maggio, value: 5 }
+          - { label: Giugno, value: 6 }
+          - { label: Luglio, value: 7 }
+          - { label: Agosto, value: 8 }
+          - { label: Settembre, value: 9 }
+          - { label: Ottobre, value: 10 }
+          - { label: Novembre, value: 11 }
+          - { label: Dicembre, value: 12 }
       - { label: Luogo, name: luogo, widget: string, required: false, hint: "Es. Trento, TN" }
       - { label: Indirizzo, name: indirizzo, widget: string, required: false, hint: "Per i locali aperti al pubblico. Es. Piazza Lodron 21, 38122 Trento, TN" }
       - label: Ambiti
@@ -83,10 +103,17 @@ collections:
           - { label: Laterizio, value: laterizio }
           - { label: Paglia e fibre naturali, value: paglia }
       - label: Posizione sulla mappa
+        name: punto
+        widget: map
+        type: Point
+        decimals: 6
+        required: false
+        hint: "Scrivi l'indirizzo nella casella di ricerca della mappa e scegli il risultato, oppure clicca direttamente sul punto. Il progetto compare li nella mappa della pagina Progetti. Se lo lasci vuoto resta la posizione gia salvata."
+      - label: Oppure incolla le coordinate da Google Maps
         name: mappa
         widget: string
         required: false
-        hint: "Su Google Maps clic destro sul punto e clic sulle coordinate (si copiano da sole), poi incollale qui. Va bene anche il link lungo della barra degli indirizzi. Se lo lasci vuoto resta la posizione gia salvata."
+        hint: "Alternativa alla mappa qui sopra: su Google Maps clic destro sul punto e clic sulle coordinate (si copiano da sole), poi incollale qui. Va bene anche il link lungo della barra degli indirizzi."
       - label: Coordinate salvate
         name: coordinate
         widget: object
@@ -119,6 +146,7 @@ collections:
           - { label: Titolo per Google (massimo 60 caratteri), name: titolo, widget: string, required: false, hint: "Tipo di intervento e luogo. Es. Panificio Moderno, Trento: bar in Piazza Lodron" }
           - { label: Descrizione per Google (massimo 155 caratteri), name: descrizione, widget: text, required: false }
       - { label: Parole chiave, name: tag, widget: list, required: false, hint: "Es. Abete, Porfido, Bar" }
+      - { label: Video YouTube, name: video, widget: string, required: false, hint: "Facoltativo. Incolla il link del video su YouTube (es. https://www.youtube.com/watch?v=...). Nella pagina del progetto compare il riquadro Video: YouTube si carica solo quando il visitatore preme play." }
       - label: Crediti
         name: crediti
         widget: list

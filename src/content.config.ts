@@ -41,6 +41,18 @@ const coordDaLink = (t?: string) => {
   return Math.abs(lat) <= 90 && Math.abs(lng) <= 180 ? { lat, lng } : undefined;
 };
 
+// "Posizione sulla mappa" del pannello (mappa con ricerca dell'indirizzo): GeoJSON {"type":"Point","coordinates":[lng,lat]}
+const coordDaPunto = (v?: string) => {
+  if (!v) return undefined;
+  try {
+    const g = JSON.parse(v);
+    const [lng, lat] = g?.coordinates ?? [];
+    return typeof lat === 'number' && typeof lng === 'number' && Math.abs(lat) <= 90 && Math.abs(lng) <= 180 ? { lat, lng } : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
 const immagini = (image: () => z.ZodTypeAny) =>
   // home: la foto gira nella hero della home (foto grande in alto)
   // etichetta: scritta breve mostrata sulla foto (es. "Prima dei lavori")
@@ -57,6 +69,8 @@ const progetti = defineCollection({
       titolo: z.string(),
       codice: testo(), // interno: non mostrato sul sito
       anno: z.preprocess(vuoto, z.number().int().optional()),
+      // mese di conclusione (1-12): ordina i progetti dello stesso anno, dal piu recente
+      mese: z.preprocess(vuoto, z.coerce.number().int().min(1).max(12).optional()),
       luogo: testo(),
       // indirizzo del locale o dell'edificio (mostrato nella scheda del progetto)
       indirizzo: testo(),
@@ -66,7 +80,9 @@ const progetti = defineCollection({
         (v) => (v && typeof v === 'object' && (vuoto((v as any).lat) === undefined || vuoto((v as any).lng) === undefined) ? undefined : vuoto(v)),
         z.object({ lat: z.number(), lng: z.number() }).optional(),
       ),
-      // link di Google Maps incollato dal pannello: se mancano le coordinate, il punto sulla mappa si ricava da qui
+      // punto scelto sulla mappa del pannello (ha la precedenza su tutto il resto)
+      punto: testo(),
+      // coordinate o link di Google Maps incollati nel pannello
       mappa: testo(),
       evidenza: sino(),
       // posizione tra i progetti in evidenza in home (1 = primo); vuoto = dopo quelli numerati
@@ -81,14 +97,16 @@ const progetti = defineCollection({
       // titolo e descrizione per Google (se vuoti vengono generati da titolo e testo)
       seo: z.preprocess(vuoto, z.object({ titolo: testo(), descrizione: testo() }).optional()),
       tag: lista(z.string()),
+      // link del video su YouTube (watch, youtu.be o shorts): nella pagina compare il riquadro Video
+      video: testo(),
       crediti: lista(z.object({ ruolo: z.string(), nome: z.string() })),
       foto: immagini(image),
       render: immagini(image),
       disegni: immagini(image),
       cantiere: immagini(image),
     })
-    // la posizione incollata nel pannello ha la precedenza sulle coordinate gia salvate
-    .transform((d) => ({ ...d, coordinate: coordDaLink(d.mappa) ?? d.coordinate })),
+    // posizione: punto sulla mappa del pannello, poi coordinate/link incollati, poi coordinate gia salvate
+    .transform((d) => ({ ...d, coordinate: coordDaPunto(d.punto) ?? coordDaLink(d.mappa) ?? d.coordinate })),
 });
 
 export const collections = { blog, progetti };

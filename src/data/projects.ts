@@ -32,7 +32,7 @@ export async function getProgetti(): Promise<Progetto[]> {
   const oggi = new Date();
   const visibile = (p: Progetto) => !p.data.bozza && (!import.meta.env.PROD || !p.data.pubblicaDal || p.data.pubblicaDal <= oggi);
   const all = (await getCollection('progetti')).filter(visibile);
-  cache = all.sort((a, b) => (b.data.anno ?? 0) - (a.data.anno ?? 0) || a.data.titolo.localeCompare(b.data.titolo, 'it'));
+  cache = all.sort((a, b) => (b.data.anno ?? 0) - (a.data.anno ?? 0) || (b.data.mese ?? 0) - (a.data.mese ?? 0) || a.data.titolo.localeCompare(b.data.titolo, 'it'));
   return cache;
 }
 

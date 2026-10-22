@@ -17,8 +17,15 @@ const d = project.data;
 const { Content } = await render(project);
 const nav = await adjacent(project.id);
 const cover = coverOf(project);
+// mese e anno nella scheda (es. "ottobre 2026"); senza mese resta solo l'anno
+const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const quando = d.anno ? (d.mese ? `${MESI[d.mese - 1]} ${d.anno}` : String(d.anno)) : '';
 // copertina verticale o quadrata: in pagina si vede intera (alta al massimo come lo schermo), non tagliata a fascia
 const coverAlta = !!cover && cover.src.height >= cover.src.width * 0.9;
+// video YouTube: id dal link incollato nel pannello (watch?v=, youtu.be/, shorts/, embed/)
+const ytId = d.video?.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/)([\w-]{11})/)?.[1];
+// anteprima del video: un'immagine diversa dalla copertina (che sta poco sopra), se c'e
+const ytPoster = [...d.render, ...d.foto].find((i) => i.src.src !== cover?.src.src) ?? cover;
 const cats = d.categorie.map((c) => catLabels[c]);
 const mats = d.materiali.map((m) => matLabels[m]);
 
@@ -49,7 +56,7 @@ const jsonLd = {
   description: plain.slice(0, 500) || d.titolo,
   url: new URL(`/progetti/${project.id}/`, site.url).href,
   inLanguage: 'it-IT',
-  ...(d.anno ? { dateCreated: String(d.anno) } : {}),
+  ...(d.anno ? { dateCreated: d.mese ? `${d.anno}-${String(d.mese).padStart(2, '0')}` : String(d.anno) } : {}),
   creator: { '@id': PERSON_ID },
   author: { '@id': ORG_ID },
   ...(d.luogo ? { locationCreated: { '@type': 'Place', name: d.luogo, ...(d.coordinate ? { geo: { '@type': 'GeoCoordinates', latitude: d.coordinate.lat, longitude: d.coordinate.lng } } : {}) } } : {}),
@@ -115,7 +122,7 @@ const breadcrumbLd = {
           <dl class="scheda text-sm reveal">
             {d.luogo && <div><dt>Luogo</dt><dd>{d.luogo}</dd></div>}
             {d.indirizzo && <div><dt>Indirizzo</dt><dd><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.indirizzo)}`} target="_blank" rel="noopener" class="u-underline">{d.indirizzo}</a></dd></div>}
-            {d.anno && <div><dt>Anno</dt><dd>{d.anno}</dd></div>}
+            {quando && <div><dt>{d.mese ? 'Data' : 'Anno'}</dt><dd class="first-letter:uppercase">{quando}</dd></div>}
             {cats.length > 0 && <div><dt>Ambito</dt><dd>{cats.join(', ')}</dd></div>}
             {mats.length > 0 && <div><dt>Materiali</dt><dd>{mats.join(', ')}</dd></div>}
             {d.stato && <div><dt>Stato</dt><dd>{d.stato === 'realizzato' ? 'Realizzato' : 'In progetto'}</dd></div>}
@@ -129,6 +136,24 @@ const breadcrumbLd = {
         </aside>
       </div>
     </section>
+
+    <!-- video: prima solo l'immagine, YouTube si carica quando si preme play (src/scripts/youtube.ts) -->
+    {ytId && (
+      <section class="u-container pb-16 md:pb-24">
+        <div class="flex items-baseline justify-between border-t border-line pt-6 mb-8">
+          <h2 class="text-[clamp(1.3rem,2.6vw,1.9rem)] font-bold tracking-tight">Video</h2>
+        </div>
+        <div class="relative aspect-video overflow-hidden bg-ink" data-yt={ytId} data-yt-title={`Video: ${d.titolo}`}>
+          {ytPoster && <Image src={ytPoster.src} alt="" widths={[768, 1280, 1920]} sizes="(max-width: 1400px) 94vw, 1300px" class="absolute inset-0 w-full h-full object-cover opacity-75" />}
+          <button type="button" class="yt-play absolute inset-0 grid place-items-center text-cream" data-yt-play aria-label={`Guarda il video di ${d.titolo}`}>
+            <span class="grid place-items-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-ink/70 transition-transform duration-500 group-hover:scale-105">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </button>
+          <p class="absolute left-4 right-4 bottom-3 text-[0.7rem] text-cream/85 pointer-events-none">Il video si carica da YouTube solo quando premi play.</p>
+        </div>
+      </section>
+    )}
 
     <!-- gallerie -->
     {sezioni.map((s, idx) => (
