@@ -14,7 +14,8 @@ const journalIndice = articoliPubblicati >= 3;
 // https://astro.build/config
 export default defineConfig({
   site: 'https://riccardobandera.com',
-  integrations: [sitemap({ filter: (page) => journalIndice || !page.endsWith('/blog/') })],
+  // fuori dalla sitemap: /blog/ finche non e un indice e le pagine legali (noindex), che Google segnala se sono nella sitemap
+  integrations: [sitemap({ filter: (page) => (journalIndice || !page.endsWith('/blog/')) && !/\/(privacy|cookie)\/$/.test(page) })],
   vite: {
     plugins: [tailwindcss()],
     // in sviluppo GSAP (scorrimento del Metodo) va preparato subito all'avvio: se Vite lo scopre dopo,
