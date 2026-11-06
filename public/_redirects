@@ -5,6 +5,15 @@
 /chi-e-riccardo-bandera/   /lo-studio/#in-breve   301
 /chi-e-riccardo-bandera    /lo-studio/#in-breve   301
 
+# feed dei vecchi articoli WordPress (segnalati come 404 da Search Console): portano al progetto
+/dem-progetto-di-interni-per-caffe-de-min-rovereto/feed/*      /progetti/dem-progetto-di-interni-per-caffe-de-min-a-rovereto-tn/ 301
+/kkr-overwater-pavillion-suite-sullacqua-zanzibar/feed/*       /progetti/kkr-overwater-villas-a-zanzibar-tanzania/ 301
+/pes-ampliamenti-contemporanei-camera-e-padiglione/feed/*      /progetti/pes-ampliamenti-contemporanei-camera-e-padiglione-a-scorze-ve/ 301
+/vil-villa-in-legno-nella-campagna-veronese-veronella/feed/*   /progetti/vil-villa-in-legno-nella-campagna-veronese-a-veronella-vr/ 301
+# gli altri feed dei vecchi articoli: alla pagina dell articolo, che poi rimanda al progetto
+/:articolo/feed/*   /:articolo/   301
+/feed/*             /blog/        301
+
 /2005/02/mis-edificio-residenziale-tipologia.html                              /progetti/ 301
 /2006/06/nuovo-rettorato-iuav.html                                             /progetti/ 301
 /2008/03/gua-asilo-affacciato-sul-guadalquivir.html                            /progetti/ 301
